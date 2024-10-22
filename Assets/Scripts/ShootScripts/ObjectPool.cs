@@ -14,6 +14,9 @@ public class ObjectPool : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+        }else
+        {
+            Destroy(Instance);
         }
     }
 

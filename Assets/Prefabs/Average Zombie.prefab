@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7395433693598665503}
   - component: {fileID: 5332349921423735596}
   - component: {fileID: 2045256084944102405}
-  - component: {fileID: 1762882149525280193}
-  m_Layer: 0
+  - component: {fileID: -2365781107720640752}
+  m_Layer: 3
   m_Name: Average Zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -141,7 +141,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0006246567, y: 0.28911096}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -152,7 +152,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8, y: 1.8}
+  m_Size: {x: 1.0703773, y: 1.221778}
   m_EdgeRadius: 0
 --- !u!50 &2045256084944102405
 Rigidbody2D:
@@ -181,7 +181,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1762882149525280193
+--- !u!114 &-2365781107720640752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,6 +190,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7962912858114560771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e011b93f50158b543a65f2f3af8901b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f5146f6158b73f4a8735e107f25b4cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 5
+  speed: 1.5
+  health: 10

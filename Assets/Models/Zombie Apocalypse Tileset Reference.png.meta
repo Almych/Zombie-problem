@@ -832,9 +832,9 @@ TextureImporter:
       name: Zombie Apocalypse Tileset Reference_33
       rect:
         serializedVersion: 2
-        x: 628
+        x: 630
         y: 262
-        width: 18
+        width: 16
         height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

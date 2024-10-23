@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class BulletBehaivior : MonoBehaviour
 {
-    public delegate float DamageGet();
-    public DamageGet Damage;
+    public float  damage { get; private set; }
     private float speedBullet = 20f;
     private Rigidbody2D rb;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        damage = 10;
     }
 
     public void Activate()
@@ -19,13 +19,13 @@ public class BulletBehaivior : MonoBehaviour
         rb.velocity = transform.right * speedBullet;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)   
     {
         if (collision.GetComponent<AverageZombie>() != null)
         {
             var zombie = collision.GetComponent<AverageZombie>();
-            zombie.GetDamage(Damage());
             collision.GetComponent<SpriteRenderer>().color = Color.red;
+            zombie.GetDamage(damage);
             Deactivate();
         }
         else if (collision.GetComponent<WallTrigger>()!= null)
@@ -33,6 +33,8 @@ public class BulletBehaivior : MonoBehaviour
             Deactivate();
         }
     }
+
+    
 
     private void Deactivate()
     {

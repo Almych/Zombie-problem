@@ -1,9 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class AverageZombie : MonoBehaviour
 {
+    public enum ZombieType
+    {
+        Average,
+        Long,
+        Speedy,
+        Big
+    };
+    public ZombieType type;
+    public delegate void OnCoinSpawn(Vector3 position);
+    public static OnCoinSpawn CoinCall;
     [SerializeField] private float damage, speed, health;
     private Rigidbody2D rb;
     private bool isAttacking;
@@ -17,19 +28,6 @@ public class AverageZombie : MonoBehaviour
         rb.velocity = -transform.right * speed;
     }
 
-    public void GetDamage(float damage)
-    {
-        if (currhealth <= 0)
-        {
-            gameObject.SetActive(false);
-        }else
-        {
-            currhealth = currhealth - damage;
-        }
-        
-        Debug.Log(currhealth);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.GetComponent<HealthBar>() != null && !isAttacking)
@@ -37,6 +35,16 @@ public class AverageZombie : MonoBehaviour
             var barrier = collision.collider.GetComponent<HealthBar>();
             isAttacking = true;
             StartCoroutine(Attack(barrier));
+        } 
+    }
+
+    public void GetDamage( float damage)
+    {
+        currhealth -= damage;
+        if (currhealth <= 0)
+        {
+            CoinCall.Invoke(transform.position);
+            gameObject.SetActive(false);
         }
     }
 

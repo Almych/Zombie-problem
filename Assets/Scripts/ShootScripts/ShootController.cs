@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootController : MonoBehaviour
@@ -33,7 +32,6 @@ public class ShootController : MonoBehaviour
             {
                 bullet.transform.position = transform.position;
                 bullet.SetActive(true);
-                bullet.GetComponent<BulletBehaivior>().Damage += () => damage;
                 bullet.GetComponent<BulletBehaivior>().Activate();
                 currBullet--;
             }

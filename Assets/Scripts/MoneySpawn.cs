@@ -19,7 +19,7 @@ public class MoneySpawn : MonoBehaviour
     public void SpawnCoin(Vector3 pos)
     {
         var amount = Random.Range(0, 2);
-        for (int i = 0; i < amount; i ++)
+        for (int i = 0; i < amount; i++)
         {
              Instantiate(coinPrefab, pos, Quaternion.identity);
         }

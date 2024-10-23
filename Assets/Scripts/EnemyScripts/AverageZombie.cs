@@ -23,9 +23,8 @@ public class AverageZombie : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        currhealth = health;
         isAttacking = false;
-        rb.velocity = -transform.right * speed;
+        Move(GetComponent<Rigidbody2D>());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -37,13 +36,18 @@ public class AverageZombie : MonoBehaviour
             StartCoroutine(Attack(barrier));
         } 
     }
-
+    public void Move(Rigidbody2D rb)
+    {
+        rb.velocity = -transform.right * speed;
+        currhealth = health;
+    }
     public void GetDamage( float damage)
     {
         currhealth -= damage;
         if (currhealth <= 0)
         {
             CoinCall.Invoke(transform.position);
+            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             gameObject.SetActive(false);
         }
     }

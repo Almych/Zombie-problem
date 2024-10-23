@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ShootController : MonoBehaviour
 {
-    [SerializeField] private float damage;
+    //[SerializeField] private float damage;
     [SerializeField] private int maxBullet;
     [SerializeField] private float reloadTime;
     private bool isReload;
@@ -26,7 +26,7 @@ public class ShootController : MonoBehaviour
     {
         if (currBullet > 0)
         {
-            GameObject bullet = ObjectPool.Instance.GetPoolObject();
+            GameObject bullet = BulletPool.Instance.GetPoolObject();
 
             if (bullet != null)
             {

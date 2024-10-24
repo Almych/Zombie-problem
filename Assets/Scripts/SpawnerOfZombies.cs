@@ -10,6 +10,7 @@ public class SpawnerOfZombies : MonoBehaviour
 
     private int maxAmountZombies;
     private float callZombieInterval = 4f;
+    private int prevPos;
 
     private void Start()
     {
@@ -19,7 +20,7 @@ public class SpawnerOfZombies : MonoBehaviour
 
     private void ChangePosition(out Vector3 positionZombie)
     {
-        float randomY = Random.Range(3f, transform.position.y);
+        var randomY = CorrectRandom(3, 6);
         positionZombie = new Vector3(transform.position.x, randomY, transform.position.z);
     }
 
@@ -36,11 +37,12 @@ public class SpawnerOfZombies : MonoBehaviour
 
             yield return new WaitForSeconds(callZombieInterval);
         }
+        Debug.Log("Zombie is ended");
     }
 
     private void CallZombieType(AverageZombie zombieType, ref int amount)
     {
-        int leftAmount = Mathf.Min(Random.Range(0, amount + 1), amount);
+        int leftAmount = Mathf.Min(Random.Range(0, amount+1), amount);
 
         for (int i = 0; i < leftAmount; i++)
         {
@@ -51,5 +53,22 @@ public class SpawnerOfZombies : MonoBehaviour
             amount--;
             maxAmountZombies--;
         }
+    }
+
+    private  float CorrectRandom( int min,  int max)
+    {
+        var value = 0;
+        for (int i = min; i <= max; i++)
+        {
+            if (prevPos != i)
+            {
+                prevPos = i;
+                value = prevPos;
+                return value;
+            }
+            
+        }
+        Debug.Log(value);
+        return value;
     }
 }

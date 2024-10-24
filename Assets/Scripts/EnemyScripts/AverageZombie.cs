@@ -41,8 +41,10 @@ public class AverageZombie : MonoBehaviour
         rb.velocity = -transform.right * speed;
         currhealth = health;
     }
+    
     public void GetDamage( float damage)
     {
+        StartCoroutine(MoveDiagonal(GetComponent<Rigidbody2D>()));
         currhealth -= damage;
         if (currhealth <= 0)
         {
@@ -67,5 +69,16 @@ public class AverageZombie : MonoBehaviour
             healthBar.ChangeHealthValue(-damage);
             yield return new WaitForSeconds(attackCoolDown);
         }
+    }
+
+    private IEnumerator MoveDiagonal(Rigidbody2D rb)
+    {
+        var moveDia = UnityEngine.Random.Range(0, 2);
+        if (moveDia > 0)
+        {
+            rb.velocity = transform.up + -transform.right * speed;
+        }
+        yield return new WaitForSeconds(1.5f);
+        rb.velocity = -transform.right * speed;
     }
 }

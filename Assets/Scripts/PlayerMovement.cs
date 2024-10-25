@@ -5,11 +5,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private AnimationClip idle, walk;
     private Rigidbody2D rb;
     private Vector2 move; 
+    private Animator animator;
+    private Vector2 prevPos;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     
@@ -20,6 +24,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        prevPos = move.normalized;
         rb.velocity = move * speed;
+        Animate();
+    }
+
+    private void Animate()
+    {
+        if (move != prevPos)
+        {
+            animator.Play(walk.name);
+        }
+        else
+        {
+            animator.Play(idle.name);
+        }
     }
 }

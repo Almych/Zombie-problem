@@ -10,7 +10,7 @@ public class SpawnerOfZombies : MonoBehaviour
 
     private int maxAmountZombies;
     private float callZombieInterval = 4f;
-    private int prevPos;
+    private int  prevPos;
 
     private void Start()
     {
@@ -60,6 +60,7 @@ public class SpawnerOfZombies : MonoBehaviour
         var value = 0;
         for (int i = min; i <= max; i++)
         {
+           
             if (prevPos != i)
             {
                 prevPos = i;

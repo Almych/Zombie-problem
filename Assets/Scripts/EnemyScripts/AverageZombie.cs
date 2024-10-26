@@ -17,13 +17,17 @@ public class AverageZombie : MonoBehaviour
     public static OnCoinSpawn CoinCall;
     [SerializeField] private float damage, speed, health;
     private Rigidbody2D rb;
-    private bool isAttacking;
+    private bool isAttacking, isDead;
+    private Animator anim;
     private float currhealth;
     private const float attackCoolDown = 2f;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         isAttacking = false;
+        isDead = false;
+        anim.SetBool("isAttacking", isAttacking);
         Move(GetComponent<Rigidbody2D>());
     }
 
@@ -31,6 +35,7 @@ public class AverageZombie : MonoBehaviour
     {
         if (collision.collider.GetComponent<HealthBar>() != null && !isAttacking)
         {
+            
             var barrier = collision.collider.GetComponent<HealthBar>();
             isAttacking = true;
             StartCoroutine(Attack(barrier));
@@ -48,9 +53,10 @@ public class AverageZombie : MonoBehaviour
         currhealth -= damage;
         if (currhealth <= 0)
         {
+            onDeath();
+            isDead = true;
             CoinCall.Invoke(transform.position);
             gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-            gameObject.SetActive(false);
         }
     }
 
@@ -67,6 +73,7 @@ public class AverageZombie : MonoBehaviour
         while (isAttacking)
         {
             healthBar.ChangeHealthValue(-damage);
+
             yield return new WaitForSeconds(attackCoolDown);
         }
     }
@@ -80,5 +87,11 @@ public class AverageZombie : MonoBehaviour
         }
         yield return new WaitForSeconds(1.5f);
         rb.velocity = -transform.right * speed;
+    }
+    
+    private void onDeath()
+    {
+        rb.velocity = Vector2.zero;
+        anim.SetBool("isDead", isDead);
     }
 }

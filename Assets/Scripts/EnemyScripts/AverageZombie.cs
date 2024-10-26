@@ -25,9 +25,6 @@ public class AverageZombie : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        isAttacking = false;
-        isDead = false;
-        anim.SetBool("isAttacking", isAttacking);
         Move(GetComponent<Rigidbody2D>());
     }
 
@@ -45,18 +42,22 @@ public class AverageZombie : MonoBehaviour
     {
         rb.velocity = -transform.right * speed;
         currhealth = health;
+        GetComponent<Collider2D>().enabled = true;
+        isAttacking = false;
+        isDead = false;
     }
     
     public void GetDamage( float damage)
     {
-        StartCoroutine(MoveDiagonal(GetComponent<Rigidbody2D>()));
-        currhealth -= damage;
         if (currhealth <= 0)
         {
-            onDeath();
             isDead = true;
+            StartCoroutine(onDeath());
             CoinCall.Invoke(transform.position);
-            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        }else
+        {
+            StartCoroutine(MoveDiagonal(GetComponent<Rigidbody2D>()));
+            currhealth -= damage;
         }
     }
 
@@ -73,25 +74,33 @@ public class AverageZombie : MonoBehaviour
         while (isAttacking)
         {
             healthBar.ChangeHealthValue(-damage);
-
+            anim.SetBool("isAttacking", isAttacking);
             yield return new WaitForSeconds(attackCoolDown);
         }
     }
 
     private IEnumerator MoveDiagonal(Rigidbody2D rb)
     {
-        var moveDia = UnityEngine.Random.Range(0, 2);
-        if (moveDia > 0)
+        var moveDia = UnityEngine.Random.Range(0, 3);
+        if (moveDia == 1)
         {
             rb.velocity = transform.up + -transform.right * speed;
+        }
+        else if (moveDia == 2)
+        {
+            rb.velocity = -transform.up + -transform.right * speed;
         }
         yield return new WaitForSeconds(1.5f);
         rb.velocity = -transform.right * speed;
     }
     
-    private void onDeath()
+    private IEnumerator onDeath()
     {
-        rb.velocity = Vector2.zero;
         anim.SetBool("isDead", isDead);
+        rb.velocity = Vector2.zero;
+        GetComponent<Collider2D>().enabled = false;
+        yield return new WaitForSeconds(1f);
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        gameObject.SetActive(false);
     }
 }

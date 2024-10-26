@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 5500400052334401278}
   - component: {fileID: 7313938674740418146}
   - component: {fileID: 3319917304253681000}
-  - component: {fileID: 3779128097334083537}
-  - component: {fileID: 7015263025064129539}
+  - component: {fileID: 4934516789709819761}
   m_Layer: 0
   m_Name: WallForBullet
   m_TagString: Untagged
@@ -30,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 19.99, y: 4.58, z: 0}
-  m_LocalScale: {x: 1, y: 4, z: 1}
+  m_LocalScale: {x: 1, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -132,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3779128097334083537
+--- !u!114 &4934516789709819761
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,27 +140,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2326541775578511356}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0a651309b7622848bb35eca195cc2d5, type: 3}
+  m_Script: {fileID: 11500000, guid: c5f6c271bf68a36499c7862b8543f8ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7015263025064129539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2326541775578511356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04606c6742cc69e499afb22f70d1c39c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allowedZombie:
-  - {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-  - {fileID: 841569537982017929, guid: b644287474515d84ab1d4d924abf55cf, type: 3}
-  - {fileID: -4489806820174758250, guid: 12d877cbfaa2fa84cb882625f82185f3, type: 3}
-  - {fileID: -4670232523499498988, guid: bf4d15dacf2daa74c9bbc46c4f61fb4a, type: 3}
-  averageZombie: 0
-  longZombie: 0
-  speedyZombie: 0
-  bigZombie: 0
+  coinCounterText: {fileID: 0}
+  coinPrefab: {fileID: 7089803634709335574, guid: 17917d4cd4f234e4ab0677dd5fb59242, type: 3}

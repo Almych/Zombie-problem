@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 104591320}
   - component: {fileID: 104591321}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,6 +298,7 @@ GameObject:
   - component: {fileID: 170230272}
   - component: {fileID: 170230275}
   - component: {fileID: 170230274}
+  - component: {fileID: 170230276}
   m_Layer: 0
   m_Name: Enviroment
   m_TagString: Untagged
@@ -1698,8 +1699,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.36836815, y: 13.011828}
-  - {x: 43.44142, y: 12.963053}
+  - {x: -0.36836624, y: 13.256886}
+  - {x: 14.952374, y: 13.332172}
+  - {x: 15.480762, y: 13.20762}
+  - {x: 15.341405, y: 13.33064}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -1741,6 +1744,47 @@ EdgeCollider2D:
   m_Points:
   - {x: 0.119384766, y: -0.15752745}
   - {x: 41.002655, y: 0.037573814}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+--- !u!68 &170230276
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170230270}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 15.645646, y: 13.012501}
+  - {x: 42.28314, y: 12.930814}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -3161,6 +3205,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MoneyWall
       objectReference: {fileID: 0}
+    - target: {fileID: 2326541775578511356, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4934516789709819761, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
       propertyPath: coinCounterText
       value: 
@@ -3580,27 +3628,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiePool: {fileID: 2147420718}
-  allowedZombie:
-  - {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-  - {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-  - {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-  - {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-  averageZombie: 4
-  longZombie: 5
-  speedyZombie: 4
-  bigZombie: 3
---- !u!114 &1512099665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512099657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0a651309b7622848bb35eca195cc2d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1543175440
 GameObject:
   m_ObjectHideFlags: 0
@@ -4960,7 +4987,7 @@ GameObject:
   - component: {fileID: 1790683771}
   - component: {fileID: 1790683773}
   - component: {fileID: 1790683774}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5424,11 +5451,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiesPrefabs:
-  - {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-  - {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-  - {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-  - {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-  poolSize: 6
+  - zombieType: {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
+    amount: 10
+  poolSize: 5
 --- !u!1001 &4282346404928643561
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5500,7 +5525,7 @@ PrefabInstance:
     - target: {fileID: 7015263025064129539, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
       propertyPath: zombiePool
       value: 
-      objectReference: {fileID: 2147420718}
+      objectReference: {fileID: 0}
     - target: {fileID: 7015263025064129539, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
       propertyPath: speedyZombie
       value: 4
@@ -5529,9 +5554,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2326541775578511356, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1512099664}
-    - targetCorrespondingSourceObject: {fileID: 2326541775578511356, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1512099665}
   m_SourcePrefab: {fileID: 100100000, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

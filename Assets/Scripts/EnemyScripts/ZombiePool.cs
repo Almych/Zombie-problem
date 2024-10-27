@@ -1,10 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class ZombiePool : MonoBehaviour
+public class ZombiePoolObject : MonoBehaviour
 {
-    [SerializeField] private List<AverageZombie> zombiesPrefabs;
+    public List<ZombieData> zombiesPrefabs;
     [SerializeField] private int poolSize = 5;
 
     private Dictionary<AverageZombie, List<AverageZombie>> pools;
@@ -18,11 +18,11 @@ public class ZombiePool : MonoBehaviour
             List<AverageZombie> pool = new List<AverageZombie>();
             for (int i = 0; i < poolSize; i++)
             {
-                AverageZombie zombie = Instantiate(zombiePrefab);
+                AverageZombie zombie = Instantiate(zombiePrefab.zombieType);
                 zombie.gameObject.SetActive(false);
                 pool.Add(zombie);
             }
-            pools[zombiePrefab] = pool;
+            pools[zombiePrefab.zombieType] = pool;
         }
     }
 
@@ -39,11 +39,7 @@ public class ZombiePool : MonoBehaviour
                 }
             }
         }
-        return null; 
+        return null;
     }
 
-    public void ReturnZombie(AverageZombie zombie)
-    {
-        zombie.gameObject.SetActive(false);
-    }
 }

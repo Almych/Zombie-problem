@@ -3,27 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+#region StructOfZombie
+[Serializable]
+public struct ZombieData
+{
+    public AverageZombie zombieType;
+    public int amount;
+}
+#endregion
+
 public class SpawnerOfZombies : MonoBehaviour
 {
     public static EventHandler<float> OnSpawn;
-    [SerializeField] private ZombiePool zombiePool;
-    [SerializeField] private List<AverageZombie> allowedZombie;
-    [SerializeField] private int averageZombie, longZombie, speedyZombie, bigZombie;
+   [SerializeField] private ZombiePoolObject zombiePool;
 
+    private List<ZombieData> zombie;
     private int maxAmountZombies;
     private float callZombieInterval = 4f;
     private List<int> prevPos = new List<int>();
+    private int amount;
 
     private void Start()
     {
-        maxAmountZombies = averageZombie + longZombie + speedyZombie + bigZombie;
+        zombie = zombiePool.zombiesPrefabs;
+        foreach (var zomb in zombie)
+        {
+            maxAmountZombies += zomb.amount;
+        }
         StartCoroutine(CallZombieWaves());
-        OnSpawn.Invoke(this, maxAmountZombies);
+        OnSpawn?.Invoke(this, maxAmountZombies); 
     }
 
     private void ChangePosition(out Vector3 positionZombie)
     {
-        var randomY = CorrectRandom(3, 6);
+        float randomY = CorrectRandom(3, 6);
         positionZombie = new Vector3(transform.position.x, randomY, transform.position.z);
     }
 
@@ -31,19 +45,20 @@ public class SpawnerOfZombies : MonoBehaviour
     {
         while (maxAmountZombies > 0)
         {
-            CallZombieType(allowedZombie[0], ref averageZombie);
-            CallZombieType(allowedZombie[1], ref longZombie);
-            CallZombieType(allowedZombie[2], ref speedyZombie);
-            CallZombieType(allowedZombie[3], ref bigZombie);
-            OnSpawn.Invoke(this, maxAmountZombies);
+            for (int i = 0; i < zombie.Count; i++)
+            { 
+                    amount = zombie[i].amount;
+                CallZombieType(zombie[i].zombieType, ref amount);
+            }
+            OnSpawn?.Invoke(this, maxAmountZombies);
             yield return new WaitForSeconds(callZombieInterval);
         }
-        Debug.Log("Zombie is ended");
+        Debug.Log("Zombie spawning has ended");
     }
 
     private void CallZombieType(AverageZombie zombieType, ref int amount)
     {
-        int leftAmount = Mathf.Min(CorrectRandom(0, amount+1), amount);
+        int leftAmount = Mathf.Min(CorrectRandom(0, amount + 1), amount);
 
         for (int i = 0; i < leftAmount; i++)
         {
@@ -58,21 +73,25 @@ public class SpawnerOfZombies : MonoBehaviour
             }
         }
     }
+
+    #region CorrectRandomZombie
     private int CorrectRandom(int min, int max)
     {
         if (prevPos.Count >= (max - min + 1))
         {
-            prevPos.Clear();
+            prevPos.Clear(); 
         }
 
         int value;
         do
         {
             value = UnityEngine.Random.Range(min, max + 1);
-        } while (prevPos.Contains(value)); 
+        } while (prevPos.Contains(value));
 
-        prevPos.Add(value);
+        prevPos.Add(value); 
         return value;
     }
-
+    #endregion
 }
+
+

@@ -18,7 +18,7 @@ public class SpawnerOfZombies : MonoBehaviour
    [SerializeField] private ZombiePoolObject zombiePool;
     private List<ZombieData> zombie;
     private int maxAmountZombies;
-    private float callZombieInterval = 4f;
+    private float callZombieInterval = 1f;
     private List<int> prevPos = new List<int>();
     private int amount;
 

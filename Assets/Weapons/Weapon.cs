@@ -7,5 +7,6 @@ public class Weapon : ScriptableObject
 {
     public int bulletMax;
     public float realodTime;
+    public float damage;
     public Sprite iconOfWeapon;
 }

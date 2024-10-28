@@ -6,27 +6,15 @@ using TMPro;
 using UnityEngine;
 public class MoneySpawn : MonoBehaviour
 {
-    public static MoneySpawn Instance;
-    [SerializeField] private TextMeshProUGUI coinCounterText;
     [SerializeField] private GameObject coinPrefab;
-    private int counter;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        
-    }
+    private int counter = -1;
+    private View ui;
+   
 
     private void Start()
     {
-        coinCounterText.text = counter.ToString();
+        ui = View.Instance;
+        ui.CountCoin(counter);
     }
     private void OnEnable()
     {
@@ -42,7 +30,7 @@ public class MoneySpawn : MonoBehaviour
     {
         if (collision.GetComponent<CoinTake>()!= null)
         {
-            CountCoin();
+            ui.CountCoin(counter);
             collision.gameObject.SetActive(false);
         }
     }
@@ -55,9 +43,5 @@ public class MoneySpawn : MonoBehaviour
         }
     }
 
-    private void CountCoin()
-    {
-        counter++;
-        coinCounterText.text = counter.ToString();
-    }
+    
 }

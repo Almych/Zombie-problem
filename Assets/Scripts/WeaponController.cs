@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    private Animator animator;
+    [SerializeField] private Weapon weapon;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+      
     }
 
     public void ShootAnim()

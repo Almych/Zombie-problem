@@ -5330,7 +5330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e1193117dabcf44be5f732345580d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthbar: {fileID: 422462763}
 --- !u!1 &2139419158
 GameObject:
   m_ObjectHideFlags: 0
@@ -5375,8 +5374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ebf644bb0a51745bd85bd44807f112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBullet: 8
-  reloadTime: 2
+  weapon: {fileID: 11400000, guid: 09f00c99194f04d4f8701ec1d5c346ea, type: 2}
 --- !u!1 &2147420715
 GameObject:
   m_ObjectHideFlags: 0
@@ -5389,6 +5387,7 @@ GameObject:
   - component: {fileID: 2147420716}
   - component: {fileID: 2147420718}
   - component: {fileID: 2147420719}
+  - component: {fileID: 2147420720}
   m_Layer: 0
   m_Name: PoolObject
   m_TagString: Untagged
@@ -5453,7 +5452,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c97abd9811119a4ea6729cb6944037a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2147420720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147420715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410f1bf91d35141498d64f7ee50d8b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   waveBar: {fileID: 1968701743}
+  coinCounterText: {fileID: 1368548915}
+  healthbar: {fileID: 422462763}
 --- !u!1001 &4282346404928643561
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,13 +3,18 @@ using UnityEngine;
 
 public class ShootController : MonoBehaviour
 {
-    [SerializeField] private int maxBullet;
-    [SerializeField] private float reloadTime;
+    [SerializeField] private Weapon weapon;
+    private int maxBullet;
+    private float reloadTime;
+    private float damage;
     private bool isReload;
     private int currBullet;
 
     private void Start()
     {
+        maxBullet = weapon.bulletMax;
+        reloadTime = weapon.realodTime;
+        damage = weapon.damage;
         isReload = false;
         currBullet = maxBullet;
     }

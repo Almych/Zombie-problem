@@ -5133,7 +5133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1968701741}
   - component: {fileID: 1968701743}
-  - component: {fileID: 1968701742}
   m_Layer: 5
   m_Name: ZombiesWaves
   m_TagString: Untagged
@@ -5163,19 +5162,6 @@ RectTransform:
   m_AnchoredPosition: {x: 582, y: 252}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1968701742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968701740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c97abd9811119a4ea6729cb6944037a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waveBar: {fileID: 1968701743}
 --- !u!114 &1968701743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5221,7 +5207,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1374345108}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 4
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -5402,6 +5388,7 @@ GameObject:
   - component: {fileID: 2147420717}
   - component: {fileID: 2147420716}
   - component: {fileID: 2147420718}
+  - component: {fileID: 2147420719}
   m_Layer: 0
   m_Name: PoolObject
   m_TagString: Untagged
@@ -5454,6 +5441,19 @@ MonoBehaviour:
   - zombieType: {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
     amount: 10
   poolSize: 5
+--- !u!114 &2147420719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147420715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c97abd9811119a4ea6729cb6944037a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveBar: {fileID: 1968701743}
 --- !u!1001 &4282346404928643561
 PrefabInstance:
   m_ObjectHideFlags: 0

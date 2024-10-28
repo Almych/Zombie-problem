@@ -15,9 +15,7 @@ public struct ZombieData
 
 public class SpawnerOfZombies : MonoBehaviour
 {
-    public static EventHandler<float> OnSpawn;
    [SerializeField] private ZombiePoolObject zombiePool;
-
     private List<ZombieData> zombie;
     private int maxAmountZombies;
     private float callZombieInterval = 4f;
@@ -31,47 +29,64 @@ public class SpawnerOfZombies : MonoBehaviour
         {
             maxAmountZombies += zomb.amount;
         }
-        StartCoroutine(CallZombieWaves());
-        OnSpawn?.Invoke(this, maxAmountZombies); 
+        
+    }
+    private void OnEnable()
+    {
+        ZombieWaves.GetMaxAmount += () => maxAmountZombies;
+        ZombieWaves.ZombieWaveChanged += CallZombie;
     }
 
+    private void OnDisable()
+    {
+        ZombieWaves.GetMaxAmount -= () => maxAmountZombies;
+        ZombieWaves.ZombieWaveChanged -= CallZombie;
+    }
     private void ChangePosition(out Vector3 positionZombie)
     {
         float randomY = CorrectRandom(3, 6);
         positionZombie = new Vector3(transform.position.x, randomY, transform.position.z);
     }
 
-    private IEnumerator CallZombieWaves()
+    private IEnumerator CallZombie(int callAmount)
     {
         while (maxAmountZombies > 0)
         {
             for (int i = 0; i < zombie.Count; i++)
             { 
                     amount = zombie[i].amount;
-                CallZombieType(zombie[i].zombieType, ref amount);
+                CallZombieType(zombie[i].zombieType, ref amount, callAmount);
             }
-            OnSpawn?.Invoke(this, maxAmountZombies);
             yield return new WaitForSeconds(callZombieInterval);
         }
         Debug.Log("Zombie spawning has ended");
     }
 
-    private void CallZombieType(AverageZombie zombieType, ref int amount)
+
+
+    private void CallZombieType(AverageZombie zombieType, ref int amount,  int callAmount)
     {
         int leftAmount = Mathf.Min(CorrectRandom(0, amount + 1), amount);
-
-        for (int i = 0; i < leftAmount; i++)
+        if (callAmount <= amount)
         {
-            ChangePosition(out Vector3 positionZombie);
-            AverageZombie zombie = zombiePool.GetZombie(zombieType);
-            if (zombie != null)
+            for (int i = 0; i < callAmount; i++)
             {
-                zombie.transform.position = positionZombie;
-                zombie.Move(zombie.GetComponent<Rigidbody2D>());
-                amount--;
-                maxAmountZombies--;
+                ChangePosition(out Vector3 positionZombie);
+                AverageZombie zombie = zombiePool.GetZombie(zombieType);
+                if (zombie != null)
+                {
+                    zombie.transform.position = positionZombie;
+                    zombie.Move(zombie.GetComponent<Rigidbody2D>());
+                    amount--;
+                    maxAmountZombies--;
+                }
             }
         }
+        else
+        {
+            Debug.Log("Limit is reached");
+        }
+       
     }
 
     #region CorrectRandomZombie

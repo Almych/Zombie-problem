@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ZombieWaves : MonoBehaviour
 {
-    public delegate IEnumerator CallZombie(int amount);
+    public delegate void CallZombie(int amount);
     public static CallZombie ZombieWaveChanged;
     public delegate int MaxAmount();
     public static MaxAmount GetMaxAmount;
@@ -30,12 +30,12 @@ public class ZombieWaves : MonoBehaviour
             if (ui.GetWaveValue() <= 0.5f)
             {
                 amountMax = GetMaxAmount();
-                StartCoroutine(ZombieWaveChanged?.Invoke(amountMax));
+                ZombieWaveChanged?.Invoke(amountMax);
             }else
             {
                 Debug.Log("Checked");
                 int random = UnityEngine.Random.Range(1, 2);
-                StartCoroutine(ZombieWaveChanged?.Invoke(random));
+                ZombieWaveChanged?.Invoke(random);
             }
             Debug.Log("Called");
             yield return new WaitForSeconds(perSecond);

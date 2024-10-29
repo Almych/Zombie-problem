@@ -15,6 +15,7 @@ public class ShootController : MonoBehaviour
         maxBullet = weapon.bulletMax;
         reloadTime = weapon.realodTime;
         damage = weapon.damage;
+        transform.parent.GetComponent<SpriteRenderer>().sprite = weapon.iconOfWeapon;
         isReload = false;
         currBullet = maxBullet;
     }

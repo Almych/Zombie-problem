@@ -25,7 +25,7 @@ public class AverageZombie : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        Move(GetComponent<Rigidbody2D>());
+        Move();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -38,7 +38,7 @@ public class AverageZombie : MonoBehaviour
             StartCoroutine(Attack(barrier));
         } 
     }
-    public void Move(Rigidbody2D rb)
+    public void Move()
     {
         rb.velocity = -transform.right * speed;
         currhealth = health;
@@ -47,7 +47,7 @@ public class AverageZombie : MonoBehaviour
         isDead = false;
     }
     
-    public void GetDamage( float damage)
+    public void GetDamage(float damage)
     {
         if (currhealth <= 0)
         {
@@ -56,7 +56,7 @@ public class AverageZombie : MonoBehaviour
             CoinCall.Invoke(transform.position);
         }else
         {
-            StartCoroutine(MoveDiagonal(GetComponent<Rigidbody2D>()));
+            StartCoroutine(MoveDiagonal());
             currhealth -= damage;
         }
     }
@@ -79,7 +79,7 @@ public class AverageZombie : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveDiagonal(Rigidbody2D rb)
+    private IEnumerator MoveDiagonal()
     {
         var moveDia = UnityEngine.Random.Range(0, 3);
         if (moveDia == 1)

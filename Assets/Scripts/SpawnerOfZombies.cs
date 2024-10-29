@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 
@@ -48,23 +49,23 @@ public class SpawnerOfZombies : MonoBehaviour
         positionZombie = new Vector3(transform.position.x, randomY, transform.position.z);
     }
 
-    private IEnumerator CallZombie(int callAmount)
+    private async void CallZombie(int callAmount)
     {
         while (maxAmountZombies > 0)
         {
             for (int i = 0; i < zombie.Count; i++)
-            { 
+            {
+                if (maxAmountZombies <= 0) break;
                     amount = zombie[i].amount;
-                CallZombieType(zombie[i].zombieType, ref amount, callAmount);
+               await CallZombieType(zombie[i].zombieType, ref amount, callAmount);
             }
-            yield return new WaitForSeconds(callZombieInterval);
         }
         Debug.Log("Zombie spawning has ended");
     }
 
 
 
-    private void CallZombieType(AverageZombie zombieType, ref int amount,  int callAmount)
+    private Task CallZombieType(AverageZombie zombieType, ref int amount,  int callAmount)
     {
         int leftAmount = Mathf.Min(CorrectRandom(0, amount + 1), amount);
         if (callAmount <= amount)
@@ -76,16 +77,14 @@ public class SpawnerOfZombies : MonoBehaviour
                 if (zombie != null)
                 {
                     zombie.transform.position = positionZombie;
-                    zombie.Move(zombie.GetComponent<Rigidbody2D>());
+                    zombie.Move();
                     amount--;
                     maxAmountZombies--;
                 }
             }
         }
-        else
-        {
-            Debug.Log("Limit is reached");
-        }
+        return Task.CompletedTask;
+        
        
     }
 

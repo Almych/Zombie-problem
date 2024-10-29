@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-
 
 #region StructOfZombie
 [Serializable]
@@ -16,13 +15,11 @@ public struct ZombieData
 
 public class SpawnerOfZombies : MonoBehaviour
 {
-   [SerializeField] private ZombiePoolObject zombiePool;
+    [SerializeField] private ZombiePoolObject zombiePool;
     private List<ZombieData> zombie;
     private int maxAmountZombies;
-    private float callZombieInterval = 1f;
     private List<int> prevPos = new List<int>();
-    private int amount;
-
+    private CancellationTokenSource cancellationSource =  new CancellationTokenSource();
     private void Start()
     {
         zombie = zombiePool.zombiesPrefabs;
@@ -30,8 +27,8 @@ public class SpawnerOfZombies : MonoBehaviour
         {
             maxAmountZombies += zomb.amount;
         }
-        
     }
+
     private void OnEnable()
     {
         ZombieWaves.GetMaxAmount += () => maxAmountZombies;
@@ -42,58 +39,61 @@ public class SpawnerOfZombies : MonoBehaviour
     {
         ZombieWaves.GetMaxAmount -= () => maxAmountZombies;
         ZombieWaves.ZombieWaveChanged -= CallZombie;
+        cancellationSource.Cancel();
     }
+
     private void ChangePosition(out Vector3 positionZombie)
     {
         float randomY = CorrectRandom(3, 6);
         positionZombie = new Vector3(transform.position.x, randomY, transform.position.z);
     }
 
-    private async void CallZombie(int callAmount)
+    private async Task CallZombie(int callAmount)
     {
-        while (maxAmountZombies > 0)
-        {
-            for (int i = 0; i < zombie.Count; i++)
+            while (maxAmountZombies > 0 && !cancellationSource.IsCancellationRequested)
             {
-                if (maxAmountZombies <= 0) break;
-                    amount = zombie[i].amount;
-               await CallZombieType(zombie[i].zombieType, ref amount, callAmount);
-            }
-        }
-        Debug.Log("Zombie spawning has ended");
-    }
-
-
-
-    private Task CallZombieType(AverageZombie zombieType, ref int amount,  int callAmount)
-    {
-        int leftAmount = Mathf.Min(CorrectRandom(0, amount + 1), amount);
-        if (callAmount <= amount)
-        {
-            for (int i = 0; i < callAmount; i++)
-            {
-                ChangePosition(out Vector3 positionZombie);
-                AverageZombie zombie = zombiePool.GetZombie(zombieType);
-                if (zombie != null)
+                foreach (var zomb in zombie)
                 {
-                    zombie.transform.position = positionZombie;
-                    zombie.Move();
-                    amount--;
-                    maxAmountZombies--;
+                    int availableAmount = zomb.amount;
+                    await CallZombieType(zomb.zombieType, availableAmount, callAmount);
                 }
+                await Task.Delay(TimeSpan.FromSeconds(1f));
             }
-        }
-        return Task.CompletedTask;
-        
-       
+         Debug.Log("Zombie spawning has ended");
     }
+
+
+    private async Task<int> CallZombieType(AverageZombie zombieType, int amount, int callAmount)
+    {
+        int spawnAmount = Mathf.Min(CorrectRandom(0, amount + 1), callAmount);
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            if (amount <= 0 || maxAmountZombies <= 0) break;
+
+            ChangePosition(out Vector3 positionZombie);
+            AverageZombie zombie = zombiePool.GetZombie(zombieType);
+            if (zombie != null)
+            {
+                zombie.transform.position = positionZombie;
+                zombie.Move();
+                amount--;
+                maxAmountZombies--;
+            }
+
+           
+            await Task.Delay(TimeSpan.FromSeconds(2f)); 
+        }
+        return amount;
+    }
+
+    
 
     #region CorrectRandomZombie
     private int CorrectRandom(int min, int max)
     {
         if (prevPos.Count >= (max - min + 1))
         {
-            prevPos.Clear(); 
+            prevPos.Clear();
         }
 
         int value;
@@ -102,10 +102,8 @@ public class SpawnerOfZombies : MonoBehaviour
             value = UnityEngine.Random.Range(min, max + 1);
         } while (prevPos.Contains(value));
 
-        prevPos.Add(value); 
+        prevPos.Add(value);
         return value;
     }
     #endregion
 }
-
-

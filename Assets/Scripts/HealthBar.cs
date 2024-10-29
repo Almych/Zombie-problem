@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class HealthBar : MonoBehaviour
 {
-    public static HealthBar Instance;
-    public EventHandler<float> OnHealthChanged;
+    public static EventHandler<float> OnHealthChanged;
     private const float maxHealth = 10f;
     private float currHealth;
     public float CurrHealth {
@@ -18,17 +17,12 @@ public class HealthBar : MonoBehaviour
         }
     
     }
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
+   
     private void Start()
     {
         currHealth = maxHealth;
         ChangeHealthValue(maxHealth);
+        View.Instance.HealthBarUpdate(this, maxHealth);
     }
 
 

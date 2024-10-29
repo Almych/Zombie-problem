@@ -18,6 +18,16 @@ public class View : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        HealthBar.OnHealthChanged += View.Instance.HealthBarUpdate;
+    }
+
+    private void OnDisable()
+    {
+        HealthBar.OnHealthChanged -= View.Instance.HealthBarUpdate;
+    }
+
     public void ZombieLeft(float value, float maxValue)
     {
         waveBar.value += value / maxValue;

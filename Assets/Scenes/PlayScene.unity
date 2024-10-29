@@ -4845,7 +4845,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.2, y: 3.2}
+  m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4888,7 +4888,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 3.2, y: 3.2}
-    newSize: {x: 3.2, y: 3.2}
+    newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -5225,7 +5225,6 @@ GameObject:
   - component: {fileID: 1981975584}
   - component: {fileID: 1981975583}
   - component: {fileID: 1981975582}
-  - component: {fileID: 1981975586}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5318,18 +5317,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1981975586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1981975581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01e1193117dabcf44be5f732345580d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2139419158
 GameObject:
   m_ObjectHideFlags: 0
@@ -5437,8 +5424,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiesPrefabs:
-  - zombieType: {fileID: -2365781107720640752, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-    amount: 10
+  - zombieType: {fileID: 887585730331267733, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
+    amount: 4
   poolSize: 5
 --- !u!114 &2147420719
 MonoBehaviour:

@@ -19,7 +19,7 @@ public class ShootController : MonoBehaviour
         isReload = false;
         currBullet = maxBullet;
     }
-    void LateUpdate()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isReload)
         {

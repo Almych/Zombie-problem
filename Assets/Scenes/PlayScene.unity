@@ -3628,6 +3628,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiePool: {fileID: 2147420718}
+--- !u!114 &1512099668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512099657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b53b6daf65d9b344eb295fdcb919b61e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1543175440
 GameObject:
   m_ObjectHideFlags: 0
@@ -5554,6 +5566,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2326541775578511356, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1512099664}
+    - targetCorrespondingSourceObject: {fileID: 2326541775578511356, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1512099668}
   m_SourcePrefab: {fileID: 100100000, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

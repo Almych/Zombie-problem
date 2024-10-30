@@ -3628,18 +3628,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiePool: {fileID: 2147420718}
---- !u!114 &1512099668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512099657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b53b6daf65d9b344eb295fdcb919b61e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1543175440
 GameObject:
   m_ObjectHideFlags: 0
@@ -3704,7 +3692,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1558325236
 Transform:
@@ -4937,8 +4925,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  idle: {fileID: 7400000, guid: 95a143379ceb8ce40ac71f3d1f262c74, type: 2}
-  walk: {fileID: 7400000, guid: 37e68c63378ff3541ad2bd7feeaaf64e, type: 2}
 --- !u!50 &1789682955
 Rigidbody2D:
   serializedVersion: 4
@@ -5436,8 +5422,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiesPrefabs:
-  - zombieType: {fileID: 887585730331267733, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
+  - zombieType: {fileID: 465213382716702683, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
     amount: 4
+  - zombieType: {fileID: 8206604991220337049, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
+    amount: 6
   poolSize: 5
 --- !u!114 &2147420719
 MonoBehaviour:
@@ -5451,6 +5439,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c97abd9811119a4ea6729cb6944037a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waves:
+  - 50
+  - 20.1
 --- !u!114 &2147420720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5566,9 +5557,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2326541775578511356, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1512099664}
-    - targetCorrespondingSourceObject: {fileID: 2326541775578511356, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1512099668}
   m_SourcePrefab: {fileID: 100100000, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

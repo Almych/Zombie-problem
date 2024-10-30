@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private AnimationClip idle, walk;
     private Rigidbody2D rb;
-    private Vector2 move; 
+    private Vector2 move;
+    private bool isShooting, isMove;
     private Animator animator;
     private Vector2 prevPos;
     void Start()
@@ -33,11 +33,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (move != prevPos)
         {
-            animator.Play(walk.name);
+            isMove = true;
         }
         else
         {
-            animator.Play(idle.name);
+            isMove= false;
         }
+        animator.SetBool("isMove", isMove);
     }
 }

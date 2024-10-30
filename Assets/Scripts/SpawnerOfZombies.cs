@@ -8,7 +8,7 @@ using UnityEngine;
 [Serializable]
 public struct ZombieData
 {
-    public AverageZombie zombieType;
+    public Enemy zombieType;
     public int amount;
 }
 #endregion
@@ -31,15 +31,18 @@ public class SpawnerOfZombies : MonoBehaviour
 
     private void OnEnable()
     {
-        ZombieWaves.GetMaxAmount += () => maxAmountZombies;
-        ZombieWaves.ZombieWaveChanged += CallZombie;
+        if (!cancellationSource.IsCancellationRequested)
+        {
+            ZombieWaves.GetMaxAmount += () => maxAmountZombies;
+            ZombieWaves.ZombieWaveChanged += CallZombie;
+        }
     }
 
     private void OnDisable()
     {
+        cancellationSource.Cancel();
         ZombieWaves.GetMaxAmount -= () => maxAmountZombies;
         ZombieWaves.ZombieWaveChanged -= CallZombie;
-        cancellationSource.Cancel();
     }
 
     private void ChangePosition(out Vector3 positionZombie)
@@ -49,21 +52,25 @@ public class SpawnerOfZombies : MonoBehaviour
     }
 
     private async Task CallZombie(int callAmount)
-    {
-            while (maxAmountZombies > 0 && !cancellationSource.IsCancellationRequested)
+    {       
+            while (maxAmountZombies > 0)
             {
-                foreach (var zomb in zombie)
+                if (cancellationSource.IsCancellationRequested)
+                {
+                    return;
+                }
+            foreach (var zomb in zombie)
                 {
                     int availableAmount = zomb.amount;
                     await CallZombieType(zomb.zombieType, availableAmount, callAmount);
                 }
-                await Task.Delay(TimeSpan.FromSeconds(1f));
+                await Task.Delay(TimeSpan.FromSeconds(2f));
             }
          Debug.Log("Zombie spawning has ended");
     }
 
 
-    private async Task<int> CallZombieType(AverageZombie zombieType, int amount, int callAmount)
+    private async Task<int> CallZombieType(Enemy zombieType, int amount, int callAmount)
     {
         int spawnAmount = Mathf.Min(CorrectRandom(0, amount + 1), callAmount);
         for (int i = 0; i < spawnAmount; i++)
@@ -71,7 +78,7 @@ public class SpawnerOfZombies : MonoBehaviour
             if (amount <= 0 || maxAmountZombies <= 0) break;
 
             ChangePosition(out Vector3 positionZombie);
-            AverageZombie zombie = zombiePool.GetZombie(zombieType);
+            Enemy zombie = zombiePool.GetZombie(zombieType);
             if (zombie != null)
             {
                 zombie.transform.position = positionZombie;

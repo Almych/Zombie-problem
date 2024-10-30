@@ -7,18 +7,18 @@ public class ZombiePoolObject : MonoBehaviour
     public List<ZombieData> zombiesPrefabs;
     [SerializeField] private int poolSize = 5;
 
-    private Dictionary<AverageZombie, List<AverageZombie>> pools;
+    private Dictionary<Enemy, List<Enemy>> pools;
 
     private void Awake()
     {
-        pools = new Dictionary<AverageZombie, List<AverageZombie>>();
+        pools = new Dictionary<Enemy, List<Enemy>>();
 
         foreach (var zombiePrefab in zombiesPrefabs)
         {
-            List<AverageZombie> pool = new List<AverageZombie>();
+            List<Enemy> pool = new List<Enemy>();
             for (int i = 0; i < poolSize; i++)
             {
-                AverageZombie zombie = Instantiate(zombiePrefab.zombieType);
+                Enemy zombie = Instantiate(zombiePrefab.zombieType);
                 zombie.gameObject.SetActive(false);
                 pool.Add(zombie);
             }
@@ -26,9 +26,9 @@ public class ZombiePoolObject : MonoBehaviour
         }
     }
 
-    public AverageZombie GetZombie(AverageZombie typeZombie)
+    public Enemy GetZombie(Enemy typeZombie)
     {
-        if (pools.TryGetValue(typeZombie, out List<AverageZombie> pool))
+        if (pools.TryGetValue(typeZombie, out List<Enemy> pool))
         {
             foreach (var zombie in pool)
             {

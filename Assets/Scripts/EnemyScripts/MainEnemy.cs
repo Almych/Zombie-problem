@@ -1,30 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Serializable]
 public struct ZombieType
 {
-    public Enemy.EnemyType type;
-    /*
-    private Enemy enemy;
+    public EnemyType enemyType;
+    
+    public Enemy enemy;
     public Enemy Str()
     {
-        switch (type)
+        switch (enemyType)
         {
-            case Enemy.EnemyType.Grounder: enemy = new GroundEnemy(damage: 3f, health: 10f); break;
-            case Enemy.EnemyType.Flyer: Debug.Log("Flyer"); break;
-            case Enemy.EnemyType.LongRange: Debug.Log("LongRange"); break;
+            case EnemyType.Grounder: enemy = new GroundEnemy(); break;
+            case EnemyType.Flyer: Debug.Log("Flyer"); break;
+            case EnemyType.LongRange: Debug.Log("LongRange"); break;
 
         }
         return enemy;
     }
-    */
+    
 }
 public class MainEnemy : MonoBehaviour
 {
-   [SerializeField] public ZombieType type;
+   public ZombieType zombieType;
     private void Start()
     {
-       // Debug.Log(type.Str());
+
+        Debug.Log(zombieType.Str());
     }
 }

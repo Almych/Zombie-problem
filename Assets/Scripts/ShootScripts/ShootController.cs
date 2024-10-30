@@ -1,15 +1,25 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class ShootController : MonoBehaviour
 {
+    public static event Action OnShootAnimate;
+    public static ShootController instance;
     [SerializeField] private Weapon weapon;
     private int maxBullet;
     private float reloadTime;
-    private float damage;
+    public float damage { get; private set; }
     private bool isReload;
     private int currBullet;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
     private void Start()
     {
         maxBullet = weapon.bulletMax;
@@ -24,6 +34,7 @@ public class ShootController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isReload)
         {
             Fire();
+            OnShootAnimate?.Invoke();
         }
     }
 

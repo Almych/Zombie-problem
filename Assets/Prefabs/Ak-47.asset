@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletMax: 6
   realodTime: 2
-  damage: 7
+  damage: 8
   iconOfWeapon: {fileID: -1455835878, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}

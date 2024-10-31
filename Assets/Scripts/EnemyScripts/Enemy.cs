@@ -11,7 +11,8 @@ public enum EnemyType
 };
 public abstract class Enemy : MonoBehaviour
 { 
-    public event Action OnDeathAdditon; 
+    public delegate void OnDeath(Vector3 position = default);
+    public static event OnDeath OnDeathAddition;
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int damage;
     [SerializeField] protected int speed;
@@ -39,7 +40,7 @@ public abstract class Enemy : MonoBehaviour
             yield return new WaitForSeconds(attackCoolDown);
         }
     }
-    protected void GetDamage(int damage)
+    protected internal void GetDamage(int damage)
     {
         currHealth -= damage;
 
@@ -52,23 +53,18 @@ public abstract class Enemy : MonoBehaviour
 
     private void Death ()
     {
-        OnDeathAdditon?.Invoke();
+        OnDeathAddition?.Invoke(transform.position);
         StartCoroutine(Die());
     }
-    public void Move()
-    {
-        rb.velocity = -transform.right * speed;
-        Restore();
-    }
-    protected void Restore()
+    public abstract void Initiate();
+    
+    private void Restore()
     {
         currHealth = maxHealth;
         isAttacking = false;
         isDead = false;
         GetComponent<Collider2D>().enabled = true;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-        isAttacking = false;
-        isDead = false;
     }
 
     private IEnumerator Die()
@@ -77,6 +73,7 @@ public abstract class Enemy : MonoBehaviour
         animator.SetBool("isDead", isDead);
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(1f);
+        Restore();
         gameObject.SetActive(false);
     }
 }

@@ -3207,7 +3207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2326541775578511356, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934516789709819761, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
       propertyPath: coinCounterText
@@ -3253,7 +3253,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7313938674740418146, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5378,7 +5379,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &2147420716
 MonoBehaviour:
@@ -5422,7 +5423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiesPrefabs:
-  - zombieType: {fileID: 465213382716702683, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
+  - zombieType: {fileID: 2989823585609656302, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
     amount: 4
   - zombieType: {fileID: 8206604991220337049, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
     amount: 6
@@ -5441,7 +5442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - 50
-  - 20.1
+  - 85.1
 --- !u!114 &2147420720
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -41,9 +41,10 @@ public class View : MonoBehaviour
     {
         return waveBar.value;
     }
-    public void CountCoin(int counter)
+    public void CountCoin(ref int counter)
     {
         counter++;
+        Debug.Log(counter);
         coinCounterText.text = counter.ToString();
     }
 }

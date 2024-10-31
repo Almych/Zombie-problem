@@ -7,10 +7,6 @@ using UnityEngine.EventSystems;
 public class GroundEnemy : Enemy, DiagnolMovable
 {
     public DiagnolMovable.Diagnol moveDiagnol { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-    
-
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.GetComponent<HealthBar>() != null && !isAttacking)
@@ -21,14 +17,7 @@ public class GroundEnemy : Enemy, DiagnolMovable
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<BulletBehaivior>() != null)
-        {
-            GetDamage((int) ShootController.instance.damage);
-            Debug.Log(currHealth);
-        }
-    }
+    
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -39,6 +28,10 @@ public class GroundEnemy : Enemy, DiagnolMovable
         }
     }
 
+    public override void Initiate()
+    {
+        rb.velocity = -transform.right * speed;
+    }
 
 
 

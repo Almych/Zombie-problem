@@ -27,6 +27,7 @@ public class SpawnerOfZombies : MonoBehaviour
         {
             maxAmountZombies += zomb.amount;
         }
+        Debug.Log(maxAmountZombies);
     }
 
     private void OnEnable()
@@ -82,7 +83,7 @@ public class SpawnerOfZombies : MonoBehaviour
             if (zombie != null)
             {
                 zombie.transform.position = positionZombie;
-                zombie.Move();
+                zombie.Initiate();
                 amount--;
                 maxAmountZombies--;
             }

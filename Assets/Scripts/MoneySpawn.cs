@@ -7,30 +7,32 @@ using UnityEngine;
 public class MoneySpawn : MonoBehaviour
 {
     [SerializeField] private GameObject coinPrefab;
-    private int counter = -1;
+    private static int counter;
     private View ui;
    
 
     private void Start()
     {
         ui = View.Instance;
-        ui.CountCoin(counter);
+        counter = -1;
+        ui.CountCoin(ref counter);
     }
     private void OnEnable()
     {
-        AverageZombie.CoinCall += SpawnCoin;
+        Enemy.OnDeathAddition += SpawnCoin;
     }
 
     private void OnDisable()
     {
-        AverageZombie.CoinCall -= SpawnCoin;
+        Enemy.OnDeathAddition -= SpawnCoin;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<CoinTake>()!= null)
         {
-            ui.CountCoin(counter);
+            Debug.Log("Coin");
+            ui.CountCoin(ref counter);
             collision.gameObject.SetActive(false);
         }
     }

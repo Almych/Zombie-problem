@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5021270980479687894}
   - component: {fileID: 2582147606147351854}
   - component: {fileID: 1909674978912417388}
-  - component: {fileID: 465213382716702683}
+  - component: {fileID: 2989823585609656302}
   m_Layer: 3
   m_Name: Spitter
   m_TagString: Untagged
@@ -181,7 +181,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &465213382716702683
+--- !u!114 &2989823585609656302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,10 +190,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1848886357508688255}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b0833fee730fa445a347855bdc27f90, type: 3}
+  m_Script: {fileID: 11500000, guid: 9367b2b89272e054891ef9b92a91b653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
-  damage: 4
-  speed: 1
-  attackCoolDown: 3
+  maxHealth: 20
+  damage: 6
+  speed: 3
+  attackCoolDown: 2
+  barrier:
+    serializedVersion: 2
+    m_Bits: 64
+  distance: 5

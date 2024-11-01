@@ -27,7 +27,6 @@ public class SpawnerOfZombies : MonoBehaviour
         {
             maxAmountZombies += zomb.amount;
         }
-        Debug.Log(maxAmountZombies);
     }
 
     private void OnEnable()

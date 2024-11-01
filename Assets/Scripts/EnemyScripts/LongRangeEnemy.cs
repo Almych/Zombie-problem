@@ -5,11 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class LongRangeEnemy : Enemy
-{
+
+
+    public class LongRangeEnemy : Enemy
+    {
     public LayerMask barrier;
     [SerializeField] private float distance;
-    //[SerializeField] private GameObject bulletPrefab;
     private bool isCheckingTarget = true;
     private RaycastHit2D hit;
 
@@ -20,7 +21,7 @@ public class LongRangeEnemy : Enemy
         while(!isDead)
         {
             isAttacking = false;
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(TimeSpan.FromSeconds(attackCoolDown));
             if (isCheckingTarget)
             {
                 CheckTarget();
@@ -35,7 +36,6 @@ public class LongRangeEnemy : Enemy
         {
             if (hit.collider.GetComponent<HealthBar>()!= null && !isAttacking)
             {
-                Debug.Log("Taken");
                 isAttacking = true;
                 await SpitPoisen();
             }
@@ -46,8 +46,15 @@ public class LongRangeEnemy : Enemy
     {
        rb.velocity = Vector2.zero;
        animator.SetBool("isAttacking", isAttacking);
-       await Task.Delay(TimeSpan.FromSeconds(1f));
+        var bullet =EnemyBulletPool.instance.GetBullet();
+        if (bullet != null)
+        {
+            bullet.transform.position = transform.position;
+            bullet.Activate(ref damage);
+        }
+       await Task.Delay(TimeSpan.FromSeconds(attackCoolDown));
     }
+
 
     public override async void Initiate()
     {
@@ -61,4 +68,4 @@ public class LongRangeEnemy : Enemy
        isCheckingTarget = false;
     }
 
-}
+    }

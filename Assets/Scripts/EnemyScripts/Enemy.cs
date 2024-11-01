@@ -47,7 +47,7 @@ public abstract class Enemy : MonoBehaviour
         if (currHealth <= 0)
         {
             isDead = true;
-           Death();
+            Death();
         }
     }
 

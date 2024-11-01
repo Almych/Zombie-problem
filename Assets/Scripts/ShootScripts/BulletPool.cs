@@ -36,6 +36,7 @@ public class BulletPool : MonoBehaviour
         {
             if (!pooledObjects[i].activeInHierarchy)
             {
+                pooledObjects[i].SetActive(true);
                 return pooledObjects[i];
             }
         }

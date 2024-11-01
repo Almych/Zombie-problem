@@ -13,7 +13,7 @@ public class CoinTake : MonoBehaviour
         StartCoroutine(CoinCollect());
     }
 
-    private IEnumerator CoinCollect()
+    public IEnumerator CoinCollect()
     {
         yield return new WaitForSeconds(takeTime);
         rb.velocity = -Vector3.right * speedCoin;

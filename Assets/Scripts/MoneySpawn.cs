@@ -4,10 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+
+
 public class MoneySpawn : MonoBehaviour
 {
-    [SerializeField] private GameObject coinPrefab;
-    private static int counter;
+    [SerializeField] private CoinPool coinPool;
+    private int counter;
     private View ui;
    
 
@@ -31,9 +33,8 @@ public class MoneySpawn : MonoBehaviour
     {
         if (collision.GetComponent<CoinTake>()!= null)
         {
-            Debug.Log("Coin");
             ui.CountCoin(ref counter);
-            collision.gameObject.SetActive(false);
+            collision.GetComponent<CoinTake>().gameObject.SetActive(false);
         }
     }
     public void SpawnCoin(Vector3 pos)
@@ -41,7 +42,13 @@ public class MoneySpawn : MonoBehaviour
         var amount = UnityEngine.Random.Range(0, 2);
         for (int i = 0; i < amount; i++)
         {
-             Instantiate(coinPrefab, pos, Quaternion.identity);
+            CoinTake coin = coinPool.GetCoin();
+            if (coin != null)
+            {
+                coin.transform.position = pos;
+                coin.gameObject.SetActive(true);
+                StartCoroutine(coin.CoinCollect());
+            }
         }
     }
 

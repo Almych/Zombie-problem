@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GroundEnemy : Enemy, DiagnolMovable
+public class GroundEnemy : Enemy
 {
-    public DiagnolMovable.Diagnol moveDiagnol { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    //public DiagnolMovable.Diagnol moveDiagnol { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.GetComponent<HealthBar>() != null && !isAttacking)
@@ -24,7 +24,7 @@ public class GroundEnemy : Enemy, DiagnolMovable
         if (collision.collider.GetComponent<HealthBar>() != null && !isAttacking)
         {
             isAttacking = false;
-            moveDiagnol?.Invoke();
+           // moveDiagnol?.Invoke();
         }
     }
 
@@ -40,8 +40,5 @@ public class GroundEnemy : Enemy, DiagnolMovable
         speed += 1;
     }
 
-    void DiagnolMovable.MoveDiagnol()
-    {
-        
-    }
+  
 }

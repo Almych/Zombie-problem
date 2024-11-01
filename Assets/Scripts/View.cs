@@ -44,7 +44,6 @@ public class View : MonoBehaviour
     public void CountCoin(ref int counter)
     {
         counter++;
-        Debug.Log(counter);
         coinCounterText.text = counter.ToString();
     }
 }

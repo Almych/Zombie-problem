@@ -1789,6 +1789,25 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!1 &210357465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2326541775578511356, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
+  m_PrefabInstance: {fileID: 1010251579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &210357469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210357465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e491ea58ab8c6ff448627848ee51b1e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 8484129556983216043, guid: 17917d4cd4f234e4ab0677dd5fb59242, type: 3}
+  amountCoin: 5
 --- !u!1 &280330264
 GameObject:
   m_ObjectHideFlags: 0
@@ -3210,6 +3229,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934516789709819761, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
+      propertyPath: coinPool
+      value: 
+      objectReference: {fileID: 210357469}
+    - target: {fileID: 4934516789709819761, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
       propertyPath: coinCounterText
       value: 
       objectReference: {fileID: 1368548915}
@@ -3257,7 +3280,10 @@ PrefabInstance:
     - {fileID: 7313938674740418146, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2326541775578511356, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 210357469}
   m_SourcePrefab: {fileID: 100100000, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
 --- !u!1 &1014858341
 GameObject:
@@ -5374,6 +5400,7 @@ GameObject:
   - component: {fileID: 2147420718}
   - component: {fileID: 2147420719}
   - component: {fileID: 2147420720}
+  - component: {fileID: 2147420721}
   m_Layer: 0
   m_Name: PoolObject
   m_TagString: Untagged
@@ -5427,6 +5454,10 @@ MonoBehaviour:
     amount: 4
   - zombieType: {fileID: 8206604991220337049, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
     amount: 6
+  - zombieType: {fileID: 8325965000665670514, guid: 315459d967b331d488302a8a8d1da795, type: 3}
+    amount: 3
+  - zombieType: {fileID: 6648555746815536825, guid: 5c83e945a5c9cbd49874f76088044dd8, type: 3}
+    amount: 2
   poolSize: 5
 --- !u!114 &2147420719
 MonoBehaviour:
@@ -5458,6 +5489,20 @@ MonoBehaviour:
   waveBar: {fileID: 1968701743}
   coinCounterText: {fileID: 1368548915}
   healthbar: {fileID: 422462763}
+--- !u!114 &2147420721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147420715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa111aa87d98dea409321dedc231c6a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletEnemy: {fileID: 6067963775555012113, guid: 73a1d22979235cc42afb54b2fe76e39e, type: 3}
+  amount: 5
 --- !u!1001 &4282346404928643561
 PrefabInstance:
   m_ObjectHideFlags: 0

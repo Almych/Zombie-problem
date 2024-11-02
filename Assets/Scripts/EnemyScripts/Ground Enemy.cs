@@ -6,14 +6,13 @@ using UnityEngine.EventSystems;
 
 public class GroundEnemy : Enemy
 {
-    //public DiagnolMovable.Diagnol moveDiagnol { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.GetComponent<HealthBar>() != null && !isAttacking)
         {
             var barrier = collision.collider.GetComponent<HealthBar>();
             isAttacking = true;
-            StartCoroutine(Attack(barrier));
+            StartCoroutine(ContinueAttack(barrier));
         }
     }
 
@@ -24,7 +23,6 @@ public class GroundEnemy : Enemy
         if (collision.collider.GetComponent<HealthBar>() != null && !isAttacking)
         {
             isAttacking = false;
-           // moveDiagnol?.Invoke();
         }
     }
 
@@ -35,10 +33,7 @@ public class GroundEnemy : Enemy
 
 
 
-    public void GetAngryAbility(float speed)
-    {
-        speed += 1;
-    }
+   
 
   
 }

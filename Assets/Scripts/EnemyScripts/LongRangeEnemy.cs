@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 
-    public class LongRangeEnemy : Enemy
+    public class LongRangeEnemy : Enemy, IDiagnolMovable
     {
     public LayerMask barrier;
     [SerializeField] private float distance;
@@ -66,6 +67,31 @@ using UnityEngine;
     private void OnDisable()
     {
        isCheckingTarget = false;
+        OnDamage -= () => MoveDiagnol(1f);
+    }
+    private void OnEnable()
+    {
+        OnDamage += ()  => MoveDiagnol(1f);
     }
 
+   
+
+    public async void MoveDiagnol(float coolDownTime)
+    {
+       
+        int direction = UnityEngine.Random.Range(0,3);
+        if (direction > 0)
+        {
+            rb.velocity = -transform.right + transform.up * speed;
+            isAttacking = false;
+        }
+        else if (direction < 1)
+        {
+            rb.velocity = -transform.right + -transform.up * speed;
+            isAttacking = false;
+        }
+
+        await Task.Delay(TimeSpan.FromSeconds(coolDownTime));
+        isAttacking = true;
     }
+}

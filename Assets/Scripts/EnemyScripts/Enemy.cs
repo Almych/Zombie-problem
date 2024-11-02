@@ -9,10 +9,11 @@ public enum EnemyType
     Flyer,
     LongRange
 };
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IDamagable, IAttackable
 { 
     public delegate void OnDeath(Vector3 position = default);
     public static event OnDeath OnDeathAddition;
+    public event Action OnDamage;
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int damage;
     [SerializeField] protected int speed;
@@ -30,20 +31,19 @@ public abstract class Enemy : MonoBehaviour
         
     }
 
-    protected IEnumerator Attack (HealthBar bar)
+    protected IEnumerator ContinueAttack (HealthBar bar)
     {
         isAttacking = true;
         while (isAttacking)
         {
-            bar.ChangeHealthValue(-damage);
-            animator.SetBool("isAttacking", isAttacking);
+            Attack(bar);
             yield return new WaitForSeconds(attackCoolDown);
         }
     }
-    protected internal void GetDamage(int damage)
+    public void GetDamage(int damage)
     {
         currHealth -= damage;
-
+        OnDamage?.Invoke();
         if (currHealth <= 0)
         {
             isDead = true;
@@ -75,5 +75,11 @@ public abstract class Enemy : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Restore();
         gameObject.SetActive(false);
+    }
+
+    public void Attack(HealthBar barrier)
+    {
+        barrier.ChangeHealthValue(-damage);
+        animator.SetBool("isAttacking", isAttacking);
     }
 }

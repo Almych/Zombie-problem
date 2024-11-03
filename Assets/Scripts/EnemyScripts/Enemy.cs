@@ -11,9 +11,10 @@ public enum EnemyType
 };
 public abstract class Enemy : MonoBehaviour, IDamagable, IAttackable
 { 
-    public delegate void OnDeath(Vector3 position = default);
-    public static event OnDeath OnDeathAddition;
     public event Action OnDamage;
+    public delegate void OnDeath();
+    protected event OnDeath OnDeathAddition;
+    public static event OnDeath OnCoinSpawn;
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int damage;
     [SerializeField] protected int speed;
@@ -51,13 +52,15 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IAttackable
         }
     }
 
-    private void Death ()
+    protected void Death ()
     {
-        OnDeathAddition?.Invoke(transform.position);
         StartCoroutine(Die());
+        OnCoinSpawn?.Invoke();
+        OnDeathAddition?.Invoke();
     }
     public abstract void Initiate();
     
+  
     private void Restore()
     {
         currHealth = maxHealth;

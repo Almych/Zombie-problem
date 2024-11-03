@@ -5450,14 +5450,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiesPrefabs:
-  - zombieType: {fileID: 2989823585609656302, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
-    amount: 4
-  - zombieType: {fileID: 8206604991220337049, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-    amount: 6
-  - zombieType: {fileID: 8325965000665670514, guid: 315459d967b331d488302a8a8d1da795, type: 3}
+  - zombieType: {fileID: 5386122215824703077, guid: 315459d967b331d488302a8a8d1da795, type: 3}
     amount: 3
-  - zombieType: {fileID: 6648555746815536825, guid: 5c83e945a5c9cbd49874f76088044dd8, type: 3}
-    amount: 2
+  - zombieType: {fileID: 8206604991220337049, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
+    amount: 5
   poolSize: 5
 --- !u!114 &2147420719
 MonoBehaviour:

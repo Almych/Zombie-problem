@@ -35,6 +35,7 @@ public class SpawnerOfZombies : MonoBehaviour
         {
             ZombieWaves.GetMaxAmount += () => maxAmountZombies;
             ZombieWaves.ZombieWaveChanged += CallZombie;
+            SpawnableEnemy.OnSpawn += SpawnZombie;
         }
     }
 
@@ -43,12 +44,14 @@ public class SpawnerOfZombies : MonoBehaviour
         cancellationSource.Cancel();
         ZombieWaves.GetMaxAmount -= () => maxAmountZombies;
         ZombieWaves.ZombieWaveChanged -= CallZombie;
+        SpawnableEnemy.OnSpawn -= SpawnZombie;
     }
 
-    private void ChangePosition(out Vector3 positionZombie)
+    private Vector3 ChangePosition()
     {
         float randomY = CorrectRandom(3, 6);
-        positionZombie = new Vector3(transform.position.x, randomY, transform.position.z);
+       Vector3 positionZombie = new Vector3(transform.position.x, randomY, transform.position.z);
+        return positionZombie;
     }
 
     private async Task CallZombie(int callAmount)
@@ -69,6 +72,20 @@ public class SpawnerOfZombies : MonoBehaviour
          Debug.Log("Zombie spawning has ended");
     }
 
+    private void SpawnZombie(int amount, Enemy enemyType, Vector3 position)
+    {
+        Debug.Log("Spawn");
+        for (int i = 0; i < amount; i++)
+        {
+            Enemy enemy = zombiePool.GetZombie(enemyType);
+            if (enemy != null)
+            {
+                enemy.transform.position = position;
+                enemy.Initiate();
+            }
+        }
+    }
+
 
     private async Task<int> CallZombieType(Enemy zombieType, int amount, int callAmount)
     {
@@ -77,11 +94,11 @@ public class SpawnerOfZombies : MonoBehaviour
         {
             if (amount <= 0 || maxAmountZombies <= 0) break;
 
-            ChangePosition(out Vector3 positionZombie);
+            var pos = ChangePosition();
             Enemy zombie = zombiePool.GetZombie(zombieType);
             if (zombie != null)
             {
-                zombie.transform.position = positionZombie;
+                zombie.transform.position = pos;
                 zombie.Initiate();
                 amount--;
                 maxAmountZombies--;

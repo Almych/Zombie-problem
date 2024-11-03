@@ -15,8 +15,18 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
+    private void OnEnable()
+    {
+        isShooting = true;
+        ShootController.OnShootAnimate += () => animator.SetBool("isShooting", isShooting);
+    }
 
-    
+    private void OnDisable()
+    {
+        isShooting = false;
+        ShootController.OnShootAnimate -= () => animator.SetBool("isShooting", isShooting);
+    }
+
     void Update()
     {
         move = new Vector2(0f, Input.GetAxis("Vertical"));

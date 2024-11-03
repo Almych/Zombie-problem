@@ -96,8 +96,8 @@ GameObject:
   - component: {fileID: 4787074593258687042}
   - component: {fileID: 5455736209067208251}
   - component: {fileID: 1417957951634339923}
-  - component: {fileID: 8325965000665670514}
   - component: {fileID: 6528014412750129637}
+  - component: {fileID: 5386122215824703077}
   m_Layer: 3
   m_Name: BarelZombie
   m_TagString: Untagged
@@ -244,23 +244,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &8325965000665670514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3734577242928784047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b0833fee730fa445a347855bdc27f90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 30
-  damage: 2
-  speed: 1
-  attackCoolDown: 1
+  m_Constraints: 4
 --- !u!95 &6528014412750129637
 Animator:
   serializedVersion: 5
@@ -282,3 +266,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5386122215824703077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3734577242928784047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2869c300e7d09c14baa2eb4ff60d7b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 20
+  damage: 1
+  speed: 1
+  attackCoolDown: 1
+  amountSpawnEnemy: 2
+  enemyType: {fileID: 8206604991220337049, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}

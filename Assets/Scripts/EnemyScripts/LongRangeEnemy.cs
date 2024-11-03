@@ -12,7 +12,7 @@ using UnityEngine;
     {
     public LayerMask barrier;
     [SerializeField] private float distance;
-    private bool isCheckingTarget = true;
+    private bool isCheckingTarget = false;
     private RaycastHit2D hit;
 
    
@@ -21,7 +21,6 @@ using UnityEngine;
     {
         while(!isDead)
         {
-            isAttacking = false;
             await Task.Delay(TimeSpan.FromSeconds(attackCoolDown));
             if (isCheckingTarget)
             {
@@ -35,7 +34,7 @@ using UnityEngine;
         hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector2.right, distance, barrier);
         if (hit.collider != null)
         {
-            if (hit.collider.GetComponent<HealthBar>()!= null && !isAttacking)
+            if (hit.collider.GetComponent<HealthBar>()!= null)
             {
                 isAttacking = true;
                 await SpitPoisen();
@@ -45,15 +44,16 @@ using UnityEngine;
    
     private async Task SpitPoisen()
     {
-       rb.velocity = Vector2.zero;
-       animator.SetBool("isAttacking", isAttacking);
-        var bullet =EnemyBulletPool.instance.GetBullet();
-        if (bullet != null)
-        {
-            bullet.transform.position = transform.position;
-            bullet.Activate(ref damage);
-        }
-       await Task.Delay(TimeSpan.FromSeconds(attackCoolDown));
+            Debug.Log("fdf");
+            rb.velocity = Vector2.zero;
+            var bullet = EnemyBulletPool.instance.GetBullet();
+            animator.SetBool("isAttacking", isAttacking);
+            if (bullet != null)
+            {
+                bullet.transform.position = transform.position;
+                bullet.Activate(ref damage);
+            }
+            await Task.Delay(TimeSpan.FromSeconds(attackCoolDown));
     }
 
 
@@ -67,11 +67,11 @@ using UnityEngine;
     private void OnDisable()
     {
        isCheckingTarget = false;
-        OnDamage -= () => MoveDiagnol(1f);
+        OnDamage -= () => MoveDiagnol(attackCoolDown);
     }
     private void OnEnable()
     {
-        OnDamage += ()  => MoveDiagnol(1f);
+        OnDamage += ()  => MoveDiagnol(attackCoolDown);
     }
 
    
@@ -90,7 +90,7 @@ using UnityEngine;
             rb.velocity = -transform.right + -transform.up * speed;
             isAttacking = false;
         }
-
+   
         await Task.Delay(TimeSpan.FromSeconds(coolDownTime));
         isAttacking = true;
     }

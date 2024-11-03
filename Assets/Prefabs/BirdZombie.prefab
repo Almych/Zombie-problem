@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6466121334035499176}
   - component: {fileID: 3226600255747888324}
   - component: {fileID: 7437304298331082524}
-  - component: {fileID: 6648555746815536825}
+  - component: {fileID: 1432613643587085099}
   m_Layer: 3
   m_Name: BirdZombie
   m_TagString: Untagged
@@ -181,7 +181,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6648555746815536825
+--- !u!114 &1432613643587085099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,10 +190,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8832217725815198287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b0833fee730fa445a347855bdc27f90, type: 3}
+  m_Script: {fileID: 11500000, guid: 5da68c7e318a9524ba37fdd0a2b404b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
-  damage: 3
-  speed: 3
+  maxHealth: 5
+  damage: 10
+  speed: 4
   attackCoolDown: 1

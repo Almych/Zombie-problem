@@ -56,7 +56,6 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IAttackable
     {
         StartCoroutine(Die());
         OnCoinSpawn?.Invoke();
-        OnDeathAddition?.Invoke();
     }
     public abstract void Initiate();
     
@@ -76,6 +75,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IAttackable
         animator.SetBool("isDead", isDead);
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(1f);
+        OnDeathAddition?.Invoke();
         Restore();
         gameObject.SetActive(false);
     }

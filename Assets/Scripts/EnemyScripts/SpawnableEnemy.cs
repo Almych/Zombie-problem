@@ -12,6 +12,7 @@ public class SpawnableEnemy : Enemy
     {
         if (collision.collider.GetComponent<HealthBar>() != null && !isAttacking)
         {
+            isDead = true;
             Death();
             Debug.Log("Attack");
         }

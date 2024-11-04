@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2582147606147351854}
   - component: {fileID: 1909674978912417388}
   - component: {fileID: 2989823585609656302}
+  - component: {fileID: 8800843469192679963}
   m_Layer: 3
   m_Name: Spitter
   m_TagString: Untagged
@@ -202,6 +203,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   distance: 7
+--- !u!114 &8800843469192679963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848886357508688255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7960771295234408787
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +228,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5690714677501258459}
   - component: {fileID: 787139887823629273}
+  - component: {fileID: 8250607840610234350}
+  - component: {fileID: 9073596096958135615}
   m_Layer: 3
   m_Name: lowerBody
   m_TagString: Untagged
@@ -286,3 +304,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8250607840610234350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960771295234408787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: -222}
+  m_UseGraphicAlpha: 1
+--- !u!114 &9073596096958135615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960771295234408787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.990566, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 22, y: -22}
+  m_UseGraphicAlpha: 0

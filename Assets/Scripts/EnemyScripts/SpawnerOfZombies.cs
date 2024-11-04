@@ -47,10 +47,10 @@ public class SpawnerOfZombies : MonoBehaviour
         SpawnableEnemy.OnSpawn -= SpawnZombie;
     }
 
-    private Vector3 ChangePosition()
+    private Vector3 ChangePosition(int min, int max, Vector3 pos)
     {
-        float randomY = CorrectRandom(3, 6);
-       Vector3 positionZombie = new Vector3(transform.position.x, randomY, transform.position.z);
+        float randomY = CorrectRandom(min, max);
+       Vector3 positionZombie = new Vector3(pos.x, randomY, pos.z);
         return positionZombie;
     }
 
@@ -80,7 +80,12 @@ public class SpawnerOfZombies : MonoBehaviour
             Enemy enemy = zombiePool.GetZombie(enemyType);
             if (enemy != null)
             {
-                enemy.transform.position = position;
+                var randomY = ChangePosition((int)position.y - 1, (int)position.y + 1, position);
+                if (randomY.y > 6 || randomY.y < 3)
+                {
+                    randomY = ChangePosition((int)position.y - 1, (int)position.y + 1, position);
+                }
+                enemy.transform.position = randomY;
                 enemy.Initiate();
             }
         }
@@ -94,7 +99,7 @@ public class SpawnerOfZombies : MonoBehaviour
         {
             if (amount <= 0 || maxAmountZombies <= 0) break;
 
-            var pos = ChangePosition();
+            var pos = ChangePosition(3,6, transform.position);
             Enemy zombie = zombiePool.GetZombie(zombieType);
             if (zombie != null)
             {

@@ -5456,7 +5456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a2e6467f77cad4289dd44009d1b3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolSize: 5
+  poolSize: 3
   spawner: {fileID: 1512099664}
 --- !u!114 &2147420719
 MonoBehaviour:

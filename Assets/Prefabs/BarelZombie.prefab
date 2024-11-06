@@ -280,7 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   damage: 1
-  speed: 1
+  speed: 0.5
   attackCoolDown: 1
   amountSpawnEnemy: 2
   enemyType: {fileID: 8206604991220337049, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}

@@ -1807,7 +1807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 8484129556983216043, guid: 17917d4cd4f234e4ab0677dd5fb59242, type: 3}
-  amountCoin: 5
+  amountCoin: 3
 --- !u!1 &280330264
 GameObject:
   m_ObjectHideFlags: 0
@@ -3656,11 +3656,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombie:
   - zombieType: {fileID: 5386122215824703077, guid: 315459d967b331d488302a8a8d1da795, type: 3}
-    amount: 3
+    amount: 4
   - zombieType: {fileID: 8206604991220337049, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-    amount: 0
+    amount: 6
   - zombieType: {fileID: 2989823585609656302, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
-    amount: 2
+    amount: 6
   zombiePool: {fileID: 2147420718}
 --- !u!1 &1543175440
 GameObject:
@@ -4939,7 +4939,7 @@ Transform:
   m_GameObject: {fileID: 1789682950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.8, y: 1, z: 0.06419717}
+  m_LocalPosition: {x: 5.8, y: 1.03, z: 0.06419717}
   m_LocalScale: {x: 0.40146583, y: 0.42340448, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5070,7 +5070,7 @@ SpriteRenderer:
   m_Sprite: {fileID: -2100392994, guid: 116a6bcf9e5795f4297a1c9ffb0b9799, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 8, y: 8}
   m_AdaptiveModeThreshold: 0.5
@@ -5393,7 +5393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ebf644bb0a51745bd85bd44807f112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: 09f00c99194f04d4f8701ec1d5c346ea, type: 2}
+  weapon: {fileID: 11400000, guid: c98e29889ac41d646bb63858cfc8dcfd, type: 2}
 --- !u!1 &2147420715
 GameObject:
   m_ObjectHideFlags: 0
@@ -5413,7 +5413,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &2147420716
 MonoBehaviour:
@@ -5427,7 +5427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2919933c18e8cd34d8cf538e204d3168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountBullet: 7
+  amountBullet: 4
   bulletPrefab: {fileID: 5170232100306059945, guid: 38cff01685507f841b37fe8b6f557850, type: 3}
 --- !u!4 &2147420717
 Transform:
@@ -5456,7 +5456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a2e6467f77cad4289dd44009d1b3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolSize: 5
+  poolSize: 7
   spawner: {fileID: 1512099664}
 --- !u!114 &2147420719
 MonoBehaviour:
@@ -5472,7 +5472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - 50
-  - 85.1
+  - 25.8
 --- !u!114 &2147420720
 MonoBehaviour:
   m_ObjectHideFlags: 0

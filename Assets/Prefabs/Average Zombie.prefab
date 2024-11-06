@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 8
   damage: 5
-  speed: 2
+  speed: 1
   attackCoolDown: 2
 --- !u!1 &8368564793082021321
 GameObject:

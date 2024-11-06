@@ -17,7 +17,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IAttackable
     public static event OnDeath OnCoinSpawn;
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int damage;
-    [SerializeField] protected int speed;
+    [SerializeField] protected float speed;
     [SerializeField] protected float attackCoolDown;
     protected int currHealth;
     protected Animator animator;

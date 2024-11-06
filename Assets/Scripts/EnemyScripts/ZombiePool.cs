@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ZombiePoolObject : MonoBehaviour
 {
-    public List<ZombieData> zombiesPrefabs;
     [SerializeField] private int poolSize = 5;
+    [SerializeField] private SpawnerOfZombies spawner;
+    private List<ZombieData> zombiesPrefabs;
 
     private Dictionary<Enemy, List<Enemy>> pools;
 
     private void Awake()
     {
+        zombiesPrefabs = spawner.zombie;
         pools = new Dictionary<Enemy, List<Enemy>>();
 
         foreach (var zombiePrefab in zombiesPrefabs)

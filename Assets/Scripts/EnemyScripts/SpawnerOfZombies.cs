@@ -14,15 +14,14 @@ public struct ZombieData
 #endregion
 
 public class SpawnerOfZombies : MonoBehaviour
-{
+{   public List<ZombieData> zombie;
     [SerializeField] private ZombiePoolObject zombiePool;
-    private List<ZombieData> zombie;
     private int maxAmountZombies;
     private List<int> prevPos = new List<int>();
     private CancellationTokenSource cancellationSource =  new CancellationTokenSource();
     private void Start()
     {
-        zombie = zombiePool.zombiesPrefabs;
+
         foreach (var zomb in zombie)
         {
             maxAmountZombies += zomb.amount;

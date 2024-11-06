@@ -3654,6 +3654,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04606c6742cc69e499afb22f70d1c39c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zombie:
+  - zombieType: {fileID: 5386122215824703077, guid: 315459d967b331d488302a8a8d1da795, type: 3}
+    amount: 3
+  - zombieType: {fileID: 8206604991220337049, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
+    amount: 0
+  - zombieType: {fileID: 2989823585609656302, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
+    amount: 2
   zombiePool: {fileID: 2147420718}
 --- !u!1 &1543175440
 GameObject:
@@ -5449,14 +5456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07a2e6467f77cad4289dd44009d1b3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombiesPrefabs:
-  - zombieType: {fileID: 5386122215824703077, guid: 315459d967b331d488302a8a8d1da795, type: 3}
-    amount: 3
-  - zombieType: {fileID: 2989823585609656302, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
-    amount: 3
-  - zombieType: {fileID: 1432613643587085099, guid: 5c83e945a5c9cbd49874f76088044dd8, type: 3}
-    amount: 2
   poolSize: 5
+  spawner: {fileID: 1512099664}
 --- !u!114 &2147420719
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -21,7 +21,6 @@ public class SpawnerOfZombies : MonoBehaviour
     private CancellationTokenSource cancellationSource =  new CancellationTokenSource();
     private void Start()
     {
-
         foreach (var zomb in zombie)
         {
             maxAmountZombies += zomb.amount;
@@ -30,18 +29,16 @@ public class SpawnerOfZombies : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!cancellationSource.IsCancellationRequested)
-        {
-            ZombieWaves.GetMaxAmount += () => maxAmountZombies;
+          ZombieWaves.GetAmount += () => maxAmountZombies;
             ZombieWaves.ZombieWaveChanged += CallZombie;
             SpawnableEnemy.OnSpawn += SpawnZombie;
-        }
+
     }
 
     private void OnDisable()
     {
         cancellationSource.Cancel();
-        ZombieWaves.GetMaxAmount -= () => maxAmountZombies;
+        ZombieWaves.GetAmount -= () => maxAmountZombies;
         ZombieWaves.ZombieWaveChanged -= CallZombie;
         SpawnableEnemy.OnSpawn -= SpawnZombie;
     }
@@ -61,7 +58,7 @@ public class SpawnerOfZombies : MonoBehaviour
                 {
                     return;
                 }
-            foreach (var zomb in zombie)
+                foreach (var zomb in zombie)
                 {
                     int availableAmount = zomb.amount;
                     await CallZombieType(zomb.zombieType, availableAmount, callAmount);
@@ -73,16 +70,15 @@ public class SpawnerOfZombies : MonoBehaviour
 
     private void SpawnZombie(int amount, Enemy enemyType, Vector3 position)
     {
-        Debug.Log("Spawn");
         for (int i = 0; i < amount; i++)
         {
             Enemy enemy = zombiePool.GetZombie(enemyType);
             if (enemy != null)
             {
-                var randomY = ChangePosition((int)position.y - 1, (int)position.y + 1, position);
-                if (randomY.y > 6 || randomY.y < 3)
+                var randomY = ChangePosition((int)position.y - 1, (int)position.y +1, position);
+                if (randomY.y >= 6.2 || randomY.y < 1)
                 {
-                    randomY = ChangePosition((int)position.y - 1, (int)position.y + 1, position);
+                    randomY.y = position.y;
                 }
                 enemy.transform.position = randomY;
                 enemy.Initiate();
@@ -98,7 +94,7 @@ public class SpawnerOfZombies : MonoBehaviour
         {
             if (amount <= 0 || maxAmountZombies <= 0) break;
 
-            var pos = ChangePosition(3,6, transform.position);
+            var pos = ChangePosition(1,6, transform.position);
             Enemy zombie = zombiePool.GetZombie(zombieType);
             if (zombie != null)
             {

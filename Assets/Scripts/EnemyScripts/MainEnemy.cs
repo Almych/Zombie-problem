@@ -15,7 +15,6 @@ public struct ZombieType
             case EnemyType.Grounder: enemy = new GroundEnemy(); break;
             case EnemyType.Flyer: Debug.Log("Flyer"); break;
             case EnemyType.LongRange: Debug.Log("LongRange"); break;
-
         }
         return enemy;
     }

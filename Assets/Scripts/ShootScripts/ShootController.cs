@@ -22,10 +22,10 @@ public class ShootController : MonoBehaviour
     }
     private void Start()
     {
-        maxBullet = weapon.bulletMax;
-        reloadTime = weapon.realodTime;
-        damage = weapon.damage;
-        transform.parent.GetComponent<SpriteRenderer>().sprite = weapon.iconOfWeapon;
+        //maxBullet = weapon.bulletMax;
+        //reloadTime = weapon.realodTime;
+        //damage = weapon.damage;
+        //transform.parent.GetComponent<SpriteRenderer>().sprite = weapon.weaponSprite;
         isReload = false;
         currBullet = maxBullet;
     }
@@ -42,13 +42,14 @@ public class ShootController : MonoBehaviour
     {
         if (currBullet > 0)
         {
-            GameObject bullet = BulletPool.Instance.GetPoolObject();
+            BulletBehaivior bullet = BulletPool.Instance.GetPoolObject();
 
             if (bullet != null)
             {
+                //.GetComponent<SpriteRenderer>().sprite = weapon.bulletSprite;
                 bullet.transform.position = transform.position;
-                bullet.SetActive(true);
-                bullet.GetComponent<BulletBehaivior>().Activate();
+                bullet.gameObject.SetActive(true);
+                bullet.Activate();
                 currBullet--;
             }
         }

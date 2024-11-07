@@ -6,8 +6,8 @@ public class BulletPool : MonoBehaviour
 {
     public static BulletPool Instance;
     [SerializeField] private int amountBullet;
-    [SerializeField] private GameObject bulletPrefab;
-    private List<GameObject> pooledObjects = new List<GameObject>();
+    [SerializeField] private BulletBehaivior bulletPrefab;
+    private List<BulletBehaivior> pooledObjects = new List<BulletBehaivior>();
 
     void Awake()
     {
@@ -24,19 +24,19 @@ public class BulletPool : MonoBehaviour
     {
         for (int i =0; i < amountBullet; i++)
         {
-            GameObject obj = Instantiate(bulletPrefab);
-            obj.SetActive(false);
+            BulletBehaivior obj = Instantiate(bulletPrefab);
+            obj.gameObject.SetActive(false);
             pooledObjects.Add(obj);
         }
     }
 
-    public GameObject GetPoolObject()
+    public BulletBehaivior GetPoolObject()
     {
         for(int i =0; i < pooledObjects.Count; i++)
         {
-            if (!pooledObjects[i].activeInHierarchy)
+            if (!pooledObjects[i].gameObject.activeInHierarchy)
             {
-                pooledObjects[i].SetActive(true);
+                pooledObjects[i].gameObject.SetActive(true);
                 return pooledObjects[i];
             }
         }

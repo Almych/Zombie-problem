@@ -3655,12 +3655,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombie:
-  - zombieType: {fileID: 5386122215824703077, guid: 315459d967b331d488302a8a8d1da795, type: 3}
-    amount: 4
+  - zombieType: {fileID: 1432613643587085099, guid: 5c83e945a5c9cbd49874f76088044dd8, type: 3}
+    amount: 6
   - zombieType: {fileID: 8206604991220337049, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-    amount: 6
-  - zombieType: {fileID: 2989823585609656302, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
-    amount: 6
+    amount: 3
   zombiePool: {fileID: 2147420718}
 --- !u!1 &1543175440
 GameObject:
@@ -4939,7 +4937,7 @@ Transform:
   m_GameObject: {fileID: 1789682950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.8, y: 1.03, z: 0.06419717}
+  m_LocalPosition: {x: 7.06, y: 3.96, z: 0.06419717}
   m_LocalScale: {x: 0.40146583, y: 0.42340448, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5393,7 +5391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ebf644bb0a51745bd85bd44807f112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: c98e29889ac41d646bb63858cfc8dcfd, type: 2}
+  weapon: {fileID: 3180195550734822961, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
 --- !u!1 &2147420715
 GameObject:
   m_ObjectHideFlags: 0
@@ -5428,7 +5426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amountBullet: 4
-  bulletPrefab: {fileID: 5170232100306059945, guid: 38cff01685507f841b37fe8b6f557850, type: 3}
+  bulletPrefab: {fileID: -5172892700674193956, guid: 38cff01685507f841b37fe8b6f557850, type: 3}
 --- !u!4 &2147420717
 Transform:
   m_ObjectHideFlags: 0
@@ -5603,6 +5601,63 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1512099664}
   m_SourcePrefab: {fileID: 100100000, guid: fbf40e1bcfd77824fa1ff02cbcd813e3, type: 3}
+--- !u!1001 &5976514057449673609
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7657686637151641132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_Name
+      value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410370876009648132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.735227
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410370876009648132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.817115
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410370876009648132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410370876009648132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410370876009648132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410370876009648132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410370876009648132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410370876009648132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410370876009648132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410370876009648132, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7ac7df0a0314085418d432d4e70e4843, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5616,3 +5671,4 @@ SceneRoots:
   - {fileID: 1010251579}
   - {fileID: 1790683772}
   - {fileID: 1543175442}
+  - {fileID: 5976514057449673609}

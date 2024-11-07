@@ -9,6 +9,7 @@ public enum EnemyType
     Flyer,
     LongRange
 };
+
 public abstract class Enemy : MonoBehaviour, IDamagable, IAttackable
 { 
     public event Action OnDamage;

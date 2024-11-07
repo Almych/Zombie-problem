@@ -6,11 +6,6 @@ public class WeaponController : MonoBehaviour
 {
     [SerializeField] private Weapon weapon;
 
-    private void Start()
-    {
-      
-    }
-
     public void ShootAnim()
     {
         

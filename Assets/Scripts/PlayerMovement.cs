@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private Inventory inventory;
     private Rigidbody2D rb;
     private Vector2 move;
     private bool isShooting, isMove;

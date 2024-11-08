@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31422cc9e259392448d060c66361f586, type: 3}
+  m_Name: FlashGranade
+  m_EditorClassIdentifier: 
+  type: 1
+  prefab: {fileID: 5170232100306059945, guid: 38cff01685507f841b37fe8b6f557850, type: 3}
+  description: Flash granade is the granade which can flash some enemies and stun
+    them for the certain time
+  throwDistance: 3
+  radius: 5
+  effectTime: 5

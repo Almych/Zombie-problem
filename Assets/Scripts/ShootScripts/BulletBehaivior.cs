@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody2D))]
 public class BulletBehaivior : MonoBehaviour
 {
     private float speedBullet = 20f;
     private Rigidbody2D rb;
     private bool isTriggered;
+    private float damage;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -18,6 +20,11 @@ public class BulletBehaivior : MonoBehaviour
     {
         rb.velocity = transform.right * speedBullet;
         isTriggered = false;
+    }
+
+    public float DamageOFBullet(float damage)
+    {
+        return this.damage = damage;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)   
@@ -34,7 +41,7 @@ public class BulletBehaivior : MonoBehaviour
 
             Deactivate();
             var zombie = collision.GetComponent<Enemy>();
-            zombie.GetDamage((int)ShootController.instance.damage);
+            zombie.GetDamage(damage);
             collision.GetComponent<SpriteRenderer>().color = Color.red;
         }
         else if (collision.GetComponent<SpawnerOfZombies>()!= null)

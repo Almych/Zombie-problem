@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FlashGranade
   m_EditorClassIdentifier: 
   type: 1
-  prefab: {fileID: 5170232100306059945, guid: 38cff01685507f841b37fe8b6f557850, type: 3}
+  prefab: {fileID: -88863916, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   description: Flash granade is the granade which can flash some enemies and stun
     them for the certain time
   throwDistance: 3

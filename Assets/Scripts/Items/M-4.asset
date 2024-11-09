@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: M-4
   m_EditorClassIdentifier: 
   type: 1
-  prefab: {fileID: 7089803634709335574, guid: 17917d4cd4f234e4ab0677dd5fb59242, type: 3}
+  prefab: {fileID: 1508274879, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   description: M-4 granade is a simple granade type for clean your way from many
     unarmored enemies
   throwDistance: 3

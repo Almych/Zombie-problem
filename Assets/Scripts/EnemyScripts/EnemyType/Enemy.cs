@@ -17,10 +17,10 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IAttackable
     protected event OnDeath OnDeathAddition;
     public static event OnDeath OnCoinSpawn;
     [SerializeField] protected int maxHealth;
-    [SerializeField] protected int damage;
+    [SerializeField] protected float damage;
     [SerializeField] protected float speed;
     [SerializeField] protected float attackCoolDown;
-    protected int currHealth;
+    protected float currHealth;
     protected Animator animator;
     protected Rigidbody2D rb;
     protected bool isAttacking, isDead;
@@ -42,7 +42,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable, IAttackable
             yield return new WaitForSeconds(attackCoolDown);
         }
     }
-    public void GetDamage(int damage)
+    public void GetDamage(float damage)
     {
         currHealth -= damage;
         OnDamage?.Invoke();

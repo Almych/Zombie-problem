@@ -25,6 +25,6 @@ public interface IAttackable
 
 public interface IDamagable
 {
-    public void GetDamage(int damage);
+    public void GetDamage(float damage);
    
 }

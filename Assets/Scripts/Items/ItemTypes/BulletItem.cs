@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletItem : ItemObject
 {
     public int amountBullet;
-    public Weapon weaponType;
+    public MelliGun weaponType;
 
 
     private void Awake()

@@ -5,7 +5,7 @@ using TMPro;
 public class InventoryDraw : MonoBehaviour
 {
     public Inventory inventory;
-
+    public GameObject slotUi;
     public int spacesBetweenX;
     public int spacesBetweenY;
     public int collumnsSpaces;

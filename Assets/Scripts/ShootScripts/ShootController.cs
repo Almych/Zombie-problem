@@ -6,6 +6,7 @@ public class ShootController : MonoBehaviour
 {
     public static event Action OnShootAnimate;
     public Weapon weapon;
+    private WeaponManager weaponManager;
     //public static ShootController instance;
     //private int maxBullet;
     //private float reloadTime;
@@ -28,16 +29,18 @@ public class ShootController : MonoBehaviour
         //transform.parent.GetComponent<SpriteRenderer>().sprite = weapon.weaponSprite;
         //isReload = false;
         //currBullet = maxBullet;
-      
+        weaponManager = new WeaponManager(weapon, transform.parent.GetComponent<SpriteRenderer>().sprite);      
     }
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Space))
-    //    {
-    //        //Fire();
-    //        //OnShootAnimate?.Invoke();
-    //    }
-    //}
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (weaponManager!= null)
+            {
+                weaponManager.currentWeaponController.Attack();
+            }
+        }
+    }
 
     //private void Fire()
     //{
@@ -58,7 +61,7 @@ public class ShootController : MonoBehaviour
     //    {
     //        StartCoroutine(Reload());
     //    }
-        
+
     //}
 
     //private IEnumerator Reload()

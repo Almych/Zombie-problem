@@ -2,16 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponManager : MonoBehaviour
+public class WeaponManager 
 {
-    public WeaponManager(MelliGun melliGun = default, ColdWeapon cold = default)
+    public WeaponController currentWeaponController { get; private set; }
+    public WeaponManager(Weapon weapon, Sprite hand)
     {
-        if (cold != null)
+        if (weapon is ColdWeapon coldWeapon)
         {
-            ColdWeaponController coldController = new(cold);
-        }else
+            currentWeaponController = new ColdWeaponController(coldWeapon);
+        }
+        else if (weapon is MelliGun melliGun)
         {
-            MelliWeaponController melliWeaponController = new(melliGun);
+            currentWeaponController = new MelliWeaponController(melliGun, hand);
+        }
+        else
+        {
+            Debug.LogError("Weapon type is not recognized!");
         }
     }
+    
+    
 }

@@ -5,9 +5,11 @@ using UnityEngine;
 
 public abstract class WeaponController : MonoBehaviour
 {
-    protected abstract void  Attack();
+    public abstract void  Attack();
 
-    protected abstract IEnumerator Reload();
+    public abstract IEnumerator Reload();
+
+   
 }
 
 public class ColdWeaponController : WeaponController
@@ -24,7 +26,9 @@ public class ColdWeaponController : WeaponController
         isTired = false;
     }
 
-    protected override void Attack()
+    
+
+    public override void Attack()
     {
         if (!isTired)
         {
@@ -36,7 +40,7 @@ public class ColdWeaponController : WeaponController
         }
     }
 
-    protected override IEnumerator Reload()
+    public override IEnumerator Reload()
     {
         yield return new WaitForSeconds(coldWeapon.hitTime);
         currHitAmount = coldWeapon.maxHitAmount;
@@ -50,15 +54,17 @@ public class MelliWeaponController : WeaponController
     private bool hasAmmo;
     private int currBulletAmount;
 
-   
-    public MelliWeaponController(MelliGun melli)
+
+
+    public MelliWeaponController(MelliGun melli, Sprite weapon)
     {
         melliGun = melli;
+        weapon = melli.weaponIcon;
         if (melliGun.totalBulletAmount > 0)
         currBulletAmount = melliGun.maxBullets;
     }
 
-    protected override void Attack()
+    public override void Attack()
     {
         var bullet = BulletPool.Instance.GetPoolObject();
         bullet.DamageOFBullet(melliGun.damage);
@@ -78,7 +84,7 @@ public class MelliWeaponController : WeaponController
         }
     }
 
-    protected override IEnumerator Reload()
+    public override IEnumerator Reload()
     {
         yield return new WaitForSeconds(melliGun.reloadTime);
         if (melliGun.totalBulletAmount <=0)

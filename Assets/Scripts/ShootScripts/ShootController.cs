@@ -1,74 +1,50 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShootController : MonoBehaviour
 {
     public static event Action OnShootAnimate;
     public Weapon weapon;
-    private WeaponManager weaponManager;
-    //public static ShootController instance;
-    //private int maxBullet;
-    //private float reloadTime;
-    //public float damage { get; private set; }
-    //private bool isReload;
-    //private int currBullet;
+    private WeaponController controller;
 
-    //private void Awake()
-    //{
-    //    if (instance == null)
-    //    {
-    //        instance = this;
-    //    }
-    //}
-    private void Start()
+    void Start()
     {
-        //maxBullet = weapon.bulletMax;
-        //reloadTime = weapon.realodTime;
-        //damage = weapon.damage;
-        //transform.parent.GetComponent<SpriteRenderer>().sprite = weapon.weaponSprite;
-        //isReload = false;
-        //currBullet = maxBullet;
-        weaponManager = new WeaponManager(weapon, transform.parent.GetComponent<SpriteRenderer>().sprite);      
+        controller = GetWeaponController(weapon);
+        GetComponent<SpriteRenderer>().sprite = controller.TakeWeapon();
     }
-    void Update()
+
+    private WeaponController GetWeaponController(Weapon weapon)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (weapon is ColdWeapon cold)
         {
-            if (weaponManager!= null)
-            {
-                weaponManager.currentWeaponController.Attack();
-            }
+            ColdWeaponController coldWeaponController = gameObject.AddComponent<ColdWeaponController>();
+            coldWeaponController.Initialize(cold);
+            return coldWeaponController;
+        }
+        else if (weapon is MelliGun melli)
+        {
+            MelliWeaponController melliWeaponController = gameObject.AddComponent<MelliWeaponController>();
+            melliWeaponController.Initialize(melli);
+            return melliWeaponController;
+        }
+        else
+        {
+            return null;
         }
     }
 
-    //private void Fire()
-    //{
-    //    if (currBullet > 0)
-    //    {
-    //        BulletBehaivior bullet = BulletPool.Instance.GetPoolObject();
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && controller.canCall)
+        {
+            Debug.Log("Called");
+            controller.Attack();
+            //OnShootAnimate?.Invoke();
+        }
+    }
 
-    //        if (bullet != null)
-    //        {
-    //            //.GetComponent<SpriteRenderer>().sprite = weapon.bulletSprite;
-    //            bullet.transform.position = transform.position;
-    //            bullet.gameObject.SetActive(true);
-    //            bullet.Activate();
-    //            currBullet--;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        StartCoroutine(Reload());
-    //    }
+   
 
-    //}
-
-    //private IEnumerator Reload()
-    //{
-    //    isReload=true;
-    //    yield return new WaitForSeconds(reloadTime);
-    //    currBullet = maxBullet;
-    //    isReload=false;
-    //}
 }

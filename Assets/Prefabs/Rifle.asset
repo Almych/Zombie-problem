@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b04448575a0ba7c47bda88ae2f5a9714, type: 3}
-  m_Name: Ak-47
+  m_Name: Rifle
   m_EditorClassIdentifier: 
-  damage: 7
-  weaponIcon: {fileID: -1455835878, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
-  reloadTime: 2
+  damage: 10
+  weaponIcon: {fileID: 1775381047, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
+  reloadTime: 1.5
   maxBullets: 6
-  bulletSprite: {fileID: -588824693, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
-  totalBulletAmount: 100
+  bulletSprite: {fileID: 1055948628, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
+  totalBulletAmount: 30

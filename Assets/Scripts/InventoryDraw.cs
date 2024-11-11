@@ -24,7 +24,10 @@ public class InventoryDraw : MonoBehaviour
         {
             var obj = Instantiate(slotUi, Vector3.zero, Quaternion.identity, transform);
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
-            obj.transform.GetChild(0).GetComponent<Image>().sprite = inventory.slots[i].item.prefab;
+            var content = obj.transform.GetChild(0);
+            content.GetComponent<Image>().sprite = inventory.slots[i].item.prefab;
+            content.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventory.slots[i].amount.ToString("n0");
+
             //obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.slots[i].amount.ToString("n0");
         }
     }

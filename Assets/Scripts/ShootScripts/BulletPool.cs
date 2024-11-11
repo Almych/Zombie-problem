@@ -20,11 +20,12 @@ public class BulletPool : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void BulletInitialize(Sprite sprite)
     {
         for (int i =0; i < amountBullet; i++)
         {
             BulletBehaivior obj = Instantiate(bulletPrefab);
+            obj.GetComponent<SpriteRenderer>().sprite = sprite;
             obj.gameObject.SetActive(false);
             pooledObjects.Add(obj);
         }

@@ -26,9 +26,9 @@ public class InventoryDraw : MonoBehaviour
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
             var content = obj.transform.GetChild(0);
             content.GetComponent<Image>().sprite = inventory.slots[i].item.prefab;
+            //if (inventory.slots[i].item.GetComponent<IItemThrowable>() != null ) 
+            //content.GetComponent<Button>().onClick.AddListener(inventory.slots[i].item.GetComponent<IItemThrowable>().Throw);
             content.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventory.slots[i].amount.ToString("n0");
-
-            //obj.GetComponentInChildren<TextMeshProUGUI>().text = inventory.slots[i].amount.ToString("n0");
         }
     }
 

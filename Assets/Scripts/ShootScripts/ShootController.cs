@@ -39,9 +39,7 @@ public class ShootController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && controller.canCall)
         {
-            Debug.Log("Called");
             controller.Attack();
-            //OnShootAnimate?.Invoke();
         }
     }
 

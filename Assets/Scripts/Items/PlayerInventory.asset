@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
   slots:
-  - item: {fileID: 11400000, guid: 9ed7894e081d509498a5660c11b8241d, type: 2}
-    amount: 2
-  - item: {fileID: 11400000, guid: 7c6090bf0b8e40a48a0e355fdfa8dfe5, type: 2}
-    amount: 2
   - item: {fileID: 11400000, guid: de5f86a5f65938444b75af5e4a90392d, type: 2}
+    amount: 2
+  - item: {fileID: 11400000, guid: f6c8585be63124b42891f9f4e5dbf8ca, type: 2}
     amount: 2

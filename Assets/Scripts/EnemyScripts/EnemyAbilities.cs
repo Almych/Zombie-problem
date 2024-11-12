@@ -17,14 +17,3 @@ public interface IAttackOnce
 {
     public void AttackOnce();
 }
-
-public interface IAttackable
-{
-    public void Attack(HealthBar damage);
-}
-
-public interface IDamagable
-{
-    public void GetDamage(float damage);
-   
-}

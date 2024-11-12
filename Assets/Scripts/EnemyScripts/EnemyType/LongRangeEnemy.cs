@@ -10,10 +10,10 @@ using UnityEngine;
 
     public class LongRangeEnemy : Enemy, IDiagnolMovable
     {
-    public LayerMask barrier;
-    [SerializeField] private float distance;
-    private bool isCheckingTarget = false;
-    private RaycastHit2D hit;
+        public LayerMask barrier;
+        [SerializeField] private float distance;
+        private bool isCheckingTarget = false;
+        private RaycastHit2D hit;
 
    
 

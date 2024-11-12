@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "New AimItem", menuName = "ItemMenu/Items/Granades")]
-public abstract class GranadeItem : ItemObject
+public class GranadeItem : ItemObject
 {
-    public float throwDistance;
-    public float radius;
+    [SerializeField] protected Granade granade;
 
     private void Awake()
     {
         type = ItemType.Granade;
     }
+   
 }

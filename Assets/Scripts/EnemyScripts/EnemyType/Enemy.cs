@@ -10,7 +10,7 @@ public enum EnemyType
     LongRange
 };
 
-public abstract class Enemy : MonoBehaviour, IDamagable, IAttackable
+public abstract class Enemy : MonoBehaviour
 { 
     public event Action OnDamage;
     public delegate void OnDeath();

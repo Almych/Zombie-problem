@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class WeaponController : MonoBehaviour
 {
-    public bool canCall;
+    public Sprite sprite;
     public abstract void Attack();
     public abstract IEnumerator Reload();
 
@@ -22,7 +22,7 @@ public class ColdWeaponController : WeaponController
     private Enemy enemy;
     public void Initialize(ColdWeapon cold)
     {
-        canCall = true;
+        sprite = cold.weaponIcon;
         coldWeapon = cold;
         currHitAmount = coldWeapon.maxHitAmount;
         isTired = false;
@@ -38,7 +38,6 @@ public class ColdWeaponController : WeaponController
         }
         else
         {
-            canCall = false;
             StartCoroutine(Reload());
         }
     }
@@ -47,7 +46,7 @@ public class ColdWeaponController : WeaponController
     {
         if (collision.GetComponent<Enemy>() != null)
         {
-            Debug.Log("enemy");
+            //Debug.Log("enemy");
             isEnemy = true;
            enemy = collision.GetComponent<Enemy>();
         }
@@ -57,7 +56,7 @@ public class ColdWeaponController : WeaponController
     {
         if (collision.GetComponent<Enemy>() != null)
         {
-            Debug.Log("no enemy");
+            //Debug.Log("no enemy");
             isEnemy = false;
             enemy = null;
         }
@@ -68,8 +67,6 @@ public class ColdWeaponController : WeaponController
         yield return new WaitForSeconds(coldWeapon.hitTime);
         currHitAmount = coldWeapon.maxHitAmount;
         isTired = false;
-        canCall = true;
-        Debug.Log("Cold Weapon reloaded!");
     }
 
     public override Sprite TakeWeapon()
@@ -87,7 +84,7 @@ public class MelliWeaponController : WeaponController
     public void Initialize(MelliGun melli)
     {
         melliGun = melli;
-        BulletPool.Instance.BulletInitialize(melliGun.bulletSprite);
+        sprite = melli.weaponIcon;
         CheckBullets();
     }
 
@@ -101,7 +98,7 @@ public class MelliWeaponController : WeaponController
             {
                 bullet.DamageOFBullet(melliGun.damage);
                 bullet.transform.position = transform.position;
-                bullet.Activate();
+                bullet.Activate(melliGun.bulletSprite);
                 currBulletAmount--;
                 if (currBulletAmount <= 0)
                 {
@@ -116,7 +113,6 @@ public class MelliWeaponController : WeaponController
             else
             {
                 Debug.Log("run out of bullets");
-                canCall = false;
             }
         }
        
@@ -124,7 +120,6 @@ public class MelliWeaponController : WeaponController
 
     public override IEnumerator Reload()
     {
-        canCall = false;
         yield return new WaitForSeconds(melliGun.reloadTime);
         CheckBullets(); 
     }
@@ -142,8 +137,7 @@ public class MelliWeaponController : WeaponController
             currBulletAmount = melliGun.totalBulletAmount;
             melliGun.totalBulletAmount = 0;
             hasAmmo = true;
-        }
-        canCall = true;
+        };
     }
     public override Sprite TakeWeapon()
     {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Inventory : ScriptableObject
 {
     public  List<InventorySlot> slots = new List<InventorySlot>();
+    public Weapon[] weaponSlots = new Weapon[2]; 
     public void AddSlot(ItemObject _item, int _amount)
     {
        bool inInventory = false;
@@ -23,6 +24,7 @@ public class Inventory : ScriptableObject
             slots.Add(new InventorySlot(_item, _amount));
         }
     }
+
 }
 
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -80,6 +81,7 @@ public class MelliWeaponController : WeaponController
     private MelliGun melliGun;
     private int currBulletAmount = 0;
     private bool hasAmmo = false;
+   
 
     public void Initialize(MelliGun melli)
     {

@@ -13,8 +13,8 @@ public enum EnemyType
 public abstract class Enemy : MonoBehaviour
 { 
     public event Action OnDamage;
-    public delegate void OnDeath();
-    protected event OnDeath OnDeathAddition;
+    public delegate void OnDeath(Vector3 position);
+    protected event Action OnDeathAddition;
     public static event OnDeath OnCoinSpawn;
     [SerializeField] protected int maxHealth;
     [SerializeField] protected float damage;
@@ -56,7 +56,7 @@ public abstract class Enemy : MonoBehaviour
     protected void Death ()
     {
         StartCoroutine(Die());
-        OnCoinSpawn?.Invoke();
+        OnCoinSpawn?.Invoke(transform.position);
     }
     public abstract void Initiate();
     

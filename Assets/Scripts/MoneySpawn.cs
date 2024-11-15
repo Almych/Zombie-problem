@@ -37,7 +37,7 @@ public class MoneySpawn : MonoBehaviour
             collision.GetComponent<CoinTake>().gameObject.SetActive(false);
         }
     }
-    public void SpawnCoin()
+    public void SpawnCoin(Vector3 pos)
     {
         var amount = UnityEngine.Random.Range(0, 2);
         for (int i = 0; i < amount; i++)
@@ -45,7 +45,7 @@ public class MoneySpawn : MonoBehaviour
             CoinTake coin = coinPool.GetCoin();
             if (coin != null)
             {
-                //coin.transform.position = pos;
+                coin.transform.position = pos;
                 coin.gameObject.SetActive(true);
                 StartCoroutine(coin.CoinCollect());
             }

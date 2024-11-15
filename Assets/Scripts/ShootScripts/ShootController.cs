@@ -2,13 +2,24 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShootController : MonoBehaviour
 {
+    public static ShootController Instance;
+    public UnityEvent onItemUse;
     [SerializeField] private Inventory inventory;
     public static event Action OnShootAnimate;
     private WeaponController controller;
-    private WeaponController[] weaponControllers ;
+    private WeaponController[] weaponControllers;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
     void Start()
     {
         weaponControllers = new WeaponController[inventory.weaponSlots.Length];
@@ -69,6 +80,9 @@ public class ShootController : MonoBehaviour
         {
             ChangeWeapon(ref controller);
         }
+
+
+
     }
 
    

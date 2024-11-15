@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New AimItem", menuName = "ItemMenu/Items/Granades")]
 public class GranadeItem : ItemObject
 {
-    [SerializeField] protected Granade granade;
+    public Granade granade;
 
     private void Awake()
     {

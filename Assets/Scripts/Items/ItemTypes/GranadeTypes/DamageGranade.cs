@@ -5,6 +5,7 @@ using UnityEngine;
 public class DamageGranade : Granade, IItemDamagable
 {
     [SerializeField] protected float damage;
+    private bool isHoldGranade = false;
     public void MakeDamage()
     {
        var colliders = Physics2D.CircleCastAll(transform.localPosition, radius, Vector2.zero);
@@ -14,13 +15,24 @@ public class DamageGranade : Granade, IItemDamagable
             if (colliders[i].collider.GetComponent<Enemy>() != null)
             {
                 colliders[i].collider.GetComponent<Enemy>().GetDamage(damage);
+                gameObject.SetActive(false);
             }
         }
-        gameObject.SetActive(false);
     }
 
     public override void Throw()
     {
-        MakeDamage();
+        if (isHoldGranade)
+        {
+            isHoldGranade = false;
+            ShootController.Instance.onItemUse.RemoveListener(MakeDamage);
+            Debug.Log("Empty hand");
+        }
+        else
+        {
+            isHoldGranade = true;
+            Debug.Log("Holding granade");
+            ShootController.Instance.onItemUse.AddListener(MakeDamage);
+        }
     }
 }

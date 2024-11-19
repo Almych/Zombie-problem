@@ -7,10 +7,9 @@ public class WeaponItem : ItemObject
     [SerializeField] protected Weapon weapon;
     private void Awake()
     {
-        if (weapon is MelliGun melli)
+        if (weapon is MelliWeapon melli)
         {
-            
+            type = ItemType.Weapon;
         }
-        type = ItemType.Weapon;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ public abstract class WeaponController : MonoBehaviour
     public abstract void Attack();
     public abstract IEnumerator Reload();
 
-    public abstract Sprite TakeWeapon();
+    public abstract Weapon GetWeapon();
 }
 
 public class ColdWeaponController : WeaponController
@@ -47,7 +48,6 @@ public class ColdWeaponController : WeaponController
     {
         if (collision.GetComponent<Enemy>() != null)
         {
-            //Debug.Log("enemy");
             isEnemy = true;
            enemy = collision.GetComponent<Enemy>();
         }
@@ -57,7 +57,6 @@ public class ColdWeaponController : WeaponController
     {
         if (collision.GetComponent<Enemy>() != null)
         {
-            //Debug.Log("no enemy");
             isEnemy = false;
             enemy = null;
         }
@@ -70,29 +69,31 @@ public class ColdWeaponController : WeaponController
         isTired = false;
     }
 
-    public override Sprite TakeWeapon()
+    public override Weapon GetWeapon()
     {
-        return coldWeapon.weaponIcon;
+        return coldWeapon;
     }
 }
 
 public class MelliWeaponController : WeaponController
 {
-    private MelliGun melliGun;
+    public static EventHandler<int> OnShootBulletShow;
+    public MelliWeapon melliGun { get; private set; }
     private int currBulletAmount = 0;
     private bool hasAmmo = false;
-   
 
-    public void Initialize(MelliGun melli)
+    public void Initialize(MelliWeapon melli)
     {
         melliGun = melli;
         sprite = melli.weaponIcon;
+        melli.totalBulletUi = melli.totalBulletAmount;
         CheckBullets();
     }
 
 
     public override void Attack()
     {
+
         if (hasAmmo)
         {
             var bullet = BulletPool.Instance.GetPoolObject();
@@ -102,6 +103,9 @@ public class MelliWeaponController : WeaponController
                 bullet.transform.position = transform.position;
                 bullet.Activate(melliGun.bulletSprite);
                 currBulletAmount--;
+                melliGun.TotalBullets--;
+                melliGun.totalBulletUi--;
+                OnShootBulletShow?.Invoke(this, melliGun.totalBulletUi);
                 if (currBulletAmount <= 0)
                 {
                     hasAmmo = false;
@@ -141,8 +145,9 @@ public class MelliWeaponController : WeaponController
             hasAmmo = true;
         };
     }
-    public override Sprite TakeWeapon()
+
+    public override Weapon GetWeapon()
     {
-        return melliGun.weaponIcon;
+       return melliGun;
     }
 }

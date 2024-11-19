@@ -20,12 +20,12 @@ public class View : MonoBehaviour
 
     private void OnEnable()
     {
-        HealthBar.OnHealthChanged += View.Instance.HealthBarUpdate;
+        HealthBar.OnHealthChanged +=HealthBarUpdate;
     }
 
     private void OnDisable()
     {
-        HealthBar.OnHealthChanged -= View.Instance.HealthBarUpdate;
+        HealthBar.OnHealthChanged -=HealthBarUpdate;
     }
 
     public void ZombieLeft(float value, float maxValue)

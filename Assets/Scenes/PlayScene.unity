@@ -3876,6 +3876,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ebf644bb0a51745bd85bd44807f112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onItemUse:
+    m_PersistentCalls:
+      m_Calls: []
   inventory: {fileID: 11400000, guid: c9ad40dc178a0a14ca8c7e3f20a529d5, type: 2}
 --- !u!1 &1645918226
 GameObject:

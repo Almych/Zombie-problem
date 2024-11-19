@@ -31,6 +31,7 @@ public class ShootController : MonoBehaviour
         controller = weaponControllers[0];
         controller.enabled = true;
         GetComponent<SpriteRenderer>().sprite = controller.sprite;
+       
     }
 
     private WeaponController GetWeaponController(Weapon weapon)
@@ -41,7 +42,7 @@ public class ShootController : MonoBehaviour
             coldWeaponController.Initialize(cold);
             return coldWeaponController;
         }
-        else if (weapon is MelliGun melli)
+        else if (weapon is MelliWeapon melli)
         {
             MelliWeaponController melliWeaponController = gameObject.AddComponent<MelliWeaponController>();
             melliWeaponController.Initialize(melli);
@@ -53,16 +54,16 @@ public class ShootController : MonoBehaviour
         }
     }
 
-    public void ChangeWeapon(ref WeaponController currentWeapon)
+    public void ChangeWeapon(ref WeaponController currentController)
     {
 
         for (int i = 0; i < weaponControllers.Length; i++)
         {
-            if (currentWeapon != weaponControllers[i])
+            if (currentController != weaponControllers[i])
             {
-                currentWeapon.enabled = false;
+                currentController.enabled = false;
                 weaponControllers[i].enabled = true;
-                currentWeapon = weaponControllers[i];
+                currentController = weaponControllers[i];
                 GetComponent<SpriteRenderer>().sprite = controller.sprite;
                 break;
             }
@@ -81,10 +82,8 @@ public class ShootController : MonoBehaviour
             ChangeWeapon(ref controller);
         }
 
-
-
     }
 
-   
+
 
 }

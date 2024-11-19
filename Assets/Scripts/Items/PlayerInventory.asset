@@ -19,4 +19,4 @@ MonoBehaviour:
     amount: 2
   weaponSlots:
   - {fileID: 11400000, guid: 48472d939b1452743a081ccb6c9387b4, type: 2}
-  - {fileID: 11400000, guid: 45a5ea2dd92a6f54c95dbdf82534ba5a, type: 2}
+  - {fileID: 11400000, guid: e13260d9e8b408a4282efe8ebf57ebc9, type: 2}

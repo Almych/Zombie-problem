@@ -44,7 +44,6 @@ using UnityEngine;
    
     private async Task SpitPoisen()
     {
-            Debug.Log("fdf");
             rb.velocity = Vector2.zero;
             var bullet = EnemyBulletPool.instance.GetBullet();
             animator.SetBool("isAttacking", isAttacking);

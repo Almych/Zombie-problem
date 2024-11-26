@@ -9,6 +9,7 @@ using UnityEngine;
 public abstract class WeaponController : MonoBehaviour
 {
     public Sprite sprite;
+    public Weapon weapon { get; private set; }
     public abstract void Attack();
     public abstract IEnumerator Reload();
 
@@ -17,7 +18,7 @@ public abstract class WeaponController : MonoBehaviour
 
 public class ColdWeaponController : WeaponController
 {
-    private ColdWeapon coldWeapon;
+    public ColdWeapon coldWeapon { get; private set; }
     private int currHitAmount;
     private bool isTired;
     private bool isEnemy = false;
@@ -77,8 +78,7 @@ public class ColdWeaponController : WeaponController
 
 public class MelliWeaponController : WeaponController
 {
-    public static EventHandler<int> OnShootBulletShow;
-    public MelliWeapon melliGun { get; private set; }
+    private MelliWeapon melliGun;
     private int currBulletAmount = 0;
     private bool hasAmmo = false;
 
@@ -86,7 +86,6 @@ public class MelliWeaponController : WeaponController
     {
         melliGun = melli;
         sprite = melli.weaponIcon;
-        melli.totalBulletUi = melli.totalBulletAmount;
         CheckBullets();
     }
 
@@ -103,9 +102,8 @@ public class MelliWeaponController : WeaponController
                 bullet.transform.position = transform.position;
                 bullet.Activate(melliGun.bulletSprite);
                 currBulletAmount--;
-                melliGun.TotalBullets--;
-                melliGun.totalBulletUi--;
-                OnShootBulletShow?.Invoke(this, melliGun.totalBulletUi);
+                melliGun.totalBullets--;
+                melliGun.TotalAmount--;
                 if (currBulletAmount <= 0)
                 {
                     hasAmmo = false;

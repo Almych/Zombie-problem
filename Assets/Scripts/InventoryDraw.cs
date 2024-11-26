@@ -4,6 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class InventoryDraw : MonoBehaviour
 {
@@ -16,16 +19,17 @@ public class InventoryDraw : MonoBehaviour
     public int collumnsSpaces;
     private int currentBulletAmount;
     private MelliWeapon melliEx;
-    private List<MelliWeapon> guns = new List<MelliWeapon>();
-    private List<TextMeshProUGUI> amount = new List<TextMeshProUGUI>();
+    private Dictionary<MelliWeapon, TextMeshProUGUI> weaponBulletUi = new Dictionary<MelliWeapon, TextMeshProUGUI>();
+    private float valueB;
+    
     private void Start()
     {
-        CreateDisplay(); 
+        CreateDisplay();
 
-        for (int i = 0; i < guns.Count; i ++)
+        var keys = weaponBulletUi.Keys.ToList();
+        for (int i = 0; i < keys.Count; i++)
         {
-            Debug.Log(guns[i]);
-           
+            keys[i].onShootAmount = ReadFloat;
         }
     }
 
@@ -54,35 +58,50 @@ public class InventoryDraw : MonoBehaviour
             if (inventory.weaponSlots[i] is MelliWeapon melli)
             {
               var gun = content.GetChild(0).GetComponent<TextMeshProUGUI>();
-                gun.text= melli.totalBulletUi.ToString("n0");
+                gun.text= melli.totalBullets.ToString("n0");
                 melliEx = melli;
-                guns.Add(melli);
-                amount.Add(gun);
+                weaponBulletUi[melli] = gun;
             }
         }
     }
 
-    private void OnEnable()
-    {
-        for (int i = 0; i < guns.Count; i++)
-        {
-            Debug.Log(guns[i]);
-            guns[i].onShootAmount += ReturnFloat;
-        }
-    }
+   
 
     private void OnDisable()
     {
-        for (int i = 0; i < guns.Count; i++)
+        var keys = weaponBulletUi.Keys.ToList();
+        var values = weaponBulletUi.Values.ToList();
+        for (int i = 0; i < keys.Count; i++)
         {
-            guns[i].onShootAmount -=  ReturnFloat;
+            keys[i].onShootAmount -= ReadFloat;
         }
     }
-    private int ReturnFloat( int value)
+
+    private async void ReadFloat(float bullet, MelliWeapon weapon)
     {
-        Debug.Log("fgffgf");
-        return value;
+        TextMeshProUGUI result = null;
+        await Task.Run(() => {result = CheckWeaponBullet(weapon); });
+        if (result != null)
+        {
+            result.text = bullet.ToString("n0");
+        }
+        Debug.Log(result);
     }
+
+    private TextMeshProUGUI CheckWeaponBullet(MelliWeapon weapon)
+    {
+        var keys = weaponBulletUi.Keys.ToList();
+        var values = weaponBulletUi.Values.ToList();
+        for (int i = 0; i < keys.Count; ++i)
+        {
+            if (keys[i] == weapon)
+            {
+                return values[i];
+            }
+        }
+        return null;
+    }
+
     private Vector3 GetPosition(int startXPosition, int i)
     {
         return new Vector3(startXPosition + spacesBetweenX * (i % collumnsSpaces), 0f, 0f);

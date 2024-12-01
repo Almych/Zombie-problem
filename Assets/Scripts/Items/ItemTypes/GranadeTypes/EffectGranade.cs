@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 //[CreateAssetMenu(fileName = "New AimItem", menuName = "ItemMenu/Items/Granades/EffectGranade")]
-public class EffectGranade : Granade, IItemEffectable
+public class EffectGranade : Granade
 {
-    public float effectTime;
+    [SerializeField] private float effectTime;
 
-    public void Effect()
+    private void Effect()
     {
         Debug.Log("Froze");
     }

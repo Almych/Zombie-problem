@@ -29,7 +29,7 @@ public class InventoryDraw : MonoBehaviour
         var keys = weaponBulletUi.Keys.ToList();
         for (int i = 0; i < keys.Count; i++)
         {
-            keys[i].onShootAmount = ReadFloat;
+            keys[i].onShootAmount = ShowBulletAmount;
         }
     }
 
@@ -64,8 +64,9 @@ public class InventoryDraw : MonoBehaviour
             }
         }
     }
+    
 
-   
+
 
     private void OnDisable()
     {
@@ -73,11 +74,11 @@ public class InventoryDraw : MonoBehaviour
         var values = weaponBulletUi.Values.ToList();
         for (int i = 0; i < keys.Count; i++)
         {
-            keys[i].onShootAmount -= ReadFloat;
+            keys[i].onShootAmount -= ShowBulletAmount;
         }
     }
 
-    private async void ReadFloat(float bullet, MelliWeapon weapon)
+    private async void ShowBulletAmount(float bullet, MelliWeapon weapon)
     {
         TextMeshProUGUI result = null;
         await Task.Run(() => {result = CheckWeaponBullet(weapon); });
@@ -85,7 +86,7 @@ public class InventoryDraw : MonoBehaviour
         {
             result.text = bullet.ToString("n0");
         }
-        Debug.Log(result);
+        
     }
 
     private TextMeshProUGUI CheckWeaponBullet(MelliWeapon weapon)
@@ -106,4 +107,5 @@ public class InventoryDraw : MonoBehaviour
     {
         return new Vector3(startXPosition + spacesBetweenX * (i % collumnsSpaces), 0f, 0f);
     }
+
 }

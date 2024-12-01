@@ -1,38 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
-//[CreateAssetMenu(fileName = "New AimItem", menuName = "ItemMenu/Items/Granades/DamageGranade")]
-public class DamageGranade : Granade, IItemDamagable
+using UnityEngine.EventSystems;
+
+public class DamageGranade : Granade
 {
+
     [SerializeField] protected float damage;
     private bool isHoldGranade = false;
-    public void MakeDamage()
+
+   
+    private void Makedamage(Vector2 cord)
     {
-       var colliders = Physics2D.CircleCastAll(transform.localPosition, radius, Vector2.zero);
+        var granade = Instantiate(gameObject, cord, Quaternion.identity);
+        var colliders = Physics2D.CircleCastAll(granade.transform.position, radius, Vector2.zero);
 
         for (int i = 0; i < colliders.Length; i++)
         {
+            Debug.Log(colliders[i].collider.name);
             if (colliders[i].collider.GetComponent<Enemy>() != null)
             {
                 colliders[i].collider.GetComponent<Enemy>().GetDamage(damage);
-                gameObject.SetActive(false);
             }
         }
+        granade.SetActive(false);
+        isHoldGranade = false;
     }
 
     public override void Throw()
     {
-        if (isHoldGranade)
-        {
-            isHoldGranade = false;
-            ShootController.Instance.onItemUse.RemoveListener(MakeDamage);
-            Debug.Log("Empty hand");
-        }
-        else
-        {
-            isHoldGranade = true;
-            Debug.Log("Holding granade");
-            ShootController.Instance.onItemUse.AddListener(MakeDamage);
-        }
+        OnPointerClicked(Makedamage);
     }
+
+    //void OnDrawGizmos()
+    //{
+    //    Debug.Log("drawed gizmos");
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, radius);
+    //}
 }
+

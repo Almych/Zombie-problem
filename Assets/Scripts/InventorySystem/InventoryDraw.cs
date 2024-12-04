@@ -18,7 +18,6 @@ public class InventoryDraw : MonoBehaviour
     public int spacesBetweenY;
     public int collumnsSpaces;
     private int currentBulletAmount;
-    private MelliWeapon melliEx;
     private Dictionary<MelliWeapon, TextMeshProUGUI> weaponBulletUi = new Dictionary<MelliWeapon, TextMeshProUGUI>();
     private float valueB;
     
@@ -41,10 +40,7 @@ public class InventoryDraw : MonoBehaviour
             obj.GetComponent<RectTransform>().localPosition = GetPosition(startXPositionItems, i);
             var content = obj.transform.GetChild(0);
             content.GetComponent<Image>().sprite = inventory.slots[i].item.prefab;
-            if(inventory.slots[i].item is GranadeItem granade)
-            {
-                content.GetComponent<Button>().onClick.AddListener(granade.granade.Throw);
-            }
+            content.GetComponent<Button>().onClick.AddListener(inventory.slots[i].item.UseItem);
             content.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventory.slots[i].amount.ToString("n0");
         }
 
@@ -59,7 +55,6 @@ public class InventoryDraw : MonoBehaviour
             {
               var gun = content.GetChild(0).GetComponent<TextMeshProUGUI>();
                 gun.text= melli.totalBullets.ToString("n0");
-                melliEx = melli;
                 weaponBulletUi[melli] = gun;
             }
         }
@@ -78,7 +73,7 @@ public class InventoryDraw : MonoBehaviour
         }
     }
 
-    private async void ShowBulletAmount(float bullet, MelliWeapon weapon)
+    private async void ShowBulletAmount(int bullet, MelliWeapon weapon)
     {
         TextMeshProUGUI result = null;
         await Task.Run(() => {result = CheckWeaponBullet(weapon); });

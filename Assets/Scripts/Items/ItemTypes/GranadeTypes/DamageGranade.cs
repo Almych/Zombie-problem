@@ -18,7 +18,7 @@ public class DamageGranade : Granade
 
         for (int i = 0; i < colliders.Length; i++)
         {
-            Debug.Log(colliders[i].collider.name);
+            
             if (colliders[i].collider.GetComponent<Enemy>() != null)
             {
                 colliders[i].collider.GetComponent<Enemy>().GetDamage(damage);

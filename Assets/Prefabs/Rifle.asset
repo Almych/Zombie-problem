@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04448575a0ba7c47bda88ae2f5a9714, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
-  damage: 10
+  damageType: {fileID: 11400000, guid: 95f8300a9e26fce458af194f54c81c0a, type: 2}
   weaponIcon: {fileID: 1775381047, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   reloadTime: 1.5
   maxBullets: 6

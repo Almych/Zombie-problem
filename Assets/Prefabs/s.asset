@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b04448575a0ba7c47bda88ae2f5a9714, type: 3}
-  m_Name: Pistol
+  m_Name: s
   m_EditorClassIdentifier: 
-  damage: 4
+  damageType: {fileID: 11400000, guid: 95f8300a9e26fce458af194f54c81c0a, type: 2}
   weaponIcon: {fileID: 2045455262, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   reloadTime: 2
   maxBullets: 7
   bulletSprite: {fileID: 1404812050, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
-  totalBulletAmount: 20
+  totalBulletAmount: 0

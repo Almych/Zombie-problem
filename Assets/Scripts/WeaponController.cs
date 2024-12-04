@@ -9,11 +9,11 @@ using UnityEngine;
 public abstract class WeaponController : MonoBehaviour
 {
     public Sprite sprite;
-    public Weapon weapon { get; private set; }
+    internal protected Weapon weapon;
     public abstract void Attack();
     public abstract IEnumerator Reload();
 
-    public abstract Weapon GetWeapon();
+   
 }
 
 public class ColdWeaponController : WeaponController
@@ -23,11 +23,14 @@ public class ColdWeaponController : WeaponController
     private bool isTired;
     private bool isEnemy = false;
     private Enemy enemy;
+
+    
     public void Initialize(ColdWeapon cold)
     {
         sprite = cold.weaponIcon;
         coldWeapon = cold;
         currHitAmount = coldWeapon.maxHitAmount;
+        weapon = coldWeapon;
         isTired = false;
     }
 
@@ -36,8 +39,7 @@ public class ColdWeaponController : WeaponController
         if (!isTired && isEnemy)
         {
             currHitAmount--;
-            enemy.GetComponent<SpriteRenderer>().color = Color.red;
-            enemy.GetDamage(coldWeapon.damage);
+            coldWeapon.damageType.MakeDamage(enemy.GetDamage, enemy);
         }
         else
         {
@@ -70,10 +72,7 @@ public class ColdWeaponController : WeaponController
         isTired = false;
     }
 
-    public override Weapon GetWeapon()
-    {
-        return coldWeapon;
-    }
+   
 }
 
 public class MelliWeaponController : WeaponController
@@ -81,11 +80,12 @@ public class MelliWeaponController : WeaponController
     private MelliWeapon melliGun;
     private int currBulletAmount = 0;
     private bool hasAmmo = false;
-
+  
     public void Initialize(MelliWeapon melli)
     {
         melliGun = melli;
         sprite = melli.weaponIcon;
+        weapon = melliGun;
         CheckBullets();
     }
 
@@ -98,7 +98,7 @@ public class MelliWeaponController : WeaponController
             var bullet = BulletPool.Instance.GetPoolObject();
             if (bullet != null)
             {
-                bullet.DamageOFBullet(melliGun.damage);
+                bullet.DamageOFBullet(melliGun.damageType);
                 bullet.transform.position = transform.position;
                 bullet.Activate(melliGun.bulletSprite);
                 currBulletAmount--;
@@ -144,8 +144,5 @@ public class MelliWeaponController : WeaponController
         };
     }
 
-    public override Weapon GetWeapon()
-    {
-       return melliGun;
-    }
+    
 }

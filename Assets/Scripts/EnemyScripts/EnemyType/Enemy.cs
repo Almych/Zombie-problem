@@ -45,6 +45,7 @@ public abstract class Enemy : MonoBehaviour
     public void GetDamage(float damage)
     {
         currHealth -= damage;
+        Debug.Log(currHealth);
         OnDamage?.Invoke();
         if (currHealth <= 0)
         {

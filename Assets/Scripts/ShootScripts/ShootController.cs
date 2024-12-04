@@ -7,9 +7,9 @@ using UnityEngine.Events;
 public class ShootController : MonoBehaviour
 {
     public static ShootController Instance;
-    public UnityEvent onItemUse;
     [SerializeField] private Inventory inventory;
     public static event Action OnShootAnimate;
+    public static Weapon currentMelliWeapon { get; private set; }
     private WeaponController controller;
     private WeaponController[] weaponControllers;
 
@@ -29,6 +29,7 @@ public class ShootController : MonoBehaviour
             weaponControllers[i].enabled = false;
         }
         controller = weaponControllers[0];
+        currentMelliWeapon = weaponControllers[0].weapon;
         controller.enabled = true;
         GetComponent<SpriteRenderer>().sprite = controller.sprite;
        
@@ -64,6 +65,7 @@ public class ShootController : MonoBehaviour
                 currentController.enabled = false;
                 weaponControllers[i].enabled = true;
                 currentController = weaponControllers[i];
+                currentMelliWeapon = currentController.weapon;
                 GetComponent<SpriteRenderer>().sprite = controller.sprite;
                 break;
             }

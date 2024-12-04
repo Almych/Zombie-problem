@@ -4130,67 +4130,6 @@ MonoBehaviour:
   - zombieType: {fileID: 5386122215824703077, guid: 315459d967b331d488302a8a8d1da795, type: 3}
     amount: 3
   zombiePool: {fileID: 2147420718}
---- !u!1001 &1538669244
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 973789955109507306, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 14.243436
-      objectReference: {fileID: 0}
-    - target: {fileID: 973789955109507306, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.1198263
-      objectReference: {fileID: 0}
-    - target: {fileID: 973789955109507306, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 973789955109507306, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 973789955109507306, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 973789955109507306, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 973789955109507306, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 973789955109507306, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 973789955109507306, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 973789955109507306, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965333355992933635, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_Name
-      value: ZombieBoss
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965333355992933635, guid: 210f3884392932d48be28df5d05f2693, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 210f3884392932d48be28df5d05f2693, type: 3}
 --- !u!1 &1543175440
 GameObject:
   m_ObjectHideFlags: 0
@@ -4403,9 +4342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ebf644bb0a51745bd85bd44807f112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onItemUse:
-    m_PersistentCalls:
-      m_Calls: []
   inventory: {fileID: 11400000, guid: c9ad40dc178a0a14ca8c7e3f20a529d5, type: 2}
 --- !u!1 &1645918226
 GameObject:
@@ -5790,7 +5726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: c9ad40dc178a0a14ca8c7e3f20a529d5, type: 2}
   slotUi: {fileID: 975486222720692109, guid: b8be24c9c05bfab488d7537a68d6feeb, type: 3}
-  spacesBetweenX: 150
+  spacesBetweenX: -150
   startXPositionItems: 0
   startXPositionWeapons: -600
   spacesBetweenY: 35
@@ -6213,4 +6149,3 @@ SceneRoots:
   - {fileID: 1010251579}
   - {fileID: 1790683772}
   - {fileID: 1543175442}
-  - {fileID: 1538669244}

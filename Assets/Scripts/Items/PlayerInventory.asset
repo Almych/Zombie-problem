@@ -17,6 +17,8 @@ MonoBehaviour:
     amount: 2
   - item: {fileID: 11400000, guid: f6c8585be63124b42891f9f4e5dbf8ca, type: 2}
     amount: 2
+  - item: {fileID: 11400000, guid: a228f89429bd2324fa4aa11471610111, type: 2}
+    amount: 2
   weaponSlots:
   - {fileID: 11400000, guid: 45a5ea2dd92a6f54c95dbdf82534ba5a, type: 2}
   - {fileID: 11400000, guid: 3a805b3f6137f484ea7356df77d49be2, type: 2}

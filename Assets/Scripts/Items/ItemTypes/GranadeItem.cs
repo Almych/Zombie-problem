@@ -7,6 +7,11 @@ public class GranadeItem : ItemObject
 {
     public Granade granade;
 
+    public override void UseItem()
+    {
+       granade.Throw();
+    }
+
     private void Awake()
     {
         type = ItemType.Granade;

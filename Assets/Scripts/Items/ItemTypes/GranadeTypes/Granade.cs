@@ -20,7 +20,6 @@ public abstract class Granade : MonoBehaviour, IItemThrowable
     {
         while (Input.GetMouseButtonDown(0) == false && !cancellationTokenSource.IsCancellationRequested)
         {
-            Debug.Log("WaitForClick");
             await Task.Delay(2);
         }
         Vector3 mouseScreenPosition = Input.mousePosition;

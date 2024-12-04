@@ -6,7 +6,7 @@ public class BulletBehaivior : MonoBehaviour
     private float speedBullet = 20f;
     private Rigidbody2D rb;
     private bool isTriggered;
-    private float damage;
+    private Damage damageType;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -16,16 +16,15 @@ public class BulletBehaivior : MonoBehaviour
     public async void Activate(Sprite bullet)
     {
         GetComponent<SpriteRenderer>().sprite = bullet;
-        Debug.Log("calledbulletchange");
         rb.velocity = transform.right * speedBullet;
         isTriggered = false;
         await Task.Yield();
     }
 
    
-    public float DamageOFBullet(float damage)
+    public Damage DamageOFBullet(Damage damage)
     {
-        return this.damage = damage;
+        return damageType = damage;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)   
@@ -42,7 +41,8 @@ public class BulletBehaivior : MonoBehaviour
 
             Deactivate();
             var zombie = collision.GetComponent<Enemy>();
-            zombie.GetDamage(damage);
+            
+            damageType.MakeDamage(zombie.GetDamage, zombie);
             collision.GetComponent<SpriteRenderer>().color = Color.red;
         }
         else if (collision.GetComponent<SpawnerOfZombies>()!= null)

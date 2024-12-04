@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Melli weapon", menuName = "Weapons/Melli")]
 public class MelliWeapon : Weapon
 {
-    public Action<float, MelliWeapon> onShootAmount;
+    public Action<int, MelliWeapon> onShootAmount;
 
     public float reloadTime;
     public int maxBullets;
@@ -20,15 +20,12 @@ public class MelliWeapon : Weapon
          set
         {
             onShootAmount?.Invoke(totalBullets, this);
-            Debug.Log("called");
+           
         }
     }
 
     private void OnEnable()
     {
-        if (totalBulletAmount <= 0)
-            totalBulletAmount = maxBullets * 2;
-
         totalBullets = totalBulletAmount;
     }
 }

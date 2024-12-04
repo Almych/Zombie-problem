@@ -15,7 +15,7 @@ public abstract class ItemObject : ScriptableObject
     public Sprite prefab;
     [TextArea(15, 20)]public string description;
 
-
+    public abstract void UseItem();
 }
 
 

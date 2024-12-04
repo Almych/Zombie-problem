@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class Weapon : ScriptableObject
 {
-    public float damage;
+    public Damage damageType;
     public Sprite weaponIcon;
 }
 

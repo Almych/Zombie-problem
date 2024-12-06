@@ -6,9 +6,9 @@ public class WeaponItem : ItemObject
 {
     [SerializeField] protected Weapon weapon;
 
-    public override void UseItem()
+    protected override void ItemAbillity()
     {
-        
+        throw new System.NotImplementedException();
     }
 
     private void Awake()

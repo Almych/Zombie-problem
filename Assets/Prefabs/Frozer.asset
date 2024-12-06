@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Ak47
-  m_EditorClassIdentifier: Assembly-CSharp::BleedDamage
-  damage: 5
-  timeBleeding: 3.17
+  m_Script: {fileID: 11500000, guid: edfe881cf565db94db5dc6b738f7eb24, type: 3}
+  m_Name: Frozer
+  m_EditorClassIdentifier: 
+  damage: 6

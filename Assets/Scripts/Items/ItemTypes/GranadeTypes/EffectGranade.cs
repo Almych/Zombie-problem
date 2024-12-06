@@ -6,13 +6,10 @@ public class EffectGranade : Granade
 {
     [SerializeField] private float effectTime;
 
-    private void Effect()
-    {
-        Debug.Log("Froze");
-    }
 
     public override void Throw()
     {
-        Effect();
+        Debug.Log("Freeze");
     }
+
 }

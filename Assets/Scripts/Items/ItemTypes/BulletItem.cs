@@ -6,16 +6,16 @@ public class BulletItem : ItemObject
 {
     public int amountBullet;
 
-    public override void UseItem()
+    protected override void ItemAbillity()
     {
-       
         if (ShootController.currentMelliWeapon is MelliWeapon melli)
         {
-            melli.totalBulletAmount+= amountBullet;
-            melli.totalBullets=melli.totalBulletAmount;
+            melli.totalBulletAmount += amountBullet;
+            melli.totalBullets = melli.totalBulletAmount;
             melli.onShootAmount.Invoke(melli.totalBullets, melli);
         }
     }
+
 
     private void Awake()
     {

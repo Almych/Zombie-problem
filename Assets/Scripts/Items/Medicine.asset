@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Medicine
   m_EditorClassIdentifier: 
   type: 0
+  amount: 3
   prefab: {fileID: -1151949682, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   description: Heal your ass
   restoreHealth: 20

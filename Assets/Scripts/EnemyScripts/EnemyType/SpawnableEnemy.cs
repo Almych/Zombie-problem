@@ -14,7 +14,6 @@ public class SpawnableEnemy : Enemy
         {
             isDead = true;
             Death();
-            Debug.Log("Attack");
         }
     }
 

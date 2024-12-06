@@ -7,13 +7,13 @@ public class AimItem : ItemObject
 {
     public float restoreHealth;
 
-    public override void UseItem()
-    {
-       HealthBar.instance.ChangeHealthValue(restoreHealth);
-    }
-
     private void Awake()
     {
         type = ItemType.Aim;
+    }
+
+    protected override void ItemAbillity()
+    {
+        HealthBar.instance.ChangeHealthValue(restoreHealth);
     }
 }

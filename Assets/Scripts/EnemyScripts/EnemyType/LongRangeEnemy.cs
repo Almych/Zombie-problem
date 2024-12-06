@@ -8,19 +8,19 @@ using UnityEngine;
 
 
 
-    public class LongRangeEnemy : Enemy, IDiagnolMovable
+    public class LongRangeEnemy : Enemy
     {
         public LayerMask barrier;
         [SerializeField] private float distance;
         private bool isCheckingTarget = false;
         private RaycastHit2D hit;
-
    
 
     private async Task CallCheck()
     {
         while(!isDead)
         {
+           
             await Task.Delay(TimeSpan.FromSeconds(attackCoolDown));
             if (isCheckingTarget)
             {
@@ -70,27 +70,32 @@ using UnityEngine;
     }
     private void OnEnable()
     {
-        OnDamage += ()  => MoveDiagnol(attackCoolDown);
+            OnDamage += () => MoveDiagnol(attackCoolDown);
     }
 
-   
+
 
     public async void MoveDiagnol(float coolDownTime)
     {
-       
-        int direction = UnityEngine.Random.Range(0,3);
-        if (direction > 0)
+        
+        int direction = UnityEngine.Random.Range(0, 3);
+        if (isCheckingTarget)
         {
-            rb.velocity = -transform.right + transform.up * speed;
-            isAttacking = false;
+            if (direction > 0)
+            {
+                rb.velocity = -transform.right + transform.up * speed;
+                isAttacking = false;
+            }
+            else if (direction < 1)
+            {
+                rb.velocity = -transform.right + -transform.up * speed;
+                isAttacking = false;
+            }
+
         }
-        else if (direction < 1)
-        {
-            rb.velocity = -transform.right + -transform.up * speed;
-            isAttacking = false;
-        }
-   
         await Task.Delay(TimeSpan.FromSeconds(coolDownTime));
-        isAttacking = true;
+            isAttacking = true;
+        
     }
+           
 }

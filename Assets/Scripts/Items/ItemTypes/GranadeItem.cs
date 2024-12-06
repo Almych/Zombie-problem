@@ -7,9 +7,9 @@ public class GranadeItem : ItemObject
 {
     public Granade granade;
 
-    public override void UseItem()
+    protected override void ItemAbillity()
     {
-       granade.Throw();
+        granade.Throw();
     }
 
     private void Awake()

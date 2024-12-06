@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74e61963474b3e148899de4486dde37f, type: 3}
-  m_Name: Bullet
+  m_Script: {fileID: 11500000, guid: 5a0304bd0b30aa446ad5ed9addf71b0a, type: 3}
+  m_Name: Bleeder
   m_EditorClassIdentifier: 
-  type: 2
-  amount: 10
-  prefab: {fileID: -1557660941, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
-  description: Simple bullet for your gun
-  amountBullet: 2
+  damage: 6
+  timeBleeding: 2.5

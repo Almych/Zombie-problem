@@ -24,7 +24,8 @@ public class BulletBehaivior : MonoBehaviour
    
     public Damage DamageOFBullet(Damage damage)
     {
-        return damageType = damage;
+         damageType = damage;
+        return damageType;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)   
@@ -41,9 +42,8 @@ public class BulletBehaivior : MonoBehaviour
 
             Deactivate();
             var zombie = collision.GetComponent<Enemy>();
-            
             damageType.MakeDamage(zombie.GetDamage, zombie);
-            collision.GetComponent<SpriteRenderer>().color = Color.red;
+           
         }
         else if (collision.GetComponent<SpawnerOfZombies>()!= null)
         {

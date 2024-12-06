@@ -13,7 +13,7 @@ public class Inventory : ScriptableObject
         {
             if (slots[i].item == _item)
             {
-                slots[i].amount += _amount;
+                slots[i].item.amount += _amount;
                 inInventory = true; 
                 break;
             }
@@ -21,7 +21,7 @@ public class Inventory : ScriptableObject
 
         if (!inInventory)
         {
-            slots.Add(new InventorySlot(_item, _amount));
+            slots.Add(new InventorySlot(_item));
         }
     }
 
@@ -32,16 +32,14 @@ public class Inventory : ScriptableObject
 public class InventorySlot
 {
     public ItemObject item;
-    public int amount;
-
-    public InventorySlot(ItemObject _item, int _amount)
+    public InventorySlot(ItemObject _item)
     {
         item = _item;
-        amount = _amount; 
     }
 
     public void AddItem(int value)
     {
-        amount += value;
+        item.amount += value;
     }
+
 }

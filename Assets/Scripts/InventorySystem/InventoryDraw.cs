@@ -3,77 +3,77 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Linq;
 using System.Threading.Tasks;
 
 public class InventoryDraw : MonoBehaviour
 {
-    public Inventory inventory;
+    public static InventoryDraw Instance;
     public GameObject slotUi;
     public int spacesBetweenX;
     public int startXPositionItems;
     public int startXPositionWeapons;
     public int spacesBetweenY;
     public int collumnsSpaces;
-    private int currentBulletAmount;
-    private Dictionary<MelliWeapon, TextMeshProUGUI> weaponBulletUi = new Dictionary<MelliWeapon, TextMeshProUGUI>();
-    private float valueB;
-    
+    private Dictionary<WeaponSlot, TextMeshProUGUI> weapons = new Dictionary<WeaponSlot, TextMeshProUGUI>();
+    private Dictionary<ItemSlot, TextMeshProUGUI> items = new Dictionary<ItemSlot, TextMeshProUGUI>();
+    private List<WeaponSlot> weaponInventory =  new List<WeaponSlot>();
+    private List<ItemSlot> itemInventory = new List<ItemSlot>();
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         CreateDisplay();
-
-        var keys = weaponBulletUi.Keys.ToList();
-        for (int i = 0; i < keys.Count; i++)
-        {
-            keys[i].onShootAmount = ShowBulletAmount;
-        }
     }
+
+    public void AddWeapon(WeaponSlot weaponSlot)
+    {
+        weaponInventory.Add(weaponSlot);
+    }
+
+    public void AddItem(ItemSlot itemSlot)
+    {
+        itemInventory.Add(itemSlot);
+    }
+
 
     private void CreateDisplay()
     {
-        for (int i = 0; i < inventory.slots.Count; i++)
+        for (int i = 0; i < itemInventory.Count; i++)
         {
             var obj = Instantiate(slotUi, Vector3.zero, Quaternion.identity, transform);
             obj.GetComponent<RectTransform>().localPosition = GetPosition(startXPositionItems, i);
             var content = obj.transform.GetChild(0);
-            content.GetComponent<Image>().sprite = inventory.slots[i].item.prefab;
-            content.GetComponent<Button>().onClick.AddListener(inventory.slots[i].item.UseItem);
-            content.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventory.slots[i].amount.ToString("n0");
+            content.GetComponent<Image>().sprite = itemInventory[i].item.prefab;
+            content.GetComponent<Button>().onClick.AddListener(itemInventory[i].item.UseItem);
+            var amountUi = content.GetChild(0).GetComponent<TextMeshProUGUI>();
+            amountUi.text = itemInventory[i].item.amount.ToString("n0");
+            items[itemInventory[i]] = amountUi;
         }
 
 
-        for (int i = 0; i < inventory.weaponSlots.Length; i++)
+        for (int i = 0; i < weaponInventory.Count; i++)
         {
             var obj = Instantiate(slotUi, Vector3.zero, Quaternion.identity, transform);
             obj.GetComponent<RectTransform>().localPosition = GetPosition(startXPositionWeapons, i);
             var content = obj.transform.GetChild(0);
-            content.GetComponent<Image>().sprite = inventory.weaponSlots[i].weaponIcon;
-            if (inventory.weaponSlots[i] is MelliWeapon melli)
+            content.GetComponent<Image>().sprite = weaponInventory[i].weapon.weaponIcon;
+            var gun = content.GetChild(0).GetComponent<TextMeshProUGUI>();
+            if (weaponInventory[i].weapon is MelliWeapon melli)
             {
-              var gun = content.GetChild(0).GetComponent<TextMeshProUGUI>();
-                gun.text= melli.totalBullets.ToString("n0");
-                weaponBulletUi[melli] = gun;
+                gun.text = melli.totalBullets.ToString("n0");
+                weapons[weaponInventory[i]] = gun;
             }
         }
     }
-    
 
 
-
-    private void OnDisable()
-    {
-        var keys = weaponBulletUi.Keys.ToList();
-        var values = weaponBulletUi.Values.ToList();
-        for (int i = 0; i < keys.Count; i++)
-        {
-            keys[i].onShootAmount -= ShowBulletAmount;
-        }
-    }
-
-    private async void ShowBulletAmount(int bullet, MelliWeapon weapon)
+    public async void ShowBulletAmount(int bullet, Weapon weapon)
     {
         TextMeshProUGUI result = null;
         await Task.Run(() => {result = CheckWeaponBullet(weapon); });
@@ -84,13 +84,38 @@ public class InventoryDraw : MonoBehaviour
         
     }
 
-    private TextMeshProUGUI CheckWeaponBullet(MelliWeapon weapon)
+    private TextMeshProUGUI CheckWeaponBullet(Weapon weapon) 
     {
-        var keys = weaponBulletUi.Keys.ToList();
-        var values = weaponBulletUi.Values.ToList();
+        var keys = weapons.Keys.ToList();
+        var values = weapons.Values.ToList();
         for (int i = 0; i < keys.Count; ++i)
         {
-            if (keys[i] == weapon)
+            if (keys[i].weapon == weapon)
+            {
+                return values[i];
+            }
+        }
+        return null;
+    }
+
+    public async void ShowItemAmount(int bullet, ItemObject weapon)
+    {
+        TextMeshProUGUI result = null;
+        await Task.Run(() => { result = CheckItemAmount(weapon); });
+        if (result != null)
+        {
+            result.text = bullet.ToString("n0");
+        }
+
+    }
+
+    private TextMeshProUGUI CheckItemAmount(ItemObject weapon)
+    {
+        var keys = items.Keys.ToList();
+        var values = items.Values.ToList();
+        for (int i = 0; i < keys.Count; ++i)
+        {
+            if (keys[i].item == weapon)
             {
                 return values[i];
             }
@@ -103,4 +128,59 @@ public class InventoryDraw : MonoBehaviour
         return new Vector3(startXPosition + spacesBetweenX * (i % collumnsSpaces), 0f, 0f);
     }
 
+}
+
+
+
+public abstract class WeaponSlot : MonoBehaviour
+{
+    internal protected Weapon weapon;
+    protected WeaponSlot(Weapon weapon)
+    {
+        this.weapon = weapon; 
+    }
+}
+public class ColdWeaponSlot: WeaponSlot
+{
+    public ColdWeaponSlot(ColdWeapon weapon) : base(weapon)
+    {
+        this.weapon = weapon;
+    }
+}
+
+public class MelliWeaponSlot : WeaponSlot
+{
+    public MelliWeaponSlot(MelliWeapon weapon) : base(weapon)
+    {
+        this.weapon = weapon;
+    }
+
+    private void OnEnable()
+    {
+        (weapon as MelliWeapon).onShootAmount += InventoryDraw.Instance.ShowBulletAmount;
+    }
+
+    private void OnDisable()
+    {
+        (weapon as MelliWeapon).onShootAmount -= InventoryDraw.Instance.ShowBulletAmount;
+    }
+}
+
+public class ItemSlot : MonoBehaviour
+{
+    public ItemObject item;
+    public ItemSlot(ItemObject item)
+    {
+        this.item = item;
+    }
+
+    private void OnEnable()
+    {
+        item.OnItemUse += InventoryDraw.Instance.ShowItemAmount;
+    }
+
+    private void OnDisable()
+    {
+        item.OnItemUse -= InventoryDraw.Instance.ShowItemAmount;
+    }
 }

@@ -7,7 +7,7 @@ public class InventoryData : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
 
-    private void Awake()
+    private void Start()
     {
         Initiate();
     }
@@ -18,6 +18,7 @@ public class InventoryData : MonoBehaviour
         for(int i= 0; i < inventory.slots.Count; i++)
         {
             ItemSlot itemSlot = new ItemSlot(inventory.slots[i].item);
+            Debug.Log(itemSlot);
             InventoryDraw.Instance.AddItem(itemSlot);
         }
 

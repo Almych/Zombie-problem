@@ -17,8 +17,8 @@ public class InventoryDraw : MonoBehaviour
     public int collumnsSpaces;
     private Dictionary<WeaponSlot, TextMeshProUGUI> weapons = new Dictionary<WeaponSlot, TextMeshProUGUI>();
     private Dictionary<ItemSlot, TextMeshProUGUI> items = new Dictionary<ItemSlot, TextMeshProUGUI>();
-    private List<WeaponSlot> weaponInventory =  new List<WeaponSlot>();
-    private List<ItemSlot> itemInventory = new List<ItemSlot>();
+    private static List<WeaponSlot> weaponInventory =  new List<WeaponSlot>();
+    private static List<ItemSlot> itemInventory = new List<ItemSlot>();
     private void Awake()
     {
         if (Instance == null)
@@ -44,8 +44,10 @@ public class InventoryDraw : MonoBehaviour
 
     private void CreateDisplay()
     {
+        Debug.Log(itemInventory.Count);
         for (int i = 0; i < itemInventory.Count; i++)
         {
+            Debug.Log(itemInventory[i]);
             var obj = Instantiate(slotUi, Vector3.zero, Quaternion.identity, transform);
             obj.GetComponent<RectTransform>().localPosition = GetPosition(startXPositionItems, i);
             var content = obj.transform.GetChild(0);
@@ -132,7 +134,7 @@ public class InventoryDraw : MonoBehaviour
 
 
 
-public abstract class WeaponSlot : MonoBehaviour
+public abstract class WeaponSlot
 {
     internal protected Weapon weapon;
     protected WeaponSlot(Weapon weapon)
@@ -165,8 +167,8 @@ public class MelliWeaponSlot : WeaponSlot
         (weapon as MelliWeapon).onShootAmount -= InventoryDraw.Instance.ShowBulletAmount;
     }
 }
-
-public class ItemSlot : MonoBehaviour
+[System.Serializable]
+public class ItemSlot 
 {
     public ItemObject item;
     public ItemSlot(ItemObject item)

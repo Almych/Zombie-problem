@@ -12,7 +12,6 @@ public class BulletItem : ItemObject
         {
             melli.totalBulletAmount += amountBullet;
             melli.totalBullets = melli.totalBulletAmount;
-            melli.onShootAmount.Invoke(melli.totalBullets, melli);
         }
     }
 

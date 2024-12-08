@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class InventoryData : MonoBehaviour
 {
+    public SlotConfig slotConfig;
     [SerializeField] private Inventory inventory;
 
     private void Start()
@@ -17,25 +18,25 @@ public class InventoryData : MonoBehaviour
     {
         for(int i= 0; i < inventory.slots.Count; i++)
         {
-            ItemSlot itemSlot = new ItemSlot(inventory.slots[i].item);
-            Debug.Log(itemSlot);
-            InventoryDraw.Instance.AddItem(itemSlot);
+           //var item = slotConfig.CreateItemSlot()
+           // Debug.Log(itemSlot);
+           // InventoryDraw.Instance.AddItem(itemSlot);
         }
 
-        for (int i = 0; i < inventory.weaponSlots.Length; i++)
-        {
-            if (inventory.weaponSlots[i] is MelliWeapon melli)
-            {
-                MelliWeaponSlot melliWeaponSlot = new MelliWeaponSlot(melli);
+        //for (int i = 0; i < inventory.weaponSlots.Length; i++)
+        //{
+        //    if (inventory.weaponSlots[i] is MelliWeapon melli)
+        //    {
+        //        MelliWeaponSlot melliWeaponSlot = gameObject.AddComponent<MelliWeaponSlot>();
 
-                InventoryDraw.Instance.AddWeapon(melliWeaponSlot);
-            }
-            else if (inventory.weaponSlots[i] is ColdWeapon cold)
-            {
-                ColdWeaponSlot coldWeaponSlot = new ColdWeaponSlot(cold);
-                InventoryDraw.Instance.AddWeapon(coldWeaponSlot);
-            }
-        }
+        //        InventoryDraw.Instance.AddWeapon(melliWeaponSlot);
+        //    }
+        //    else if (inventory.weaponSlots[i] is ColdWeapon cold)
+        //    {
+        //        ColdWeaponSlot coldWeaponSlot = new ColdWeaponSlot(cold);
+        //        InventoryDraw.Instance.AddWeapon(coldWeaponSlot);
+        //    }
+        //}
 
        
     }

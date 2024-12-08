@@ -5725,7 +5725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9173c72efaaf9d4791935b9261cb4bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotUi: {fileID: 975486222720692109, guid: b8be24c9c05bfab488d7537a68d6feeb, type: 3}
+  slotConfig: {fileID: 4814907670051093025, guid: b8be24c9c05bfab488d7537a68d6feeb, type: 3}
   spacesBetweenX: -150
   startXPositionItems: 0
   startXPositionWeapons: -600

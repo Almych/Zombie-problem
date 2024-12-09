@@ -11,7 +11,7 @@ public class InventoryData : MonoBehaviour
     public int spacesBetweenY;
     public int collumnsSpaces;
     [SerializeField] private Inventory inventory;
-
+    [SerializeField] private SlotManager slotManager;
     private void Start()
     {
         Initiate();
@@ -22,12 +22,14 @@ public class InventoryData : MonoBehaviour
     {
         for(int i= 0; i < inventory.slots.Count; i++)
         {
-            SlotManager.CreateItemSlot(inventory.slots[i].item.prefab, inventory.slots[i].item.amount, GetPosition(startXPositionItems, i), transform, inventory.slots[i].item.UseItem);
+            var itemSlot = slotManager.CreateItemSlot(inventory.slots[i].item, GetPosition(startXPositionItems, i), transform, inventory.slots[i].item.UseItem);
+            InventoryDraw.Instance.AddItem(itemSlot);
         }
 
         for (int i = 0; i < inventory.weaponSlots.Length; i++)
         {
-            SlotManager.CreateWeaponSlot(inventory.weaponSlots[i], GetPosition(startXPositionWeapons, i), transform);
+            var weaponSlot = slotManager.CreateWeaponSlot(inventory.weaponSlots[i], GetPosition(startXPositionWeapons, i), transform);
+            InventoryDraw.Instance.AddWeapon(weaponSlot);
         }
 
 

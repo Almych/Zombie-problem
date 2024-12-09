@@ -172,7 +172,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -626.3151, y: 408.21658}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9007051759575647701
 CanvasRenderer:
@@ -226,6 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLabel: {fileID: 4415418091154824826}
   weaponBulletAmount: {fileID: 6101745282971229918}
+  melliWeapon: {fileID: 0}
 --- !u!1 &9220258835615283250
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +262,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0, y: -0.904}
-  m_SizeDelta: {x: 83.73, y: 83.73}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2699245591533488612
 CanvasRenderer:

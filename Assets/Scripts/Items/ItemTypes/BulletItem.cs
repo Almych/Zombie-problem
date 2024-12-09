@@ -8,10 +8,10 @@ public class BulletItem : ItemObject
 
     protected override void ItemAbillity()
     {
-        if (ShootController.currentMelliWeapon is MelliWeapon melli)
+        if (ShootController.controller.weapon is MelliWeapon melli)
         {
+            melli.totalBullets += amountBullet;
             melli.totalBulletAmount += amountBullet;
-            melli.totalBullets = melli.totalBulletAmount;
         }
     }
 

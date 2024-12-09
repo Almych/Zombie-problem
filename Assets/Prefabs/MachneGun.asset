@@ -17,4 +17,4 @@ MonoBehaviour:
   reloadTime: 2
   maxBullets: 10
   bulletSprite: {fileID: -744601901, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
-  totalBulletAmount: 0
+  totalBulletAmount: 20

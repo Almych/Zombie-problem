@@ -12,7 +12,7 @@ public class MelliWeapon : Weapon
     public int maxBullets;
     public Sprite bulletSprite;
     public int totalBulletAmount;
-    internal protected int totalBullets;
+    public int totalBullets;
     public int TotalAmount
     {
         get => totalBullets;

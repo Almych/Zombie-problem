@@ -5738,12 +5738,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7575200e8e41e4689a8f35071f3e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spacesBetweenX: 60
-  startXPositionItems: 150
-  startXPositionWeapons: 0
+  spacesBetweenX: 150
+  startXPositionItems: -250
+  startXPositionWeapons: -700
   spacesBetweenY: 20
-  collumnsSpaces: 15
+  collumnsSpaces: 50
   inventory: {fileID: 11400000, guid: c9ad40dc178a0a14ca8c7e3f20a529d5, type: 2}
+  slotManager: {fileID: 1939166310}
 --- !u!114 &1939166310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5756,6 +5757,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834ae7537f63e53499588be27e3647ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemSlot: {fileID: 1083727443264614474, guid: b8be24c9c05bfab488d7537a68d6feeb, type: 3}
+  WeaponSlot: {fileID: 4997420788781788201, guid: 27c378a9d07bebc459937f074fc898d3, type: 3}
 --- !u!1 &1968701740
 GameObject:
   m_ObjectHideFlags: 0

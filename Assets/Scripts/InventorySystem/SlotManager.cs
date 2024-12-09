@@ -8,28 +8,30 @@ using UnityEngine.UI;
 
 public class SlotManager : MonoBehaviour
 {
-    [SerializeField] private static ItemSlotConfig ItemSlot;
-    [SerializeField] private static WeaponSlotConfig WeaponSlot;
+    [SerializeField] private ItemSlotConfig ItemSlot;
+    [SerializeField] private WeaponSlotConfig WeaponSlot;
 
-    public static GameObject CreateItemSlot(Sprite itemSprite, int itemAmount, Vector3 slotPosition, Transform inventory, UnityAction itemFunction)
+    public ItemSlotConfig CreateItemSlot(ItemObject itemObject, Vector3 slotPosition, Transform inventory, UnityAction itemFunction)
     {
-        ItemSlot.itemImage.sprite = itemSprite;
-        ItemSlot.itemAmount.text = itemAmount.ToString("n0");
-        ItemSlot.useItemEvent.onClick.AddListener(itemFunction);
-        GameObject item = Instantiate(ItemSlot.gameObject, Vector2.zero, Quaternion.identity, inventory);
-        item.GetComponent<RectTransform>().localPosition = slotPosition;
+        ItemSlot.itemImage.sprite = itemObject.prefab;
+        ItemSlot.itemAmount.text = itemObject.amount.ToString("n0");
+        ItemSlot.itemObject = itemObject;
+        var item = Instantiate(ItemSlot, Vector2.zero, Quaternion.identity, inventory);
+        item.gameObject.GetComponent<RectTransform>().localPosition = slotPosition;
+        item.gameObject.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(itemFunction);
         return item;
     }
 
-    public static GameObject CreateWeaponSlot(Weapon weapon, Vector3 slotPosition, Transform inventory)
+    public WeaponSlotConfig CreateWeaponSlot(Weapon weapon, Vector3 slotPosition, Transform inventory)
     {
        WeaponSlot.weaponLabel.sprite = weapon.weaponIcon;
         if (weapon is MelliWeapon melli)
         {
+            WeaponSlot.weapon = melli;
            WeaponSlot.weaponBulletAmount.text = melli.totalBullets.ToString("n0");
         }
-        var weaponSlot = Instantiate(WeaponSlot.gameObject, Vector2.zero, Quaternion.identity, inventory);
-        weaponSlot.GetComponent<RectTransform>().localPosition = slotPosition;
+        var weaponSlot = Instantiate(WeaponSlot, Vector2.zero, Quaternion.identity, inventory);
+        weaponSlot.gameObject.GetComponent<RectTransform>().localPosition = slotPosition;
         return weaponSlot;
     }
 }

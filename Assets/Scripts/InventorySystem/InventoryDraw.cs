@@ -9,11 +9,7 @@ using System.Threading.Tasks;
 public class InventoryDraw : MonoBehaviour
 {
     public static InventoryDraw Instance;
-    public int spacesBetweenX;
-    public int startXPositionItems;
-    public int startXPositionWeapons;
-    public int spacesBetweenY;
-    public int collumnsSpaces;
+    
     private List<GameObject> slots = new List<GameObject>();
     private void Awake()
     {
@@ -78,10 +74,6 @@ public class InventoryDraw : MonoBehaviour
     //    return null;
     //}
 
-    private Vector3 GetPosition(int startXPosition, int i)
-    {
-        return new Vector3(startXPosition + spacesBetweenX * (i % collumnsSpaces), 0f, 0f);
-    }
 
 }
 

@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class InventoryData : MonoBehaviour
 {
-    public SlotConfig slotConfig;
+    public int spacesBetweenX;
+    public int startXPositionItems;
+    public int startXPositionWeapons;
+    public int spacesBetweenY;
+    public int collumnsSpaces;
     [SerializeField] private Inventory inventory;
 
     private void Start()
@@ -18,26 +22,19 @@ public class InventoryData : MonoBehaviour
     {
         for(int i= 0; i < inventory.slots.Count; i++)
         {
-           //var item = slotConfig.CreateItemSlot()
-           // Debug.Log(itemSlot);
-           // InventoryDraw.Instance.AddItem(itemSlot);
+            SlotManager.CreateItemSlot(inventory.slots[i].item.prefab, inventory.slots[i].item.amount, GetPosition(startXPositionItems, i), transform, inventory.slots[i].item.UseItem);
         }
 
-        //for (int i = 0; i < inventory.weaponSlots.Length; i++)
-        //{
-        //    if (inventory.weaponSlots[i] is MelliWeapon melli)
-        //    {
-        //        MelliWeaponSlot melliWeaponSlot = gameObject.AddComponent<MelliWeaponSlot>();
+        for (int i = 0; i < inventory.weaponSlots.Length; i++)
+        {
+            SlotManager.CreateWeaponSlot(inventory.weaponSlots[i], GetPosition(startXPositionWeapons, i), transform);
+        }
 
-        //        InventoryDraw.Instance.AddWeapon(melliWeaponSlot);
-        //    }
-        //    else if (inventory.weaponSlots[i] is ColdWeapon cold)
-        //    {
-        //        ColdWeaponSlot coldWeaponSlot = new ColdWeaponSlot(cold);
-        //        InventoryDraw.Instance.AddWeapon(coldWeaponSlot);
-        //    }
-        //}
 
-       
+    }
+
+    private Vector3 GetPosition(int startXPosition, int i)
+    {
+        return new Vector3(startXPosition + spacesBetweenX * (i % collumnsSpaces), 0f, 0f);
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine;
 [Serializable]
 public struct ZombieData
 {
-    public Enemy zombieType;
+    public Entity zombieType;
     public int amount;
 }
 #endregion
@@ -31,7 +31,7 @@ public class SpawnerOfZombies : MonoBehaviour
     {
           ZombieWaves.GetAmount += () => maxAmountZombies;
             ZombieWaves.ZombieWaveChanged += CallZombie;
-            SpawnableEnemy.OnSpawn += SpawnZombie;
+           // SpawnableEnemy.OnSpawn += SpawnZombie;
 
     }
 
@@ -40,7 +40,7 @@ public class SpawnerOfZombies : MonoBehaviour
         cancellationSource.Cancel();
         ZombieWaves.GetAmount -= () => maxAmountZombies;
         ZombieWaves.ZombieWaveChanged -= CallZombie;
-        SpawnableEnemy.OnSpawn -= SpawnZombie;
+        //SpawnableEnemy.OnSpawn -= SpawnZombie;
     }
 
     private Vector3 ChangePosition(int min, int max, Vector3 pos)
@@ -68,11 +68,11 @@ public class SpawnerOfZombies : MonoBehaviour
          Debug.Log("Zombie spawning has ended");
     }
 
-    private void SpawnZombie(int amount, Enemy enemyType, Vector3 position)
+    private void SpawnZombie(int amount, Entity enemyType, Vector3 position)
     {
         for (int i = 0; i < amount; i++)
         {
-            Enemy enemy = zombiePool.GetZombie(enemyType);
+            Entity enemy = zombiePool.GetZombie(enemyType);
             if (enemy != null)
             {
                 var randomY = ChangePosition((int)position.y - 1, (int)position.y +1, position);
@@ -87,7 +87,7 @@ public class SpawnerOfZombies : MonoBehaviour
     }
 
 
-    private async Task<int> CallZombieType(Enemy zombieType, int amount, int callAmount)
+    private async Task<int> CallZombieType(Entity zombieType, int amount, int callAmount)
     {
         int spawnAmount = Mathf.Min(CorrectRandom(0, amount + 1), callAmount);
         for (int i = 0; i < spawnAmount; i++)
@@ -95,7 +95,7 @@ public class SpawnerOfZombies : MonoBehaviour
             if (amount <= 0 || maxAmountZombies <= 0) break;
 
             var pos = ChangePosition(1,6, transform.position);
-            Enemy zombie = zombiePool.GetZombie(zombieType);
+            Entity zombie = zombiePool.GetZombie(zombieType);
             if (zombie != null)
             {
                 zombie.transform.position = pos;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: M4
   m_EditorClassIdentifier: 
   type: 1
-  amount: 2
+  amount: 0
   prefab: {fileID: 199214892, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   description: Simple granade
   granade: {fileID: 5139234951209787466, guid: b4714c09e02d12c408984608c7939621, type: 3}

@@ -9,7 +9,7 @@ public class FrozeDamage : Damage
     [Range(1, 5)] private float frozeTime;
     private const float frozeChance = 7;
 
-    public override void MakeDamage(Action<float> DoEnemyDamage, Enemy enemy)
+    public override void MakeDamage(Action<float> DoEnemyDamage, Entity enemy)
     {
         DoEnemyDamage(damage);
         float toFroze = UnityEngine.Random.Range(1, 10);

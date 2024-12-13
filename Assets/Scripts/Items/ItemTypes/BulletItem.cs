@@ -10,8 +10,8 @@ public class BulletItem : ItemObject
     {
         if (ShootController.controller.weapon is MelliWeapon melli)
         {
-            melli.totalBullets += amountBullet;
             melli.totalBulletAmount += amountBullet;
+            melli.totalBullets += amountBullet;
         }
     }
 

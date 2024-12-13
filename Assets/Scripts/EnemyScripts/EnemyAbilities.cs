@@ -3,17 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDiagnolMovable 
+
+public interface IEnemyAbillity
 {
-    public void MoveDiagnol(float coolDownTime);
+}
+public class DiagnolMove: MonoBehaviour, IEnemyAbillity 
+{
+    private const float coolDownTime = 2f;
+    public IEnumerator MoveDiagnol(Rigidbody2D unitRb, Transform unit, float speed)
+    {
+        float dir = UnityEngine.Random.Range(1, 10);
+        if (dir >= 5)
+        {
+            unitRb.velocity = -transform.right + Vector3.up * speed;
+        }else
+        {
+            unitRb.velocity = -transform.right + Vector3.down * speed;
+        }
+        yield return new WaitForSeconds(coolDownTime);
+        unitRb.velocity = -transform.right * speed;
+
+    }
 }
 
-public interface ISpawnable
+public class Spawn : IEnemyAbillity
 {
-    public void Spawn();
-}
+    public void SpawnEnemy(Entity enemyType, int amount)
+    {
 
-public interface IAttackOnce
-{
-    public void AttackOnce();
+    }
 }

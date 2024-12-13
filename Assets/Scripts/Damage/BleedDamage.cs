@@ -12,7 +12,7 @@ public class BleedDamage : Damage
     private const float remainTime = 1f;
     private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
-    public async override void MakeDamage(Action<float> DoEnemyDamage, Enemy enemy)
+    public async override void MakeDamage(Action<float> DoEnemyDamage, Entity enemy)
     {
          float bleedTime = timeBleeding;
         DoEnemyDamage?.Invoke(damage);

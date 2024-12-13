@@ -8,19 +8,19 @@ public class ZombiePoolObject : MonoBehaviour
     [SerializeField] private SpawnerOfZombies spawner;
     private List<ZombieData> zombiesPrefabs;
 
-    private Dictionary<Enemy, List<Enemy>> pools;
+    private Dictionary<Entity, List<Entity>> pools;
 
     private void Awake()
     {
         zombiesPrefabs = spawner.zombie;
-        pools = new Dictionary<Enemy, List<Enemy>>();
+        pools = new Dictionary<Entity, List<Entity>>();
 
         foreach (var zombiePrefab in zombiesPrefabs)
         {
-            List<Enemy> pool = new List<Enemy>();
+            List<Entity> pool = new List<Entity>();
             for (int i = 0; i < poolSize; i++)
             {
-                Enemy zombie = Instantiate(zombiePrefab.zombieType);
+               Entity zombie = Instantiate(zombiePrefab.zombieType);
                 zombie.gameObject.SetActive(false);
                 pool.Add(zombie);
             }
@@ -28,9 +28,9 @@ public class ZombiePoolObject : MonoBehaviour
         }
     }
 
-    public Enemy GetZombie(Enemy typeZombie)
+    public Entity GetZombie(Entity typeZombie)
     {
-        if (pools.TryGetValue(typeZombie, out List<Enemy> pool))
+        if (pools.TryGetValue(typeZombie, out List<Entity> pool))
         {
             foreach (var zombie in pool)
             {

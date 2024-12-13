@@ -6,14 +6,14 @@ public class Inventory : ScriptableObject
 {
     public  List<InventorySlot> slots = new List<InventorySlot>();
     public Weapon[] weaponSlots = new Weapon[2]; 
-    public void AddSlot(ItemObject _item, int _amount)
+    public void AddSlot(ItemObject _item)
     {
        bool inInventory = false;
         for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].item == _item)
             {
-                slots[i].item.amount += _amount;
+                slots[i].item.amount += _item.amount;
                 inInventory = true; 
                 break;
             }

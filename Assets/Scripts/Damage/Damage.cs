@@ -9,5 +9,5 @@ using UnityEngine;
 public abstract class Damage : ScriptableObject
 {
     [SerializeField] protected float damage;
-    public abstract void MakeDamage(Action<float> DoEnemyDamage, Enemy enemy);
+    public abstract void MakeDamage(Action<float> DoEnemyDamage, Entity enemy);
 }

@@ -22,7 +22,7 @@ public class ColdWeaponController : WeaponController
     private int currHitAmount;
     private bool isTired;
     private bool isEnemy = false;
-    private Enemy enemy;
+    private Entity enemy;
 
     
     public void Initialize(ColdWeapon cold)
@@ -49,16 +49,16 @@ public class ColdWeaponController : WeaponController
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.GetComponent<Enemy>() != null)
+        if (collision.GetComponent<Entity>() != null)
         {
             isEnemy = true;
-           enemy = collision.GetComponent<Enemy>();
+           enemy = collision.GetComponent<Entity>();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponent<Enemy>() != null)
+        if (collision.GetComponent<Entity>() != null)
         {
             isEnemy = false;
             enemy = null;

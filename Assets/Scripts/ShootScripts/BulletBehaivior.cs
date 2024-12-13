@@ -30,7 +30,7 @@ public class BulletBehaivior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)   
     {
-        if (collision.GetComponent<Enemy>() != null)
+        if (collision.GetComponent<Entity>() != null)
         {
 
             if (isTriggered) 
@@ -41,7 +41,7 @@ public class BulletBehaivior : MonoBehaviour
            isTriggered = true;
 
             Deactivate();
-            var zombie = collision.GetComponent<Enemy>();
+            var zombie = collision.GetComponent<Entity>();
             damageType.MakeDamage(zombie.GetDamage, zombie);
            
         }

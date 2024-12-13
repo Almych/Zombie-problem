@@ -12,6 +12,7 @@ public class InventoryData : MonoBehaviour
     public int collumnsSpaces;
     [SerializeField] private Inventory inventory;
     [SerializeField] private SlotManager slotManager;
+    private int createdSlotSPACE = 0;
     private void Start()
     {
         Initiate();
@@ -19,16 +20,20 @@ public class InventoryData : MonoBehaviour
 
 
     private void Initiate()
-    {
+    { 
         for(int i= 0; i < inventory.slots.Count; i++)
         {
-            var itemSlot = slotManager.CreateItemSlot(inventory.slots[i].item, GetPosition(startXPositionItems, i), transform, inventory.slots[i].item.UseItem);
-            InventoryDraw.Instance.AddItem(itemSlot);
+            if (inventory.slots[i].item.amount > 0)
+            {
+                ItemSlotConfig itemSlot = slotManager.CreateItemSlot(inventory.slots[i].item, GetPosition(startXPositionItems, createdSlotSPACE), transform, inventory.slots[i].item.UseItem);
+                InventoryDraw.Instance.AddItem(itemSlot);
+                createdSlotSPACE++;
+            }
         }
 
         for (int i = 0; i < inventory.weaponSlots.Length; i++)
         {
-            var weaponSlot = slotManager.CreateWeaponSlot(inventory.weaponSlots[i], GetPosition(startXPositionWeapons, i), transform);
+            WeaponSlotConfig weaponSlot = slotManager.CreateWeaponSlot(inventory.weaponSlots[i], GetPosition(startXPositionWeapons, i), transform);
             InventoryDraw.Instance.AddWeapon(weaponSlot);
         }
 

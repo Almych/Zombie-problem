@@ -21,12 +21,12 @@ public class MoneySpawn : MonoBehaviour
     }
     private void OnEnable()
     {
-        Enemy.OnCoinSpawn += SpawnCoin;
+        Entity.OnCoinSpawn += SpawnCoin;
     }
 
     private void OnDisable()
     {
-        Enemy.OnCoinSpawn -= SpawnCoin;
+        Entity.OnCoinSpawn -= SpawnCoin;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -19,6 +19,7 @@ public abstract class Entity : MonoBehaviour
 
     public abstract void Initiate();
 
+   
     public void GetDamage(float damage)
     {
         currHealth -= damage;

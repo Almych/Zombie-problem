@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class GroundEnemy : Entity
+public class GroundEnemy : Entity
 {
-    protected abstract void UniqAbillity();
+    [SerializeField] private float speed;
+    public override void Initiate()
+    {
+       rb.velocity = -transform.right * speed;
+    }
 }

@@ -15,7 +15,7 @@ public struct ZombieData
 
 public class SpawnerOfZombies : MonoBehaviour
 {   public List<ZombieData> zombie;
-    [SerializeField] private ZombiePoolObject zombiePool;
+    [SerializeField] private EnemyPool zombiePool;
     private int maxAmountZombies;
     private List<int> prevPos = new List<int>();
     private CancellationTokenSource cancellationSource =  new CancellationTokenSource();
@@ -31,8 +31,6 @@ public class SpawnerOfZombies : MonoBehaviour
     {
           ZombieWaves.GetAmount += () => maxAmountZombies;
             ZombieWaves.ZombieWaveChanged += CallZombie;
-           // SpawnableEnemy.OnSpawn += SpawnZombie;
-
     }
 
     private void OnDisable()
@@ -40,7 +38,6 @@ public class SpawnerOfZombies : MonoBehaviour
         cancellationSource.Cancel();
         ZombieWaves.GetAmount -= () => maxAmountZombies;
         ZombieWaves.ZombieWaveChanged -= CallZombie;
-        //SpawnableEnemy.OnSpawn -= SpawnZombie;
     }
 
     private Vector3 ChangePosition(int min, int max, Vector3 pos)
@@ -54,36 +51,23 @@ public class SpawnerOfZombies : MonoBehaviour
     {       
             while (maxAmountZombies > 0)
             {
-                if (cancellationSource.IsCancellationRequested)
-                {
-                    return;
-                }
+              if (!cancellationSource.IsCancellationRequested)
+              {
                 foreach (var zomb in zombie)
                 {
                     int availableAmount = zomb.amount;
                     await CallZombieType(zomb.zombieType, availableAmount, callAmount);
                 }
-                await Task.Delay(TimeSpan.FromSeconds(2f));
+                    await Task.Delay(TimeSpan.FromSeconds(2f));
+              }
+              else
+              {
+                return;
+              }
+                
             }
-         Debug.Log("Zombie spawning has ended");
-    }
-
-    private void SpawnZombie(int amount, Entity enemyType, Vector3 position)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            Entity enemy = zombiePool.GetZombie(enemyType);
-            if (enemy != null)
-            {
-                var randomY = ChangePosition((int)position.y - 1, (int)position.y +1, position);
-                if (randomY.y >= 6.2 || randomY.y < 1)
-                {
-                    randomY.y = position.y;
-                }
-                enemy.transform.position = randomY;
-                enemy.Initiate();
-            }
-        }
+        Debug.Log("Zombie spawning has ended");
+        cancellationSource.Cancel();
     }
 
 

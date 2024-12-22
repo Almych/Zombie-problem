@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04448575a0ba7c47bda88ae2f5a9714, type: 3}
   m_Name: MachneGun
   m_EditorClassIdentifier: 
-  damageType: {fileID: 11400000, guid: 8136b13d6f33d134da126b2bfd0f6ed3, type: 2}
+  damageType: {fileID: 11400000, guid: 239f3ca70b44d734a82c4cf58383ed4b, type: 2}
   weaponIcon: {fileID: 1728246002, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   reloadTime: 2
   maxBullets: 10
   bulletSprite: {fileID: -744601901, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
-  totalBulletAmount: 20
+  totalBulletAmount: 40

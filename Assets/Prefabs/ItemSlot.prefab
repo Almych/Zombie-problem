@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemImage: {fileID: 7884142319804159473}
   itemAmount: {fileID: 7022791471342610804}
-  useItemEvent: {fileID: 2503194705089000922}
+  itemObject: {fileID: 0}
 --- !u!1 &8376303960059976413
 GameObject:
   m_ObjectHideFlags: 0

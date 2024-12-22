@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 5021270980479687894}
   - component: {fileID: 2582147606147351854}
   - component: {fileID: 1909674978912417388}
-  - component: {fileID: 2989823585609656302}
-  - component: {fileID: 8800843469192679963}
+  - component: {fileID: 3970398576075880834}
   m_Layer: 3
   m_Name: Spitter
   m_TagString: Untagged
@@ -101,7 +100,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 513c6686da694194c8cb9c61ea2da3b8, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -183,7 +182,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2989823585609656302
+--- !u!114 &3970398576075880834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,32 +191,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1848886357508688255}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9367b2b89272e054891ef9b92a91b653, type: 3}
+  m_Script: {fileID: 11500000, guid: bb0ab415bb57a83448fefd479dfd60a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  damage: 6
-  speed: 0.7
-  attackCoolDown: 2
-  barrier:
-    serializedVersion: 2
-    m_Bits: 64
-  distance: 7
---- !u!114 &8800843469192679963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1848886357508688255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
+  enemyData: {fileID: 11400000, guid: e0a026726401f074180976041dd207c1, type: 2}
 --- !u!1 &7960771295234408787
 GameObject:
   m_ObjectHideFlags: 0

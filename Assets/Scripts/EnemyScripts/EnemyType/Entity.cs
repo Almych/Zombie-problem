@@ -5,18 +5,18 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-   [SerializeField] protected int maxHealth;
-    public event Action OnDamage;
-    public delegate void OnDeath(Vector3 position);
-    protected event Action OnDeathAddition;
-    public static event OnDeath OnCoinSpawn;
+    [SerializeField] protected EnemyConfig enemyData;
+    protected  Action OnDamage;
+    public delegate void OnDeathAdittion(Vector3 position);
+    protected Action OnDeath;
+    public static event OnDeathAdittion OnCoinSpawn;
     protected float currHealth;
     protected Animator animator;
     protected Rigidbody2D rb;
     protected bool isAttacking, isDead;
     protected SpriteRenderer spriteColor;
-    protected Collider enemyCollider;
-
+    protected Collider2D enemyCollider;
+    protected EnemyAbillity enemyAbility;
     public abstract void Initiate();
 
    
@@ -31,21 +31,25 @@ public abstract class Entity : MonoBehaviour
         }
     }
 
-    private void Start()
+    public abstract void AbilityAdd();
+
+    protected void Awake()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteColor = GetComponent<SpriteRenderer>();
-        enemyCollider = GetComponent<Collider>();
+        enemyCollider = GetComponent<Collider2D>();
+        AbilityAdd();
+        currHealth = enemyData.maxHealth;
     }
     protected void Death()
     {
         StartCoroutine(Die());
         OnCoinSpawn?.Invoke(transform.position);
     }
-    protected void Restore()
+    private void Restore()
     {
-        currHealth = maxHealth;
+        currHealth = enemyData.maxHealth;
         isAttacking = false;
         isDead = false;
         enemyCollider.enabled = true;
@@ -58,8 +62,10 @@ public abstract class Entity : MonoBehaviour
         animator.SetBool("isDead", isDead);
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(1f);
-        OnDeathAddition?.Invoke();
+        OnDeath?.Invoke();
         Restore();
         gameObject.SetActive(false);
     }
+
+
 }

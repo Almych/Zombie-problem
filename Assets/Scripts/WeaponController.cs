@@ -80,7 +80,7 @@ public class MelliWeaponController : WeaponController
     private MelliWeapon melliGun;
     private int currBulletAmount = 0;
     private bool hasAmmo = false;
-  
+    private bool isRealoding = false;
     public void Initialize(MelliWeapon melli)
     {
         melliGun = melli;
@@ -98,7 +98,7 @@ public class MelliWeaponController : WeaponController
             var bullet = BulletPool.Instance.GetPoolObject();
             if (bullet != null)
             {
-                bullet.DamageOFBullet(melliGun.damageType);
+                bullet.DamageOfBullet(melliGun.damageType);
                 bullet.transform.position = transform.position;
                 bullet.Activate(melliGun.bulletSprite);
                 currBulletAmount--;
@@ -113,7 +113,13 @@ public class MelliWeaponController : WeaponController
         else
         {
             if (melliGun.totalBulletAmount != 0)
-            StartCoroutine(Reload());
+            {
+                if (!isRealoding)
+                {
+                    isRealoding = true;
+                    StartCoroutine(Reload());
+                }
+            }
             else
             {
                 Debug.Log("run out of bullets");
@@ -125,7 +131,8 @@ public class MelliWeaponController : WeaponController
     public override IEnumerator Reload()
     {
         yield return new WaitForSeconds(melliGun.reloadTime);
-        CheckBullets(); 
+        CheckBullets();
+        isRealoding = false;
     }
     private void CheckBullets()
     {
@@ -141,7 +148,11 @@ public class MelliWeaponController : WeaponController
             currBulletAmount = melliGun.totalBulletAmount;
             melliGun.totalBulletAmount = 0;
             hasAmmo = true;
-        };
+        }
+        else
+        {
+            return;
+        }
     }
 
     

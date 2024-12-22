@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7395433693598665503}
   - component: {fileID: 5332349921423735596}
   - component: {fileID: 2045256084944102405}
-  - component: {fileID: 8206604991220337049}
+  - component: {fileID: 5140773186700458995}
   m_Layer: 3
   m_Name: Average Zombie
   m_TagString: Untagged
@@ -182,7 +182,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8206604991220337049
+--- !u!114 &5140773186700458995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,10 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0833fee730fa445a347855bdc27f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 8
-  damage: 5
-  speed: 1
-  attackCoolDown: 2
+  enemyData: {fileID: 11400000, guid: a349c566bc0abd946b2886c22f322f6f, type: 2}
 --- !u!1 &8368564793082021321
 GameObject:
   m_ObjectHideFlags: 0

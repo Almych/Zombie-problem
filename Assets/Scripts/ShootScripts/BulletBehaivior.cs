@@ -22,7 +22,7 @@ public class BulletBehaivior : MonoBehaviour
     }
 
    
-    public Damage DamageOFBullet(Damage damage)
+    public Damage DamageOfBullet(Damage damage)
     {
          damageType = damage;
         return damageType;

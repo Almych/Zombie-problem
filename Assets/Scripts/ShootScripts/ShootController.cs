@@ -53,7 +53,7 @@ public class ShootController : MonoBehaviour
         }
     }
 
-    public void ChangeWeapon(ref WeaponController currentController)
+    public void ChangeWeapon(ref WeaponController currentController) 
     {
 
         for (int i = 0; i < weaponControllers.Length; i++)

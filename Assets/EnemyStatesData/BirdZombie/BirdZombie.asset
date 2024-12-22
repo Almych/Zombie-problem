@@ -9,7 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb185aa0448cd884ebaaf85aa7674d54, type: 3}
-  m_Name: Damage
+  m_Script: {fileID: 11500000, guid: 430088ce42380504b9637c51893fa9de, type: 3}
+  m_Name: BirdZombie
   m_EditorClassIdentifier: 
-  damage: 1.5
+  maxHealth: 6.2
+  speed: 3.1
+  damage: 5
+  attackCoolDown: 1
+  attackRange: 0
+  barrier:
+    serializedVersion: 2
+    m_Bits: 64

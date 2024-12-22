@@ -18,3 +18,4 @@ MonoBehaviour:
   maxBullets: 5
   bulletSprite: {fileID: 1085539168, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
   totalBulletAmount: 0
+  totalBullets: 30

@@ -2,27 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IMelliEnemy
+{
+    public void OnCollisionEnter2D(Collision2D collision);
+}
 public class MelliEnemyNone : Entity, IMelliEnemy
 {
-    public override void AbilityAdd()
-    {
-       // throw new System.NotImplementedException();
-    }
+    protected HealthBar barrier;
 
-    public override void Initiate()
+  
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        rb.velocity = -transform.right * enemyData.speed;
-    }
-
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        Death();
+        if (collision.collider.GetComponent<HealthBar>() != null)
+        {
+            barrier = collision.collider.GetComponent<HealthBar>();
+            stateMachine.SwitchState(stateMachine.attackState);
+        }
     }
 
 
-    protected void Attack(HealthBar barrier)
+
+    public override void Attack()
     {
-        barrier.ChangeHealthValue(-enemyData.damage);
-        animator.SetBool("isAttacking", isAttacking);
+        stateMachine.SwitchState(stateMachine.deadState);
     }
 }

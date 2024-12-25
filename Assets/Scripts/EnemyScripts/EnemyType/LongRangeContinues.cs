@@ -6,21 +6,8 @@ using UnityEngine;
 
 public class LongRangeContinues : LongRangeEnemyNone
 {
-    public override void Initiate()
+    public override void Attack()
     {
-        rb.velocity = -transform.right * enemyData.speed;
-
-        StartCoroutine(Shoot());
-    }
-    public new IEnumerator Shoot()
-    {
-         while (!isDead)
-         {
-                yield return new WaitForSeconds(enemyData.attackCoolDown);
-                if (CheckDistance())
-                {
-                    GetEnemyBullet();
-                }
-         }
+        GetEnemyBullet();
     }
 }

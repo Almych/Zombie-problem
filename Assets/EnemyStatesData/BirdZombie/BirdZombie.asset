@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BirdZombie
   m_EditorClassIdentifier: 
   maxHealth: 6.2
-  speed: 3.1
+  speed: 2.66
   damage: 5
   attackCoolDown: 1
   attackRange: 0

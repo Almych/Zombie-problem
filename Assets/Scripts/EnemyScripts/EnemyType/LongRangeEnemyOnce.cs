@@ -6,17 +6,9 @@ using UnityEngine;
 
 public class LongRangeEnemyOnce : LongRangeEnemyNone
 {
-
-    public new IEnumerator Shoot()
+    public override void Attack()
     {
-        while (!isDead)
-        {
-            yield return new WaitForSeconds(enemyData.attackCoolDown);
-            if (CheckDistance())
-            {
-                GetEnemyBullet();
-                Death();
-            }
-        }
+        GetEnemyBullet();
+        stateMachine.SwitchState(stateMachine.deadState);
     }
 }

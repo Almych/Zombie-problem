@@ -41,7 +41,8 @@ public class HealthBar : MonoBehaviour
         {
             Debug.Log("dead");
             return 0;
-        }else
+        }
+        else
         {
             CurrHealth += value / maxHealth;
             return CurrHealth;

@@ -8,7 +8,6 @@ public class DamageGranade : Granade
 {
 
     [SerializeField] protected float damage;
-    private bool isHoldGranade = false;
 
    
     private void Makedamage(Vector2 cord)
@@ -25,7 +24,6 @@ public class DamageGranade : Granade
             }
         }
         granade.SetActive(false);
-        isHoldGranade = false;
     }
 
     public override void Throw()

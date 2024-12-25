@@ -4,20 +4,9 @@ using UnityEngine;
 
 public class OneHitEnemy : MelliEnemyNone
 {
-    public override void AbilityAdd()
+    public override void Attack()
     {
-    }
-    public override void Initiate()
-    {
-        rb.velocity = -transform.right * enemyData.speed;
-    }
-
-    public new void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.GetComponent<HealthBar>() != null)
-        {
-            Attack(collision.collider.GetComponent<HealthBar>());
-            Death();
-        }
+        barrier?.ChangeHealthValue(-enemyData.damage);
+        stateMachine.SwitchState(stateMachine.deadState);
     }
 }

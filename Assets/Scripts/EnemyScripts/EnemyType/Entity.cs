@@ -5,67 +5,104 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    [SerializeField] protected EnemyConfig enemyData;
-    protected  Action OnDamage;
+    public OnDamageAbillity onDamageAbillity;
+    public OnDeathAbillity onDeathAbillity;
+    [SerializeField] internal protected EnemyConfig enemyData; 
+    internal protected  Action OnDamage;
     public delegate void OnDeathAdittion(Vector3 position);
-    protected Action OnDeath;
+    internal protected Action OnDeath;
     public static event OnDeathAdittion OnCoinSpawn;
-    protected float currHealth;
-    protected Animator animator;
-    protected Rigidbody2D rb;
-    protected bool isAttacking, isDead;
-    protected SpriteRenderer spriteColor;
-    protected Collider2D enemyCollider;
-    protected EnemyAbillity enemyAbility;
-    public abstract void Initiate();
-
-   
+    internal protected float currHealth;
+    internal protected Animator animator;
+    internal protected Rigidbody2D rb;
+    internal protected SpriteRenderer spriteColor;
+    internal protected Collider2D enemyCollider;
+    protected StateMachine stateMachine;
+    protected OnDamageEnemyAbillity damageAbillity;
+    protected OnDeathEnemyAbillity deathAbillity;
+    private Action deadAction, damageAction;
     public void GetDamage(float damage)
     {
         currHealth -= damage;
         OnDamage?.Invoke();
         if (currHealth <= 0)
         {
-            isDead = true;
-            Death();
+            stateMachine.SwitchState(stateMachine.deadState);
         }
     }
+   
+    public void ChangeAnimation(string animationName, bool animationType)
+    {
+        animator.SetBool(animationName, animationType);
+    }
 
-    public abstract void AbilityAdd();
-
+    public abstract void Attack();
     protected void Awake()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteColor = GetComponent<SpriteRenderer>();
         enemyCollider = GetComponent<Collider2D>();
-        AbilityAdd();
         currHealth = enemyData.maxHealth;
+        stateMachine = new StateMachine(this);
+        damageAbillity = EnemyAbillityFactory.OnDamageAbillityAdd(onDamageAbillity, this);
+        deathAbillity = EnemyAbillityFactory.OnDeathAbillityAdd( onDeathAbillity, this);
+        Debug.Log(damageAbillity);
+        if (damageAbillity != null)
+        {
+            damageAction = damageAbillity.OnDamage;
+        }
+        if (deathAbillity != null)
+        {
+            deadAction = deathAbillity.OnDeath;
+        }
     }
-    protected void Death()
+
+    public virtual void Initiate()
+    {
+        rb.velocity = -transform.right * enemyData.speed;
+        stateMachine.SwitchState(stateMachine.runState);
+    }
+
+
+    public void StopMove()
+    {
+        rb.velocity = Vector3.zero;
+    }
+
+    public void Death()
     {
         StartCoroutine(Die());
-        OnCoinSpawn?.Invoke(transform.position);
     }
-    private void Restore()
+
+    private void OnEnable()
+    {
+        OnDamage += damageAction;
+        OnDeath += deadAction;
+    }
+
+    private void OnDisable()
+    {
+        OnDamage -= damageAction;
+        OnDeath -= deadAction;
+    }
+
+    public void Restore()
     {
         currHealth = enemyData.maxHealth;
-        isAttacking = false;
-        isDead = false;
         enemyCollider.enabled = true;
         spriteColor.color = Color.white;
     }
 
+
     private IEnumerator Die()
     {
+        StopMove();
         enemyCollider.enabled = false;
-        animator.SetBool("isDead", isDead);
-        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(1f);
         OnDeath?.Invoke();
-        Restore();
+        OnCoinSpawn?.Invoke(transform.position);
         gameObject.SetActive(false);
     }
-
 
 }

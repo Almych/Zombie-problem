@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: e0a026726401f074180976041dd207c1, type: 2}
+  ability: 1
 --- !u!1 &7960771295234408787
 GameObject:
   m_ObjectHideFlags: 0

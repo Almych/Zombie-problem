@@ -11,18 +11,26 @@ public enum OnDeathAbillity
     None,
     Spawn
 }
+
+
 public static class EnemyAbillityFactory 
 {
-    public static OnDamageEnemyAbillity OnDamageAbillityAdd(OnDamageAbillity damageAbillityType, Entity enemy)
+    public static OnDamageEnemyAbillity OnDamageAbillityAdd(EnemyOnDamageAbillityConfig damageAbillityType, Entity mono)
     {
-        switch(damageAbillityType)
+        switch(damageAbillityType.onDamageAbillity)
         {
             case OnDamageAbillity.None:
                 return null;
 
             case OnDamageAbillity.MoveDiagnol:
-               OnDamageEnemyAbillity abillity = new MoveDiagnolAbillity(enemy.transform, enemy.rb, enemy.enemyData.speed, enemy);
-                return abillity;
+                if (damageAbillityType is MoveDiagnolConfig move)
+                {
+                    OnDamageEnemyAbillity abillity = new MoveDiagnolAbillity(mono.transform, mono.GetComponent<Rigidbody2D>(), mono.enemyData.speed, mono);
+                    return abillity;
+                }else
+                {
+                    return null;
+                }
 
             default:
                 return null;
@@ -30,16 +38,23 @@ public static class EnemyAbillityFactory
         }
     }
 
-    public static OnDeathEnemyAbillity OnDeathAbillityAdd( OnDeathAbillity deathAbillityType, Entity enemy)
+    public static OnDeathEnemyAbillity OnDeathAbillityAdd( EnemyOnDeathAbillityConfig deathAbillityType)
     {
-        switch (deathAbillityType)
+        switch (deathAbillityType.OnDeathAbillity)
         {
             case OnDeathAbillity.None:
                 return null;
 
             case OnDeathAbillity.Spawn:
-                OnDeathEnemyAbillity abillity = new SpawnAbillity(enemy.transform, enemy.rb,2, enemy);
-               return abillity;
+                if (deathAbillityType is SpawnAbillityConfig spawn)
+                {
+                    OnDeathEnemyAbillity abillity = new SpawnAbillity(spawn.enemy.transform, spawn.enemy.GetComponent<Rigidbody2D>(), spawn.amountToSpawn, spawn.enemy);
+                    return abillity;
+                }
+                else
+                {
+                    return null;
+                }
 
             default:
                 return null;

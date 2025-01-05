@@ -22,7 +22,7 @@ public class SpawnAbillity : OnDeathEnemyAbillity
     {
         for (int i = 0; i < _amount; i++)
         {
-            Entity spawnEnemy = EnemyPool.Instance.GetZombie(_entity);
+            Entity spawnEnemy = EnemyPool.Instance.GetEnemy(_entity);
             if (spawnEnemy != null)
             {
                 var randomYPositon = UnityEngine.Random.Range(-1, 1);

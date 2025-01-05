@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4ae913ce7589a4d88bf6f184932813, type: 3}
+  m_Name: SpawnAbillity
+  m_EditorClassIdentifier: 
+  OnDeathAbillity: 1
+  enemyToSpawn: {fileID: 5140773186700458995, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
+  enemy: {fileID: 1167495050608333119, guid: 315459d967b331d488302a8a8d1da795, type: 3}
+  amountToSpawn: 2

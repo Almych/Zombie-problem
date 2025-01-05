@@ -37,7 +37,7 @@ public class LongRangeEnemyNone : Entity, ILongRangeEnemy
         if (bullet != null)
         {
             bullet.transform.position = transform.position;
-            bullet.Activate(ref enemyData.damage);
+            bullet.Activate(enemyData.damage);
         }
     }
     public override void Initiate()

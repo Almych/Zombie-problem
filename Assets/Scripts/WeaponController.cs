@@ -39,7 +39,7 @@ public class ColdWeaponController : WeaponController
         if (!isTired && isEnemy)
         {
             currHitAmount--;
-            coldWeapon.damageType.MakeDamage(enemy.GetDamage, enemy);
+            coldWeapon.damageType.MakeDamage(enemy);
         }
         else
         {

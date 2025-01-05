@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
-public abstract class State
+public abstract class State 
 {
     protected Entity _entity;
     protected State(Entity entity)
@@ -79,8 +80,9 @@ public class DeadState : State
 
     public override void Enter()
     {
+        _entity.StopAllCoroutines();
         _entity.ChangeAnimation("isDead", true);
-        _entity.Death();
+        _entity.StartCoroutine(_entity.Die());
     }
 
     public override void Exit()

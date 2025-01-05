@@ -5,8 +5,8 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    public OnDamageAbillity onDamageAbillity;
-    public OnDeathAbillity onDeathAbillity;
+    public EnemyOnDamageAbillityConfig onDamageAbillity;
+    public EnemyOnDeathAbillityConfig onDeathAbillity;
     [SerializeField] internal protected EnemyConfig enemyData; 
     internal protected  Action OnDamage;
     public delegate void OnDeathAdittion(Vector3 position);
@@ -24,10 +24,13 @@ public abstract class Entity : MonoBehaviour
     public void GetDamage(float damage)
     {
         currHealth -= damage;
-        OnDamage?.Invoke();
         if (currHealth <= 0)
         {
             stateMachine.SwitchState(stateMachine.deadState);
+        }
+        else
+        {
+            OnDamage?.Invoke();
         }
     }
    
@@ -46,8 +49,7 @@ public abstract class Entity : MonoBehaviour
         currHealth = enemyData.maxHealth;
         stateMachine = new StateMachine(this);
         damageAbillity = EnemyAbillityFactory.OnDamageAbillityAdd(onDamageAbillity, this);
-        deathAbillity = EnemyAbillityFactory.OnDeathAbillityAdd( onDeathAbillity, this);
-        Debug.Log(damageAbillity);
+        deathAbillity = EnemyAbillityFactory.OnDeathAbillityAdd( onDeathAbillity);
         if (damageAbillity != null)
         {
             damageAction = damageAbillity.OnDamage;
@@ -70,10 +72,7 @@ public abstract class Entity : MonoBehaviour
         rb.velocity = Vector3.zero;
     }
 
-    public void Death()
-    {
-        StartCoroutine(Die());
-    }
+    
 
     private void OnEnable()
     {
@@ -95,7 +94,7 @@ public abstract class Entity : MonoBehaviour
     }
 
 
-    private IEnumerator Die()
+    public IEnumerator Die()
     {
         StopMove();
         enemyCollider.enabled = false;

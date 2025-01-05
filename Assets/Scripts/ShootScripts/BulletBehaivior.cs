@@ -42,13 +42,10 @@ public class BulletBehaivior : MonoBehaviour
 
             Deactivate();
             var zombie = collision.GetComponent<Entity>();
-            damageType.MakeDamage(zombie.GetDamage, zombie);
+            damageType.MakeDamage(zombie);
            
         }
-        else if (collision.GetComponent<SpawnerOfZombies>()!= null)
-        {
-            Deactivate();
-        }
+       
     }
 
   

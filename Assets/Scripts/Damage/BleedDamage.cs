@@ -9,25 +9,26 @@ using UnityEngine;
 public class BleedDamage : Damage
 {
     [Range(1, 3)][SerializeField] private float timeBleeding;
+    [Range(0.1f, 2)][SerializeField] private float bleedDamage;
     private const float remainTime = 1f;
     private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
-    public async override void MakeDamage(Action<float> DoEnemyDamage, Entity enemy)
+    public async override void MakeDamage(Entity enemy)
     {
          float bleedTime = timeBleeding;
-        DoEnemyDamage?.Invoke(damage);
-        if (enemy.isActiveAndEnabled)
-        {
+        enemy.GetDamage(damage);
             while (bleedTime > 0f && !cancellationTokenSource.IsCancellationRequested)
             {
                 Debug.Log("bleeding");
-                DoEnemyDamage(damage / damage);
+            if (enemy.isActiveAndEnabled)
+                enemy.GetDamage(bleedDamage);
+            else
+                return;
                 await Task.Delay(TimeSpan.FromSeconds(remainTime));
                 bleedTime -= 0.5f;
             }
-        }
     }
-
+    
 
     private void OnDisable()
     {

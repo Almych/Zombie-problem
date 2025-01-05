@@ -13,7 +13,7 @@ public class EnemyBulletBehaivior : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Activate (ref float damage)
+    public void Activate (float damage)
     {
         gameObject.SetActive(true);
         this.damage = damage;

@@ -49,7 +49,7 @@ public abstract class Entity : MonoBehaviour
         currHealth = enemyData.maxHealth;
         stateMachine = new StateMachine(this);
         damageAbillity = EnemyAbillityFactory.OnDamageAbillityAdd(onDamageAbillity, this);
-        deathAbillity = EnemyAbillityFactory.OnDeathAbillityAdd( onDeathAbillity);
+        deathAbillity = EnemyAbillityFactory.OnDeathAbillityAdd( onDeathAbillity, this);
         if (damageAbillity != null)
         {
             damageAction = damageAbillity.OnDamage;
@@ -62,8 +62,8 @@ public abstract class Entity : MonoBehaviour
 
     public virtual void Initiate()
     {
-        rb.velocity = -transform.right * enemyData.speed;
         stateMachine.SwitchState(stateMachine.runState);
+        rb.velocity = -transform.right * enemyData.speed;
     }
 
 

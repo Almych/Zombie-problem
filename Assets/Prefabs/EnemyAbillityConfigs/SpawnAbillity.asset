@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnDeathAbillity: 1
   enemyToSpawn: {fileID: 5140773186700458995, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
-  enemy: {fileID: 1167495050608333119, guid: 315459d967b331d488302a8a8d1da795, type: 3}
   amountToSpawn: 2

@@ -25,7 +25,8 @@ public class SpawnAbillity : OnDeathEnemyAbillity
             Entity spawnEnemy = EnemyPool.Instance.GetEnemy(_entity);
             if (spawnEnemy != null)
             {
-                var randomYPositon = UnityEngine.Random.Range(-1, 1);
+                spawnEnemy.gameObject.SetActive(true);
+                var randomYPositon = Random.Range(-1, 1);
                 spawnEnemy.transform.position = new Vector3(_unit.position.x, _unit.transform.position.y + randomYPositon, 0);
                 spawnEnemy.Initiate();
             }

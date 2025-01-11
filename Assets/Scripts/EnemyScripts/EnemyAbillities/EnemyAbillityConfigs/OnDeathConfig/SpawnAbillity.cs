@@ -7,6 +7,5 @@ public class SpawnAbillityConfig : EnemyOnDeathAbillityConfig
 {
     public new readonly OnDeathAbillity OnDeathAbillity = OnDeathAbillity.Spawn;
     public Entity enemyToSpawn;
-    public Entity enemy;
     public int amountToSpawn;
 }

@@ -278,6 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf20e8e624fa2b408b5b2b787f60a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onDamageAbillity: {fileID: 11400000, guid: c5c5d210d9dd58c4e937c52402038ef9, type: 2}
-  onDeathAbillity: {fileID: 11400000, guid: d70d501c696537543b9b349fbfbfdf4a, type: 2}
+  onDamageAbillity: {fileID: 11400000, guid: 1d6556a61203500449684e1ee4b252d5, type: 2}
+  onDeathAbillity: {fileID: 11400000, guid: a38aa4367ee65dc47a2c3bb2abff7042, type: 2}
   enemyData: {fileID: 11400000, guid: d6db6102caa6b5f4fba41e4d809c8c9f, type: 2}

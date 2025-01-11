@@ -45,6 +45,10 @@ public class BulletBehaivior : MonoBehaviour
             damageType.MakeDamage(zombie);
            
         }
+        else if (collision.GetComponent<WaveManager>() != null)
+        {
+            Deactivate();
+        }
        
     }
 

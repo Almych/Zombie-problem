@@ -38,7 +38,7 @@ public static class EnemyAbillityFactory
         }
     }
 
-    public static OnDeathEnemyAbillity OnDeathAbillityAdd( EnemyOnDeathAbillityConfig deathAbillityType)
+    public static OnDeathEnemyAbillity OnDeathAbillityAdd( EnemyOnDeathAbillityConfig deathAbillityType, Entity mono)
     {
         switch (deathAbillityType.OnDeathAbillity)
         {
@@ -48,7 +48,7 @@ public static class EnemyAbillityFactory
             case OnDeathAbillity.Spawn:
                 if (deathAbillityType is SpawnAbillityConfig spawn)
                 {
-                    OnDeathEnemyAbillity abillity = new SpawnAbillity(spawn.enemy.transform, spawn.enemy.GetComponent<Rigidbody2D>(), spawn.amountToSpawn, spawn.enemy);
+                    OnDeathEnemyAbillity abillity = new SpawnAbillity(mono.transform, mono.GetComponent<Rigidbody2D>(), spawn.amountToSpawn, spawn.enemyToSpawn);
                     return abillity;
                 }
                 else

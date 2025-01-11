@@ -6,7 +6,7 @@ public class EnemyPool : MonoBehaviour
 {
     public static EnemyPool Instance;
     private const int poolSize = 7;
-    private static List<Entity> pooledEnemies = new List<Entity>();
+    private static Queue<Entity> pooledEnemies = new Queue<Entity>();
 
     private void Awake()
     {
@@ -17,19 +17,20 @@ public class EnemyPool : MonoBehaviour
     }
     public void InitiateEnemy(Entity enemyType)
     {
-        for (int i=0; i < poolSize; i++)
+        for (int i = 0; i < poolSize; i++)
         {
-           var enemy = Instantiate(enemyType);
+           var enemy = Instantiate(enemyType.gameObject);
            enemy.gameObject.SetActive(false);
-            pooledEnemies.Add(enemy);
+           pooledEnemies.Enqueue(enemy.GetComponent<Entity>());
         }
     }
 
     public Entity GetEnemy(Entity enemyType)
     {
+       
        foreach(var enemy in pooledEnemies)
         {
-            if (enemy == enemyType && !enemy.isActiveAndEnabled)
+            if (enemy.GetType() == enemyType.GetType() && !enemy.isActiveAndEnabled)
             {
                 return enemy;
             }

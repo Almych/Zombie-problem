@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "New Crit Damage", menuName = "Damage/Crit Damage")]
-public class CritDamage : Damage
+public class CritDamage : DefaultDamage
 {
 
     [Range(1, 5)][SerializeField] private float critChange;
@@ -14,13 +14,13 @@ public class CritDamage : Damage
     public override void MakeDamage(Entity enemy)
     {
         float critDamage = UnityEngine.Random.Range(1, 10);
-        if (critDamage >= critChange)
+        if (critDamage <= critChange)
         {
-            enemy.GetDamage(damage * 2);
+            enemy.GetDamage(damage * 2, this);
         }
         else
         {
-            enemy.GetDamage(damage);
+            enemy.GetDamage(damage, this);
         }
     }
 }

@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
-public abstract class Damage : ScriptableObject
+public abstract class Damage : ScriptableObject, IDamage
 {
     [SerializeField] protected float damage;
+
     public abstract void MakeDamage(Entity enemy);
 }
+
+
+public interface IDamage
+{
+    public void MakeDamage(Entity enemy);
+}
+

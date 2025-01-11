@@ -21,14 +21,14 @@ public abstract class Entity : MonoBehaviour
     protected OnDamageEnemyAbillity damageAbillity;
     protected OnDeathEnemyAbillity deathAbillity;
     private Action deadAction, damageAction;
-    public void GetDamage(float damage)
+    public void GetDamage(float damage, Damage damageType)
     {
         currHealth -= damage;
         if (currHealth <= 0)
         {
             stateMachine.SwitchState(stateMachine.deadState);
         }
-        else
+        else if (damageType is DefaultDamage def)
         {
             OnDamage?.Invoke();
         }
@@ -36,6 +36,7 @@ public abstract class Entity : MonoBehaviour
    
     public void ChangeAnimation(string animationName, bool animationType)
     {
+        if(gameObject.activeInHierarchy && gameObject != null)
         animator.SetBool(animationName, animationType);
     }
 

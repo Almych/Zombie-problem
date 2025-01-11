@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2aff5a00d973e47a3ac46ca79e4219, type: 3}
   m_Name: New Crit Damage
   m_EditorClassIdentifier: 
-  damage: 6
+  damage: 5
   critChange: 2

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,49 +9,47 @@ public class WaveUi : MonoBehaviour
 {
     [SerializeField] private Slider waveBar;
     [SerializeField] private GameObject wavePrefab;
-
-
+    private const float FILLRECTMAXXPOSITION = 260f;
+    private List<GameObject> waves = new List<GameObject>();
     public void ChangeWaveBarValue(float value)
     {
         waveBar.value = value;
     }
 
-    public void OnWaveCall()
+    public void OnWaveCall(int waveCount)
     {
-        
+         waves[waveCount].SetActive(false);
     }
-    public void InitWaves(int wavesAmount)
+
+    public async void InitWaves(List<float> waveProcents, int waveMaxAmount)
     {
         Vector3 scale = wavePrefab.GetComponent<RectTransform>().localScale;
-        float maxWave = waveBar.fillRect.GetComponent<RectTransform>().rect.width;
+        var fill = waveBar.fillRect.parent.GetComponent<RectTransform>();
 
-        // Calculate the spacing between each wave
-        float waveSpacing = maxWave / wavesAmount;
-
-        // Loop to instantiate and position the waves
-        for (int i = 0; i < wavesAmount; i++)
+        for (int i = 0; i < waveMaxAmount; i++)
         {
-            // Instantiate the wavePrefab and set its parent
-            GameObject waveInstance = Instantiate(wavePrefab);
-            waveInstance.transform.SetParent(waveBar.fillRect.transform);
+            GameObject wave = Instantiate(wavePrefab);
+            wave.transform.SetParent(fill);
+            var rect = wave.GetComponent<RectTransform>();
+            float wavePosition = await GetWavePosition(waveProcents[i]);
 
-            // Calculate the X position of each wave, ensuring they are evenly spaced
-            float positionX = waveSpacing * i -100f;  // This ensures waves don't overlap
+           rect.localPosition = new Vector2(wavePosition, fill.localPosition.y);
+           rect.localScale = scale;
 
-            // Set the wave's position and scale
-
-            Vector3 wavePosition = new Vector3(positionX, 0, 0);
-            RectTransform waveRect = waveInstance.GetComponent<RectTransform>();
-            waveRect.localPosition = wavePosition;
-            waveRect.localScale = scale;
-
-            // Optionally log the position for debugging
-            Debug.Log("Wave " + i + " positioned at X: " + positionX);
+            waves.Add(wave);
         }
 
-        // Optionally reset the slider value after initializing the waves
-        waveBar.value = waveBar.maxValue;
     }
 
+
+    private async Task<float> GetWavePosition(float percent)
+    {
+        return await Task.Run(() =>
+        {
+            float n = FILLRECTMAXXPOSITION * percent / 100;
+            float value = FILLRECTMAXXPOSITION - n;
+            return value - FILLRECTMAXXPOSITION / 2;
+        });
+    }
 
 }

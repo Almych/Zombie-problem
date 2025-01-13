@@ -9,20 +9,6 @@ using UnityEngine.EventSystems;
 public class MelliEnemyContinues : MelliEnemyNone
 {
 
-
-    //private void OnEnable()
-    //{
-    //    OnDamage += enemyAbility.UniqAbillityUse;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    OnDamage -= enemyAbility.UniqAbillityUse;
-    //}
-
-
-   
-
     public override void Attack()
     {
         if (barrier != null)

@@ -21,24 +21,20 @@ public abstract class Entity : MonoBehaviour
     protected OnDamageEnemyAbillity damageAbillity;
     protected OnDeathEnemyAbillity deathAbillity;
     private Action deadAction, damageAction;
-    public void GetDamage(float damage, Damage damageType)
+    public void GetDamage(float damage, IDamage damageType)
     {
         currHealth -= damage;
         if (currHealth <= 0)
         {
             stateMachine.SwitchState(stateMachine.deadState);
         }
-        else if (damageType is DefaultDamage def)
+        else if (damageType == default)
         {
             OnDamage?.Invoke();
         }
     }
    
-    public void ChangeAnimation(string animationName, bool animationType)
-    {
-        if(gameObject.activeInHierarchy && gameObject != null)
-        animator.SetBool(animationName, animationType);
-    }
+   
 
     public abstract void Attack();
     protected void Awake()
@@ -64,7 +60,6 @@ public abstract class Entity : MonoBehaviour
     public virtual void Initiate()
     {
         stateMachine.SwitchState(stateMachine.runState);
-        rb.velocity = -transform.right * enemyData.speed;
     }
 
 
@@ -95,7 +90,7 @@ public abstract class Entity : MonoBehaviour
     }
 
 
-    public IEnumerator Die()
+    internal protected IEnumerator Die()
     {
         StopMove();
         enemyCollider.enabled = false;

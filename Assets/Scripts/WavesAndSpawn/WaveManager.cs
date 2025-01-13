@@ -15,7 +15,6 @@ public class WaveManager : MonoBehaviour
     private float currentTime = 0;
     private SpawnStateMachine spawnStateMachine;
     private const float waveSpawnInterval = 2f;
-    private bool isSpawning = false;
     private List<float> wavesPercents;
     private List<bool> wavesCalled;
     private void Start()
@@ -26,7 +25,7 @@ public class WaveManager : MonoBehaviour
         wavesPercents = new List<float>(waves.Keys);
         wavesCalled = new List<bool>(waves.Values);
         DefeatedEnemyTrigger.Instance.Initiate();
-        waveUi.InitWaves(enemyWaves.Length);
+        waveUi.InitWaves(wavesPercents,enemyWaves.Length);
         StartCoroutine(StartToSpawn());
     }
 
@@ -34,8 +33,6 @@ public class WaveManager : MonoBehaviour
     {
         while (currentTime <= 100)
         {
-            Debug.Log(isSpawning);
-            Debug.Log(currentTime);
             yield return new WaitForSeconds(waveSpawnInterval);
             CheckWave();
         }
@@ -59,14 +56,13 @@ public class WaveManager : MonoBehaviour
             float wavePercent = wavesPercents[i];
             if (currentTime >= wavePercent && wavesCalled[i] && spawnStateMachine.currentState == spawnStateMachine.spawnPreWaveState && !spawnStateMachine.spawnPreWaveState.isRunning)
             {
-                isSpawning = true;
                 Debug.Log("Wave");
                 spawnStateMachine.SwitchState(spawnStateMachine.spawnWaveState,enemyWaves[i].wave);
+                waveUi.OnWaveCall(i);
                 wavesCalled[i] = false;  
             }
             else if (currentTime < wavePercent && wavesCalled[i] && spawnStateMachine.currentState != spawnStateMachine.spawnPreWaveState)
             {
-                isSpawning = true;
                 Debug.Log("Prewave");
                 spawnStateMachine.SwitchState(spawnStateMachine.spawnPreWaveState, enemyWaves[i].preWave);
             }

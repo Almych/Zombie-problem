@@ -8,11 +8,11 @@ public class DamageGranade : Granade
 {
 
     [SerializeField] protected float damage;
+    private Damage defaultDamage;
 
-   
     private void Makedamage(Vector2 cord)
     {
-        Damage defaultDamage = new DefaultDamage();
+      
         var granade = Instantiate(gameObject, cord, Quaternion.identity);
         var colliders = Physics2D.CircleCastAll(granade.transform.position, radius, Vector2.zero);
 

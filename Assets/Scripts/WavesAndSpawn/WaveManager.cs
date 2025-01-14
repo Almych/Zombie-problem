@@ -35,9 +35,9 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         spawnStateMachine = new SpawnStateMachine(this);
-        var waves = GetWaves();
-        wavesPercents = new List<float>(waves.Keys);
-        wavesCalled = new List<bool>(waves.Values);
+        //var waves = GetWaves();
+        //wavesPercents = new List<float>(waves.Keys);
+        //wavesCalled = new List<bool>(waves.Values);
         DefeatedEnemyTrigger.Instance.Initiate();
         StartCoroutine(StartToSpawn());
     }
@@ -47,31 +47,31 @@ public class WaveManager : MonoBehaviour
         while (currentTime <= 100)
         {
             yield return new WaitForSeconds(waveSpawnInterval);
-            CheckWave();
+            //CheckWave();
         }
     }
 
 
 
-    private void CheckWave()
-    {
+    //private void CheckWave()
+    //{
         
-        for (int i = 0; i < wavesPercents.Count; i++)
-        {
-            float wavePercent = wavesPercents[i];
-            if (currentTime >= wavePercent && wavesCalled[i] && spawnStateMachine.currentState == spawnStateMachine.spawnPreWaveState && !spawnStateMachine.spawnPreWaveState.isRunning)
-            {
-                Debug.Log("Wave");
-                spawnStateMachine.SwitchState(spawnStateMachine.spawnWaveState,enemyWaves[i].wave);
-                wavesCalled[i] = false;  
-            }
-            else if (currentTime < wavePercent && wavesCalled[i] && spawnStateMachine.currentState != spawnStateMachine.spawnPreWaveState)
-            {
-                Debug.Log("Prewave");
-                spawnStateMachine.SwitchState(spawnStateMachine.spawnPreWaveState, enemyWaves[i].preWave);
-            }
-        }
-    }
+    //    for (int i = 0; i < wavesPercents.Count; i++)
+    //    {
+    //        float wavePercent = wavesPercents[i];
+    //        if (currentTime >= wavePercent && wavesCalled[i] && spawnStateMachine.currentState == spawnStateMachine.spawnPreWaveState && !spawnStateMachine.spawnPreWaveState.isRunning)
+    //        {
+    //            Debug.Log("Wave");
+    //            spawnStateMachine.SwitchState(spawnStateMachine.spawnWaveState,enemyWaves[i].wave);
+    //            wavesCalled[i] = false;  
+    //        }
+    //        else if (currentTime < wavePercent && wavesCalled[i] && spawnStateMachine.currentState != spawnStateMachine.spawnPreWaveState)
+    //        {
+    //            Debug.Log("Prewave");
+    //            spawnStateMachine.SwitchState(spawnStateMachine.spawnPreWaveState, enemyWaves[i].preWave);
+    //        }
+    //    }
+    //}
 
     private void OnEnable()
     {

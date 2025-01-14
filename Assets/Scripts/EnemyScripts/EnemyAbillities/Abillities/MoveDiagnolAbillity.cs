@@ -6,14 +6,13 @@ public class MoveDiagnolAbillity : OnDamageEnemyAbillity
 {
     private const float coolDownTime = 0.5f;
     private float _speed;
-    private MonoBehaviour mono;
+    private Entity mono;
     private static IEnumerator currCoroutine;
 
-    public MoveDiagnolAbillity(Transform unit, Rigidbody2D unitRb, float speed, MonoBehaviour mono) : base(unit, unitRb)
+    public MoveDiagnolAbillity(Entity enemy) : base(enemy)
     {
-        _speed = speed;
-        this.mono = mono;
-        currCoroutine = null;
+        mono = enemy;
+        _speed = enemy.enemyData.speed;
     }
 
     private IEnumerator MoveDiagnol()
@@ -21,26 +20,26 @@ public class MoveDiagnolAbillity : OnDamageEnemyAbillity
         float dir = Random.Range(1, 10);
         if (dir >= 5)
         {
-            _unitRb.velocity = -_unit.right + Vector3.up * _speed;
+            rb.velocity = -transform.right + Vector3.up * _speed;
         }
         else
         {
-            _unitRb.velocity = -_unit.right + Vector3.down * _speed;
+            rb.velocity = -transform.right + Vector3.down * _speed;
         }
 
         yield return new WaitForSeconds(coolDownTime);
-        _unitRb.velocity = -_unit.right * _speed;
-        currCoroutine = null;
+        if (currCoroutine != null && mono.stateMachine.currentState != mono.stateMachine.deadState)
+        {
+            rb.velocity = -transform.right * _speed;
+        }
     }
 
     public override void OnDamage()
     {
         if (currCoroutine != null)
-        {
-            mono.StopCoroutine(currCoroutine);
-            currCoroutine = null;
-        }
-            currCoroutine = MoveDiagnol();
-            mono.StartCoroutine(currCoroutine);
+        currCoroutine = null;
+
+        currCoroutine = MoveDiagnol();
+        mono.StartCoroutine(currCoroutine);
     }
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04448575a0ba7c47bda88ae2f5a9714, type: 3}
   m_Name: Super gun
   m_EditorClassIdentifier: 
-  damageType: {fileID: 11400000, guid: 926cb9a08eed03c4bb7bad381e373d66, type: 2}
+  damageType: {fileID: 11400000, guid: e9d0ddc1a4a7d9248963b5f030e3982c, type: 2}
   weaponIcon: {fileID: -1647055883, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   reloadTime: 2
   maxBullets: 5
   bulletSprite: {fileID: 1085539168, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
-  totalBulletAmount: 0
+  totalBulletAmount: 10

@@ -6,4 +6,5 @@ using UnityEngine;
 public class MoveDiagnolConfig : EnemyOnDamageAbillityConfig
 {
     public readonly new OnDamageAbillity onDamageAbillity = OnDamageAbillity.MoveDiagnol;
+    
 }

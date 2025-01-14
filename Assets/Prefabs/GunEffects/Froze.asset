@@ -9,14 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 430088ce42380504b9637c51893fa9de, type: 3}
-  m_Name: AverageZombie
+  m_Script: {fileID: 11500000, guid: 5a152b17bd3df9547bc6c5033eccc4c7, type: 3}
+  m_Name: Froze
   m_EditorClassIdentifier: 
-  maxHealth: 8
-  speed: 1.97
-  damage: 3
-  attackCoolDown: 2
-  attackRange: 0
-  barrier:
-    serializedVersion: 2
-    m_Bits: 64
+  damage: 6
+  stunTime: 3
+  effectChange: 4

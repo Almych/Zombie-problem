@@ -17,7 +17,7 @@ public abstract class Entity : MonoBehaviour
     internal protected Rigidbody2D rb;
     internal protected SpriteRenderer spriteColor;
     internal protected Collider2D enemyCollider;
-    protected StateMachine stateMachine;
+    internal protected StateMachine stateMachine;
     protected OnDamageEnemyAbillity damageAbillity;
     protected OnDeathEnemyAbillity deathAbillity;
     private Action deadAction, damageAction;
@@ -28,7 +28,7 @@ public abstract class Entity : MonoBehaviour
         {
             stateMachine.SwitchState(stateMachine.deadState);
         }
-        else if (damageType == default)
+        else if (damageType == default && currHealth > 0)
         {
             OnDamage?.Invoke();
         }

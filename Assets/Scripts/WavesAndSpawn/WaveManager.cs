@@ -4,28 +4,41 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
+[Serializable]
+public struct WaveData
+{
+    public EnemyData[] wave;
+    public EnemyData[] preWave;
+}
 
 public class WaveManager : MonoBehaviour
 {
 
     [Header("Has max amount of the waves(5)")]
-    [SerializeField] private EnemyWave[] enemyWaves = new EnemyWave[5];
-    [SerializeField] private WaveUi waveUi;
+    public static WaveManager Instance;
+    public WaveData[] waveDatas;
     private const float waveBar = 100f;
     private float currentTime = 0;
     private SpawnStateMachine spawnStateMachine;
     private const float waveSpawnInterval = 2f;
     private List<float> wavesPercents;
     private List<bool> wavesCalled;
+
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         spawnStateMachine = new SpawnStateMachine(this);
-        GetEnemySpices(enemyWaves);
         var waves = GetWaves();
         wavesPercents = new List<float>(waves.Keys);
         wavesCalled = new List<bool>(waves.Values);
         DefeatedEnemyTrigger.Instance.Initiate();
-        waveUi.InitWaves(wavesPercents,enemyWaves.Length);
         StartCoroutine(StartToSpawn());
     }
 
@@ -35,6 +48,28 @@ public class WaveManager : MonoBehaviour
         {
             yield return new WaitForSeconds(waveSpawnInterval);
             CheckWave();
+        }
+    }
+
+
+
+    private void CheckWave()
+    {
+        
+        for (int i = 0; i < wavesPercents.Count; i++)
+        {
+            float wavePercent = wavesPercents[i];
+            if (currentTime >= wavePercent && wavesCalled[i] && spawnStateMachine.currentState == spawnStateMachine.spawnPreWaveState && !spawnStateMachine.spawnPreWaveState.isRunning)
+            {
+                Debug.Log("Wave");
+                spawnStateMachine.SwitchState(spawnStateMachine.spawnWaveState,enemyWaves[i].wave);
+                wavesCalled[i] = false;  
+            }
+            else if (currentTime < wavePercent && wavesCalled[i] && spawnStateMachine.currentState != spawnStateMachine.spawnPreWaveState)
+            {
+                Debug.Log("Prewave");
+                spawnStateMachine.SwitchState(spawnStateMachine.spawnPreWaveState, enemyWaves[i].preWave);
+            }
         }
     }
 
@@ -48,26 +83,6 @@ public class WaveManager : MonoBehaviour
         DefeatedEnemyTrigger.Instance.GetActiveEnemies -= () => { currentTime += 5; };
     }
 
-    private void CheckWave()
-    {
-        
-        for (int i = 0; i < wavesPercents.Count; i++)
-        {
-            float wavePercent = wavesPercents[i];
-            if (currentTime >= wavePercent && wavesCalled[i] && spawnStateMachine.currentState == spawnStateMachine.spawnPreWaveState && !spawnStateMachine.spawnPreWaveState.isRunning)
-            {
-                Debug.Log("Wave");
-                spawnStateMachine.SwitchState(spawnStateMachine.spawnWaveState,enemyWaves[i].wave);
-                waveUi.OnWaveCall(i);
-                wavesCalled[i] = false;  
-            }
-            else if (currentTime < wavePercent && wavesCalled[i] && spawnStateMachine.currentState != spawnStateMachine.spawnPreWaveState)
-            {
-                Debug.Log("Prewave");
-                spawnStateMachine.SwitchState(spawnStateMachine.spawnPreWaveState, enemyWaves[i].preWave);
-            }
-        }
-    }
 
     private void GetEnemySpices(EnemyWave[] enemyWaves)
     {
@@ -96,10 +111,9 @@ public class WaveManager : MonoBehaviour
         }
 
     }
-
     private float GetWaveProcent()
     {
-        float percentWave = waveBar / enemyWaves.Length;
+        float percentWave = waveBar / waveDatas.Length;
         return percentWave;
     }
 
@@ -109,18 +123,18 @@ public class WaveManager : MonoBehaviour
         return int.Parse(amount.ToString());
     }
 
-    private Dictionary<float, bool> GetWaves()
+    private List<EnemyWave> GetEnemyWaves()
     {
-        Dictionary<float, bool> waves = new Dictionary<float, bool>();
+        List<EnemyWave> enemyWaves = new List<EnemyWave>();
 
-        for (int i = 1; i <= GetWaveAmount(); i++)
+        for (int i = 0; i < GetWaveAmount(); i++)
         {
-            waves.Add(GetWaveProcent() * i, true);
+            EnemyWave enemyWave = new EnemyWave(waveDatas[i].wave, waveDatas[i].preWave, GetWaveProcent());
+            enemyWaves.Add(enemyWave);
         }
 
-        return waves;
+        return enemyWaves;
     }
-
 
 
 }

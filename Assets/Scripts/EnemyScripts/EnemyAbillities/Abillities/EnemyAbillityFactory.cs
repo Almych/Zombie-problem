@@ -25,7 +25,7 @@ public static class EnemyAbillityFactory
             case OnDamageAbillity.MoveDiagnol:
                 if (damageAbillityType is MoveDiagnolConfig move)
                 {
-                    OnDamageEnemyAbillity abillity = new MoveDiagnolAbillity(mono.transform, mono.GetComponent<Rigidbody2D>(), mono.enemyData.speed, mono);
+                    OnDamageEnemyAbillity abillity = new MoveDiagnolAbillity(mono);
                     return abillity;
                 }else
                 {
@@ -48,7 +48,7 @@ public static class EnemyAbillityFactory
             case OnDeathAbillity.Spawn:
                 if (deathAbillityType is SpawnAbillityConfig spawn)
                 {
-                    OnDeathEnemyAbillity abillity = new SpawnAbillity(mono.transform, mono.GetComponent<Rigidbody2D>(), spawn.amountToSpawn, spawn.enemyToSpawn);
+                    OnDeathEnemyAbillity abillity = new SpawnAbillity(spawn.enemyToSpawn,spawn.amountToSpawn);
                     return abillity;
                 }
                 else

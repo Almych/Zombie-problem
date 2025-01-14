@@ -1833,8 +1833,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 15.645646, y: 13.012501}
-  - {x: 42.28314, y: 12.930814}
+  - {x: 15.799333, y: 12.500212}
+  - {x: 42.436825, y: 12.316067}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -5966,7 +5966,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.71279144, y: 0}
+  m_Offset: {x: -0.6434088, y: -0.16599548}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5977,7 +5977,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.44421387, y: 3.2}
+  m_Size: {x: 0.5829792, y: 3.5319912}
   m_EdgeRadius: 0
 --- !u!114 &1790683774
 MonoBehaviour:
@@ -6139,6 +6139,22 @@ MonoBehaviour:
     - enemyType: {fileID: 5140773186700458995, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
       amount: 2
     - enemyType: {fileID: 1432613643587085099, guid: 5c83e945a5c9cbd49874f76088044dd8, type: 3}
+      amount: 4
+  - wave:
+    - enemyType: {fileID: 3970398576075880834, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
+      amount: 4
+    preWave:
+    - enemyType: {fileID: 5140773186700458995, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
+      amount: 5
+    - enemyType: {fileID: 1167495050608333119, guid: 315459d967b331d488302a8a8d1da795, type: 3}
+      amount: 4
+  - wave:
+    - enemyType: {fileID: 3970398576075880834, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
+      amount: 4
+    preWave:
+    - enemyType: {fileID: 5140773186700458995, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
+      amount: 5
+    - enemyType: {fileID: 1167495050608333119, guid: 315459d967b331d488302a8a8d1da795, type: 3}
       amount: 4
   - wave:
     - enemyType: {fileID: 3970398576075880834, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}

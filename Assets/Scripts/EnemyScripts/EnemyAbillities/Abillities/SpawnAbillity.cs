@@ -7,10 +7,10 @@ public class SpawnAbillity : OnDeathEnemyAbillity
     private int _amount;
     private Entity _entity;
 
-    public SpawnAbillity(Transform unit, Rigidbody2D unitRb, int amount, Entity spawnEnemy) : base(unit, unitRb)
+    public SpawnAbillity(Entity enemy, int amount) : base(enemy)
     {
         _amount = amount;
-        _entity = spawnEnemy;   
+        _entity = enemy;
     }
 
     public override void OnDeath()
@@ -27,7 +27,7 @@ public class SpawnAbillity : OnDeathEnemyAbillity
             {
                 spawnEnemy.gameObject.SetActive(true);
                 var randomYPositon = Random.Range(-1, 1);
-                spawnEnemy.transform.position = new Vector3(_unit.position.x, _unit.transform.position.y + randomYPositon, 0);
+                spawnEnemy.transform.position = new Vector3(transform.position.x, transform.position.y + randomYPositon, 0);
                 spawnEnemy.Initiate();
             }
         }

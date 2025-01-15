@@ -17,7 +17,7 @@ public class SpawnStateMachine
         currentState = spawnNoneState;
     }
 
-    public void SwitchState(SpawnState newState, List<EnemyData> enemies)
+    public void SwitchState(SpawnState newState, EnemyData[] enemies)
     {
         currentState = newState;
         currentState.Enter(enemies);

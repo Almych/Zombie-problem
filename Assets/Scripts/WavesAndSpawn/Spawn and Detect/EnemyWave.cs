@@ -10,19 +10,9 @@ public struct EnemyData
     public int amount;
 }
 
-
+[Serializable]
 public class EnemyWave
 {
     public EnemyData[] wave;
     public EnemyData[] preWave;
-    public float wavePercent;
-
-
-    public EnemyWave(EnemyData[] wave, EnemyData[] preWave, float percent)
-    {
-        this.wave = wave;
-        this.preWave = preWave;
-        wavePercent = percent;
-    }
-
 }

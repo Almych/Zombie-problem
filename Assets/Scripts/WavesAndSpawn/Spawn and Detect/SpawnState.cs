@@ -15,14 +15,14 @@ public abstract class SpawnState
         return new Vector2(XPOSITION, randomY);
     }
 
-    public abstract void Enter(List<EnemyData> enemies);
+    public abstract void Enter(EnemyData[] enemies);
 }
 
 
 public class SpawnWaveState : SpawnState
 {
 
-    public  void SpawnWave(List<EnemyData> enemies)
+    public void SpawnWave(EnemyData[] enemies)
     {
         foreach (var enemyData in enemies)
         {
@@ -41,7 +41,7 @@ public class SpawnWaveState : SpawnState
     }
 
 
-    public override void Enter(List<EnemyData> enemies)
+    public override void Enter(EnemyData[] enemies)
     {
         SpawnWave(enemies);
     }
@@ -58,14 +58,15 @@ public class SpawnPreWaveState : SpawnState
         _mono = mono;
     }
     
-    public override void Enter(List<EnemyData> enemies)
+    public override void Enter(EnemyData[] enemies)
     {
         _mono.StartCoroutine(SpawnPreWave(enemies));
     }
 
 
-    public IEnumerator SpawnPreWave(List<EnemyData> enemies)
+    public IEnumerator SpawnPreWave(EnemyData[] enemies)
     {
+        Debug.Log(enemies.Length);
         isRunning = true;
         int amount = GetAmount(enemies);
         var enemyData = GetWaveData(enemies);
@@ -97,7 +98,7 @@ public class SpawnPreWaveState : SpawnState
     }
 
 
-    private Dictionary<Entity, int> GetWaveData(List<EnemyData> enemies)
+    private Dictionary<Entity, int> GetWaveData(EnemyData[] enemies)
     {
         
         Dictionary<Entity, int> enemyData = new Dictionary<Entity, int>();
@@ -109,7 +110,7 @@ public class SpawnPreWaveState : SpawnState
         return enemyData;
     }
 
-    private int GetAmount(List<EnemyData> enemies)
+    private int GetAmount(EnemyData[] enemies)
     {
         int amount = 0;
         foreach (var enemy in enemies)
@@ -122,7 +123,7 @@ public class SpawnPreWaveState : SpawnState
 
 public class SpawnNoneState : SpawnState
 {
-    public override void Enter(List<EnemyData> enemies)
+    public override void Enter(EnemyData[] enemies)
     {
        //spawn none
     }

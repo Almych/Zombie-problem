@@ -13,13 +13,26 @@ public class WaveUi : MonoBehaviour
     private List<GameObject> waves = new List<GameObject>();
     public void ChangeWaveBarValue(float value)
     {
-        waveBar.value = value;
+        waveBar.value = waveBar.maxValue - value;
     }
 
-    public void OnWaveCall(int waveCount)
+    public void OnWaveReached(int currentWave)
     {
-         waves[waveCount].SetActive(false);
+        waves[currentWave].SetActive(false);
     }
+
+    private void OnEnable()
+    {
+        WaveManager.Instance.onWaveProgress += ChangeWaveBarValue;
+        WaveManager.Instance.onWaveReach += OnWaveReached;
+    }
+
+    private void OnDisable()
+    {
+        WaveManager.Instance.onWaveProgress -= ChangeWaveBarValue;
+        WaveManager.Instance.onWaveReach -= OnWaveReached;
+    }
+
 
     public async void InitWaves(List<float> waveProcents, int waveMaxAmount)
     {
@@ -38,7 +51,7 @@ public class WaveUi : MonoBehaviour
 
             waves.Add(wave);
         }
-
+        waveBar.value = waveBar.maxValue;
     }
 
 

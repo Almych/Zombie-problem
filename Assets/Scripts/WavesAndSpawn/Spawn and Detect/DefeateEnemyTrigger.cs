@@ -9,6 +9,7 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     public event Action GetActiveEnemies;
     private List<Entity> activeEnemies = new List<Entity>();
     private bool hasEnemy = false;
+    private bool isEnd = false;
     private void Awake()
     {
         if (Instance == null)
@@ -21,6 +22,11 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     {
         GetActiveEnemies?.Invoke();
         StartCoroutine(CheckActiveEnemies());
+    }
+
+    public void StopCheckForEnemies()
+    {
+        isEnd = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -48,7 +54,7 @@ public class DefeatedEnemyTrigger : MonoBehaviour
 
     private IEnumerator CheckActiveEnemies()
     {
-        while (true)
+        while (!isEnd)
         {
             yield return new WaitForSeconds(2f);
             if (!hasEnemy)

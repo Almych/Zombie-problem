@@ -8,11 +8,10 @@ public class SpawnStateMachine
     public SpawnPreWaveState spawnPreWaveState { get; private set; }
     public SpawnWaveState spawnWaveState { get; private set; }
     public SpawnState currentState { get; private set; }
-    private MonoBehaviour _mono;
     public SpawnStateMachine(MonoBehaviour mono)
     {
-        spawnNoneState = new SpawnNoneState();
-        spawnWaveState = new SpawnWaveState();
+        spawnNoneState = new SpawnNoneState(mono);
+        spawnWaveState = new SpawnWaveState(mono);
         spawnPreWaveState = new SpawnPreWaveState(mono);
         currentState = spawnNoneState;
     }

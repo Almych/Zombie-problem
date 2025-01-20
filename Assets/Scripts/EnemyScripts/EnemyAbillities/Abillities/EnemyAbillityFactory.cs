@@ -48,7 +48,7 @@ public static class EnemyAbillityFactory
             case OnDeathAbillity.Spawn:
                 if (deathAbillityType is SpawnAbillityConfig spawn)
                 {
-                    OnDeathEnemyAbillity abillity = new SpawnAbillity(spawn.enemyToSpawn,spawn.amountToSpawn);
+                    OnDeathEnemyAbillity abillity = new SpawnAbillity(mono,spawn.enemyToSpawn,spawn.amountToSpawn);
                     return abillity;
                 }
                 else

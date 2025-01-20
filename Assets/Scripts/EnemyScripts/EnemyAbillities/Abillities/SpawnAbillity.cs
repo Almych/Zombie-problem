@@ -5,12 +5,13 @@ using UnityEngine;
 public class SpawnAbillity : OnDeathEnemyAbillity
 {
     private int _amount;
-    private Entity _entity;
+    private Entity _entity, toSpawn;
 
-    public SpawnAbillity(Entity enemy, int amount) : base(enemy)
+    public SpawnAbillity(Entity enemy, Entity toSpawn, int amount) : base(enemy)
     {
         _amount = amount;
         _entity = enemy;
+        this.toSpawn = toSpawn;
     }
 
     public override void OnDeath()
@@ -22,12 +23,12 @@ public class SpawnAbillity : OnDeathEnemyAbillity
     {
         for (int i = 0; i < _amount; i++)
         {
-            Entity spawnEnemy = EnemyPool.Instance.GetEnemy(_entity);
+            Entity spawnEnemy = EnemyPool.Instance.GetEnemy(toSpawn);
             if (spawnEnemy != null)
             {
                 spawnEnemy.gameObject.SetActive(true);
                 var randomYPositon = Random.Range(-1, 1);
-                spawnEnemy.transform.position = new Vector3(transform.position.x, transform.position.y + randomYPositon, 0);
+                spawnEnemy.transform.position = new Vector3(_entity.transform.position.x, transform.position.y + randomYPositon, 0);
                 spawnEnemy.Initiate();
             }
         }

@@ -7,8 +7,8 @@ public abstract class Entity : MonoBehaviour
 {
     public EnemyOnDamageAbillityConfig onDamageAbillity;
     public EnemyOnDeathAbillityConfig onDeathAbillity;
-    [SerializeField] internal protected EnemyConfig enemyData; 
-    internal protected  Action OnDamage;
+    public EnemyConfig enemyData { get; private set; }
+    protected  Action OnDamage;
     public delegate void OnDeathAdittion(Vector3 position);
     internal protected Action OnDeath;
     public static event OnDeathAdittion OnCoinSpawn;
@@ -36,7 +36,7 @@ public abstract class Entity : MonoBehaviour
    
    
 
-    public abstract void Attack();
+     public abstract void Attack();
     protected void Awake()
     {
         animator = GetComponent<Animator>();
@@ -92,7 +92,7 @@ public abstract class Entity : MonoBehaviour
 
     internal protected IEnumerator Die()
     {
-        StopMove();
+        //StopMove();
         enemyCollider.enabled = false;
         yield return new WaitForSeconds(1f);
         OnDeath?.Invoke();

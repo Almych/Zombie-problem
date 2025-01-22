@@ -11,10 +11,10 @@ public class StateMachine
     public State currentState { get; private set; }
     public StateMachine(Entity entity)
     {
-        runState = new RunState(entity);
-        attackState = new AttackState(entity);
-        stunedState = new StunedState(entity);
-        deadState = new DeadState(entity);
+        runState = new RunState(entity.animator, entity.rb, entity.transform, entity.enemyData.speed);
+        attackState = new AttackState(entity.animator, entity.rb, entity.transform, entity.Attack);
+        stunedState = new StunedState(entity.animator, entity.rb, entity.transform);
+        deadState = new DeadState(entity.animator, entity.rb, entity.transform);
         currentState = runState;
     }
 

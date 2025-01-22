@@ -68,13 +68,13 @@ public class AttackState : State
 
 public class StunedState : State
 {
+    private Action _Stuned;
     public StunedState(Animator animator, Rigidbody2D rb, Transform transform) : base(animator, rb, transform)
     {
     }
 
     public override void Enter()
     {
-        //_entity.StopMove();
         ChangeAnimation("isStuned", true);
     }
 
@@ -89,20 +89,26 @@ public class StunedState : State
 
 public class DeadState : State
 {
-    public DeadState(Animator animator, Rigidbody2D rb, Transform transform) : base(animator, rb, transform)
+    private Action _Restore;
+    private IEnumerator _Die;
+    private MonoBehaviour _mono;
+    public DeadState(Animator animator, Rigidbody2D rb, Transform transform, Action Restore, IEnumerator Die, MonoBehaviour mono) : base(animator, rb, transform)
     {
+        _Restore = Restore;
+        _Die = Die;
+        _mono = mono;
     }
 
     public override void Enter()
     {
         ChangeAnimation("isDead", true);
-        //_entity.StartCoroutine(_entity.Die());
+        _mono.StartCoroutine(_Die);
     }
 
     public override void Exit()
     {
         ChangeAnimation("isDead", false);
-        //_entity.Restore();
+        _Restore?.Invoke();
     }
 
   

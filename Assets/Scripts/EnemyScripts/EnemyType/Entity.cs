@@ -9,9 +9,7 @@ public abstract class Entity : MonoBehaviour
     public EnemyOnDeathAbillityConfig onDeathAbillity;
     public EnemyConfig enemyData { get; private set; }
     protected  Action OnDamage;
-    public delegate void OnDeathAdittion(Vector3 position);
     internal protected Action OnDeath;
-    public static event OnDeathAdittion OnCoinSpawn;
     internal protected float currHealth;
     internal protected Animator animator;
     internal protected Rigidbody2D rb;
@@ -28,8 +26,9 @@ public abstract class Entity : MonoBehaviour
         {
             stateMachine.SwitchState(stateMachine.deadState);
         }
-        else if (damageType == default && currHealth > 0)
+        else
         {
+            if (damageType == default)
             OnDamage?.Invoke();
         }
     }
@@ -82,21 +81,19 @@ public abstract class Entity : MonoBehaviour
         OnDeath -= deadAction;
     }
 
-    public void Restore()
+    internal protected void Restore()
     {
         currHealth = enemyData.maxHealth;
         enemyCollider.enabled = true;
-        spriteColor.color = Color.white;
     }
 
 
     internal protected IEnumerator Die()
     {
-        //StopMove();
+        StopMove();
         enemyCollider.enabled = false;
         yield return new WaitForSeconds(1f);
         OnDeath?.Invoke();
-        OnCoinSpawn?.Invoke(transform.position);
         gameObject.SetActive(false);
     }
 

@@ -19,15 +19,15 @@ public class MoneySpawn : MonoBehaviour
         counter = -1;
         ui.CountCoin(ref counter);
     }
-    private void OnEnable()
-    {
-        Entity.OnCoinSpawn += SpawnCoin;
-    }
+    //private void OnEnable()
+    //{
+    //    Entity.OnCoinSpawn += SpawnCoin;
+    //}
 
-    private void OnDisable()
-    {
-        Entity.OnCoinSpawn -= SpawnCoin;
-    }
+    //private void OnDisable()
+    //{
+    //    Entity.OnCoinSpawn -= SpawnCoin;
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

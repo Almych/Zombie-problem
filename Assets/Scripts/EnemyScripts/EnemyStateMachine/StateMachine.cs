@@ -14,7 +14,7 @@ public class StateMachine
         runState = new RunState(entity.animator, entity.rb, entity.transform, entity.enemyData.speed);
         attackState = new AttackState(entity.animator, entity.rb, entity.transform, entity.Attack);
         stunedState = new StunedState(entity.animator, entity.rb, entity.transform);
-        deadState = new DeadState(entity.animator, entity.rb, entity.transform);
+        deadState = new DeadState(entity.animator, entity.rb, entity.transform, entity.Restore, entity.Die(), entity);
         currentState = runState;
     }
 

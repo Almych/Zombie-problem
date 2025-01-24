@@ -7,7 +7,7 @@ public abstract class Entity : MonoBehaviour
 {
     public EnemyOnDamageAbillityConfig onDamageAbillity;
     public EnemyOnDeathAbillityConfig onDeathAbillity;
-    public EnemyConfig enemyData { get; private set; }
+    public EnemyConfig enemyData;
     protected  Action OnDamage;
     internal protected Action OnDeath;
     internal protected float currHealth;

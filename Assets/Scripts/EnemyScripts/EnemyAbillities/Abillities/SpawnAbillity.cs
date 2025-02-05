@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnAbillity : OnDeathEnemyAbillity
+public class SpawnAbility : OnDeathEnemyAbility
 {
     private int _amount;
     private Entity _entity, toSpawn;
 
-    public SpawnAbillity(Entity enemy, Entity toSpawn, int amount) : base(enemy)
+    public SpawnAbility(Entity enemy, Entity toSpawn, int amount) : base(enemy)
     {
         _amount = amount;
         _entity = enemy;
@@ -23,7 +23,7 @@ public class SpawnAbillity : OnDeathEnemyAbillity
     {
         for (int i = 0; i < _amount; i++)
         {
-            Entity spawnEnemy = EnemyPool.Instance.GetEnemy(toSpawn);
+            Entity spawnEnemy = ObjectPoolManager.GetObjectFromPool(toSpawn);
             if (spawnEnemy != null)
             {
                 spawnEnemy.gameObject.SetActive(true);

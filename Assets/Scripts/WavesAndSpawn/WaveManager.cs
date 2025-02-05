@@ -107,7 +107,7 @@ public class WaveManager : MonoBehaviour
         }
         foreach (var enemy in spices)
         {
-            EnemyPool.Instance.InitiateEnemy(enemy);
+            ObjectPoolManager.CreateObjectPool(enemy, 5);
         }
 
     }

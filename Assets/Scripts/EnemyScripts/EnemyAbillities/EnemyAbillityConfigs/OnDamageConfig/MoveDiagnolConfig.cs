@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyOnDamageAbillity", menuName = "EnemyOnDamageAbillity/MoveDiagnolAbillity")]
-public class MoveDiagnolConfig : EnemyOnDamageAbillityConfig
+[CreateAssetMenu(fileName = "EnemyOnDamageAbility", menuName = "EnemyOnDamageAbility/MoveDiagonalAbility")]
+public class MoveDiagonalConfig : EnemyOnDamageAbilityConfig
 {
-    public readonly new OnDamageAbillity onDamageAbillity = OnDamageAbillity.MoveDiagnol;
+    protected readonly new OnDamageAbility onDamageAbility = OnDamageAbility.MoveDiagonal;
     
 }

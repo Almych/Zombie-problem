@@ -1,41 +1,42 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
-{
-    private T objectToPool;
-    private int amount;
-    private Queue<T> pooledObjects;
 
-    // Constructor to initialize the pool
-    public ObjectPool(T objectToPool, int amount)
+public class FadeObjectPool
+{
+    private MonoBehaviour objectToPool;
+    private int amount;
+    private List<GameObject> pooledObjects = new List<GameObject> ();
+
+    public FadeObjectPool(MonoBehaviour objectToPool, int amount)
     {
         this.objectToPool = objectToPool;
         this.amount = amount;
-        pooledObjects = new Queue<T>(amount);
+        CreatePoolObjects();
     }
 
-    // Create the pooled objects
-    public void CreatePoolObjects()
+    private void CreatePoolObjects()
     {
         for (int i = 0; i < amount; i++)
         {
-            T poolObject = Instantiate(objectToPool);
+            GameObject poolObject = UnityEngine.Object.Instantiate(objectToPool.gameObject);
             poolObject.gameObject.SetActive(false);
-            pooledObjects.Enqueue(poolObject);
+            pooledObjects.Add(poolObject);
         }
     }
 
-    // Get an object from the pool
-    public T GetPooledObject()
+    public MonoBehaviour GetPooledObject()
     {
-        T pooledObject = pooledObjects.Dequeue();
-        pooledObject.gameObject.SetActive(true); // Activate the object when it's taken from the pool
-        return pooledObject;
+        for (int i = 0; i < pooledObjects.Count; i++)
+        {
+            if (!pooledObjects[i].activeInHierarchy)
+            {
+                return pooledObjects[i].GetComponent<MonoBehaviour>();
+            }
+        }
+        return null;
     }
 
-    public void HandleObjectDeactivation(T objectToReturn)
-    {
-        pooledObjects.Enqueue(objectToReturn);
-    }
+    
 }

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Defence", menuName = "Defence/DamageDefence")]
-public class EnemyUniqDefence : ScriptableObject
+[CreateAssetMenu(fileName = "New Defense", menuName = "Defense/DamageDefense")]
+public class EnemyUniqDefense : ScriptableObject
 {
-    public Damage damageToDefence;
-    public float GetDefence(float damage, Damage damageType)
+    public Damage damageToDefense;
+    public float GetDefense(float damage, Damage damageType)
     {
-        if (damageType.GetDamage() != damageToDefence)
+        if (damageType.GetDamage() != damageToDefense)
         {
             return damage;
         }

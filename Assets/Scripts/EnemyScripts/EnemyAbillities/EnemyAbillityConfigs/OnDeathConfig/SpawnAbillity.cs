@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyOnDeathAbillity", menuName = "EnemyOnDeathAbillity/SpawnAbillity")]
-public class SpawnAbillityConfig : EnemyOnDeathAbillityConfig
+[CreateAssetMenu(fileName = "EnemyOnDeathAbility", menuName = "EnemyOnDeathAbility/SpawnAbility")]
+public class SpawnAbilityConfig : EnemyOnDeathAbilityConfig
 {
-    public new readonly OnDeathAbillity OnDeathAbillity = OnDeathAbillity.Spawn;
+    protected readonly new OnDeathAbility OnDeathAbility = OnDeathAbility.Spawn;
     public Entity enemyToSpawn;
     public int amountToSpawn;
 }

@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b999c23a092e794884bd852627c99e2, type: 3}
   m_Name: EnemyOnDamageAbillity
   m_EditorClassIdentifier: 
-  onDamageAbillity: 1
-  entity: {fileID: 1167495050608333119, guid: 315459d967b331d488302a8a8d1da795, type: 3}
+  onDamageAbility: 1

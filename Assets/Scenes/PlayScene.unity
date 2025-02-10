@@ -6003,7 +6003,6 @@ GameObject:
   - component: {fileID: 1939166307}
   - component: {fileID: 1939166306}
   - component: {fileID: 1939166308}
-  - component: {fileID: 1939166309}
   - component: {fileID: 1939166310}
   m_Layer: 5
   m_Name: Inventory
@@ -6081,19 +6080,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9173c72efaaf9d4791935b9261cb4bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1939166309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1939166304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a7575200e8e41e4689a8f35071f3e59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 0}
 --- !u!114 &1939166310
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,12 +5,17 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class ItemSlotConfig: MonoBehaviour
+public class InventorySlot : MonoBehaviour
 {
-    public Image itemImage;
-    public TMP_Text itemAmount;
-    public Item item;
-
-
+    public Image itemImage => GetComponent<Image>();
+    public TMP_Text itemAmount => GetComponent<TMP_Text>();
     
+    public InventoryItem inventoryItem { get; private set; }
+
+    public InventorySlot(InventoryItem inventoryItem)
+    {
+        itemImage.sprite = inventoryItem.item.sprite;
+        itemAmount.text = inventoryItem.amount.ToString();
+        this.inventoryItem = inventoryItem;
+    }
 }

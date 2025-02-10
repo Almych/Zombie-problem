@@ -8,14 +8,14 @@ using UnityEngine.UI;
 
 public class SlotManager : MonoBehaviour
 {
-    [SerializeField] private ItemSlotConfig ItemSlot;
+    [SerializeField] private InventorySlot ItemSlot;
     [SerializeField] private WeaponSlotConfig WeaponSlot;
 
-    public ItemSlotConfig CreateItemSlot(Item item, Vector3 slotPosition, Transform inventory, UnityAction itemFunction)
+    public InventorySlot CreateItemSlot(Item item, Vector3 slotPosition, Transform inventory, UnityAction itemFunction)
     {
         ItemSlot.itemImage.sprite = item.sprite;
         ItemSlot.itemAmount.text = item.amount.ToString("n0");
-        ItemSlot.item = item;
+        //ItemSlot.item = item;
         var itemSlot = Instantiate(ItemSlot, Vector2.zero, Quaternion.identity, inventory);
         itemSlot.gameObject.GetComponent<RectTransform>().localPosition = slotPosition;
         itemSlot.gameObject.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(itemFunction);

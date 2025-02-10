@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class MainInventory : ScriptableObject
 {
-    private List<Item> items = new List<Item>();
+    private Item[] items = new Item[30];
 
     public void AddItem(Item newItem)
     {
         bool inInventory = false;
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < items.Length; i++)
         {
             if (items[i] == newItem && CheckItemSize(items[i], newItem.amount))
             {
@@ -21,7 +21,9 @@ public class MainInventory : ScriptableObject
 
         if (!inInventory)
         {
-            items.Add(newItem);
+           Item freePlace = FindFreePlace();
+            if (freePlace != null)
+                freePlace = newItem;
         }
     }
 
@@ -38,5 +40,16 @@ public class MainInventory : ScriptableObject
             return false;
     }
 
+    private Item FindFreePlace()
+    {
+        for (int i =0; i < items.Length; i++)
+        {
+            if (items[i] == null)
+            {
+                return items[i];
+            }
+        }
+        return null;
+    }
 
 }

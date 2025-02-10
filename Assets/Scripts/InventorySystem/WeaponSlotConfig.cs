@@ -11,13 +11,13 @@ public class WeaponSlotConfig : MonoBehaviour
     public MelliWeapon weapon;
 
 
-    private void OnEnable()
-    {
-        weapon.onShootAmount += InventoryDraw.Instance.ShowBulletAmount;
-    }
+    //private void OnEnable()
+    //{
+    //    weapon.onShootAmount += InventoryDraw.Instance.ShowBulletAmount;
+    //}
 
-    private void OnDisable()
-    {
-        weapon.onShootAmount -= InventoryDraw.Instance.ShowBulletAmount;
-    }
+    //private void OnDisable()
+    //{
+    //    weapon.onShootAmount -= InventoryDraw.Instance.ShowBulletAmount;
+    //}
 }

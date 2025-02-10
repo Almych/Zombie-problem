@@ -31,7 +31,7 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         spawnStateMachine = new SpawnStateMachine(this);
-        wavesPercents = GetWaveProcent();
+        wavesPercents = GetWavePercent();
         GetEnemySpices(enemyWaves);
         wavesCalled = new bool[wavesPercents.Count];
         preWavesCalled = new bool[wavesPercents.Count];
@@ -58,14 +58,12 @@ public class WaveManager : MonoBehaviour
         {
             if (currentTime >= wavesPercents[i] && !wavesCalled[i] &&  !spawnStateMachine.spawnPreWaveState.isRunning)
             {
-                Debug.Log("Wave");
                 spawnStateMachine.SwitchState(spawnStateMachine.spawnWaveState, enemyWaves[i].wave);
                 wavesCalled[i] = true;
                 onWaveReach?.Invoke(i);
             }
             else if (currentTime < wavesPercents[i] && !wavesCalled[i] && !spawnStateMachine.spawnWaveState.isRunning && !preWavesCalled[i])
             {
-                Debug.Log("Prewave");
                 spawnStateMachine.SwitchState(spawnStateMachine.spawnPreWaveState, enemyWaves[i].preWave);
                 preWavesCalled[i] = true;
             }
@@ -107,11 +105,11 @@ public class WaveManager : MonoBehaviour
         }
         foreach (var enemy in spices)
         {
-            EnemyPool.Instance.InitiateEnemy(enemy);
+            ObjectPoolManager.CreateObjectPool(enemy, 7);
         }
 
     }
-    private List<float> GetWaveProcent()
+    private List<float> GetWavePercent()
     {
         List<float> wavePercents = new List<float>();
         for (int i = 1; i <= enemyWaves.Length; i++)
@@ -125,7 +123,6 @@ public class WaveManager : MonoBehaviour
     private void IncreaseWaveProgress()
     {
         currentTime += 5;
-        Debug.Log(currentTime);
         onWaveProgress?.Invoke(currentTime);
     }
 

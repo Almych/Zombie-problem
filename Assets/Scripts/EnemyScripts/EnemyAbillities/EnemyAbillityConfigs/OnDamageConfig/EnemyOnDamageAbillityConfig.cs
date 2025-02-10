@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyOnDamageAbillity", menuName = "EnemyOnDamageAbillity/None")]
-public class EnemyOnDamageAbillityConfig : ScriptableObject
+[CreateAssetMenu(fileName = "EnemyOnDamageAbility", menuName = "EnemyOnDamageAbility/None")]
+public class EnemyOnDamageAbilityConfig : ScriptableObject
 {
-    public OnDamageAbillity onDamageAbillity;
+    [SerializeField] protected OnDamageAbility onDamageAbility;
+
+    public OnDamageAbility GetOnDamageAbility() { return onDamageAbility; }
 }

@@ -27,7 +27,6 @@ public class EnemyPool : MonoBehaviour
 
     public Entity GetEnemy(Entity enemyType)
     {
-       
        foreach(var enemy in pooledEnemies)
         {
             if (enemy.GetType() == enemyType.GetType() && !enemy.isActiveAndEnabled)

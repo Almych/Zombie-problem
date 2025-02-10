@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveDiagnolAbillity : OnDamageEnemyAbillity
+public class MoveDiagonalAbility : OnDamageEnemyAbility
 {
     private const float coolDownTime = 0.5f;
     private float _speed;
     private Entity mono;
     private static IEnumerator currCoroutine;
 
-    public MoveDiagnolAbillity(Entity enemy) : base(enemy)
+    public MoveDiagonalAbility(Entity enemy) : base(enemy)
     {
         mono = enemy;
         _speed = enemy.enemyData.speed;

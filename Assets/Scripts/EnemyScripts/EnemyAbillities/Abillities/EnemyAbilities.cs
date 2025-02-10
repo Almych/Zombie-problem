@@ -5,11 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public abstract class OnDamageEnemyAbillity
+public abstract class OnDamageEnemyAbility
 {
     protected Transform transform;
     protected Rigidbody2D rb;
-    protected OnDamageEnemyAbillity(Entity enemy) 
+    protected OnDamageEnemyAbility(Entity enemy) 
     {
         transform = enemy.transform;
         rb = enemy.rb;
@@ -18,11 +18,11 @@ public abstract class OnDamageEnemyAbillity
     public abstract void OnDamage();
 }
 
-public abstract class OnDeathEnemyAbillity
+public abstract class OnDeathEnemyAbility
 {
     protected Transform transform;
     protected Rigidbody2D rb;
-    protected OnDeathEnemyAbillity(Entity enemy)
+    protected OnDeathEnemyAbility(Entity enemy)
     {
         transform = enemy.transform;
         rb = enemy.rb;

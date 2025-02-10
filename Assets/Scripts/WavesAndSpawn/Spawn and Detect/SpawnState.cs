@@ -9,6 +9,8 @@ public abstract class SpawnState
     protected const float YMINPOSITION = 1f;
     protected const float YMAXPOSITION = 6f;
     protected MonoBehaviour _mono;
+    internal protected bool isRunning;
+    protected float spawnInterval = 4f;
     public SpawnState(MonoBehaviour mono)
     {
         _mono = mono;
@@ -43,21 +45,9 @@ public abstract class SpawnState
         }
         return amount;
     }
-}
 
-
-public class SpawnWaveState : SpawnState
-{
-    internal protected bool isRunning;
-    private const float spawnInterval = 4f;
-
-    public SpawnWaveState(MonoBehaviour mono) : base(mono)
+    protected IEnumerator Spawn(EnemyData[] enemies)
     {
-    }
-
-    public IEnumerator SpawnWave(EnemyData[] enemies)
-    {
-        Debug.Log(enemies.Length);
         isRunning = true;
         int amount = GetAmount(enemies);
         var enemyData = GetWaveData(enemies);
@@ -68,7 +58,7 @@ public class SpawnWaveState : SpawnState
             int selectedEnemyAmount = enemyData[selectedEnemyType];
             if (selectedEnemyAmount > 0)
             {
-                var enemy = EnemyPool.Instance.GetEnemy(selectedEnemyType);
+                var enemy = ObjectPoolManager.GetObjectFromPool(selectedEnemyType);
                 if (enemy != null)
                 {
                     Vector2 validPosition = GetRandomPosition();
@@ -88,74 +78,57 @@ public class SpawnWaveState : SpawnState
         isRunning = false;
     }
 
-
-    public override void Enter(EnemyData[] enemies)
+    public void ChangeInterval(float interval)
     {
-        _mono.StartCoroutine(SpawnWave(enemies));
+        spawnInterval = interval;
     }
+
 }
 
-public class SpawnPreWaveState : SpawnState
-{
-    internal protected bool isRunning;
-    private const float spawnInterval = 4f;
 
-    public SpawnPreWaveState(MonoBehaviour mono) : base(mono)
+
+    public class SpawnWaveState : SpawnState
     {
-    }
+   
 
-    public override void Enter(EnemyData[] enemies)
-    {
-        _mono.StartCoroutine(SpawnPreWave(enemies));
-    }
-
-
-    public IEnumerator SpawnPreWave(EnemyData[] enemies)
-    {
-        Debug.Log(enemies.Length);
-        isRunning = true;
-        int amount = GetAmount(enemies);
-        var enemyData = GetWaveData(enemies);
-        while (amount >= 0)
+        public SpawnWaveState(MonoBehaviour mono) : base(mono)
         {
-            var random = Random.Range(0, enemyData.Count);
-            var selectedEnemyType = new List<Entity>(enemyData.Keys)[random];
-            int selectedEnemyAmount = enemyData[selectedEnemyType];
-            if (selectedEnemyAmount > 0)
-            {
-                var enemy = EnemyPool.Instance.GetEnemy(selectedEnemyType);
-                if (enemy != null)
-                {
-                    Vector2 validPosition = GetRandomPosition();
-                    enemy.transform.position = validPosition;
-                    enemy.gameObject.SetActive(true);
-                    enemy.Initiate();
-                    enemyData[selectedEnemyType]--;
-                }
-            }
-            else
-            {
-                enemyData.Remove(selectedEnemyType);
-            }
-            yield return new WaitForSeconds(spawnInterval);
-            amount--;
         }
-        isRunning = false;
-    }
-
 
    
-}
 
-public class SpawnNoneState : SpawnState
-{
-    public SpawnNoneState(MonoBehaviour mono) : base(mono)
-    {
+
+        public override void Enter(EnemyData[] enemies)
+        {
+            ChangeInterval(2f);
+            _mono.StartCoroutine(Spawn(enemies));
+        }
     }
 
-    public override void Enter(EnemyData[] enemies)
+    public class SpawnPreWaveState : SpawnState
     {
-       //spawn none
+
+        public SpawnPreWaveState(MonoBehaviour mono) : base(mono)
+        {
+        }
+
+        public override void Enter(EnemyData[] enemies)
+        {
+            ChangeInterval(3f);
+            _mono.StartCoroutine(Spawn(enemies));
+        }
+
     }
-}
+
+    public class SpawnNoneState : SpawnState
+    {
+        public SpawnNoneState(MonoBehaviour mono) : base(mono)
+        {
+        }
+
+        public override void Enter(EnemyData[] enemies)
+        {
+            //spawn none
+        }
+    }
 

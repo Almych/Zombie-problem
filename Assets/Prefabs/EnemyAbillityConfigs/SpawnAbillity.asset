@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4ae913ce7589a4d88bf6f184932813, type: 3}
   m_Name: SpawnAbillity
   m_EditorClassIdentifier: 
-  OnDeathAbillity: 1
+  OnDeathAbility: 1
   enemyToSpawn: {fileID: 5140773186700458995, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
   amountToSpawn: 2

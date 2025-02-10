@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyOnDeathAbillity", menuName = "EnemyOnDeathAbillity/None")]
-public class EnemyOnDeathAbillityConfig : ScriptableObject
+[CreateAssetMenu(fileName = "EnemyOnDeathAbility", menuName = "EnemyOnDeathAbility/None")]
+public class EnemyOnDeathAbilityConfig : ScriptableObject
 {
-   public OnDeathAbillity OnDeathAbillity;
+   [SerializeField] protected OnDeathAbility OnDeathAbility;
+
+    public OnDeathAbility GetOnDeathAbility() { return OnDeathAbility; }
 }

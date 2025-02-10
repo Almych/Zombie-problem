@@ -5,10 +5,10 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    public EnemyOnDamageAbillityConfig onDamageAbillity;
-    public EnemyOnDeathAbillityConfig onDeathAbillity;
-    public EnemyConfig enemyData { get; private set; }
-    protected  Action OnDamage;
+    public EnemyOnDamageAbilityConfig onDamageAbilities;
+    public EnemyOnDeathAbilityConfig onDeathAbilities;
+    public EnemyConfig enemyData;
+    protected Action OnDamage;
     internal protected Action OnDeath;
     internal protected float currHealth;
     internal protected Animator animator;
@@ -16,9 +16,8 @@ public abstract class Entity : MonoBehaviour
     internal protected SpriteRenderer spriteColor;
     internal protected Collider2D enemyCollider;
     internal protected StateMachine stateMachine;
-    protected OnDamageEnemyAbillity damageAbillity;
-    protected OnDeathEnemyAbillity deathAbillity;
-    private Action deadAction, damageAction;
+    internal protected OnDamageEnemyAbility damageAbilities;
+    internal protected OnDeathEnemyAbility deathAbilities;
     public void GetDamage(float damage, IDamage damageType)
     {
         currHealth -= damage;
@@ -44,57 +43,31 @@ public abstract class Entity : MonoBehaviour
         enemyCollider = GetComponent<Collider2D>();
         currHealth = enemyData.maxHealth;
         stateMachine = new StateMachine(this);
-        damageAbillity = EnemyAbillityFactory.OnDamageAbillityAdd(onDamageAbillity, this);
-        deathAbillity = EnemyAbillityFactory.OnDeathAbillityAdd( onDeathAbillity, this);
-        if (damageAbillity != null)
-        {
-            damageAction = damageAbillity.OnDamage;
-        }
-        if (deathAbillity != null)
-        {
-            deadAction = deathAbillity.OnDeath;
-        }
+        damageAbilities = EnemyAbilityFactory.OnDamageAbilityAdd(onDamageAbilities, this);
+        deathAbilities = EnemyAbilityFactory.OnDeathAbilityAdd(onDeathAbilities, this);
+        stateMachine.SwitchState(stateMachine.runState);
+
     }
 
     public virtual void Initiate()
     {
         stateMachine.SwitchState(stateMachine.runState);
     }
-
-
-    public void StopMove()
-    {
-        rb.velocity = Vector3.zero;
-    }
-
     
 
     private void OnEnable()
     {
-        OnDamage += damageAction;
-        OnDeath += deadAction;
+        if (damageAbilities != null)
+        OnDamage += damageAbilities.OnDamage;
+        if(deathAbilities != null)
+        OnDeath += deathAbilities.OnDeath;
     }
 
     private void OnDisable()
     {
-        OnDamage -= damageAction;
-        OnDeath -= deadAction;
+        if (damageAbilities != null)
+            OnDamage -= damageAbilities.OnDamage;
+        if (deathAbilities != null)
+            OnDeath -= deathAbilities.OnDeath;
     }
-
-    internal protected void Restore()
-    {
-        currHealth = enemyData.maxHealth;
-        enemyCollider.enabled = true;
-    }
-
-
-    internal protected IEnumerator Die()
-    {
-        StopMove();
-        enemyCollider.enabled = false;
-        yield return new WaitForSeconds(1f);
-        OnDeath?.Invoke();
-        gameObject.SetActive(false);
-    }
-
 }

@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class StateMachine 
 {
-    public StunedState stunedState;
+    public StunnedState stunedState;
     public RunState runState;
     public AttackState attackState;
     public DeadState deadState;
     public State currentState { get; private set; }
     public StateMachine(Entity entity)
     {
-        runState = new RunState(entity.animator, entity.rb, entity.transform, entity.enemyData.speed);
-        attackState = new AttackState(entity.animator, entity.rb, entity.transform, entity.Attack);
-        stunedState = new StunedState(entity.animator, entity.rb, entity.transform);
-        deadState = new DeadState(entity.animator, entity.rb, entity.transform, entity.Restore, entity.Die(), entity);
+        runState = new RunState(entity);
+        attackState = new AttackState(entity);
+        stunedState = new StunnedState(entity);
+        deadState = new DeadState(entity);
         currentState = runState;
     }
 

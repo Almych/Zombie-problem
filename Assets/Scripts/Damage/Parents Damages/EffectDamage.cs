@@ -17,7 +17,7 @@ public abstract class EffectDamage : Damage
         var change = UnityEngine.Random.Range(1, 10);
         if (change <= effectChange)
         {
-            enemy.StopMove();
+            enemy.stateMachine.SwitchState(enemy.stateMachine.stunedState);
         }
         yield return new WaitForSeconds(stunTime);
         enemy.Initiate();

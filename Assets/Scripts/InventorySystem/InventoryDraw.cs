@@ -10,7 +10,7 @@ public class InventoryDraw : MonoBehaviour
 {
     public static InventoryDraw Instance;
     private Dictionary<Weapon, TMP_Text> melliWeapons = new Dictionary<Weapon, TMP_Text>();
-    private Dictionary<ItemObject, TMP_Text> items = new Dictionary<ItemObject, TMP_Text>();
+    private Dictionary<Item, TMP_Text> items = new Dictionary<Item, TMP_Text>();
     private void Awake()
     {
         if (Instance == null)
@@ -21,7 +21,7 @@ public class InventoryDraw : MonoBehaviour
     
     public void AddItem(ItemSlotConfig itemSlot)
     {
-        items[itemSlot.itemObject] = itemSlot.itemAmount;
+        items[itemSlot.item] = itemSlot.itemAmount;
     }
 
     public void AddWeapon(WeaponSlotConfig weaponSlot)
@@ -55,7 +55,7 @@ public class InventoryDraw : MonoBehaviour
         return null;
     }
 
-    public async void ShowItemAmount(int bullet, ItemObject weapon)
+    public async void ShowItemAmount(int bullet, Item weapon)
     {
         TMP_Text result = null;
         await Task.Run(() => { result = CheckItemAmount(weapon); });
@@ -66,7 +66,7 @@ public class InventoryDraw : MonoBehaviour
 
     }
 
-    private TMP_Text CheckItemAmount(ItemObject weapon)
+    private TMP_Text CheckItemAmount(Item weapon)
     {
         var keys = items.Keys.ToList();
         var values = items.Values.ToList();

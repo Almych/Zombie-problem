@@ -2,20 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponItem : ItemObject
+public class WeaponItem : Item
 {
     [SerializeField] protected Weapon weapon;
 
-    protected override void ItemAbillity()
+    public override void Use()
     {
         throw new System.NotImplementedException();
-    }
-
-    private void Awake()
-    {
-        if (weapon is MelliWeapon melli)
-        {
-            type = ItemType.Weapon;
-        }
     }
 }

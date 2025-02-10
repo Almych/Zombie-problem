@@ -6093,13 +6093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7575200e8e41e4689a8f35071f3e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spacesBetweenX: 150
-  startXPositionItems: -250
-  startXPositionWeapons: -700
-  spacesBetweenY: 20
-  collumnsSpaces: 50
-  inventory: {fileID: 11400000, guid: c9ad40dc178a0a14ca8c7e3f20a529d5, type: 2}
-  slotManager: {fileID: 1939166310}
+  item: {fileID: 0}
 --- !u!114 &1939166310
 MonoBehaviour:
   m_ObjectHideFlags: 0

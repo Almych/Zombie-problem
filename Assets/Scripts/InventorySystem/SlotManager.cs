@@ -11,15 +11,15 @@ public class SlotManager : MonoBehaviour
     [SerializeField] private ItemSlotConfig ItemSlot;
     [SerializeField] private WeaponSlotConfig WeaponSlot;
 
-    public ItemSlotConfig CreateItemSlot(ItemObject itemObject, Vector3 slotPosition, Transform inventory, UnityAction itemFunction)
+    public ItemSlotConfig CreateItemSlot(Item item, Vector3 slotPosition, Transform inventory, UnityAction itemFunction)
     {
-        ItemSlot.itemImage.sprite = itemObject.prefab;
-        ItemSlot.itemAmount.text = itemObject.amount.ToString("n0");
-        ItemSlot.itemObject = itemObject;
-        var item = Instantiate(ItemSlot, Vector2.zero, Quaternion.identity, inventory);
-        item.gameObject.GetComponent<RectTransform>().localPosition = slotPosition;
-        item.gameObject.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(itemFunction);
-        return item;
+        ItemSlot.itemImage.sprite = item.sprite;
+        ItemSlot.itemAmount.text = item.amount.ToString("n0");
+        ItemSlot.item = item;
+        var itemSlot = Instantiate(ItemSlot, Vector2.zero, Quaternion.identity, inventory);
+        itemSlot.gameObject.GetComponent<RectTransform>().localPosition = slotPosition;
+        itemSlot.gameObject.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(itemFunction);
+        return itemSlot;
     }
 
     public WeaponSlotConfig CreateWeaponSlot(Weapon weapon, Vector3 slotPosition, Transform inventory)

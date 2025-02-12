@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -58,6 +59,7 @@ public abstract class SpawnState
             int selectedEnemyAmount = enemyData[selectedEnemyType];
             if (selectedEnemyAmount > 0)
             {
+                Entity entity = selectedEnemyType;
                 var enemy = ObjectPoolManager.GetObjectFromPool(selectedEnemyType);
                 if (enemy != null)
                 {

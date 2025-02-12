@@ -24,6 +24,7 @@ public static class ObjectPoolManager
 
     public static T GetObjectFromPool<T>(T typeOfObject) where T : MonoBehaviour
     {
+
         if (!existingPools.ContainsKey(typeOfObject.GetType()))
         {
             return null;
@@ -33,13 +34,24 @@ public static class ObjectPoolManager
         {
             if (types[i] == typeOfObject.GetType())
             {
-                var pool = existingPools[types[i]];
-                if (pool!= null)
-                  return pool.GetPooledObject().GetComponent<T>();
+                
+                if (existingPools[types[i]] != null)
+                {
+                    var pool = existingPools[types[i]];
+                    return pool.GetPooledObject().GetComponent<T>();
+                }
             }
         }
         return null;
     }
 
-
+    public static T FindObject<T>() where T: MonoBehaviour
+    {
+        if(existingPools.ContainsKey(typeof(T)))
+        {
+            var pool = existingPools[typeof(T)];
+            return pool.GetPooledObject().GetComponent<T>();
+        }
+        return null;
+    }
 }

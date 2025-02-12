@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public abstract class WeaponController : MonoBehaviour
@@ -80,7 +81,7 @@ public class MelliWeaponController : WeaponController
     private MelliWeapon melliGun;
     private int currBulletAmount = 0;
     private bool hasAmmo = false;
-    private bool isRealoding = false;
+    private bool isReloading = false;
     public void Initialize(MelliWeapon melli)
     {
         melliGun = melli;
@@ -95,9 +96,11 @@ public class MelliWeaponController : WeaponController
 
         if (hasAmmo)
         {
-            var bullet = BulletPool.Instance.GetPoolObject();
+            
+            BulletBehaivior bullet = ObjectPoolManager.FindObject<BulletBehaivior>();
             if (bullet != null)
             {
+                bullet.gameObject.SetActive(true);
                 bullet.DamageOfBullet(melliGun.damageType);
                 bullet.transform.position = transform.position;
                 bullet.Activate(melliGun.bulletSprite);
@@ -114,15 +117,11 @@ public class MelliWeaponController : WeaponController
         {
             if (melliGun.totalBulletAmount != 0)
             {
-                if (!isRealoding)
+                if (!isReloading)
                 {
-                    isRealoding = true;
+                    isReloading = true;
                     StartCoroutine(Reload());
                 }
-            }
-            else
-            {
-                Debug.Log("run out of bullets");
             }
         }
        
@@ -132,7 +131,7 @@ public class MelliWeaponController : WeaponController
     {
         yield return new WaitForSeconds(melliGun.reloadTime);
         CheckBullets();
-        isRealoding = false;
+        isReloading = false;
     }
     private void CheckBullets()
     {

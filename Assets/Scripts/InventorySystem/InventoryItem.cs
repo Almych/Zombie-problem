@@ -5,7 +5,9 @@ using UnityEngine;
 public class InventoryItem
 {
     public Item item;
-    [HideInInspector]public int amount { get; private set; }
+    public event Action OnAmountChanged;
+    public event Action<InventoryItem> OnEmptyAmount;
+    [HideInInspector] public int amount { get; private set; } = 1;
     [HideInInspector]public int stackSize { get; private set; } = 99;
     [HideInInspector]public string stackID { get; private set; }
 
@@ -24,19 +26,15 @@ public class InventoryItem
     public void AddAmount(int additionalAmount)
     {
         amount += additionalAmount;
+        OnAmountChanged?.Invoke();
     }
-
-    public int GetAmount()
-    {
-        return amount;
-    }
-
     public void RemoveAmount(int removeAmount)
     {
         amount -= removeAmount;
-        if (amount < 0)
+        OnAmountChanged?.Invoke();
+        if (amount <= 0)
         {
-            amount = 0;
+            OnEmptyAmount?.Invoke(this);
         }
     }
 }

@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New AimItem", menuName = "ItemMenu/Items/AimItem")]
-public abstract class AimItem : Item
+public class AimItem : Item
 {
     public int healPoints;
+
+    public override void Use()
+    {
+       HealthBar.instance.ChangeHealthValue(healPoints);
+    }
 }

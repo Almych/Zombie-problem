@@ -7,6 +7,7 @@ public abstract class Entity : MonoBehaviour
 {
     public EnemyOnDamageAbilityConfig onDamageAbilities;
     public EnemyOnDeathAbilityConfig onDeathAbilities;
+    public event Action<Vector3> onDeathBonus;
     public EnemyConfig enemyData;
     protected Action OnDamage;
     internal protected Action OnDeath;
@@ -24,6 +25,7 @@ public abstract class Entity : MonoBehaviour
         if (currHealth <= 0)
         {
             stateMachine.SwitchState(stateMachine.deadState);
+            onDeathBonus?.Invoke(transform.position);
         }
         else
         {
@@ -61,6 +63,7 @@ public abstract class Entity : MonoBehaviour
         OnDamage += damageAbilities.OnDamage;
         if(deathAbilities != null)
         OnDeath += deathAbilities.OnDeath;
+        onDeathBonus += OnDeathBonusTriggered;
     }
 
     private void OnDisable()
@@ -69,5 +72,13 @@ public abstract class Entity : MonoBehaviour
             OnDamage -= damageAbilities.OnDamage;
         if (deathAbilities != null)
             OnDeath -= deathAbilities.OnDeath;
+        onDeathBonus -= OnDeathBonusTriggered;
+    }
+
+    private void OnDeathBonusTriggered(Vector3 position)
+    {
+        CollectablesSpawn.Instance.SpawnRandomObject(position);
+
+        onDeathBonus -= OnDeathBonusTriggered;
     }
 }

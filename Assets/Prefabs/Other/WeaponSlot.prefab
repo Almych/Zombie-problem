@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLabel: {fileID: 4415418091154824826}
   weaponBulletAmount: {fileID: 6101745282971229918}
-  melliWeapon: {fileID: 0}
+  weapon: {fileID: 0}
 --- !u!1 &9220258835615283250
 GameObject:
   m_ObjectHideFlags: 0

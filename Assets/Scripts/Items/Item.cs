@@ -2,20 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum ItemType
-{
-    Aim,
-    Granade,
-    Bullet,
-    Weapon
-}
+[Serializable]
 public abstract class Item : ScriptableObject
 {
-    public int amount;
-    public readonly int stackSize;
-    public Sprite sprite;
-    [TextArea(15, 20)]public string description;
+    public string Name;
+    public Sprite Sprite;
+    [TextArea(15, 20)]public string Description;
 
     public abstract void Use();
 }

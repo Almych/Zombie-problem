@@ -6,6 +6,6 @@ using UnityEngine.EventSystems;
 
 public abstract class DamageGrenade : Grenade
 {
-    [SerializeField] protected float damage;
+    [SerializeField] protected Damage damageType;
 }
 

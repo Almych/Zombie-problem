@@ -12,9 +12,9 @@ public class InventorySlot : MonoBehaviour
     
     public InventoryItem inventoryItem { get; private set; }
 
-    public InventorySlot(InventoryItem inventoryItem)
+    public void Initiate(InventoryItem inventoryItem)
     {
-        itemImage.sprite = inventoryItem.item.sprite;
+        itemImage.sprite = inventoryItem.item.Sprite;
         itemAmount.text = inventoryItem.amount.ToString();
         this.inventoryItem = inventoryItem;
     }

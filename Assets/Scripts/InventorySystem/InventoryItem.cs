@@ -1,17 +1,19 @@
 using System;
 using UnityEngine;
+
 [Serializable]
 public class InventoryItem
 {
-    [HideInInspector]public Item item { get; private set; }
+    public Item item;
     [HideInInspector]public int amount { get; private set; }
+    [HideInInspector]public int stackSize { get; private set; } = 99;
     [HideInInspector]public string stackID { get; private set; }
 
-    public InventoryItem(Item item, int amount)
+    public InventoryItem(Item item)
     {
         this.item = item;
-        this.amount = amount;
-        this.stackID = GenerateUniqueStackID(); 
+        amount = 1;
+        stackID = GenerateUniqueStackID(); 
     }
 
     private string GenerateUniqueStackID()
@@ -21,15 +23,20 @@ public class InventoryItem
 
     public void AddAmount(int additionalAmount)
     {
-        this.amount += additionalAmount;
+        amount += additionalAmount;
+    }
+
+    public int GetAmount()
+    {
+        return amount;
     }
 
     public void RemoveAmount(int removeAmount)
     {
-        this.amount -= removeAmount;
-        if (this.amount < 0)
+        amount -= removeAmount;
+        if (amount < 0)
         {
-            this.amount = 0;
+            amount = 0;
         }
     }
 }

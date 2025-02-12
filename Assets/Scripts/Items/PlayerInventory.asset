@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: defe2b2c58246364582bc256ccb01b36, type: 3}
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
+  item:
+    item: {fileID: 0}
   items:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - item: {fileID: 0}
+  - item: {fileID: 0}
+  - item: {fileID: 0}
+  - item: {fileID: 0}
+  - item: {fileID: 0}
+  - item: {fileID: 0}
   weaponSlots:
   - {fileID: 11400000, guid: b26697e14959d3944927088a4866aa10, type: 2}
   - {fileID: 11400000, guid: 3a805b3f6137f484ea7356df77d49be2, type: 2}
+  mainInventory: {fileID: 11400000, guid: 230e526902d541b4aa8bfbe6ca53c45e, type: 2}

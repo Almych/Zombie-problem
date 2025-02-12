@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[CreateAssetMenu(fileName = "New MainInventory", menuName = "Inventory/MainInventory")]
 public class MainInventory : ScriptableObject
 {
-    private Item[] items = new Item[30];
+    private InventoryItem[] items = new InventoryItem[30];
 
     public void AddItem(Item newItem)
     {
         bool inInventory = false;
         for (int i = 0; i < items.Length; i++)
         {
-            if (items[i] == newItem && CheckItemSize(items[i], newItem.amount))
+            if (items[i].item == newItem && CheckItemSize(items[i], 1))
             {
-                items[i].amount += newItem.amount;
+                items[i].AddAmount(1);
                 inInventory = true;
                 break;
             }
@@ -21,9 +21,10 @@ public class MainInventory : ScriptableObject
 
         if (!inInventory)
         {
-           Item freePlace = FindFreePlace();
+            InventoryItem newInventoryItem = new InventoryItem(newItem);
+            InventoryItem freePlace = FindFreePlace();
             if (freePlace != null)
-                freePlace = newItem;
+                freePlace = newInventoryItem;
         }
     }
 
@@ -32,7 +33,7 @@ public class MainInventory : ScriptableObject
 
     }
 
-    private bool CheckItemSize(Item item, int fillAmount)
+    private bool CheckItemSize(InventoryItem item, int fillAmount)
     {
         if (item.stackSize >= item.amount + fillAmount)
             return true;
@@ -40,7 +41,7 @@ public class MainInventory : ScriptableObject
             return false;
     }
 
-    private Item FindFreePlace()
+    private InventoryItem FindFreePlace()
     {
         for (int i =0; i < items.Length; i++)
         {

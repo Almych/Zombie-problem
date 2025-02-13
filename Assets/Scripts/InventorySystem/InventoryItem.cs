@@ -5,16 +5,16 @@ using UnityEngine;
 public class InventoryItem
 {
     public Item item;
-    public event Action OnAmountChanged;
-    public event Action<InventoryItem> OnEmptyAmount;
     [HideInInspector] public int amount { get; private set; } = 1;
     [HideInInspector]public int stackSize { get; private set; } = 99;
     [HideInInspector]public string stackID { get; private set; }
+    [HideInInspector] public InventorySlot inventorySlot { get; private set; }
 
     public InventoryItem(Item item)
     {
         this.item = item;
         amount = 1;
+        stackSize = 99;
         stackID = GenerateUniqueStackID(); 
     }
 
@@ -23,18 +23,22 @@ public class InventoryItem
         return Guid.NewGuid().ToString();
     }
 
-    public void AddAmount(int additionalAmount)
+    public void SetSlot(InventorySlot inventorySlot)
     {
-        amount += additionalAmount;
-        OnAmountChanged?.Invoke();
+        this.inventorySlot = inventorySlot;
     }
-    public void RemoveAmount(int removeAmount)
+    public void AddAmount()
     {
-        amount -= removeAmount;
-        OnAmountChanged?.Invoke();
+        amount ++;
+        inventorySlot.UpdateSlot();
+    }
+    public void RemoveAmount()
+    {
+        amount --;
+        inventorySlot.UpdateSlot();
         if (amount <= 0)
         {
-            OnEmptyAmount?.Invoke(this);
+            inventorySlot?.RemoveSlot();
         }
     }
 }

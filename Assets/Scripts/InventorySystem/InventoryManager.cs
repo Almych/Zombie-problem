@@ -31,16 +31,17 @@ public class InventoryManager : MonoBehaviour
 
     public void RemoveFromInventory(InventoryItem removeItem)
     {
-        if(inventory.RemoveItem(removeItem.item))
+        if (inventory.RemoveItem(removeItem))
         {
             InventorySlot removeSlot = slots[removeItem];
-            removeSlot.gameObject.SetActive(false);
+            slots.Remove(removeItem);
+            Destroy(removeSlot.gameObject);
         }
     }
 
     public void AddToInventory(InventoryItem newInventoryItem)
     {
-        if (inventory.AddItem(newInventoryItem.item))
+        if (inventory.AddItem(newInventoryItem))
         {
             CreateSlot(newInventoryItem);
         }

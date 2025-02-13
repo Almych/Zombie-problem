@@ -16,28 +16,23 @@ public class InventorySlot : MonoBehaviour
 
     public void Initiate(InventoryItem inventoryItem)
     {
+        inventoryItem.SetSlot(this);
         this.inventoryItem = inventoryItem;
         useButton.onClick.AddListener(inventoryItem.item.Use);
+        useButton.onClick.AddListener(inventoryItem.RemoveAmount);
         itemImage.sprite = inventoryItem.item.Sprite;
         UpdateSlot();
     }
 
     public void UpdateSlot()
     {
-        if (inventoryItem.amount > 1)
+        if (inventoryItem.amount >= 1)
         itemAmount.text = inventoryItem.amount.ToString();
     }
 
-
-    private void OnEnable()
+    public void RemoveSlot()
     {
-        if(inventoryItem!= null)
-        inventoryItem.OnAmountChanged += UpdateSlot;
+        InventoryManager.Instance.RemoveFromInventory(inventoryItem);
     }
-
-    private void OnDisable()
-    {
-        if (inventoryItem != null)
-            inventoryItem.OnAmountChanged -= UpdateSlot;
-    }
+   
 }

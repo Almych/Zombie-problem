@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New MainInventory", menuName = "Inventory/MainInventory")]
 public class MainInventory : ScriptableObject
 {
-    private InventoryItem[] items = new InventoryItem[30];
+    public InventoryItem[] items { get; private set; } = new InventoryItem[30];
 
     public void AddItem(Item newItem)
     {
@@ -13,7 +13,7 @@ public class MainInventory : ScriptableObject
         {
             if (items[i].item == newItem && CheckItemSize(items[i], 1))
             {
-                items[i].AddAmount(1);
+                items[i].AddAmount();
                 inInventory = true;
                 break;
             }

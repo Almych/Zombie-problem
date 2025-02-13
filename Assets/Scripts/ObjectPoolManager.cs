@@ -38,7 +38,8 @@ public static class ObjectPoolManager
                 if (existingPools[types[i]] != null)
                 {
                     var pool = existingPools[types[i]];
-                    return pool.GetPooledObject().GetComponent<T>();
+                    if (pool.GetPooledObject() != null)
+                        return pool.GetPooledObject().GetComponent<T>();
                 }
             }
         }

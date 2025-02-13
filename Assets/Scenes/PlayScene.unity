@@ -1857,13 +1857,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - item:
-      item: {fileID: 11400000, guid: 21bdb04ecd9431242b16223dea456e12, type: 2}
+  - item: {fileID: 11400000, guid: 3d979fa36c39955468d5b81125117aa6, type: 2}
+    amount: 2
+  - item: {fileID: 11400000, guid: ce949f0afc76efd42934b4472389bc06, type: 2}
     amount: 3
-  coins:
-  - objectToSpawn: {fileID: 7089803634709335574, guid: 17917d4cd4f234e4ab0677dd5fb59242, type: 3}
-    amount: 3
-  itemSlot: {fileID: 2431064775300022548, guid: 490fc9c102d24234890826322ebdb0be, type: 3}
+  amountOfCoins: 3
 --- !u!1 &280330264
 GameObject:
   m_ObjectHideFlags: 0
@@ -4244,7 +4242,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 12
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -4253,10 +4251,10 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 127
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -5722,6 +5720,7 @@ GameObject:
   - component: {fileID: 1789682955}
   - component: {fileID: 1789682954}
   - component: {fileID: 1789682956}
+  - component: {fileID: 1789682957}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5903,6 +5902,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1789682957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789682950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27bb7917b0be4434e8d75d4f4d8ab46b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectable:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1790683770
 GameObject:
   m_ObjectHideFlags: 0
@@ -6474,6 +6488,8 @@ MonoBehaviour:
   objectsToPool:
   - {fileID: 8484129556983216043, guid: 17917d4cd4f234e4ab0677dd5fb59242, type: 3}
   - {fileID: -5172892700674193956, guid: 38cff01685507f841b37fe8b6f557850, type: 3}
+  - {fileID: 2431064775300022548, guid: 490fc9c102d24234890826322ebdb0be, type: 3}
+  - {fileID: 6067963775555012113, guid: 73a1d22979235cc42afb54b2fe76e39e, type: 3}
   poolSize: 6
 --- !u!1001 &4282346404928643561
 PrefabInstance:

@@ -33,7 +33,7 @@ public class LongRangeEnemyNone : Entity, ILongRangeEnemy
     protected void GetEnemyBullet()
     {
         rb.velocity = Vector2.zero;
-        var bullet = EnemyBulletPool.instance.GetBullet();
+        var bullet = ObjectPoolManager.FindObject<EnemyBulletBehaivior>();
         if (bullet != null)
         {
             bullet.transform.position = transform.position;

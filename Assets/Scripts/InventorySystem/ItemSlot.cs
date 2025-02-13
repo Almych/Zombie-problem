@@ -2,21 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public interface ICollectable
+{
+    void OnCollect();
+}
+public class ItemSlot : MonoBehaviour, ICollectable
 {
     public SpriteRenderer spriteRenderer => GetComponent<SpriteRenderer>();
-    public InventoryItem inventoryItem { get; private set; }
+    [HideInInspector] public InventoryItem inventoryItem;
+    
     public void Init(InventoryItem newInventoryItem)
     {
         inventoryItem = newInventoryItem;
         spriteRenderer.sprite = newInventoryItem.item.Sprite;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnCollect()
     {
-        Debug.Log("Clicked");
-        InventoryManager.Instance.AddToInventory(inventoryItem);
-        gameObject.SetActive(false);
+        if (inventoryItem != null)
+        {
+            InventoryManager.Instance.AddToInventory(inventoryItem);
+            gameObject.SetActive(false);
+        }
     }
+
 }

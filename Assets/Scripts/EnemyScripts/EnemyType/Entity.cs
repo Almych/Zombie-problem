@@ -34,8 +34,6 @@ public abstract class Entity : MonoBehaviour
         }
     }
    
-   
-
      public abstract void Attack();
     protected void Awake()
     {

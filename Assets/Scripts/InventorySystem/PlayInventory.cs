@@ -1,71 +1,104 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-[CreateAssetMenu(fileName ="New PlayInventory", menuName ="Inventory/PlayInventory")]
+
+[CreateAssetMenu(fileName = "New PlayInventory", menuName = "Inventory/PlayInventory")]
 public class PlayInventory : ScriptableObject
 {
-    public InventoryItem[] items = new InventoryItem[5]; 
-    public Weapon[] weaponSlots = new Weapon[2];
-    public MainInventory mainInventory;
-    public bool AddItem(Item newItem)
+    public InventoryItem[] items = new InventoryItem[5];  
+    public Weapon[] weaponSlots = new Weapon[2];         
+    public MainInventory mainInventory;                   
+
+   
+    public bool AddItem(InventoryItem newItem)
     {
-        InventoryItem inventoryItem = FindFreeInventoryPlace();
-        if (inventoryItem != null)
+       
+        InventoryItem existingItem = FindItemInInventory(newItem);
+        if (existingItem != null)
         {
-            inventoryItem = new InventoryItem(newItem);
-            return true;
+            if (CanAddToStack(existingItem, 1))
+            {
+                existingItem.AddAmount();
+                Debug.Log("Increased item amount in inventory.");
+                return false;
+            }
+            else
+            {
+                mainInventory.AddItem(newItem.item);
+                return false;
+            }
         }
         else
         {
-            mainInventory.AddItem(newItem);
-            return false;
+
+            if (TryAddItemToFreeSlot(newItem))
+            {
+                return true;
+            }
+            else
+            {
+                mainInventory.AddItem(newItem.item);
+                return false;
+            }
         }
     }
 
-    public bool RemoveItem(Item removeItem)
+    public bool RemoveItem(InventoryItem itemToRemove)
     {
-        InventoryItem inventoryItem = FindItemInInventory(removeItem);
-        if (inventoryItem != null)
+        if (TryRemoveItemFromInventory(itemToRemove))
         {
-            inventoryItem = null;
-            return true;
+            
+            return true;  
         }
         return false;
     }
 
-    private bool CheckItemSize(InventoryItem item, int fillAmount)
+    private bool CanAddToStack(InventoryItem item, int amountToAdd)
     {
-        if (item.stackSize >= item.amount + fillAmount)
-            return true;
-        else
-            return false;
+        return item.stackSize >= item.amount + amountToAdd;
     }
 
-    private InventoryItem FindItemInInventory(Item newItem)
+   
+    private InventoryItem FindItemInInventory(InventoryItem item)
+    {
+       
+            foreach (var inventoryItem in items)
+            {
+                if (inventoryItem != null && inventoryItem.item == item.item)
+                {
+                    return inventoryItem;
+                }
+            }
+        return null;  
+    }
+
+    private bool TryAddItemToFreeSlot(InventoryItem newItem)
     {
         for (int i = 0; i < items.Length; i++)
         {
-            if (newItem == items[i].item && CheckItemSize(items[i], 1))
+            if (items[i].item == null) 
             {
-                return items[i];
+                items[i] = newItem;
+                return true;
             }
         }
-
-        return FindFreeInventoryPlace();
+        return false; 
     }
 
-    private InventoryItem FindFreeInventoryPlace()
+
+    private bool TryRemoveItemFromInventory(InventoryItem newItem)
     {
-        for (int i = 0; i < items.Length; i++)
+        if (newItem != null)
         {
-            if (items[i].item == null)
+            for (int i = 0; i < items.Length; i++)
             {
-                return items[i];
+                if (items[i].item == newItem.item)
+                {
+                    items[i] = null;
+                    return true;
+                }
             }
         }
-
-        return null;
+        return false;
     }
 }
-

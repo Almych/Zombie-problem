@@ -9,7 +9,7 @@ public class View : MonoBehaviour
     [SerializeField] private Slider waveBar;
     [SerializeField] private TextMeshProUGUI coinCounterText;
     [SerializeField] private Slider healthbar;
-
+    private static int coinAmount;
     private void Awake()
     {
         if (Instance == null)
@@ -41,9 +41,9 @@ public class View : MonoBehaviour
     {
         return waveBar.value;
     }
-    public void CountCoin(ref int counter)
+    public void CountCoin()
     {
-        counter++;
-        coinCounterText.text = counter.ToString();
+        coinAmount++;
+        coinCounterText.text = coinAmount.ToString();
     }
 }

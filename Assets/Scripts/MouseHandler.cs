@@ -15,7 +15,6 @@ public class MouseHandler : MonoBehaviour
 
             if (hit.collider != null && hit.collider.GetComponent<ICollectable>() != null)
             {
-                Debug.Log("Sprite clicked!");
                 hit.collider.GetComponent<ICollectable>().OnCollect();
             }
         }

@@ -6,15 +6,22 @@ using UnityEngine;
 public class EnemyUniqDefense : ScriptableObject
 {
     public Damage damageToDefense;
-    public float GetDefense(float damage, Damage damageType)
+    public float GetDefense(Damage damageType)
     {
-        if (damageType.GetDamage() != damageToDefense)
-        {
-            return damage;
+        if (damageType != damageToDefense || damageType == default)
+        { 
+            return damageType.GetDamage();
         }
-        else
+        
+        if (damageType is ContinuesDamage continuesDamage)
         {
-            return 0f;
+            continuesDamage.StopUniqueDamage();
         }
+        else if (damageType is EffectDamage effectDamage)
+        {
+            effectDamage.StopUniqueDamage();
+        }
+
+        return 0f;
     }
 }

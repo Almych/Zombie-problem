@@ -7,6 +7,7 @@ public abstract class Entity : MonoBehaviour
 {
     public EnemyOnDamageAbilityConfig onDamageAbilities;
     public EnemyOnDeathAbilityConfig onDeathAbilities;
+    public EnemyUniqDefense defense;
     public event Action<Vector3> onDeathBonus;
     public EnemyConfig enemyData;
     protected Action OnDamage;
@@ -19,9 +20,11 @@ public abstract class Entity : MonoBehaviour
     internal protected StateMachine stateMachine;
     internal protected OnDamageEnemyAbility damageAbilities;
     internal protected OnDeathEnemyAbility deathAbilities;
-    public void GetDamage(float damage, IDamage damageType)
+    public void GetDamage(Damage damageType)
     {
-        currHealth -= damage;
+
+        float leftDamage = defense.GetDefense(damageType);
+        currHealth -= leftDamage;
         if (currHealth <= 0)
         {
             stateMachine.SwitchState(stateMachine.deadState);
@@ -29,7 +32,7 @@ public abstract class Entity : MonoBehaviour
         }
         else
         {
-            if (damageType == default)
+            if (damageType is DefaultDamage)
             OnDamage?.Invoke();
         }
     }

@@ -5,21 +5,40 @@ using UnityEngine;
 public abstract class EffectDamage : Damage
 {
     [SerializeField] protected float stunTime;
-    [Range(1, 7)][SerializeField] protected float effectChange;
+    [Range(1, 7)][SerializeField] protected float effectChance;
+    private Entity currentEnemy;
+    private DefaultDamage defaultDamage;
+
     public override void MakeDamage(Entity enemy)
     {
-        enemy.StartCoroutine(StunEnemy(enemy));
+        enemy.GetDamage(defaultDamage);
+        currentEnemy = enemy;
+        currentEnemy.StartCoroutine(StunEnemy());
     }
 
-    protected virtual IEnumerator StunEnemy(Entity enemy)
+    protected virtual IEnumerator StunEnemy()
     {
-        enemy.GetDamage(damage, default);
-        var change = UnityEngine.Random.Range(1, 10);
-        if (change <= effectChange)
+       
+        if (CanUseEffect())
         {
-            enemy.stateMachine.SwitchState(enemy.stateMachine.stunedState);
+            currentEnemy.stateMachine.SwitchState(currentEnemy.stateMachine.stunedState);
+            yield return new WaitForSeconds(stunTime);
+            currentEnemy.stateMachine.SwitchState(currentEnemy.stateMachine.runState);
         }
-        yield return new WaitForSeconds(stunTime);
-        enemy.Initiate();
+    }
+
+    private bool CanUseEffect()
+    {
+        var chance = UnityEngine.Random.Range(1, 10);
+        return effectChance >= chance;
+    }
+
+    public  void StopUniqueDamage()
+    {
+        if (currentEnemy != null)
+        {
+            currentEnemy.StopCoroutine(StunEnemy());
+            currentEnemy = null;
+        }
     }
 }

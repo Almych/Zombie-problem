@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d7c837c171e0846ade116b0c602608, type: 3}
   m_Name: FlameDefence
   m_EditorClassIdentifier: 
-  damageToDefence: {fileID: 11400000, guid: 35997ff9c6e1baa4f917d12a4cf31f9c, type: 2}
+  damageToDefense: {fileID: 11400000, guid: 35997ff9c6e1baa4f917d12a4cf31f9c, type: 2}

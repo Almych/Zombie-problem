@@ -4,9 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New StunEffect Damage", menuName = "Damage/EffectDamage/StunEffect")]
 public class StunEffect : EffectDamage
 {
-    protected override IEnumerator StunEnemy(Entity enemy)
+   
+
+    protected override IEnumerator StunEnemy()
     {
-        return base.StunEnemy(enemy);
+        return base.StunEnemy();
     }
  
 }

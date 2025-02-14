@@ -4,31 +4,42 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
-public abstract class ContinuesDamage: Damage
+public abstract class ContinuesDamage : Damage
 {
     [Range(2, 10)][SerializeField] protected float damageTime;
     [SerializeField] protected float afterMathDamage;
     protected const float remainTime = 1f;
+    private Entity currentEnemy;
+    private DefaultDamage defaultDamage;
+
     public override void MakeDamage(Entity enemy)
     {
-        enemy.StartCoroutine(GetContinuesDamage(enemy));
+        GetContinuesDamage(enemy);
     }
 
-    protected virtual IEnumerator GetContinuesDamage(Entity enemy)
+    protected virtual void GetContinuesDamage(Entity enemy)
     {
-        float remainingTime = damageTime;
-
+        defaultDamage = CreateInstance<DefaultDamage>();
+        defaultDamage.Init(damage);
         if (enemy != null && enemy.isActiveAndEnabled)
         {
-            enemy.GetDamage(damage, default);
+            enemy.GetDamage(defaultDamage);
         }
 
+        currentEnemy = enemy;
+        currentEnemy.StartCoroutine(TimeDamage());
+    }
+
+    private IEnumerator TimeDamage()
+    {
+        float remainingTime = damageTime;
         while (remainingTime > 0f)
         {
-            if (enemy != null && enemy.isActiveAndEnabled)
-                enemy.GetDamage(afterMathDamage, GetDamage());
+            if (currentEnemy != null && currentEnemy.isActiveAndEnabled)
+                currentEnemy.GetDamage(this);
             else
                 break;
             yield return new WaitForSeconds(remainTime);
@@ -37,4 +48,13 @@ public abstract class ContinuesDamage: Damage
         }
     }
 
+    public  void StopUniqueDamage()
+    {
+        if (currentEnemy != null)
+        {
+            currentEnemy.StopCoroutine(TimeDamage());
+            currentEnemy = null;
+            Debug.Log("Stopped");
+        }
+    }
 }

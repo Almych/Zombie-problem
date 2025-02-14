@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3af882f791e7c54392b0c752420fb0d, type: 3}
   m_Name: Flame
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 4
   damageTime: 3
   afterMathDamage: 2

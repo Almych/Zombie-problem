@@ -4,8 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Froze Damage", menuName = "Damage/EffectDamage/FrozeEffect")]
 public class FrozeEffect : EffectDamage
 {
-    protected override IEnumerator StunEnemy(Entity enemy)
+   
+
+    protected override IEnumerator StunEnemy()
     {
-        return base.StunEnemy(enemy);
+        return base.StunEnemy();
     }
 }

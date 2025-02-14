@@ -6472,7 +6472,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveBar: {fileID: 1968701743}
   coinCounterText: {fileID: 1368548915}
-  healthbar: {fileID: 422462763}
+  healthBar: {fileID: 422462763}
+  coinsContainer: {fileID: 11400000, guid: 9dd85554979fb8d49a18cd08c00240a3, type: 2}
 --- !u!114 &2147420721
 MonoBehaviour:
   m_ObjectHideFlags: 0

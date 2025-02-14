@@ -195,4 +195,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDamageAbilities: {fileID: 11400000, guid: 1d6556a61203500449684e1ee4b252d5, type: 2}
   onDeathAbilities: {fileID: 11400000, guid: d70d501c696537543b9b349fbfbfdf4a, type: 2}
+  defense: {fileID: 11400000, guid: 1fcdb12a058aac4408a7eff40edc4000, type: 2}
   enemyData: {fileID: 11400000, guid: 8c09958f786733c4baf2f6e221821404, type: 2}

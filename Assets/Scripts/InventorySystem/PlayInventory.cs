@@ -76,7 +76,7 @@ public class PlayInventory : ScriptableObject
     {
         for (int i = 0; i < items.Length; i++)
         {
-            if (items[i].item == null) 
+            if (items[i] != null && items[i].item == null) 
             {
                 items[i] = newItem;
                 return true;
@@ -92,7 +92,7 @@ public class PlayInventory : ScriptableObject
         {
             for (int i = 0; i < items.Length; i++)
             {
-                if (items[i].item == newItem.item)
+                if (items[i] != null && items[i].item == newItem.item)
                 {
                     items[i] = null;
                     return true;

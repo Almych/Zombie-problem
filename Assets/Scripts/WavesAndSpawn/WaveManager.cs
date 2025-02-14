@@ -109,6 +109,7 @@ public class WaveManager : MonoBehaviour
         }
 
     }
+
     private List<float> GetWavePercent()
     {
         List<float> wavePercents = new List<float>();

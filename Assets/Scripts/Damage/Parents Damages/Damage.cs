@@ -6,20 +6,17 @@ using System.Threading.Tasks;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
-public abstract class Damage : ScriptableObject, IDamage
+public abstract class Damage : ScriptableObject
 {
     [SerializeField] protected float damage;
-    public abstract void MakeDamage(Entity enemy);
 
-    internal protected Damage GetDamage()
+   
+    public abstract void MakeDamage(Entity enemy);
+    public float GetDamage()
     {
-        return this;
+        return damage;
     }
 }
 
 
-public interface IDamage
-{
-    public void MakeDamage(Entity enemy);
-}
 

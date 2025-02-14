@@ -9,14 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 430088ce42380504b9637c51893fa9de, type: 3}
-  m_Name: AverageZombie
+  m_Script: {fileID: 11500000, guid: 6903493f5fe7d9c4eaf08ed836e546bf, type: 3}
+  m_Name: DefaultDamage
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  speed: 1.97
-  damage: 3
-  attackCoolDown: 2
-  attackRange: 0
-  barrier:
-    serializedVersion: 2
-    m_Bits: 64
+  damage: 6

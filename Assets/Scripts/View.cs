@@ -8,14 +8,15 @@ public class View : MonoBehaviour
     public static View Instance;
     [SerializeField] private Slider waveBar;
     [SerializeField] private TextMeshProUGUI coinCounterText;
-    [SerializeField] private Slider healthbar;
-    private static int coinAmount;
+    [SerializeField] private Slider healthBar;
+    [SerializeField] private CoinsContainer coinsContainer;
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
+        UpdateView();
     }
 
     private void OnEnable()
@@ -35,15 +36,19 @@ public class View : MonoBehaviour
 
     public void HealthBarUpdate(object sender, float value)
     {
-        healthbar.value = value;
+        healthBar.value = value;
     }
     public float GetWaveValue()
     {
         return waveBar.value;
     }
-    public void CountCoin()
+    public void UpdateView()
     {
-        coinAmount++;
-        coinCounterText.text = coinAmount.ToString();
+        coinCounterText.text = coinsContainer.GetCoins().ToString();
+    }
+    public void AddCoin()
+    {
+        coinsContainer.AddCoin();
+        UpdateView();
     }
 }

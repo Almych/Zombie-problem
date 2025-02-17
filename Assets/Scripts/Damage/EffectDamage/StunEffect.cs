@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "New StunEffect Damage", menuName = "Damage/EffectDamage/StunEffect")]
-public class StunEffect : EffectDamage
+public class StunEffect 
 {
    
 
-    protected override IEnumerator StunEnemy()
-    {
-        return base.StunEnemy();
-    }
+    //protected override IEnumerator StunEnemy()
+    //{
+    //    return base.StunEnemy();
+    //}
  
 }

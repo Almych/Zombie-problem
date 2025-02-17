@@ -16,12 +16,12 @@ public abstract class State
 
     protected void ChangeAnimation(string animationName, bool animationType)
     {
-        _enemy.animator.SetBool(animationName, animationType);
+        //_enemy.animator.SetBool(animationName, animationType);
     }
 
     protected void StopMove()
     {
-        _enemy.rb.velocity = Vector3.zero;
+       // _enemy.rb.velocity = Vector3.zero;
     }
 
 }
@@ -35,7 +35,7 @@ public class RunState : State
 
     public override void Enter()
     {
-       _enemy.rb.velocity = -_enemy.transform.right * _enemy.enemyData.speed;
+       //_enemy.rb.velocity = -_enemy.transform.right * _enemy.enemyData.speed;
         ChangeAnimation("isRunning", true);
     }
 
@@ -54,7 +54,7 @@ public class AttackState : State
 
     public override void Enter()
     {
-        _enemy.Attack();
+       // _enemy.Attack();
         ChangeAnimation("isAttacking", true);
     }
 
@@ -109,16 +109,16 @@ public class DeadState : State
     private IEnumerator Die()
     {
         StopMove();
-        _enemy.enemyCollider.enabled = false;
+        //_enemy.enemyCollider.enabled = false;
         yield return new WaitForSeconds(1f);
-        _enemy.OnDeath?.Invoke();
+       // _enemy.OnDeath?.Invoke();
         _enemy.gameObject.SetActive(false);
     }
 
     private void Restore()
     {
-        _enemy.currHealth = _enemy.enemyData.maxHealth;
-        _enemy.enemyCollider.enabled = true;
+       // _enemy.currHealth = _enemy.enemyData.maxHealth;
+       // _enemy.enemyCollider.enabled = true;
     }
 
 }

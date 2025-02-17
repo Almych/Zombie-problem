@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class OneHitEnemy : MelliEnemyNone
 {
-    public override void Attack()
-    {
-        barrier?.ChangeHealthValue(-enemyData.damage);
-        stateMachine.SwitchState(stateMachine.deadState);
-    }
+    //public override void Attack()
+    //{
+    //    barrier?.ChangeHealthValue(-enemyData.damage);
+    //    stateMachine.SwitchState(stateMachine.deadState);
+    //}
 }

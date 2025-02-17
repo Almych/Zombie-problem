@@ -9,18 +9,18 @@ using UnityEngine.EventSystems;
 public class MelliEnemyContinues : MelliEnemyNone
 {
 
-    public override void Attack()
-    {
-        if (barrier != null)
-        StartCoroutine(ContinuesAttack(barrier));
-    }
+    //public override void Attack()
+    //{
+    //    if (barrier != null)
+    //    StartCoroutine(ContinuesAttack(barrier));
+    //}
 
-    private IEnumerator ContinuesAttack(HealthBar barrier)
-    {
-        while (stateMachine.currentState == stateMachine.attackState)
-        {
-            yield return new WaitForSeconds(enemyData.attackCoolDown);
-            barrier.ChangeHealthValue(-enemyData.damage);
-        }
-    }
+    //private IEnumerator ContinuesAttack(HealthBar barrier)
+    //{
+    //    while (stateMachine.currentState == stateMachine.attackState)
+    //    {
+    //        yield return new WaitForSeconds(enemyData.attackCoolDown);
+    //        barrier.ChangeHealthValue(-enemyData.damage);
+    //    }
+    //}
 }

@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public interface ILongRangeEnemy
-{
-    public IEnumerator Shoot();
-}
 
-public class LongRangeEnemyNone : Entity, ILongRangeEnemy
+
+public class LongRangeEnemyNone : Entity
 {
     private RaycastHit2D hit;
 
@@ -40,26 +37,26 @@ public class LongRangeEnemyNone : Entity, ILongRangeEnemy
         //    bullet.Activate(enemyData.damage);
         //}
     }
-    public override void Initiate()
-    {
-        base.Initiate();
-        StartCoroutine(Shoot());
-    }
+    //public override void Initiate()
+    //{
+    //    base.Initiate();
+    //    StartCoroutine(Shoot());
+    //}
 
-    public virtual IEnumerator Shoot()
-    {
-        while (stateMachine.currentState != stateMachine.deadState)
-        {
-            yield return new WaitForSeconds(enemyData.attackCoolDown);
-            if (CheckDistance())
-            {
-                stateMachine.SwitchState(stateMachine.attackState);
-            }
-        }
-    }
+    //public virtual IEnumerator Shoot()
+    //{
+    //    while (stateMachine.currentState != stateMachine.deadState)
+    //    {
+    //        yield return new WaitForSeconds(enemyData.attackCoolDown);
+    //        if (CheckDistance())
+    //        {
+    //            stateMachine.SwitchState(stateMachine.attackState);
+    //        }
+    //    }
+    //}
 
-    public override void Attack()
-    {
-        stateMachine.SwitchState(stateMachine.deadState);
-    }
+    //public override void Attack()
+    //{
+    //    stateMachine.SwitchState(stateMachine.deadState);
+    //}
 }

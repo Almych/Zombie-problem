@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class LongRangeEnemyOnce : LongRangeEnemyNone
 {
-    public override void Attack()
-    {
-        GetEnemyBullet();
-        stateMachine.SwitchState(stateMachine.deadState);
-    }
+    //public override void Attack()
+    //{
+    //    GetEnemyBullet();
+    //    stateMachine.SwitchState(stateMachine.deadState);
+    //}
 }

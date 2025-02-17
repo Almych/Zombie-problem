@@ -1860,8 +1860,10 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: 3d979fa36c39955468d5b81125117aa6, type: 2}
     amount: 2
   - item: {fileID: 11400000, guid: ce949f0afc76efd42934b4472389bc06, type: 2}
-    amount: 3
-  amountOfCoins: 3
+    amount: 1
+  - item: {fileID: 11400000, guid: 999a4863ac0255f45b937c65dd8199f8, type: 2}
+    amount: 1
+  amountOfCoins: 5
 --- !u!1 &280330264
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d7c837c171e0846ade116b0c602608, type: 3}
   m_Name: NoneDefense
   m_EditorClassIdentifier: 
-  damageToDefense: {fileID: 0}
+  damageToDefense: {fileID: 11400000, guid: e9d0ddc1a4a7d9248963b5f030e3982c, type: 2}

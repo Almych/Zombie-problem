@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class LongRangeContinues : LongRangeEnemyNone
 {
-    public override void Attack()
-    {
-        GetEnemyBullet();
-    }
+    //public override void Attack()
+    //{
+    //    GetEnemyBullet();
+    //}
 }

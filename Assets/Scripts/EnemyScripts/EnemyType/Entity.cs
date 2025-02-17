@@ -10,34 +10,17 @@ public abstract class Entity : MonoBehaviour
     public EnemyUniqDefense defense;
     public event Action<Vector3> onDeathBonus;
     public EnemyConfig enemyData;
-    protected Action OnDamage;
-    internal protected Action OnDeath;
-    internal protected float currHealth;
-    internal protected Animator animator;
-    internal protected Rigidbody2D rb;
-    internal protected SpriteRenderer spriteColor;
-    internal protected Collider2D enemyCollider;
-    internal protected StateMachine stateMachine;
-    internal protected OnDamageEnemyAbility damageAbilities;
-    internal protected OnDeathEnemyAbility deathAbilities;
-    public void GetDamage(Damage damageType)
+    private float currHealth;
+    private Animator animator;
+    private Rigidbody2D rb;
+    private SpriteRenderer spriteColor;
+    private Collider2D enemyCollider;
+    private StateMachine stateMachine;
+    public void GetDamage(Damage damage)
     {
-
-        float leftDamage = defense.GetDefense(damageType);
-        currHealth -= leftDamage;
-        if (currHealth <= 0)
-        {
-            stateMachine.SwitchState(stateMachine.deadState);
-            onDeathBonus?.Invoke(transform.position);
-        }
-        else
-        {
-            if (damageType is DefaultDamage)
-            OnDamage?.Invoke();
-        }
+        
     }
    
-     public abstract void Attack();
     protected void Awake()
     {
         animator = GetComponent<Animator>();
@@ -46,13 +29,10 @@ public abstract class Entity : MonoBehaviour
         enemyCollider = GetComponent<Collider2D>();
         currHealth = enemyData.maxHealth;
         stateMachine = new StateMachine(this);
-        damageAbilities = EnemyAbilityFactory.OnDamageAbilityAdd(onDamageAbilities, this);
-        deathAbilities = EnemyAbilityFactory.OnDeathAbilityAdd(onDeathAbilities, this);
-        stateMachine.SwitchState(stateMachine.runState);
-
+       
     }
 
-    public virtual void Initiate()
+    public virtual void Activate()
     {
         stateMachine.SwitchState(stateMachine.runState);
     }
@@ -60,20 +40,12 @@ public abstract class Entity : MonoBehaviour
 
     private void OnEnable()
     {
-        if (damageAbilities != null)
-        OnDamage += damageAbilities.OnDamage;
-        if(deathAbilities != null)
-        OnDeath += deathAbilities.OnDeath;
-        onDeathBonus += OnDeathBonusTriggered;
+       
     }
 
     private void OnDisable()
     {
-        if (damageAbilities != null)
-            OnDamage -= damageAbilities.OnDamage;
-        if (deathAbilities != null)
-            OnDeath -= deathAbilities.OnDeath;
-        onDeathBonus -= OnDeathBonusTriggered;
+        
     }
 
     private void OnDeathBonusTriggered(Vector3 position)

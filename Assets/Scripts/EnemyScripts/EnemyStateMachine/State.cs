@@ -74,12 +74,13 @@ public class StunnedState : State
 
     public override void Enter()
     {
-        ChangeAnimation("isStunned", true);
+        ChangeAnimation("isRunning", false);
+        StopMove();
     }
 
     public override void Exit()
     {
-        ChangeAnimation("isStunned", false);
+      //ChangeAnimation("isStunned", false);
     }
 
    

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 6
   stunTime: 3
-  effectChange: 4
+  effectChance: 5

@@ -32,13 +32,13 @@ public class LongRangeEnemyNone : Entity, ILongRangeEnemy
 
     protected void GetEnemyBullet()
     {
-        rb.velocity = Vector2.zero;
-        var bullet = ObjectPoolManager.FindObject<EnemyBulletBehaivior>();
-        if (bullet != null)
-        {
-            bullet.transform.position = transform.position;
-            bullet.Activate(enemyData.damage);
-        }
+        //rb.velocity = Vector2.zero;
+        //var bullet = ObjectPoolManager.FindObject<EnemyBulletBehaivior>();
+        //if (bullet != null)
+        //{
+        //    bullet.transform.position = transform.position;
+        //    bullet.Activate(enemyData.damage);
+        //}
     }
     public override void Initiate()
     {

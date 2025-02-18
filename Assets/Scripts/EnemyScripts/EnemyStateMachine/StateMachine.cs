@@ -9,12 +9,12 @@ public class StateMachine
     public AttackState attackState;
     public DeadState deadState;
     public State currentState { get; private set; }
-    public StateMachine(Entity entity)
+    public StateMachine(Transform transform, Rigidbody2D rb, EnemyConfig enemyConfig, Animator animator, Collider2D collider)
     {
-        runState = new RunState(entity);
-        attackState = new AttackState(entity);
-        stunedState = new StunnedState(entity);
-        deadState = new DeadState(entity);
+        runState = new RunState(transform, rb, enemyConfig, animator);
+        attackState = new AttackState(transform, rb, enemyConfig, animator);
+        stunedState = new StunnedState(transform, rb, enemyConfig, animator);
+        deadState = new DeadState(transform, rb, enemyConfig, animator, collider);
         currentState = runState;
     }
 

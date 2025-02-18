@@ -6,36 +6,41 @@ using UnityEngine;
 
 public abstract class State 
 {
-    protected Entity _enemy;
-    protected State(Entity entity)
+    protected Transform transform;
+    protected Rigidbody2D rb;
+    protected EnemyConfig enemyData;
+    protected Animator animator;
+    protected State(Transform transform, Rigidbody2D rb, EnemyConfig enemyConfig, Animator animator)
     {
-        _enemy = entity;
+        this.transform = transform;
+        this.rb = rb;
+        enemyData = enemyConfig;
+        this.animator = animator;   
     }
     public abstract void Enter();
     public abstract void Exit();
 
     protected void ChangeAnimation(string animationName, bool animationType)
     {
-        //_enemy.animator.SetBool(animationName, animationType);
+        animator.SetBool(animationName, animationType);
     }
 
     protected void StopMove()
     {
-       // _enemy.rb.velocity = Vector3.zero;
+       rb.velocity = Vector3.zero;
     }
 
 }
 
 public class RunState : State
 {
-
-    public RunState(Entity entity) : base(entity)
+    public RunState(Transform transform, Rigidbody2D rb, EnemyConfig enemyConfig, Animator animator) : base(transform, rb, enemyConfig, animator)
     {
     }
 
     public override void Enter()
     {
-       //_enemy.rb.velocity = -_enemy.transform.right * _enemy.enemyData.speed;
+       rb.velocity = transform.right * enemyData.speed;
         ChangeAnimation("isRunning", true);
     }
 
@@ -47,14 +52,12 @@ public class RunState : State
 
 public class AttackState : State
 {
-
-    public AttackState(Entity entity) : base(entity)
+    public AttackState(Transform transform, Rigidbody2D rb, EnemyConfig enemyConfig, Animator animator) : base(transform, rb, enemyConfig, animator)
     {
     }
 
     public override void Enter()
     {
-       // _enemy.Attack();
         ChangeAnimation("isAttacking", true);
     }
 
@@ -68,7 +71,7 @@ public class AttackState : State
 public class StunnedState : State
 {
 
-    public StunnedState(Entity entity) : base(entity)
+    public StunnedState(Transform transform, Rigidbody2D rb, EnemyConfig enemyConfig, Animator animator) : base(transform, rb, enemyConfig, animator)
     {
     }
 
@@ -89,14 +92,15 @@ public class StunnedState : State
 
 public class DeadState : State
 {
-    public DeadState(Entity entity) : base(entity)
+    private Collider2D collider;
+    public DeadState(Transform transform, Rigidbody2D rb, EnemyConfig enemyConfig, Animator animator, Collider2D collider) : base(transform, rb, enemyConfig, animator)
     {
+        this.collider = collider;
     }
 
     public override void Enter()
     {
         ChangeAnimation("isDead", true);
-        _enemy.StartCoroutine(Die());
     }
 
     public override void Exit()
@@ -109,16 +113,16 @@ public class DeadState : State
     private IEnumerator Die()
     {
         StopMove();
-        //_enemy.enemyCollider.enabled = false;
+        collider.enabled = false;
         yield return new WaitForSeconds(1f);
        // _enemy.OnDeath?.Invoke();
-        _enemy.gameObject.SetActive(false);
+       transform.gameObject.SetActive(false);
     }
 
     private void Restore()
     {
        // _enemy.currHealth = _enemy.enemyData.maxHealth;
-       // _enemy.enemyCollider.enabled = true;
+       collider.enabled = true;
     }
 
 }

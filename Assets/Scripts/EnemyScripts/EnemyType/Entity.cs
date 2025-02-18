@@ -2,40 +2,42 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public abstract class Entity : MonoBehaviour
+public interface IEnemy
 {
-    public EnemyOnDamageAbilityConfig onDamageAbilities;
-    public EnemyOnDeathAbilityConfig onDeathAbilities;
-    public EnemyUniqDefense defense;
+    void Activate();
+    void Attack();
+
+    void Move();
+
+}
+public abstract class Entity : MonoBehaviour, IEnemy
+{
     public event Action<Vector3> onDeathBonus;
-    public EnemyConfig enemyData;
-    private float currHealth;
-    private Animator animator;
-    private Rigidbody2D rb;
-    private SpriteRenderer spriteColor;
-    private Collider2D enemyCollider;
-    private StateMachine stateMachine;
+    [SerializeField] protected EnemyConfig enemyData;
+    protected float currHealth;
+    protected Animator animator;
+    protected Rigidbody2D rb;
+    protected Collider2D collider2D;
+    protected StateMachine stateMachine;
+    protected Action onDeath, onAttack, onDamage;
     public void GetDamage(Damage damage)
     {
         
     }
+    public abstract void Move();
+    
    
-    protected void Awake()
+    protected void Initiate()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        spriteColor = GetComponent<SpriteRenderer>();
-        enemyCollider = GetComponent<Collider2D>();
+        collider2D = GetComponent<Collider2D>();
         currHealth = enemyData.maxHealth;
-        stateMachine = new StateMachine(this);
-       
     }
 
-    public virtual void Activate()
-    {
-        stateMachine.SwitchState(stateMachine.runState);
-    }
+    public abstract void Activate();
+
+    public abstract void Attack();
     
 
     private void OnEnable()
@@ -48,10 +50,5 @@ public abstract class Entity : MonoBehaviour
         
     }
 
-    private void OnDeathBonusTriggered(Vector3 position)
-    {
-        CollectablesSpawn.Instance.SpawnRandomObject(position);
-
-        onDeathBonus -= OnDeathBonusTriggered;
-    }
+    
 }

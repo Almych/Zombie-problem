@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 5455736209067208251}
   - component: {fileID: 1417957951634339923}
   - component: {fileID: 6528014412750129637}
-  - component: {fileID: 1167495050608333119}
   m_Layer: 3
   m_Name: BarelZombie
   m_TagString: Untagged
@@ -266,19 +265,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1167495050608333119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3734577242928784047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddf20e8e624fa2b408b5b2b787f60a33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDamageAbilities: {fileID: 11400000, guid: 1d6556a61203500449684e1ee4b252d5, type: 2}
-  onDeathAbilities: {fileID: 11400000, guid: a38aa4367ee65dc47a2c3bb2abff7042, type: 2}
-  defense: {fileID: 11400000, guid: 1fcdb12a058aac4408a7eff40edc4000, type: 2}
-  enemyData: {fileID: 11400000, guid: d6db6102caa6b5f4fba41e4d809c8c9f, type: 2}

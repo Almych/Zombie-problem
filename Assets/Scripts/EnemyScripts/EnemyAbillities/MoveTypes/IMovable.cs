@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IAttackStrategy
+public interface IMovable 
 {
-    public void Attack(HealthBar healthBar);
+    void Move();
+
+    void StopMove();
 }

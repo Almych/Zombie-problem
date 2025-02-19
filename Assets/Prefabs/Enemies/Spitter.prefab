@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5021270980479687894}
   - component: {fileID: 2582147606147351854}
   - component: {fileID: 1909674978912417388}
-  - component: {fileID: 3970398576075880834}
+  - component: {fileID: 5544904821989541160}
   m_Layer: 3
   m_Name: Spitter
   m_TagString: Untagged
@@ -182,7 +182,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3970398576075880834
+--- !u!114 &5544904821989541160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,13 +191,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1848886357508688255}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb0ab415bb57a83448fefd479dfd60a4, type: 3}
+  m_Script: {fileID: 11500000, guid: d7988b9e5db3b014b9b163a0283c3505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onDamageAbilities: {fileID: 11400000, guid: c5c5d210d9dd58c4e937c52402038ef9, type: 2}
-  onDeathAbilities: {fileID: 11400000, guid: d70d501c696537543b9b349fbfbfdf4a, type: 2}
-  defense: {fileID: 11400000, guid: 1fcdb12a058aac4408a7eff40edc4000, type: 2}
-  enemyData: {fileID: 11400000, guid: e0a026726401f074180976041dd207c1, type: 2}
+  damage: 3
+  speed: 1
+  maxHealth: 4
+  attackDistance: 5
+  detectTime: 1
+  triggerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  bulletSprite: {fileID: -1105529017, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
+  bulletSpeed: 2
 --- !u!1 &7960771295234408787
 GameObject:
   m_ObjectHideFlags: 0

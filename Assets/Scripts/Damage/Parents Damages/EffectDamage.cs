@@ -7,7 +7,7 @@ public abstract class EffectDamage : Damage
     [SerializeField] protected float stunTime;
     [Range(1, 7)][SerializeField] protected float effectChance;
     private Entity currentEnemy;
-    private DefaultDamage defaultDamage;
+    
 
     //public override void MakeDamage(Entity enemy)
     //{

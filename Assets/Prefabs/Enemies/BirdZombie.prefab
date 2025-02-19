@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6466121334035499176}
   - component: {fileID: 3226600255747888324}
   - component: {fileID: 7437304298331082524}
-  - component: {fileID: 1432613643587085099}
   m_Layer: 3
   m_Name: BirdZombie
   m_TagString: Untagged
@@ -181,19 +180,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1432613643587085099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8832217725815198287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da68c7e318a9524ba37fdd0a2b404b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDamageAbilities: {fileID: 11400000, guid: 1d6556a61203500449684e1ee4b252d5, type: 2}
-  onDeathAbilities: {fileID: 11400000, guid: d70d501c696537543b9b349fbfbfdf4a, type: 2}
-  defense: {fileID: 11400000, guid: 1fcdb12a058aac4408a7eff40edc4000, type: 2}
-  enemyData: {fileID: 11400000, guid: 8c09958f786733c4baf2f6e221821404, type: 2}

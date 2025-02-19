@@ -6201,21 +6201,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyWaves:
   - wave:
-    - enemyType: {fileID: 0}
+    - enemyType: {fileID: 5785118998449468066, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
       amount: 6
-    - enemyType: {fileID: 0}
+    - enemyType: {fileID: 5544904821989541160, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
       amount: 3
     preWave:
-    - enemyType: {fileID: 0}
+    - enemyType: {fileID: 5544904821989541160, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
       amount: 3
-  - wave:
-    - enemyType: {fileID: 0}
-      amount: 3
-    - enemyType: {fileID: 0}
-      amount: 2
-    preWave:
-    - enemyType: {fileID: 0}
-      amount: 2
   waveUi: {fileID: 1968701744}
 --- !u!1 &1968701740
 GameObject:

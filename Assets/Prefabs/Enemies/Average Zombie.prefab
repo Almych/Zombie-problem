@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7395433693598665503}
   - component: {fileID: 5332349921423735596}
   - component: {fileID: 2045256084944102405}
-  - component: {fileID: 5140773186700458995}
+  - component: {fileID: 5785118998449468066}
   m_Layer: 3
   m_Name: Average Zombie
   m_TagString: Untagged
@@ -182,7 +182,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5140773186700458995
+--- !u!114 &5785118998449468066
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,13 +191,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7962912858114560771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b0833fee730fa445a347855bdc27f90, type: 3}
+  m_Script: {fileID: 11500000, guid: 37e92768f9e040049ae721b34d8cc1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onDamageAbilities: {fileID: 11400000, guid: c5c5d210d9dd58c4e937c52402038ef9, type: 2}
-  onDeathAbilities: {fileID: 11400000, guid: d70d501c696537543b9b349fbfbfdf4a, type: 2}
-  defense: {fileID: 11400000, guid: 63b206db30a2bbb469885585aad9a629, type: 2}
-  enemyData: {fileID: 11400000, guid: a349c566bc0abd946b2886c22f322f6f, type: 2}
+  damage: 5
+  speed: 2
+  maxHealth: 5
+  attackCoolDown: 2
 --- !u!1 &8368564793082021321
 GameObject:
   m_ObjectHideFlags: 0

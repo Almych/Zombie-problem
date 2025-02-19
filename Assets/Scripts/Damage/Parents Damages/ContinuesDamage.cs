@@ -13,7 +13,6 @@ public abstract class ContinuesDamage : Damage
     [SerializeField] protected float afterMathDamage;
     protected const float remainTime = 1f;
     private Entity currentEnemy;
-    private DefaultDamage defaultDamage;
 
     public override void MakeDamage(Entity enemy)
     {
@@ -22,12 +21,7 @@ public abstract class ContinuesDamage : Damage
 
     protected virtual void GetContinuesDamage(Entity enemy)
     {
-        defaultDamage = CreateInstance<DefaultDamage>();
-        defaultDamage.Init(damage);
-        if (enemy != null && enemy.isActiveAndEnabled)
-        {
-            enemy.GetDamage(defaultDamage);
-        }
+        
 
         currentEnemy = enemy;
         currentEnemy.StartCoroutine(TimeDamage());

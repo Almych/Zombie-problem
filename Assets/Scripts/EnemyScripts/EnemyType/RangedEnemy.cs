@@ -2,22 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedEnemy : Entity
+public abstract class RangedEnemy : Entity
 {
-    public override void Activate()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Attack()
-    {
-        throw new System.NotImplementedException();
-    }
-
-   
-
-    public override void Move()
-    {
-        
-    }
+    [SerializeField] protected float attackDistance;
+    [SerializeField] protected float detectTime;
+    [SerializeField] protected LayerMask triggerMask;
+    [SerializeField] protected Sprite bulletSprite;
+    [SerializeField] protected float bulletSpeed;
+    protected RaycastHit2D hit;
+    protected abstract IEnumerator DetectEnemy();
 }

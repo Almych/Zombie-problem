@@ -4,25 +4,7 @@ using UnityEngine;
 
 public abstract class MeleeEnemy : Entity
 {
-    private HealthBar barrier;
-    public override void Activate()
-    {
-        gameObject.SetActive(true);
-        Move();
-    }
-
-    public override void Attack()
-    {
-        if (barrier != null)
-        {
-            barrier.ChangeHealthValue(-enemyData.damage);
-        }
-    }
-
-   
-
-    public override void Move()
-    {
-        rb.velocity = -Vector2.right * enemyData.speed;
-    }
+    [SerializeField] protected float attackCoolDown;
+    protected HealthBar barrier;
+    protected abstract void OnColliderTrigger2D(Collider2D other);
 }

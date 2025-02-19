@@ -6,8 +6,7 @@ public interface IEnemy
 {
     void Initiate();
     void Attack();
-
-    void Move();
+    void Die();
 }
 public abstract class Entity : MonoBehaviour, IEnemy
 {
@@ -19,20 +18,28 @@ public abstract class Entity : MonoBehaviour, IEnemy
     protected Rigidbody2D rb => GetComponent<Rigidbody2D>();
     protected Collider2D enemyCollider => GetComponent<Collider2D>();
     protected IMovable moveWay;
+    protected IAttackDealer attackDealer;
+    protected StateMachine stateMachine;
+    private const float timeToDestroy = 4;
     public void GetDamage(Damage damage)
     {
-        currHealth -= damage.GetDamage();
-        if (currHealth <= 0 )
-        {
-            currHealth = 0;
-        }
+        //currHealth -= damage.GetDamage();
+        //if (currHealth <= 0 )
+        //{
+            
+        //}
+    }
+    
+
+    public virtual void Initiate()
+    {
+        stateMachine = new StateMachine(transform, rb, animator, moveWay, this);
+        stateMachine.SwitchState(stateMachine.runState);
     }
 
-    public abstract void Move();
-    
-
-    public abstract void Initiate();
-
     public abstract void Attack();
-    
+    public virtual void Die()
+    {
+        
+    }
 }

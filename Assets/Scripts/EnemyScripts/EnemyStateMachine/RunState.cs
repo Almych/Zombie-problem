@@ -2,15 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunState : IState
+public class RunState : State
 {
-    public void Enter()
+    private IMovable move;
+
+    public RunState(Transform transform, Rigidbody2D rb, Animator animator, IMovable moveWay) : base(transform, rb, animator)
     {
-        throw new System.NotImplementedException();
+        move = moveWay;
     }
 
-    public void Exit()
+    public override void Enter()
     {
-        throw new System.NotImplementedException();
+        move?.Move();
+        SetTriggerAnimation("Running", true);
+    }
+
+    public override void Exit()
+    {
+        move?.StopMove();
+        SetTriggerAnimation("Running", false);
     }
 }

@@ -6,26 +6,23 @@ public class Archer : RangedEnemy
 {
     public override void Attack()
     {
-        EnemyBulletBehaivior bullet = ObjectPoolManager.FindObject<EnemyBulletBehaivior>();
+       attackDealer.Attack();
+    }
 
-        if (bullet != null)
-        {
-            bullet.transform.position = transform.position;
-            bullet.Activate(damage, bulletSprite, bulletSpeed);
-        }
+    public override void Die()
+    {
+       
     }
 
     public override void Initiate()
     {
         moveWay = new ZigZagMove(transform, rb, speed);
-        Move();
+        attackDealer = new RangedAttackDealer(damage, bulletSprite, bulletSpeed, transform);
+        base.Initiate();
         StartCoroutine(DetectEnemy());
     }
 
-    public override void Move()
-    {
-        moveWay.Move();
-    }
+    
 
     protected override IEnumerator DetectEnemy()
     {

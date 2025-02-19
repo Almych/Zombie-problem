@@ -5,28 +5,47 @@ using UnityEngine;
 
 public class Knight : MeleeEnemy
 {
+    private bool isAttacking;
     public override void Attack()
     {
-        barrier.ChangeHealthValue(-damage);
+    }
+
+    public override void Die()
+    {
+      
     }
 
     public override void Initiate()
     {
         moveWay = new MoveTowards(speed, rb, transform);
-        Move();
+        attackDealer = new MeleeAttackDealer (damage);
+        base.Initiate();
     }
 
-    public override void Move()
+    protected override void OnCollisionExit2D(Collision2D other)
     {
-       moveWay.Move();
-    }
-
-    protected override void OnColliderTrigger2D(Collider2D other)
-    {
-        barrier = other.GetComponent<HealthBar>();
         if (barrier != null)
         {
-            Attack();
+            isAttacking = false;
+        }
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D other)
+    {
+        barrier = other.collider.GetComponent<HealthBar>();
+        if (barrier != null && !isAttacking)
+        {
+            isAttacking = true;
+            StartCoroutine(ContinuesAttack());
+        }
+    }
+
+    private IEnumerator ContinuesAttack()
+    {
+        while (isAttacking)
+        {
+            
+            yield return new WaitForSeconds(2f);
         }
     }
 }

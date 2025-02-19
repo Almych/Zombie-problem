@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class StateMachine 
 {
-    //public StunnedState stunedState;
-    //public RunState runState;
-    //public AttackState attackState;
-    //public DeadState deadState;
-    //public State currentState { get; private set; }
-    //public StateMachine(Transform transform, Rigidbody2D rb, EnemyConfig enemyConfig, Animator animator, Collider2D collider)
-    //{
-    //    runState = new RunState(transform, rb, enemyConfig, animator);
-    //    attackState = new AttackState(transform, rb, enemyConfig, animator);
-    //    stunedState = new StunnedState(transform, rb, enemyConfig, animator);
-    //    deadState = new DeadState(transform, rb, enemyConfig, animator, collider);
-    //    currentState = runState;
-    //}
+    public State currentState {  get; private set; }
+    public RunState runState { get; private set; }
+    public DieState dieState { get; private set; }
+    public StunState stunState { get; private set; }
+    public AttackState attackState  { get; private set; }
 
-    //public void SwitchState(State newState)
-    //{
-    //    currentState?.Exit();
-    //    currentState = newState;
-    //    currentState?.Enter();
-    //}
+    public StateMachine(Transform transform, Rigidbody2D rb, Animator animator, IMovable movable, IEnemy enemy)
+    {
+        runState = new RunState(transform, rb, animator, movable);
+        dieState = new DieState(transform, rb, animator, enemy);
+        stunState = new StunState(transform, rb, animator);
+        attackState = new AttackState(transform, rb, animator, enemy);
+    }
+
+    public void SwitchState(State newState)
+    {
+        currentState?.Exit();
+        currentState = newState;
+        currentState?.Enter();
+    }
 }

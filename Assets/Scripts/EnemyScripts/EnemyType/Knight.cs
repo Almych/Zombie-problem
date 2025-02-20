@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class Knight : MeleeEnemy
+public class Knight : MeleeEnemy, IAttackDealer
 {
     private bool isAttacking;
-    public override void Attack()
-    {
-    }
+    private RunState runState;
+    private AttackState attackState;
 
     public override void Die()
     {
-      
+      // will be logic soon
     }
 
     public override void Initiate()
     {
         moveWay = new MoveTowards(speed, rb, transform);
-        attackDealer = new MeleeAttackDealer (damage);
+        runState = new RunState(transform, rb, animator, moveWay);
+        attackState = new AttackState(transform, rb, animator, this);
         base.Initiate();
+        stateMachine.AddState(runState);
+        stateMachine.AddState(attackState);
+        stateMachine.SwitchState<RunState>();
     }
 
     protected override void OnCollisionExit2D(Collision2D other)
@@ -44,8 +47,14 @@ public class Knight : MeleeEnemy
     {
         while (isAttacking)
         {
-            
-            yield return new WaitForSeconds(2f);
+            if(stateMachine.currentState != attackState)
+            stateMachine.SwitchState<AttackState>();
+            yield return new WaitForSeconds(attackCoolDown);
         }
+    }
+
+    public void Attack()
+    {
+        barrier?.ChangeHealthValue(-damage);
     }
 }

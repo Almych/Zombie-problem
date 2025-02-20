@@ -33,7 +33,7 @@ public abstract class ContinuesDamage : Damage
         while (remainingTime > 0f)
         {
             if (currentEnemy != null && currentEnemy.isActiveAndEnabled)
-                currentEnemy.GetDamage(this);
+                currentEnemy.TakeDamage(this);
             else
                 break;
             yield return new WaitForSeconds(remainTime);

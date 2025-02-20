@@ -9,6 +9,7 @@ public class RunState : State
     public RunState(Transform transform, Rigidbody2D rb, Animator animator, IMovable moveWay) : base(transform, rb, animator)
     {
         move = moveWay;
+        SetPriority(0);
     }
 
     public override void Enter()

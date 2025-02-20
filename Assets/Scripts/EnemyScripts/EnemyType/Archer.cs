@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer : RangedEnemy
+public class Archer : RangedEnemy, IAttackDealer
 {
-    public override void Attack()
+    private RunState runState;
+    private AttackState attackState;
+
+    public void Attack()
     {
-       attackDealer.Attack();
+       EnemyBulletBehaivior bullet = ObjectPoolManager.FindObject<EnemyBulletBehaivior>();
+        if (bullet != null )
+        {
+            bullet.transform.position = transform.position;
+            bullet.Activate(damage, bulletSprite, bulletSpeed);
+        }
     }
 
     public override void Die()
@@ -17,8 +25,12 @@ public class Archer : RangedEnemy
     public override void Initiate()
     {
         moveWay = new ZigZagMove(transform, rb, speed);
-        attackDealer = new RangedAttackDealer(damage, bulletSprite, bulletSpeed, transform);
+        runState = new RunState(transform, rb, animator, moveWay);
+        attackState = new AttackState(transform, rb, animator, this);
         base.Initiate();
+        stateMachine.AddState(runState);
+        stateMachine.AddState(attackState);
+        stateMachine.SwitchState<RunState>();
         StartCoroutine(DetectEnemy());
     }
 
@@ -33,7 +45,7 @@ public class Archer : RangedEnemy
             if (hit.collider != null)
             {
                 moveWay.StopMove();
-                Attack();
+                stateMachine.SwitchState<AttackState>();
             }
         }
     }

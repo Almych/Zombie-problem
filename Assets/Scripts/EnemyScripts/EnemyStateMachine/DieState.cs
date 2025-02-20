@@ -5,9 +5,9 @@ using UnityEngine;
 public class DieState : State
 {
     private IEnemy _enemy;
-    public DieState(Transform transform, Rigidbody2D rb, Animator animator, IEnemy enemy) : base(transform, rb, animator)
+    public DieState(Transform transform, Rigidbody2D rb, Animator animator) : base(transform, rb, animator)
     {
-       _enemy = enemy;
+        SetPriority(3);
     }
 
     public override void Enter()

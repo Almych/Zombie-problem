@@ -8,6 +8,7 @@ public interface IAnimator
 }
 public abstract class State : IState, IAnimator
 {
+    public int statePriority { get; private set; }
     protected Transform _transform;
     protected Rigidbody2D _rb;
     protected Animator _animator;
@@ -25,5 +26,10 @@ public abstract class State : IState, IAnimator
     public void SetTriggerAnimation(string animationName, bool usage)
     {
         _animator.SetBool(animationName, usage);
+    }
+
+    public void SetPriority(int priority)
+    {
+        statePriority = priority;
     }
 }

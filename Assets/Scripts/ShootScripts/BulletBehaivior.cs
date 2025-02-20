@@ -4,14 +4,10 @@ using UnityEngine;
 public class BulletBehaivior : MonoBehaviour
 {
     private float speedBullet = 20f;
-    private Rigidbody2D rb;
+    private Rigidbody2D rb => GetComponent<Rigidbody2D>();
     private bool isTriggered;
     private Damage damageType;
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        Deactivate();
-    }
+    
 
     public async void Activate(Sprite bullet)
     {

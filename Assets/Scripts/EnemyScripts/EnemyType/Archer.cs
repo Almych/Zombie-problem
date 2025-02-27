@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Archer : RangedEnemy, IAttackDealer
 {
-    private RunState runState;
     private AttackState attackState;
 
     public void Attack()
@@ -19,22 +18,23 @@ public class Archer : RangedEnemy, IAttackDealer
 
     public override void Die()
     {
-       
+       base.Die();
     }
 
     public override void Initiate()
     {
-        moveWay = new ZigZagMove(transform, rb, speed);
-        runState = new RunState(transform, rb, animator, moveWay);
-        attackState = new AttackState(transform, rb, animator, this);
         base.Initiate();
-        stateMachine.AddState(runState);
-        stateMachine.AddState(attackState);
-        stateMachine.SwitchState<RunState>();
         StartCoroutine(DetectEnemy());
     }
 
-    
+    public override void Init()
+    {
+        moveWay = new MoveTowards(new MoveStats{_transform = transform, _rb = rb, _speed = speed});
+        attackState = new AttackState(transform, rb, animator, this);
+        base.Init();
+        stateMachine.AddState(runState);
+        stateMachine.AddState(attackState);
+    }
 
     protected override IEnumerator DetectEnemy()
     {

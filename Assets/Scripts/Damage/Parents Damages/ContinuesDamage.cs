@@ -9,7 +9,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public abstract class ContinuesDamage : Damage
 {
-    [Range(2, 10)][SerializeField] protected float damageTime;
+    [Range(2, 10),SerializeField] protected float damageTime;
     [SerializeField] protected float afterMathDamage;
     protected const float remainTime = 1f;
     private Entity currentEnemy;
@@ -21,8 +21,9 @@ public abstract class ContinuesDamage : Damage
 
     protected virtual void GetContinuesDamage(Entity enemy)
     {
-        
-
+        DefaultDamage defaultDamage = CreateInstance<DefaultDamage>();
+        defaultDamage.Init(damage);
+        defaultDamage.MakeDamage(enemy);
         currentEnemy = enemy;
         currentEnemy.StartCoroutine(TimeDamage());
     }
@@ -44,11 +45,8 @@ public abstract class ContinuesDamage : Damage
 
     public  void StopUniqueDamage()
     {
-        if (currentEnemy != null)
-        {
-            currentEnemy.StopCoroutine(TimeDamage());
-            currentEnemy = null;
-            Debug.Log("Stopped");
-        }
+        currentEnemy?.StopCoroutine(TimeDamage());
+        currentEnemy = null;
+        Debug.Log("Stopped");
     }
 }

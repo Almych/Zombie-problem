@@ -6,24 +6,7 @@ using UnityEngine;
 public class Knight : MeleeEnemy, IAttackDealer
 {
     private bool isAttacking;
-    private RunState runState;
     private AttackState attackState;
-
-    public override void Die()
-    {
-      // will be logic soon
-    }
-
-    public override void Initiate()
-    {
-        moveWay = new MoveTowards(speed, rb, transform);
-        runState = new RunState(transform, rb, animator, moveWay);
-        attackState = new AttackState(transform, rb, animator, this);
-        base.Initiate();
-        stateMachine.AddState(runState);
-        stateMachine.AddState(attackState);
-        stateMachine.SwitchState<RunState>();
-    }
 
     protected override void OnCollisionExit2D(Collision2D other)
     {
@@ -47,7 +30,6 @@ public class Knight : MeleeEnemy, IAttackDealer
     {
         while (isAttacking)
         {
-            if(stateMachine.currentState != attackState)
             stateMachine.SwitchState<AttackState>();
             yield return new WaitForSeconds(attackCoolDown);
         }
@@ -56,5 +38,14 @@ public class Knight : MeleeEnemy, IAttackDealer
     public void Attack()
     {
         barrier?.ChangeHealthValue(-damage);
+    }
+
+    public override void Init()
+    {
+        moveWay = new MoveTowards(new MoveStats { _transform = transform, _rb = rb, _speed = speed });
+        attackState = new AttackState(transform, rb, animator, this);
+        base.Init();
+        stateMachine.AddState(runState);
+        stateMachine.AddState(attackState);
     }
 }

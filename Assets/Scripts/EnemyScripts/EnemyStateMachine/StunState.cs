@@ -11,11 +11,12 @@ public class StunState : State
 
     public override void Enter()
     {
-        SetTriggerAnimation("Stunned", true);
+        SetTriggerAnimation("Stunned");
     }
 
     public override void Exit()
     {
-        SetTriggerAnimation("Stunned", false);
     }
+
+   
 }

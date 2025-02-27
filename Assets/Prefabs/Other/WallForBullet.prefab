@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5500400052334401278}
   - component: {fileID: 7313938674740418146}
   - component: {fileID: 3319917304253681000}
-  - component: {fileID: 4934516789709819761}
   m_Layer: 0
   m_Name: WallForBullet
   m_TagString: Untagged
@@ -131,17 +130,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4934516789709819761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2326541775578511356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5f6c271bf68a36499c7862b8543f8ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coinCounterText: {fileID: 0}
-  coinPrefab: {fileID: 7089803634709335574, guid: 17917d4cd4f234e4ab0677dd5fb59242, type: 3}

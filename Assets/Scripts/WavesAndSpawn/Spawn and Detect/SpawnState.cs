@@ -65,7 +65,6 @@ public abstract class SpawnState
                 {
                     Vector2 validPosition = GetRandomPosition();
                     enemy.transform.position = validPosition;
-                    enemy.gameObject.SetActive(true);
                     enemy.Initiate();
                     enemyData[selectedEnemyType]--;
                 }

@@ -51,7 +51,7 @@ public static class ObjectPoolManager
         if(existingPools.ContainsKey(typeof(T)))
         {
             var pool = existingPools[typeof(T)];
-            return pool.GetPooledObject().GetComponent<T>();
+            return pool?.GetPooledObject().GetComponent<T>();
         }
         return null;
     }

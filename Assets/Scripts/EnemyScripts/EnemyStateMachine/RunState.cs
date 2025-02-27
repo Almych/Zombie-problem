@@ -15,12 +15,12 @@ public class RunState : State
     public override void Enter()
     {
         move?.Move();
-        SetTriggerAnimation("Running", true);
+        SetTriggerAnimation("Walk");
     }
 
     public override void Exit()
     {
         move?.StopMove();
-        SetTriggerAnimation("Running", false);
     }
+
 }

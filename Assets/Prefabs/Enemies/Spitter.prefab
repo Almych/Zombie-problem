@@ -198,12 +198,12 @@ MonoBehaviour:
   speed: 1
   maxHealth: 4
   attackDistance: 5
-  detectTime: 1
+  detectTime: 2
   triggerMask:
     serializedVersion: 2
     m_Bits: 64
   bulletSprite: {fileID: -1105529017, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
-  bulletSpeed: 2
+  bulletSpeed: 4
 --- !u!1 &7960771295234408787
 GameObject:
   m_ObjectHideFlags: 0

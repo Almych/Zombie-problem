@@ -2,25 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveTowards : IMovable
+public class MoveTowards : MoveProvider
 {
-    private float _speed;
-    private Rigidbody2D _rb;
-    private Transform _transform;
-    public MoveTowards(float speed, Rigidbody2D rb, Transform transform)
+    public MoveTowards(MoveStats stats) : base(stats)
     {
-        _speed = speed;
-        _rb = rb;
-        _transform = transform;
     }
 
-    public void Move()
+    public override void Move()
     {
-       _rb.velocity = -_transform.right * _speed;
+        mStats._rb.velocity = -mStats._transform.right * mStats._speed;
     }
 
-    public void StopMove()
+    public override void StopMove()
     {
-        _rb.velocity = Vector2.zero;
+        mStats._rb.velocity = Vector2.zero;
     }
 }

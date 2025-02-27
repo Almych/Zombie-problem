@@ -14,12 +14,11 @@ public class AttackState : State
 
     public override void Enter()
     {
-        attackDealer?.Attack();
-        SetTriggerAnimation("Attacking", true);
+        SetTriggerAnimation("Attack");
     }
 
     public override void Exit()
     {
-        SetTriggerAnimation("Attacking", false);
+        
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public interface IAnimator
 {
-    public void SetTriggerAnimation(string animationName, bool usage);
+    void SetTriggerAnimation(string animationTriggerName);
 }
 public abstract class State : IState, IAnimator
 {
@@ -23,13 +23,13 @@ public abstract class State : IState, IAnimator
     public abstract void Enter();
     public abstract void Exit();
 
-    public void SetTriggerAnimation(string animationName, bool usage)
-    {
-        _animator.SetBool(animationName, usage);
-    }
-
     public void SetPriority(int priority)
     {
         statePriority = priority;
+    }
+
+    public void SetTriggerAnimation(string animationTriggerName)
+    {
+        _animator?.SetTrigger(animationTriggerName);
     }
 }

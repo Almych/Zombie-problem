@@ -1,75 +1,45 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-
-
-[Serializable]
-public class ItemsToSpawn
+public static class CollectablesSpawn
 {
-    public Item item;
-    public int amount;
-}
+    public static CollectableConfig collectableConfig;
 
-public class CollectablesSpawn : MonoBehaviour
-{
-    public static CollectablesSpawn Instance;
-
-    [SerializeField] private List<ItemsToSpawn> items = new List<ItemsToSpawn>();
-    [SerializeField] private int amountOfCoins;
-
-    private void Awake()
+    // Initialize the collectable configuration
+    public static void Init(CollectableConfig config)
     {
-        if (Instance == null)
-            Instance = this;
+        collectableConfig = config;
     }
 
-    public void SpawnRandomObject(Vector3 spawnPosition)
+    // Spawn a random collectable at a given position
+    public static void SpawnRandomObject(Vector3 spawnPosition)
     {
         GameObject objectToSpawn = GetRandomObject();
         if (objectToSpawn != null)
         {
-            objectToSpawn.transform.position = spawnPosition;
+            Debug.Log("Finding object to spawn");
+
+            // Get object from object pool
+            MonoBehaviour pooledObject = ObjectPoolManager.GetObjectFromPool(objectToSpawn.GetComponent<MonoBehaviour>());
+
+            if (pooledObject != null)
+            {
+                pooledObject.transform.position = spawnPosition;
+                pooledObject.gameObject.SetActive(true);
+            }
         }
     }
 
-    private GameObject GetRandomObject()
+    // Get a random object from the config
+    private static GameObject GetRandomObject()
     {
-        if (amountOfCoins > 0)
-        {
-            int index = UnityEngine.Random.Range(0, amountOfCoins);
-            var coin = ObjectPoolManager.FindObject<CoinTake>();
-            if (coin != null)
-            {
-                amountOfCoins--;
-                coin.gameObject.SetActive(true);
-            }
-            return coin.gameObject;
-        }
-        else if (items.Count > 0)
-        {
-            int index = UnityEngine.Random.Range(0, items.Count);
-            var item = items[index];
-            item.amount--;
-
-            if (item.amount <= 0)
-            {
-                items.RemoveAt(index);
-            }
-
-            ItemSlot itemSlotComponent = ObjectPoolManager.FindObject<ItemSlot>();
-            if (itemSlotComponent != null)
-            {
-                itemSlotComponent.gameObject.SetActive(true);
-                InventoryItem inventoryItem = new InventoryItem(item.item);
-                itemSlotComponent.Init(inventoryItem);
-            }
-
-            return itemSlotComponent.gameObject;
-        }
-        else
-        {
+        if (collectableConfig == null || collectableConfig.collectables.Count == 0)
             return null;
-        }
+
+        int randomIndex = UnityEngine.Random.Range(0, collectableConfig.collectables.Count);
+
+        collectableConfig.collectables[randomIndex].DeacreaseAmount(() => collectableConfig.collectables.Remove(collectableConfig.collectables[randomIndex]));
+        return collectableConfig.collectables[randomIndex].collectItem;
     }
+    
 }

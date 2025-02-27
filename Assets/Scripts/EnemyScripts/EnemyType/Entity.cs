@@ -6,6 +6,7 @@ public interface IEnemy
 {
     void Initiate();
 
+    void Stun();
     void TakeDamage(Damage damage);
     void Die();
 }
@@ -20,6 +21,10 @@ public abstract class Entity : MonoBehaviour, IEnemy
     protected Collider2D enemyCollider => GetComponent<Collider2D>();
     protected IMovable moveWay;
     protected StateMachine stateMachine;
+    protected RunState runState;
+    protected DieState dieState;
+    private event Action onDeath;
+    protected IDeathAbility deathAbility => GetComponent<IDeathAbility>();
     public void TakeDamage(Damage damage)
     {
         currHealth -= damage.GetDamage();
@@ -28,15 +33,51 @@ public abstract class Entity : MonoBehaviour, IEnemy
             stateMachine.SwitchState<DieState>();
         }
     }
-    
+
+    public virtual void Init()
+    {
+        stateMachine = new StateMachine();
+        runState = new RunState(transform, rb, animator, moveWay);
+        dieState = new DieState(transform, rb, animator, this);
+        stateMachine.AddState(dieState);
+        stateMachine.AddState(runState);
+    }
+
 
     public virtual void Initiate()
     {
-        stateMachine = new StateMachine();
+        gameObject.SetActive(true);
+        currHealth = maxHealth;
+        stateMachine?.SwitchState<RunState>();
     }
 
     public virtual void Die()
     {
-        
+        enemyCollider.enabled = false;
+        moveWay?.StopMove();
+        enemyCollider.enabled = true;
+        deathAbility?.onDeath();
+        onDeath.Invoke();
+        gameObject.SetActive(false);
+    }
+
+    public void Stun()
+    {
+        stateMachine?.SwitchState<StunState>();
+    }
+
+    void OnEnable()
+    {
+       onDeath += OnDeathAction;
+    }
+
+    void OnDisable()
+    {
+        onDeath -= OnDeathAction;
+    }
+
+    public void OnDeathAction()
+    {
+        CollectablesSpawn.SpawnRandomObject(transform.position);
     }
 }

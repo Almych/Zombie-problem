@@ -5,61 +5,53 @@ using UnityEngine;
 
 public class DefeatedEnemyTrigger : MonoBehaviour
 {
-    public static DefeatedEnemyTrigger Instance;
-    public event Action GetActiveEnemies;
-    private List<Entity> activeEnemies = new List<Entity>();
-    private bool hasEnemy = false;
-    private bool isEnd = false;
-    private void Awake()
+    private HashSet<Entity> activeEnemies = new HashSet<Entity>();
+    private bool isCheckingForEnemies = true;
+    private const float checkIntervals = 1f;
+
+    void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        StartCheckingForEnemies();
     }
 
-    public void Initiate()
+    public void StartCheckingForEnemies()
     {
-        GetActiveEnemies?.Invoke();
-        StartCoroutine(CheckActiveEnemies());
+        StartCoroutine(CheckForEnemies());
     }
 
-    public void StopCheckForEnemies()
+    public void StopCheckingForEnemies()
     {
-        isEnd = true;
+        isCheckingForEnemies = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Entity>() != null)
+        Entity enemy = collision.GetComponent<Entity>();
+        if (enemy != null)
         {
-            activeEnemies.Add(collision.GetComponent<Entity>());
-            hasEnemy = true;
+            activeEnemies.Add(enemy);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponent<Entity>() != null)
+        Entity enemy = collision.GetComponent<Entity>();
+        if (enemy != null)
         {
-            activeEnemies.Remove(collision.GetComponent<Entity>());
-
-            if(activeEnemies.Count <= 0)
-            {
-                hasEnemy = false;
-            }
-            
+            activeEnemies.Remove(enemy);
         }
     }
 
-    private IEnumerator CheckActiveEnemies()
+    private IEnumerator CheckForEnemies()
     {
-        while (!isEnd)
+        while (isCheckingForEnemies)
         {
-            yield return new WaitForSeconds(2f);
-            if (!hasEnemy)
-            GetActiveEnemies?.Invoke();
+            if (activeEnemies.Count <= 0)
+            {
+                EventBus.Publish(new NoEnemiesEvent());
+            }
+
+            yield return new WaitForSeconds(checkIntervals);
         }
     }
-
 }

@@ -8,7 +8,6 @@ public class ShootController : MonoBehaviour
 {
     public static ShootController Instance;
     [SerializeField] private PlayInventory inventory;
-    public static event Action OnShootAnimate;
     public static WeaponController controller;
     private WeaponController[] weaponControllers;
 

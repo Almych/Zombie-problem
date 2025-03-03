@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public static class EventBus 
 {
     private static Dictionary<Type, List<EventBusListener>> eventListeners = new Dictionary<Type, List<EventBusListener>>();
-    public static void Subscribe<T>(Action<T> action, int priority) where T: class
+    public static void Subscribe<T>(Action<T> action, int priority=0) where T: class
     {
         Type eventType = typeof(T);
         if (!eventListeners.ContainsKey(eventType))

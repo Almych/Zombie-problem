@@ -1,68 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Threading.Tasks;
 
 public class WaveUi : MonoBehaviour
 {
     [SerializeField] private Slider waveBar;
     [SerializeField] private GameObject wavePrefab;
+
     private const float FILLRECTMAXXPOSITION = 260f;
     private List<GameObject> waves = new List<GameObject>();
-    public void ChangeWaveBarValue(float value)
+    private int waveIndex = 0;
+    private float waveStep; 
+
+    void OnEnable()
     {
-        waveBar.value = waveBar.maxValue - value;
+        EventBus.Subscribe<WaveProgressChangeEvent>(ChangeWaveBarValue);
+        EventBus.Subscribe<OnWaveReached>(OnWaveReached);
     }
 
-    public void OnWaveReached(int currentWave)
+    void OnDisable()
     {
-        waves[currentWave].SetActive(false);
+        EventBus.UnSubscribe<WaveProgressChangeEvent>(ChangeWaveBarValue);
+        EventBus.UnSubscribe<OnWaveReached>(OnWaveReached);
     }
 
-    private void OnEnable()
+    public void InitWaves(int waveMaxAmount)
     {
-        WaveManager.Instance.onWaveProgress += ChangeWaveBarValue;
-        WaveManager.Instance.onWaveReach += OnWaveReached;
-    }
+        waveBar.maxValue = 100f;
+        waveBar.value = waveBar.maxValue;
 
-    private void OnDisable()
-    {
-        WaveManager.Instance.onWaveProgress -= ChangeWaveBarValue;
-        WaveManager.Instance.onWaveReach -= OnWaveReached;
-    }
-
-
-    public async void InitWaves(List<float> waveProcents, int waveMaxAmount)
-    {
+        waveStep = FILLRECTMAXXPOSITION / (waveMaxAmount + 1); 
         Vector3 scale = wavePrefab.GetComponent<RectTransform>().localScale;
         var fill = waveBar.fillRect.parent.GetComponent<RectTransform>();
 
         for (int i = 0; i < waveMaxAmount; i++)
         {
-            GameObject wave = Instantiate(wavePrefab);
-            wave.transform.SetParent(fill);
+            GameObject wave = Instantiate(wavePrefab, fill);
             var rect = wave.GetComponent<RectTransform>();
-            float wavePosition = await GetWavePosition(waveProcents[i]);
-
-           rect.localPosition = new Vector2(wavePosition, fill.localPosition.y);
-           rect.localScale = scale;
+            rect.localPosition = new Vector2(SetWavePosition(i + 1, waveMaxAmount), fill.localPosition.y);
+            rect.localScale = scale;
 
             waves.Add(wave);
         }
-        waveBar.value = waveBar.maxValue;
     }
 
-
-    private async Task<float> GetWavePosition(float percent)
+    public void ChangeWaveBarValue(WaveProgressChangeEvent e)
     {
-        return await Task.Run(() =>
-        {
-            float n = FILLRECTMAXXPOSITION * percent / 100;
-            float value = FILLRECTMAXXPOSITION - n;
-            return value - FILLRECTMAXXPOSITION / 2;
-        });
+        waveBar.value = e.value;
     }
 
+    private void OnWaveReached(OnWaveReached e)
+    {
+        if (waveIndex < waves.Count)
+        {
+            waves[waveIndex].SetActive(false);
+            waveIndex++;
+        }
+    }
+
+    private float SetWavePosition(int waveNumber, int totalWaves)
+    {
+        return (FILLRECTMAXXPOSITION / 2) - (waveNumber * FILLRECTMAXXPOSITION) / (totalWaves);
+    }
 }

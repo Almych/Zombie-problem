@@ -36,19 +36,21 @@ public abstract class Entity : MonoBehaviour, IEnemy
 
     public virtual void Init()
     {
+        gameObject.SetActive(true);
         stateMachine = new StateMachine();
         runState = new RunState(transform, rb, animator, moveWay);
         dieState = new DieState(transform, rb, animator, this);
         stateMachine.AddState(dieState);
         stateMachine.AddState(runState);
+        gameObject.SetActive(false);
     }
+
 
 
     public virtual void Initiate()
     {
-        gameObject.SetActive(true);
         currHealth = maxHealth;
-        stateMachine?.SwitchState<RunState>();
+        stateMachine.SwitchState<RunState>();
     }
 
     public virtual void Die()
@@ -66,12 +68,12 @@ public abstract class Entity : MonoBehaviour, IEnemy
         stateMachine?.SwitchState<StunState>();
     }
 
-    void OnEnable()
+    protected void OnEnable()
     {
-       onDeath += OnDeathAction;
+        onDeath += OnDeathAction;
     }
 
-    void OnDisable()
+    protected void OnDisable()
     {
         onDeath -= OnDeathAction;
     }

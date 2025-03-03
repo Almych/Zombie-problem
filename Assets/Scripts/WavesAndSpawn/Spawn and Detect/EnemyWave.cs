@@ -1,18 +1,20 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct EnemyData
+public class EnemyData
 {
     public Entity enemyType;
-    public int amount;
-}
+    [SerializeField]private int amount;
+    public int currAmount { get; private set; }
 
-[Serializable]
-public class EnemyWave
-{
-    public EnemyData[] wave;
-    public EnemyData[] preWave;
+    public void InitAmount()
+    {
+        currAmount = amount;
+    }
+
+    public void RemoveAmount()
+    {
+        currAmount--;
+    }
 }

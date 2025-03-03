@@ -26,9 +26,10 @@ public class EnemyBulletBehaivior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<HealthBar>() != null)
+        HealthBar health = collision.GetComponent<HealthBar>();
+        if ( health != null)
         {
-            collision.GetComponent<HealthBar>().ChangeHealthValue(-damage);
+            health.ChangeHealthValue(-damage);
             Deactivate();
         }
 

@@ -6,7 +6,7 @@ public class CoinTake : MonoBehaviour, ICollectable
 {
     public void OnCollect()
     {
-        View.Instance.AddCoin();
-       gameObject.SetActive(false);
+       EventBus.Publish(new OnCollectEvent());
+       gameObject.SetActive(false); 
     }
 }

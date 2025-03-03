@@ -9,6 +9,6 @@ public class AimItem : Item
 
     public override void Use()
     {
-       HealthBar.instance.ChangeHealthValue(healPoints);
+        // Event to add health
     }
 }

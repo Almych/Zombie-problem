@@ -8,6 +8,7 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     private HashSet<Entity> activeEnemies = new HashSet<Entity>();
     private bool isCheckingForEnemies = true;
     private const float checkIntervals = 1f;
+    private bool isPaused = false;
 
     void Start()
     {
@@ -22,6 +23,18 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     public void StopCheckingForEnemies()
     {
         isCheckingForEnemies = false;
+    }
+
+    void OnEnable()
+    {
+        EventBus.Subscribe<OnPauseEvent>(StopCheckForEnemies, 1);
+        EventBus.Subscribe<OnResumeEvent>(ResumeCheckForEnemies, 1);
+    }
+
+    void OnDisable()
+    {
+        EventBus.UnSubscribe<OnPauseEvent>(StopCheckForEnemies);
+        EventBus.UnSubscribe<OnResumeEvent>(ResumeCheckForEnemies);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -46,6 +59,8 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     {
         while (isCheckingForEnemies)
         {
+            if (isPaused)
+                yield return null;
             if (activeEnemies.Count <= 0)
             {
                 EventBus.Publish(new NoEnemiesEvent());
@@ -53,5 +68,15 @@ public class DefeatedEnemyTrigger : MonoBehaviour
 
             yield return new WaitForSeconds(checkIntervals);
         }
+    }
+
+    private void StopCheckForEnemies(OnPauseEvent e)
+    {
+        isPaused = true;
+    }
+
+    private void ResumeCheckForEnemies(OnResumeEvent e)
+    {
+        isPaused = false;
     }
 }

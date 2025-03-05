@@ -1,57 +1,53 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
+
     private Rigidbody2D rb;
-    private Vector2 move;
     private Animator animator;
-    private Vector2 prevPos;
+    private Vector2 moveInput;
     private bool canMove = true;
-    public void Init(InitiateEvent e)
+
+    private void Init(InitiateEvent e)
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        StartCoroutine(Move());
+        canMove = true;
     }
+
     private void OnEnable()
     {
         EventBus.Subscribe<InitiateEvent>(Init, 1);
-        EventBus.Subscribe<PlayerDieEvent>(DisableMove);
+        EventBus.Subscribe<PlayerDieEvent>(OnPlayerDeath);
     }
 
     private void OnDisable()
     {
-        EventBus.UnSubscribe<PlayerDieEvent>(DisableMove);
         EventBus.UnSubscribe<InitiateEvent>(Init);
-    }
-    
-    
-
-    private IEnumerator Move()
-    {
-        while (canMove)
-        {
-            yield return new WaitForSeconds(0.1f);
-            move = new Vector2(0f, Input.GetAxis("Vertical"));
-            rb.velocity = move * speed;
-            prevPos = move.normalized;
-            Animate();
-        }
-    }
-    private void Animate()
-    {
-        if (move != prevPos)
-        {
-            animator.SetBool("isMove", true);
-        }
+        EventBus.UnSubscribe<PlayerDieEvent>(OnPlayerDeath);
     }
 
-    public void DisableMove(PlayerDieEvent e)
+    private void Update()
     {
-       canMove = false;
+        if (!canMove) return;
+
+        moveInput = new Vector2(0f, Input.GetAxis("Vertical"));
+        animator.SetBool("isMove", moveInput.sqrMagnitude > 0);
+    }
+
+    private void FixedUpdate()
+    {
+        if (canMove)
+            rb.velocity = moveInput * speed;
+    }
+
+    private void OnPlayerDeath(PlayerDieEvent e)
+    {
+        canMove = false;
+        rb.velocity = Vector2.zero;
         animator.SetBool("isMove", false);
     }
 }

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf938dc51091254cb05af5cc62a681c, type: 3}
   m_Name: Katana
   m_EditorClassIdentifier: 
-  damageType: {fileID: 11400000, guid: 8136b13d6f33d134da126b2bfd0f6ed3, type: 2}
-  weaponIcon: {fileID: -1872739223, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
-  hitTime: 0.315
-  maxHitAmount: 0
+  _damage: {fileID: 11400000, guid: b1d0c64afaddcf94b9389f3f3710a7e0, type: 2}
+  _weaponSprite: {fileID: 409433192, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
+  hitSpeed: 1

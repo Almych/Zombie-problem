@@ -1,62 +1,37 @@
-using System.Threading.Tasks;
 using UnityEngine;
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class BulletBehaivior : MonoBehaviour
 {
-    private float speedBullet = 20f;
     private Rigidbody2D rb => GetComponent<Rigidbody2D>();
     private bool isTriggered;
-    private Damage damageType;
+    private Damage _damage;
+
     
 
-    public async void Activate(Sprite bullet)
+    public void Activate(Sprite bullet, Vector3 shootPoint, Damage damage, float speedOfBullet)
     {
         GetComponent<SpriteRenderer>().sprite = bullet;
-        rb.velocity = transform.right * speedBullet;
+        _damage = damage;
+        transform.position = shootPoint;
+        rb.velocity = transform.right * speedOfBullet; 
         isTriggered = false;
-        await Task.Yield();
     }
 
-   
-    public Damage DamageOfBullet(Damage damage)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-         damageType = damage;
-        return damageType;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)   
-    {
+        if (isTriggered) return;
         if (collision.GetComponent<Entity>() != null)
         {
-
-            if (isTriggered) 
-            {
-                return;
-            }
-
-           isTriggered = true;
-
-            Deactivate();
-            var zombie = collision.GetComponent<Entity>();
-            damageType.MakeDamage(zombie);
-           
-        }
-        else if (collision.GetComponent<SpawnManager>() != null)
-        {
+            isTriggered = true;
+            collision.GetComponent<Entity>().TakeDamage(_damage);
             Deactivate();
         }
-       
-       
     }
 
-  
-    
-
-    private void Deactivate()
+    public void Deactivate()
     {
         rb.velocity = Vector2.zero;
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); 
     }
-
-
 }

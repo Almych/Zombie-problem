@@ -1,87 +1,68 @@
 using System;
-using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class ShootController : MonoBehaviour
 {
-    public static ShootController Instance;
     [SerializeField] private PlayInventory inventory;
-    public static WeaponController controller;
-    private WeaponController[] weaponControllers;
+    public IWeapon[] weaponSlots = new IWeapon[2];
+    private int activeWeaponIndex = 0;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
     void Start()
     {
-        weaponControllers = new WeaponController[inventory.weaponSlots.Length];
-        for (int i = 0; i < weaponControllers.Length; i++)
-        {
-            weaponControllers[i] = GetWeaponController(inventory.weaponSlots[i]);
-            weaponControllers[i].enabled = false;
-        }
-        controller = weaponControllers[0];
-        controller.enabled = true;
-        GetComponent<SpriteRenderer>().sprite = controller.sprite;
-       
+        Init();
     }
 
-    private WeaponController GetWeaponController(Weapon weapon)
+    private void Init()
     {
-        if (weapon is ColdWeapon cold)
+        if (inventory != null)
         {
-            ColdWeaponController coldWeaponController = gameObject.AddComponent<ColdWeaponController>();
-            coldWeaponController.Initialize(cold);
-            return coldWeaponController;
-        }
-        else if (weapon is MelliWeapon melli)
-        {
-            MelliWeaponController melliWeaponController = gameObject.AddComponent<MelliWeaponController>();
-            melliWeaponController.Initialize(melli);
-            return melliWeaponController;
-        }
-        else
-        {
-            return null;
+            EquipWeapon(inventory.weaponSlots);
         }
     }
 
-    public void ChangeWeapon(ref WeaponController currentController) 
+    private void Update()
     {
-
-        for (int i = 0; i < weaponControllers.Length; i++)
+        if (Input.GetKeyDown(KeyCode.Space)) 
         {
-            if (currentController != weaponControllers[i])
+            if (weaponSlots[activeWeaponIndex] is RangeWeapon rangeWeapon)
             {
-                currentController.enabled = false;
-                weaponControllers[i].enabled = true;
-                currentController = weaponControllers[i];
-                GetComponent<SpriteRenderer>().sprite = controller.sprite;
-                break;
+                rangeWeapon.SetShootPoint(transform.position);
             }
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            controller.Attack();
+            weaponSlots[activeWeaponIndex]?.Execute();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            ChangeWeapon(ref controller);
+            SwitchWeapon();
         }
-
     }
 
+    public void EquipWeapon(IWeaponConfig[] weaponConfigs)
+    {
+        if (weaponConfigs.Length == 0) return;
 
+        for (int i = 0; i < weaponSlots.Length; i++)
+        {
+            if (i >= weaponConfigs.Length) break;
 
+            if (weaponConfigs[i] is MeleeWeaponConfig meleeWeaponConfig)
+            {
+                weaponSlots[i] = new MeleeWeapon(meleeWeaponConfig);
+            }
+            else if (weaponConfigs[i] is RangeWeaponConfig rangeWeaponConfig)
+            {
+                weaponSlots[i] = new RangeWeapon(rangeWeaponConfig, this);
+            }
+        }
+
+        SwitchWeapon();
+    }
+
+    private void SwitchWeapon()
+    {
+        activeWeaponIndex = (activeWeaponIndex + 1) % weaponSlots.Length;
+        GetComponent<SpriteRenderer>().sprite = inventory.weaponSlots[activeWeaponIndex].weaponSprite;
+    }
 }

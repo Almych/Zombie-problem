@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayInventory : ScriptableObject
 {
     public InventoryItem[] items = new InventoryItem[5];  
-    public Weapon[] weaponSlots = new Weapon[2];         
+    public WeaponConfig[] weaponSlots = new WeaponConfig[2];         
     public MainInventory mainInventory;                   
 
    
@@ -19,7 +19,6 @@ public class PlayInventory : ScriptableObject
             if (CanAddToStack(existingItem, 1))
             {
                 existingItem.AddAmount();
-                Debug.Log("Increased item amount in inventory.");
                 return false;
             }
             else

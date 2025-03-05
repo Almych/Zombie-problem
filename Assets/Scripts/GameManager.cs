@@ -9,8 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private WaveUi waveUi;
     public void PauseGame()
     {
-
+        EventBus.Publish(new OnPauseEvent());
+        StopTime();
     }
+
     void Start()
     {
         EventBus.Publish(new InitiateEvent());
@@ -30,12 +32,22 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-
+        EventBus.Publish(new OnResumeEvent());
+        ResumeTime();
     }
 
     void Awake()
     {
         spawnManager.Init(config.WavesConfig);
         
+    }
+    private void StopTime()
+    {
+        Time.timeScale = 0f;
+    }
+
+    private void ResumeTime()
+    {
+        Time.timeScale = 1;
     }
 }

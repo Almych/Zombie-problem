@@ -6,6 +6,6 @@ public class OnPauseEvent
 {
     public OnPauseEvent()
     {
-        Debug.Log("Paused");
+      ;
     }
 }

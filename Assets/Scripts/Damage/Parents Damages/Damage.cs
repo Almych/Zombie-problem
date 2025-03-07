@@ -1,13 +1,17 @@
 
 using UnityEngine;
 
-public abstract class Damage : ScriptableObject, IDamageStrategy
+public abstract class Damage : IDamageStrategy
 {
-    [SerializeField] protected float damage;
+     protected float _damage;
 
+    protected Damage(float damage)
+    {
+        _damage = damage;
+    }
     public float GetDamage()
     {
-        return damage;
+        return _damage;
     }
 
     public abstract void MakeDamage(Entity enemy);

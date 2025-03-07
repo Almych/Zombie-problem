@@ -8,12 +8,12 @@ public class ShootController : MonoBehaviour
     [SerializeField] private PlayInventory inventory;
     public IWeapon[] weaponSlots = new IWeapon[2];
     private int activeWeaponIndex = 0;
+    private bool isPaused;
 
     void Start()
     {
-        Init();
+        Init(); 
     }
-
     private void Init()
     {
         if (inventory != null)
@@ -22,8 +22,22 @@ public class ShootController : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        EventBus.Subscribe<OnPauseEvent>(DisableShoot);
+        EventBus.Subscribe<OnResumeEvent>(EnableShoot);
+    }
+    void OnDisable()
+    {
+        EventBus.UnSubscribe<OnPauseEvent>(DisableShoot);
+        EventBus.UnSubscribe<OnResumeEvent>(EnableShoot);
+    }
+
     private void Update()
     {
+        if (isPaused)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
             if (weaponSlots[activeWeaponIndex] is RangeWeapon rangeWeapon)
@@ -64,5 +78,15 @@ public class ShootController : MonoBehaviour
     {
         activeWeaponIndex = (activeWeaponIndex + 1) % weaponSlots.Length;
         GetComponent<SpriteRenderer>().sprite = inventory.weaponSlots[activeWeaponIndex].weaponSprite;
+    }
+
+    private void DisableShoot(OnPauseEvent e)
+    {
+        isPaused = true;
+    }
+
+    private void EnableShoot(OnResumeEvent e)
+    {
+        isPaused = false;
     }
 }

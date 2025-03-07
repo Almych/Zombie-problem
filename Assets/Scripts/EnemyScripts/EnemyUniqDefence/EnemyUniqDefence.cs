@@ -2,51 +2,37 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Defense", menuName = "Defense/DamageDefense")]
+public interface IDamageDefense
+{
+    float Defense(Damage damage);
+    void GetDefenses();
+}
+
+[CreateAssetMenu(fileName = "New DamageDefense", menuName = "DamageDefense")]
 public class EnemyUniqDefense : ScriptableObject
 {
-    //public Damage damageToDefense;
-    //private Dictionary<Type, Action<Damage>> damageHandlers;
+    //[SerializeField] private List<DefenseData> damagesToStayPercents = new List<DefenseData>();
 
-    //private void OnEnable()
+    //public float Defense(Damage damage)
     //{
-    //    damageHandlers = new Dictionary<Type, Action<Damage>>
-    //    {
-    //        { typeof(DefaultDamage), HandleDefaultDamage },
-    //        { typeof(ContinuesDamage), HandleContinuesDamage },
-    //        { typeof(EffectDamage), HandleEffectDamage }
-    //    };
+    //    float defense =  FindDamage(damage);
+    //    return defense - damage.GetDamage();
     //}
 
-    //public float GetDefense(Damage damageType)
-    //{
-    //    if (damageType == null)
-    //        return 0f;
-        
-    //    if (damageToDefense.GetType() == damageType.GetType() && damageHandlers.ContainsKey(damageType.GetType()))
-    //    {
-    //        damageHandlers[damageType.GetType()].Invoke(damageType);
-    //        return 0f; 
-    //    }
-
-    //    return damageType.GetDamage();
-    //}
-
-    //private void HandleDefaultDamage(Damage damageType)
+    //public void GetDefenses()
     //{
        
     //}
 
-    //// Handler for ContinuesDamage type.
-    //private void HandleContinuesDamage(Damage damageType)
+    //private float FindDamage(Damage damage)
     //{
-    //    ContinuesDamage continuesDamage = damageType as ContinuesDamage;
-    //    continuesDamage?.StopUniqueDamage();
-    //}
-
-    //private void HandleEffectDamage(Damage damageType)
-    //{
-    //    EffectDamage effectDamage = damageType as EffectDamage;
-    //    effectDamage?.StopUniqueDamage();
+    //    for(int i = 0; i <  damagesToStayPercents.Count; i++)
+    //    {
+    //        if (damagesToStayPercents[i].damage.GetType() == damage.GetType())
+    //        {
+    //            return damagesToStayPercents[i].resistence;
+    //        }
+    //    }
+    //    return 0f;
     //}
 }

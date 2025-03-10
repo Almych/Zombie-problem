@@ -20,6 +20,7 @@ public class HealthBar : MonoBehaviour
     private void Init(InitiateEvent e)
     {
         CurrHealth = maxHealth;
+        Debug.Log(CurrHealth);
     }
 
     void OnEnable()

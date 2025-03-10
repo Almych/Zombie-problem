@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5332349921423735596}
   - component: {fileID: 2045256084944102405}
   - component: {fileID: 5785118998449468066}
+  - component: {fileID: 9138445768741699896}
   m_Layer: 3
   m_Name: Average Zombie
   m_TagString: Untagged
@@ -194,10 +195,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e92768f9e040049ae721b34d8cc1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
-  speed: 2
-  maxHealth: 5
-  attackCoolDown: 2
+  maxHealth: 8
+  distanceOrRadius: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  damage: 3
+  attackCoolDownTick: 10
+--- !u!114 &9138445768741699896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7962912858114560771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec6b39297b3c62a48a991aec40a32013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 3
 --- !u!1 &8368564793082021321
 GameObject:
   m_ObjectHideFlags: 0

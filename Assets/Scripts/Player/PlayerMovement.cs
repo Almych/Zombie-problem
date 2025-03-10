@@ -6,21 +6,19 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
 
-    private Rigidbody2D rb;
-    private Animator animator;
+    private Rigidbody2D rb => GetComponent<Rigidbody2D>();
+    private Animator animator => GetComponent<Animator>();
     private Vector2 moveInput;
     private bool canMove = true;
 
     private void Init(InitiateEvent e)
     {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
         canMove = true;
     }
 
     private void OnEnable()
     {
-        EventBus.Subscribe<InitiateEvent>(Init, 1);
+        EventBus.Subscribe<InitiateEvent>(Init, 3);
         EventBus.Subscribe<PlayerDieEvent>(OnPlayerDeath);
     }
 

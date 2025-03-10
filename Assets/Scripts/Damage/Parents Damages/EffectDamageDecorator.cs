@@ -4,14 +4,10 @@ using UnityEngine;
 
 public abstract class EffectDamageDecorator : Damage, IDamageEffect
 {
-    protected IDamageStrategy strategy;
-    protected float _effectDuration;
+    [SerializeField] protected DefaultDamage strategy;
+    [SerializeField] protected float _effectDuration;
 
-    protected EffectDamageDecorator(float damage, IDamageStrategy damageStrategy, float effectDuration) : base(damage)
-    {
-        strategy = damageStrategy;
-        _effectDuration = effectDuration;
-    }
+    
 
     public abstract IEnumerator ApplyEffect(Entity enemy);
 

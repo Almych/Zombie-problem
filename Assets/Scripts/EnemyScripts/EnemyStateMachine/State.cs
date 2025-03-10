@@ -8,25 +8,18 @@ public interface IAnimator
 }
 public abstract class State : IState, IAnimator
 {
-    public int statePriority { get; private set; }
-    protected Transform _transform;
-    protected Rigidbody2D _rb;
     protected Animator _animator;
+    protected const string dieAnimation = "Die";
+    protected const string attackAnimation = "Attack";
+    protected const string runAnimation = "Walk";
 
-
-    protected State(Transform transform, Rigidbody2D rb, Animator animator)
+    protected State(Animator animator)
     {
-        _transform = transform;
-        _rb = rb;
         _animator = animator;
     }
     public abstract void Enter();
     public abstract void Exit();
-
-    public void SetPriority(int priority)
-    {
-        statePriority = priority;
-    }
+    public abstract void Tick();
 
     public void SetTriggerAnimation(string animationTriggerName)
     {

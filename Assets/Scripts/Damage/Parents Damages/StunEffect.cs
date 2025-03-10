@@ -1,11 +1,9 @@
 using System.Collections;
 using UnityEngine;
-
+[CreateAssetMenu(fileName = "New Stun Effect", menuName = "DamageEffect/StunEffect")]
 public class StunEffect : EffectDamageDecorator
 {
-    public StunEffect(float damage, IDamageStrategy damageStrategy, float effectDuration) : base(damage, damageStrategy, effectDuration)
-    {
-    }
+    public override DamageType damageType => DamageType.Stun;
 
     public override IEnumerator ApplyEffect(Entity enemy)
     {

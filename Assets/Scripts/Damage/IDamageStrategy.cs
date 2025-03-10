@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IDamageStrategy 
 {
+    public DamageType damageType { get;}
     void MakeDamage(Entity enemy);
     float GetDamage();
 }

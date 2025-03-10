@@ -1,14 +1,13 @@
 using System.Collections;
 using UnityEngine;
-
+[CreateAssetMenu(fileName = "New Freeze Effect", menuName = "DamageEffect/FreezeEffect")]
 public class FreezeEffect : EffectDamageDecorator
 {
-    private float _slowAmount;
+    [SerializeField] private float _slowAmount;
 
-    public FreezeEffect(float damage, IDamageStrategy damageStrategy, float effectDuration, float slowAmount) : base(damage, damageStrategy, effectDuration)
-    {
-        _slowAmount = slowAmount;
-    }
+   
+
+    public override DamageType damageType => DamageType.Freeze;
 
     public override IEnumerator ApplyEffect(Entity enemy)
     {

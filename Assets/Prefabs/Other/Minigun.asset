@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04448575a0ba7c47bda88ae2f5a9714, type: 3}
-  m_Name: Rifle
+  m_Script: {fileID: 11500000, guid: 0203a82278a6db246a5f4d14dffcc72f, type: 3}
+  m_Name: Minigun
   m_EditorClassIdentifier: 
-  _damage: {fileID: 0}
-  _weaponSprite: {fileID: 0}
-  reloadTime: 1.5
-  bulletSpeed: 10
-  maxBullets: 6
-  bulletSprite: {fileID: 1055948628, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
+  _damage: 4

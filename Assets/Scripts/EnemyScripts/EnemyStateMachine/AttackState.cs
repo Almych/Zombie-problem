@@ -5,20 +5,24 @@ using UnityEngine;
 
 public class AttackState : State
 {
-    private IAttackDealer attackDealer;
-    public AttackState(Transform transform, Rigidbody2D rb, Animator animator, IAttackDealer attack) : base(transform, rb, animator)
+    private IEnemy _attackDealer;
+    public AttackState(Animator animator, IEnemy attackDealer) : base(animator)
     {
-        attackDealer = attack;
-        SetPriority(0);
+        _attackDealer = attackDealer;
     }
 
     public override void Enter()
     {
-        SetTriggerAnimation("Attack");
+       SetTriggerAnimation(attackAnimation);
     }
 
     public override void Exit()
     {
-        
+       
+    }
+
+    public override void Tick()
+    {
+       // _attackDealer.Attack();
     }
 }

@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class DieState : State
 {
-    private Entity _enemy;
-    public DieState(Transform transform, Rigidbody2D rb, Animator animator, Entity enemy) : base(transform, rb, animator)
+    public DieState(Animator animator) : base(animator)
     {
-        SetPriority(3);
-        _enemy = enemy;
     }
 
     public override void Enter()
     {
-        SetTriggerAnimation("Die");
+        SetTriggerAnimation(dieAnimation);
     }
 
     public override void Exit()
     {
     }
 
+    public override void Tick()
+    {
+        return;
+    }
 }

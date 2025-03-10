@@ -1,52 +1,34 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer : RangedEnemy, IAttackDealer
+public class Archer : RangeEnemy
 {
-    private AttackState attackState;
+    [SerializeField] private float damage;
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private Sprite bulletSprite;
+    [SerializeField] private int attackCoolDownTick;
+    [SerializeField] private Transform bulletTransform;
+    private bool isDetected;
 
-    public void Attack()
+    public override void Attack()
     {
-       EnemyBulletBehaivior bullet = ObjectPoolManager.FindObject<EnemyBulletBehaivior>();
-        if (bullet != null )
-        {
-            bullet.transform.position = transform.position;
-            bullet.Activate(damage, bulletSprite, bulletSpeed);
-        }
+        base.Attack();
     }
-
-    public override void Die()
-    {
-       base.Die();
-    }
-
-    public override void Initiate()
-    {
-        base.Initiate();
-        StartCoroutine(DetectEnemy());
-    }
-
     public override void Init()
     {
-        moveWay = new MoveTowards(new MoveStats{_transform = transform, _rb = rb, _speed = speed});
-        attackState = new AttackState(transform, rb, animator, this);
+        attackDealer = new RangeDealer(damage, attackCoolDownTick, bulletSprite, bulletSpeed, bulletTransform);
         base.Init();
-        stateMachine.AddState(runState);
-        stateMachine.AddState(attackState);
     }
 
-    protected override IEnumerator DetectEnemy()
+    protected override void DetectEnemy()
     {
-        while (true)
+        if (isDetected)
+            return;
+        hit = Physics2D.Raycast(transform.position, Vector2.left, range, barrierMask);
+        if (hit.collider != null)
         {
-            yield return new WaitForSeconds(detectTime);
-            hit = Physics2D.Raycast(transform.position, Vector2.left, attackDistance, triggerMask);
-            if (hit.collider != null)
-            {
-                moveWay.StopMove();
-                stateMachine.SwitchState<AttackState>();
-            }
+            stateMachine.SwitchState(attackState);
+            isDetected = true;
         }
     }
 }

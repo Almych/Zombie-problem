@@ -5,15 +5,9 @@ using UnityEngine;
 
 public abstract class ContinuesDamageDecorator : Damage, IDamageEffect
 {
-    protected IDamageStrategy strategy;
-    protected float _duration;
-    protected float _intervals;
-    protected ContinuesDamageDecorator(float damage, IDamageStrategy damageStrategy, float duration, float intervals = 0.1f) : base(damage)
-    {
-        strategy = damageStrategy;
-        _duration = duration;
-        _intervals = intervals;
-    }
+    [SerializeField] protected DefaultDamage strategy;
+    [SerializeField] protected float _duration;
+    [SerializeField] protected float _intervals = 1f;
 
     public IEnumerator ApplyEffect(Entity enemy)
     {

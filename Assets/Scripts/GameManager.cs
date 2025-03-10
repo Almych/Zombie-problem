@@ -15,10 +15,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        EventBus.Publish(new InitiateEvent());
         waveUi.InitWaves(config.WavesConfig.TotalWaves);
+        EventBus.Publish(new InitiateEvent());
         CollectablesSpawn.Init(config.CollectablesConfig);
         spawnManager.StartSpawning();
+        TickSystem.Initialize();
     }
     public void StartGame()
     {
@@ -39,7 +40,6 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         spawnManager.Init(config.WavesConfig);
-        
     }
     private void StopTime()
     {

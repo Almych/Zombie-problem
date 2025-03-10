@@ -4,82 +4,81 @@ using System.Collections.Generic;
 using UnityEngine;
 public interface IEnemy
 {
+    void Init();
     void Initiate();
-
-    void Stun();
+    void Attack();
     void TakeDamage(Damage damage);
     void Die();
 }
 public abstract class Entity : MonoBehaviour, IEnemy
 {
-    [SerializeField] protected float damage;
-    [SerializeField] protected float speed;
     [SerializeField] protected int maxHealth;
+
     protected float currHealth;
-    protected Animator animator => GetComponent<Animator>();
-    protected Rigidbody2D rb => GetComponent<Rigidbody2D>();
-    protected Collider2D enemyCollider => GetComponent<Collider2D>();
-    protected IMovable moveWay;
-    protected StateMachine stateMachine;
+    protected Animator animator;
+    protected Rigidbody2D rb;
+    protected Collider2D enemyCollider;
+    protected MoveProvider moveProvider;
+    protected IAttackDealer attackDealer;
+
     protected RunState runState;
     protected DieState dieState;
-    private event Action onDeath;
-    protected IDeathAbility deathAbility => GetComponent<IDeathAbility>();
+    protected AttackState attackState;
+    protected StateMachine stateMachine;
     public void TakeDamage(Damage damage)
     {
         currHealth -= damage.GetDamage();
         if (currHealth <= 0)
         {
-            stateMachine.SwitchState<DieState>();
+            stateMachine.SwitchState(dieState);
         }
     }
 
     public virtual void Init()
     {
-        gameObject.SetActive(true);
-        stateMachine = new StateMachine();
-        runState = new RunState(transform, rb, animator, moveWay);
-        dieState = new DieState(transform, rb, animator, this);
-        stateMachine.AddState(dieState);
-        stateMachine.AddState(runState);
-        gameObject.SetActive(false);
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        enemyCollider = GetComponent<Collider2D>();
+        moveProvider = GetComponent<MoveProvider>();
+        runState = new RunState(animator, moveProvider);
+        attackState = new AttackState(animator, this);
+        dieState = new DieState(animator);
+        stateMachine = new StateMachine(runState, attackState, dieState);
     }
 
-
-
-    public virtual void Initiate()
+    public void Initiate()
     {
         currHealth = maxHealth;
-        stateMachine.SwitchState<RunState>();
+        stateMachine.SwitchState(runState);
     }
 
-    public virtual void Die()
+
+    public void Die()
     {
-        enemyCollider.enabled = false;
-        moveWay?.StopMove();
-        enemyCollider.enabled = true;
-        deathAbility?.onDeath();
-        onDeath.Invoke();
         gameObject.SetActive(false);
     }
-
-    public void Stun()
-    {
-        stateMachine?.SwitchState<StunState>();
-    }
-
-    protected void OnEnable()
-    {
-        onDeath += OnDeathAction;
-    }
-
-    protected void OnDisable()
-    {
-        onDeath -= OnDeathAction;
-    }
+    
 
     public void OnDeathAction()
     {
         CollectablesSpawn.SpawnRandomObject(transform.position);
+    }
+
+    protected virtual void OnEnable()
+    {
+        if(stateMachine != null) 
+        TickSystem.OnTick += stateMachine.OnTick;
+    }
+
+    protected virtual void OnDisable()
+    {
+        if (stateMachine != null)
+            TickSystem.OnTick -= stateMachine.OnTick;
+    }
+
+
+    public virtual void Attack()
+    {
+        attackDealer?.Attack();
     }
 }

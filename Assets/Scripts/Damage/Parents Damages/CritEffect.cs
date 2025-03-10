@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-
+[CreateAssetMenu(fileName = "New Crit Effect", menuName = "DamageEffect/CritEffect")]
 public class CritEffect : Damage
 {
-    private float _critChance;
-    private float _maxCritChance = 10f;
-    public CritEffect(float damage, float critChance = 1f) : base(damage)
-    {
-        _critChance = critChance;
-    }
+    [SerializeField] private float _critChance;
+    [SerializeField] private float _maxCritChance = 10f;
+
+    public override DamageType damageType => DamageType.Crit;
 
     public override void MakeDamage(Entity enemy)
     {

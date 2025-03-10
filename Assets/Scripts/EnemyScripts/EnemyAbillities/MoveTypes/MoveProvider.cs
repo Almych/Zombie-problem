@@ -1,20 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MoveProvider : IMovable
+public abstract class MoveProvider : MonoBehaviour, IMovable, ISpeedProvider
 {
-    protected MoveStats mStats;
-    public MoveProvider(MoveStats stats)
-    {
-       mStats = stats;
-    }
+    [SerializeField] protected float _speed;
+    protected float _baseSpeed => _speed;
+    protected Rigidbody2D _rb => GetComponent<Rigidbody2D>();
+
 
     public abstract void Move();
-    public abstract void StopMove();
-
-    public MoveStats GetStats()
+    public void ReduceSpeed(float speedProcents = 0.1F)
     {
-        return mStats;
+        _speed = _baseSpeed * speedProcents;
+    }
+    public void IncreaseSpeed(float speedProcents = 0.1f)
+    {
+        _speed = _baseSpeed / speedProcents;
+    }
+    public void StopMove()
+    {
+        _rb.velocity = Vector2.zero;
     }
 }

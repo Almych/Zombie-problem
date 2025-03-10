@@ -12,8 +12,7 @@ public class SpeedBoostAbility : BuffAbility
     }
     protected override void SetBuff(IMovable movable)
     {
-        Debug.Log("Added");
-        movable = new MoveBoostDecorator(movable, speedBuff );
+        
         movable.Move();
     }
 }

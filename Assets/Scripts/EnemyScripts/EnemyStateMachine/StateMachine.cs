@@ -6,26 +6,26 @@ using System;
 public class StateMachine 
 {
     public State currentState {  get; private set; }
-    private Dictionary<Type, State> knownStates = new Dictionary<Type, State>();
-
-    public void AddState(State newState)
+    private RunState runState;
+    private AttackState attackState;
+    private DieState dieState;
+    public StateMachine(RunState runState, AttackState attackState, DieState dieState)
     {
-        if (newState == null || knownStates.ContainsKey(newState.GetType()))
-            return;
-
-        knownStates[newState.GetType()] = newState;
+        this.runState = runState;
+        this.attackState = attackState;
+        this.dieState = dieState;
+        currentState = runState;
     }
 
-    public void SwitchState<T>() where T : State
+    public void SwitchState(State newState)
     {
-        if (!knownStates.TryGetValue(typeof(T), out State newState))
-        {
-            Debug.LogWarning($"State of type {typeof(T)} not found!");
-            return;
-        }
-
         currentState?.Exit();
         currentState = newState;
         currentState?.Enter();
+    }
+    
+    public void OnTick()
+    {
+        currentState?.Tick();
     }
 }

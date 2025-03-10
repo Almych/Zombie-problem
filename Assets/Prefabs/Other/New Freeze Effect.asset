@@ -9,6 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Defense
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyUniqDefense
+  m_Script: {fileID: 11500000, guid: 63c986ea4dfeb8244a8550de1251a56f, type: 3}
+  m_Name: New Freeze Effect
+  m_EditorClassIdentifier: 
+  _damage: 2
+  strategy: {fileID: 11400000, guid: 4cbc31c02d1fa664bbd23327b7a76972, type: 2}
+  _effectDuration: 3
+  _slowAmount: 2

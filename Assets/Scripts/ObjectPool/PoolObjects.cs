@@ -9,7 +9,7 @@ public class PoolObjects : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.Subscribe<InitiateEvent>(StartPool, 1);
+        EventBus.Subscribe<InitiateEvent>(StartPool, 3);
     }
 
     void OnDisable()

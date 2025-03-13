@@ -13,7 +13,7 @@ public interface IEnemy
 public abstract class Entity : MonoBehaviour, IEnemy
 {
     [SerializeField] protected int maxHealth;
-
+    [SerializeField] protected EnemyUniqDefense defense;
     protected float currHealth;
     protected Animator animator;
     protected Rigidbody2D rb;
@@ -27,7 +27,7 @@ public abstract class Entity : MonoBehaviour, IEnemy
     protected StateMachine stateMachine;
     public void TakeDamage(Damage damage)
     {
-        currHealth -= damage.GetDamage();
+        currHealth -= defense.Defense(damage);
         if (currHealth <= 0)
         {
             stateMachine.SwitchState(dieState);

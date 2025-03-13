@@ -2,10 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageDefense
-{
-    float Defense(Damage damage);
-}
 [Serializable]
 public struct DefenseData
 {
@@ -21,7 +17,7 @@ public class EnemyUniqDefense : ScriptableObject
 
     public float Defense(Damage damage)
     {
-        return -damage.GetDamage() * (1-FindDamage(damage));
+        return damage.GetDamage() * (1-FindDamage(damage));
     }
 
     private float FindDamage(Damage damage)

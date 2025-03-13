@@ -280,10 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 15
-  distanceOrRadius: 2
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  defense: {fileID: 11400000, guid: 0b207fb388bcbfd4c8981cc26d833223, type: 2}
 --- !u!114 &2727586652670544601
 MonoBehaviour:
   m_ObjectHideFlags: 0

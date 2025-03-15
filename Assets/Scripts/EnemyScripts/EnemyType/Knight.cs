@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 public class Knight : MeleeEnemy
 {
     public override void Attack()
     {
-        base.Attack();
+       attackDealer?.Attack(healthBar);
     }
     public override void Init()
     {
+        attackDealer = new MeleeDealer(damage);
         base.Init();
     }
 

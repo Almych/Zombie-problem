@@ -1,53 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private LevelConfig config;
     [SerializeField] private SpawnManager spawnManager;
-    [SerializeField] private WaveUi waveUi;
-    public void PauseGame()
-    {
-        EventBus.Publish(new OnPauseEvent());
-        StopTime();
-    }
 
     void Start()
     {
-        waveUi.InitWaves(config.WavesConfig.TotalWaves);
-        EventBus.Publish(new InitiateEvent());
-        CollectablesSpawn.Init(config.CollectablesConfig);
-        spawnManager.StartSpawning();
-        TickSystem.Initialize();
+        StartGame();
     }
     public void StartGame()
     {
-
+        TickSystem.Initialize();
+        spawnManager.StartSpawning();
     }
 
     public void LostGame()
     {
 
     }
-
+    public void PauseGame()
+    {
+        EventBus.Publish(new OnPauseEvent(true));
+        Time.timeScale = 0f;
+    }
     public void ResumeGame()
     {
-        EventBus.Publish(new OnResumeEvent());
-        ResumeTime();
+        EventBus.Publish(new OnPauseEvent(false));
+        Time.timeScale = 1;
     }
 
     void Awake()
     {
+        CollectablesSpawn.Init(config.CollectablesConfig);
         spawnManager.Init(config.WavesConfig);
     }
-    private void StopTime()
-    {
-        Time.timeScale = 0f;
-    }
-
-    private void ResumeTime()
-    {
-        Time.timeScale = 1;
-    }
+    
+  
 }

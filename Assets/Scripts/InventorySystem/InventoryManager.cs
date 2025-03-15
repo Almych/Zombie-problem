@@ -6,7 +6,6 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
     [SerializeField] private PlayInventory inventory;
-    [SerializeField] private InventorySlot slotPrefab;
     private Dictionary<InventoryItem, InventorySlot> slots = new Dictionary<InventoryItem, InventorySlot>();
 
     private void Awake()
@@ -15,12 +14,12 @@ public class InventoryManager : MonoBehaviour
             Instance = this;
     }
 
-    private void Start()
+    void OnDestroy()
     {
-        Init();
+        
     }
 
-    public void Init()
+    public void CreateInventory()
     {
         for (int i = 0; i < inventory.items.Length; i++)
         {
@@ -49,8 +48,8 @@ public class InventoryManager : MonoBehaviour
 
     private void CreateSlot(InventoryItem inventoryItem)
     {
-        InventorySlot slot = Instantiate(slotPrefab.gameObject, Vector2.zero, Quaternion.identity, transform).GetComponent<InventorySlot>();
-        slot.Initiate(inventoryItem);
+        InventorySlot slot = ObjectPoolManager.FindObject<InventorySlot>();
+        slot.SetInventorySlot(inventoryItem);
         slots[inventoryItem] = slot;
     }
 }

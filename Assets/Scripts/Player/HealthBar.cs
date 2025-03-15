@@ -17,21 +17,17 @@ public class HealthBar : MonoBehaviour
     
     }
 
-    private void Init(InitiateEvent e)
+    void Awake()
+    {
+        Init();
+    }
+
+    private void Init()
     {
         CurrHealth = maxHealth;
-        Debug.Log(CurrHealth);
     }
 
-    void OnEnable()
-    {
-        EventBus.Subscribe<InitiateEvent>(Init, 1);
-    }
-
-    void OnDisable()
-    {
-        EventBus.UnSubscribe<InitiateEvent>(Init);
-    }
+    
 
 
     public void ChangeHealthValue(float value)

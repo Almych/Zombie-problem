@@ -25,16 +25,14 @@ public class DefeatedEnemyTrigger : MonoBehaviour
         isCheckingForEnemies = false;
     }
 
-    void OnEnable()
+    void Awake()
     {
-        EventBus.Subscribe<OnPauseEvent>(StopCheckForEnemies, 1);
-        EventBus.Subscribe<OnResumeEvent>(ResumeCheckForEnemies, 1);
+        EventBus.Subscribe<OnPauseEvent>(OnPause, 1);
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
-        EventBus.UnSubscribe<OnPauseEvent>(StopCheckForEnemies);
-        EventBus.UnSubscribe<OnResumeEvent>(ResumeCheckForEnemies);
+        EventBus.UnSubscribe<OnPauseEvent>(OnPause);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -70,13 +68,10 @@ public class DefeatedEnemyTrigger : MonoBehaviour
         }
     }
 
-    private void StopCheckForEnemies(OnPauseEvent e)
+    private void OnPause(OnPauseEvent e)
     {
-        isPaused = true;
+        isPaused = e.IsPaused;
     }
 
-    private void ResumeCheckForEnemies(OnResumeEvent e)
-    {
-        isPaused = false;
-    }
+    
 }

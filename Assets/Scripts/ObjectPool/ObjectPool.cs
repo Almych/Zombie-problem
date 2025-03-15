@@ -21,8 +21,6 @@ public class FadeObjectPool
         for (int i = 0; i < amount; i++)
         {
             MonoBehaviour poolObject = UnityEngine.Object.Instantiate(objectToPool);
-            if (poolObject is Entity enemy)
-                enemy.Init();
             poolObject.gameObject.SetActive(false);
             pooledObjects.Add(poolObject.gameObject);
         }

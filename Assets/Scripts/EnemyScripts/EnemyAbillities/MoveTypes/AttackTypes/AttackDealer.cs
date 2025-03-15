@@ -4,21 +4,15 @@ using UnityEngine;
 
 public class MeleeDealer : IAttackDealer
 {
-    private int attackCoolDown;
     private float attackDamage;
-    private int currTicks = 0;
-    private HealthBar healthBar;
-    public MeleeDealer(float damage, int coolDownTicks, HealthBar health)
+    public MeleeDealer(float damage)
     {
-        attackCoolDown = coolDownTicks;
         attackDamage = damage;
-        healthBar = health;
     }
 
-    public void Attack()
+    public void Attack(HealthBar healthBar)
     {
         healthBar?.ChangeHealthValue(-attackDamage);
-        currTicks = 0;
     }
 }
 
@@ -39,13 +33,13 @@ public class RangeDealer : IAttackDealer
         _bulletSprite = bulletSprite;
         _bulletTransform = shootPoint;
     }
-    public void Attack()
+    public void Attack(HealthBar healthBar)
     {
         EnemyBulletBehaivior enemyBullet = ObjectPoolManager.FindObject<EnemyBulletBehaivior>();
         if (enemyBullet != null)
         {
-            enemyBullet.Activate(attackDamage, _bulletSprite, _bulletSpeed);
-            enemyBullet.transform.position = _bulletTransform.position;
+            enemyBullet.gameObject.SetActive(true);
+            enemyBullet.Activate(attackDamage, _bulletSprite, _bulletSpeed, _bulletTransform.position);
         }
     }
 }

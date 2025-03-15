@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 public class CoinCounterUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI coinCounterText;
     [SerializeField] private CoinsContainer coinsContainer;
 
-    void OnEnable()
+    void Awake()
     {
-        EventBus.Subscribe<OnCollectEvent>(AddCoin, 1);
+        EventBus.Subscribe<OnCollectEvent>(AddCoin);
     }
 
     void OnDisable()

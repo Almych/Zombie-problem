@@ -1,0 +1,26 @@
+using UnityEngine;
+
+public class EnemyBulletBehaivior : BaseBulletBehaviour
+{
+    private float damage;
+
+    public void Activate (float damage, Sprite sprite, float speed, Vector3 pos)
+    {
+        this.damage = damage;
+        this.speed = speed;
+        spriteRenderer.sprite = sprite;
+        transform.position = pos;
+        rb.velocity = -transform.right * speed;
+    }
+
+    public override void OnTriggerEnter2D(Collider2D collision)
+    {
+        HealthBar health = collision.GetComponent<HealthBar>();
+        if ( health != null)
+        {
+            health.ChangeHealthValue(-damage);
+            Deactivate();
+        }
+
+    }
+}

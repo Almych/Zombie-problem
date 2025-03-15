@@ -6,29 +6,25 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
 
-    private Rigidbody2D rb => GetComponent<Rigidbody2D>();
-    private Animator animator => GetComponent<Animator>();
+    private Rigidbody2D rb;
+    private Animator animator;
     private Vector2 moveInput;
     private bool canMove = true;
 
-    private void Init(InitiateEvent e)
+    private void Awake()
     {
-        canMove = true;
+        Init();
+        TickSystem.OnTick += Tick;
+        EventBus.Subscribe<OnPauseEvent>(OnPlayerDeath);
     }
 
-    private void OnEnable()
+    private void OnDestroy()
     {
-        EventBus.Subscribe<InitiateEvent>(Init, 3);
-        EventBus.Subscribe<PlayerDieEvent>(OnPlayerDeath);
+        TickSystem.OnTick -= Tick;
+        EventBus.UnSubscribe<OnPauseEvent>(OnPlayerDeath);
     }
 
-    private void OnDisable()
-    {
-        EventBus.UnSubscribe<InitiateEvent>(Init);
-        EventBus.UnSubscribe<PlayerDieEvent>(OnPlayerDeath);
-    }
-
-    private void Update()
+    private void Tick()
     {
         if (!canMove) return;
 
@@ -42,10 +38,16 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = moveInput * speed;
     }
 
-    private void OnPlayerDeath(PlayerDieEvent e)
+    private void OnPlayerDeath(OnPauseEvent e)
     {
         canMove = false;
         rb.velocity = Vector2.zero;
         animator.SetBool("isMove", false);
+    }
+
+    public void Init()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 }

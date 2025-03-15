@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Archer : RangeEnemy
@@ -12,7 +11,12 @@ public class Archer : RangeEnemy
 
     public override void Attack()
     {
-        base.Attack();
+        attackDealer?.Attack(default);
+    }
+    public override void Initiate()
+    {
+        isDetected = false;
+        base.Initiate();
     }
     public override void Init()
     {

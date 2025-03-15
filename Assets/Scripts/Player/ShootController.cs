@@ -1,19 +1,20 @@
-using System;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ShootController : MonoBehaviour
 {
     [SerializeField] private PlayInventory inventory;
-    public IWeapon[] weaponSlots = new IWeapon[2];
+    private IWeapon[] weaponSlots = new IWeapon[2];
     private int activeWeaponIndex = 0;
     private bool isPaused;
 
-    void Start()
+    void Awake()
     {
-        Init(); 
+        Init();
+        EventBus.Subscribe<OnPauseEvent>(OnPause);
+        TickSystem.OnTick += Tick;
     }
+
     private void Init()
     {
         if (inventory != null)
@@ -22,18 +23,13 @@ public class ShootController : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    void OnDestroy()
     {
-        EventBus.Subscribe<OnPauseEvent>(DisableShoot);
-        EventBus.Subscribe<OnResumeEvent>(EnableShoot);
-    }
-    void OnDisable()
-    {
-        EventBus.UnSubscribe<OnPauseEvent>(DisableShoot);
-        EventBus.UnSubscribe<OnResumeEvent>(EnableShoot);
+        EventBus.UnSubscribe<OnPauseEvent>(OnPause);
+        TickSystem.OnTick -= Tick;
     }
 
-    private void Update()
+    private void Tick()
     {
         if (isPaused)
             return;
@@ -80,13 +76,10 @@ public class ShootController : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = inventory.weaponSlots[activeWeaponIndex].weaponSprite;
     }
 
-    private void DisableShoot(OnPauseEvent e)
+    private void OnPause(OnPauseEvent e)
     {
-        isPaused = true;
+        isPaused = e.IsPaused;
     }
 
-    private void EnableShoot(OnResumeEvent e)
-    {
-        isPaused = false;
-    }
+   
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    [SerializeField] private WaveUi waveUi;
     private IWaveConfig waveConfig;
-    private IWaveSpawner waveSpawner;
+    private IEnemySpawner enemySpawner;
     private IHandlePosition handlePosition;
 
     private int currentWaveIndex;
@@ -19,40 +20,27 @@ public class SpawnManager : MonoBehaviour
 
     private float WavePercentage => MaxWaveBar / waveConfig.TotalWaves;
 
+    private void Awake()
+    {
+        EventBus.Subscribe<NoEnemiesEvent>(OnNoEnemiesDetected);
+        EventBus.Subscribe<OnPauseEvent>(OnPause, 1);
+    }
+    private void OnDestroy()
+    {
+        EventBus.UnSubscribe<NoEnemiesEvent>(OnNoEnemiesDetected);
+        EventBus.UnSubscribe<OnPauseEvent>(OnPause);
+    }
+    public void StartSpawning() => StartCoroutine(SpawnWaves());
     public void Init(IWaveConfig config)
     {
         waveConfig = config;
-        waveSpawner = new WaveSpawner();
+        enemySpawner = new EnemySpawner();
         handlePosition = new RandomPositionHandler();
-        waveSpawner.InitiateWave(transform, handlePosition);
+        enemySpawner.InitiateWave(transform, handlePosition);
         currentWaveBarProgress = MaxWaveBar;
+        waveUi.InitWaves(config.TotalWaves);
         config.GetAllEnemyTypesInitiate();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        BulletBehaivior bullet = collision.GetComponent<BulletBehaivior>();
-        if (bullet != null)
-        {
-            bullet.Deactivate();
-        }
-    }
-
-    public void StartSpawning() => StartCoroutine(SpawnWaves());
-
-    private void OnEnable()
-    {
-        EventBus.Subscribe<NoEnemiesEvent>(OnNoEnemiesDetected);
-        EventBus.Subscribe<OnPauseEvent>(StopSpawning, 1);
-        EventBus.Subscribe<OnResumeEvent>(ResumeSpawing, 1);
-    }
-    private void OnDisable()
-    {
-        EventBus.UnSubscribe<NoEnemiesEvent>(OnNoEnemiesDetected);
-        EventBus.UnSubscribe<OnPauseEvent>(StopSpawning);
-        EventBus.UnSubscribe<OnResumeEvent>(ResumeSpawing);
-    }
-
     private IEnumerator SpawnWaves()
     {
         while (currentWaveIndex < waveConfig.TotalWaves)
@@ -90,17 +78,12 @@ public class SpawnManager : MonoBehaviour
     private IEnumerator SpawnWave(Wave wave)
     {
         isSpawning = true;
-        yield return waveSpawner.SpawnEnemies(wave);
+        yield return enemySpawner.SpawnEnemies(wave);
         isSpawning = false;
     }
 
-    private void StopSpawning(OnPauseEvent e)
+    private void OnPause(OnPauseEvent e)
     {
-        isPaused = true;
-    }
-
-    private void ResumeSpawing(OnResumeEvent e)
-    {
-        isPaused = false;
+        isPaused = e.IsPaused;
     }
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class OnPauseEvent 
 {
-    public OnPauseEvent()
+    public bool IsPaused { get; private set; }
+    public OnPauseEvent(bool isPaused)
     {
-      ;
+        IsPaused = isPaused;
     }
 }

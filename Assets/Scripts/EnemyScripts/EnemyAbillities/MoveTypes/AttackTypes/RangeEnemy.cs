@@ -1,12 +1,4 @@
 using UnityEngine;
-
-public abstract class MeleeEnemy : Entity
-{
-    protected HealthBar healthBar;
-
-    protected abstract void OnCollisionEnter2D(Collision2D collision);
-}
-
 public abstract class RangeEnemy: Entity
 {
     [SerializeField] protected float range;

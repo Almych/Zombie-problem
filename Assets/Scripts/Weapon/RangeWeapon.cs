@@ -29,7 +29,7 @@ public class RangeWeapon : IWeapon
         if (bullet != null)
         {
             bullet.gameObject.SetActive(true);
-            bullet.Activate(_rangeWeaponConfig.bulletSprite, _shootPoint, _rangeWeaponConfig.damage, _rangeWeaponConfig.bulletSpeed);
+            bullet.Activate(_rangeWeaponConfig.damage, _rangeWeaponConfig.bulletSpeed, _rangeWeaponConfig.bulletSprite, _shootPoint);
             currAmount--;
             if (currAmount <= 0)
                 _coroutineRunner.StartCoroutine(Reload());

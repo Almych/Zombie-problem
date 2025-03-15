@@ -14,13 +14,13 @@ public class WaveUi : MonoBehaviour
     private int waveIndex = 0;
     private float waveStep; 
 
-    void OnEnable()
+    void Awake()
     {
         EventBus.Subscribe<WaveProgressChangeEvent>(ChangeWaveBarValue);
         EventBus.Subscribe<OnWaveReached>(OnWaveReached);
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
         EventBus.UnSubscribe<WaveProgressChangeEvent>(ChangeWaveBarValue);
         EventBus.UnSubscribe<OnWaveReached>(OnWaveReached);

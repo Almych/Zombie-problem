@@ -7,17 +7,13 @@ public class PoolObjects : MonoBehaviour
     public List<MonoBehaviour> objectsToPool = new List<MonoBehaviour>();
     public int poolSize;
 
-    void OnEnable()
+    void Awake()
     {
-        EventBus.Subscribe<InitiateEvent>(StartPool, 3);
+        StartPool();
     }
 
-    void OnDisable()
-    {
-        EventBus.UnSubscribe<InitiateEvent>(StartPool);
-    }
 
-    public void StartPool(InitiateEvent e)
+    public void StartPool()
     {
         for (int i = 0; i < objectsToPool.Count; i++)
         {

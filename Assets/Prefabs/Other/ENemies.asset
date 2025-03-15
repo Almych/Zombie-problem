@@ -24,6 +24,8 @@ MonoBehaviour:
       enemies:
       - enemyType: {fileID: 5544904821989541160, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
         amount: 2
+      - enemyType: {fileID: 6940997052884882684, guid: 315459d967b331d488302a8a8d1da795, type: 3}
+        amount: 1
       spawnInterwal: 5
   - wave:
       enemies:

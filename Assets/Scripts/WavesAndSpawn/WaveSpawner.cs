@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveSpawner : IWaveSpawner
+public class EnemySpawner : IEnemySpawner
 {
     private Transform spawnPoint;
     private IHandlePosition positionHandler;

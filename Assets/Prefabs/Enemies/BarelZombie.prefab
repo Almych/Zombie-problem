@@ -98,7 +98,8 @@ GameObject:
   - component: {fileID: 1417957951634339923}
   - component: {fileID: 6528014412750129637}
   - component: {fileID: 6940997052884882684}
-  - component: {fileID: 2727586652670544601}
+  - component: {fileID: 5305496252691726330}
+  - component: {fileID: -348945556084436688}
   m_Layer: 3
   m_Name: BarelZombie
   m_TagString: Untagged
@@ -259,7 +260,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 3ae13a764c3fdfe4798572d1059e1efa, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -281,7 +282,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 15
   defense: {fileID: 11400000, guid: 0b207fb388bcbfd4c8981cc26d833223, type: 2}
---- !u!114 &2727586652670544601
+  damage: 4
+--- !u!114 &5305496252691726330
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,7 +292,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3734577242928784047}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14a170eed7ffe7d4da8c1ec54afaed80, type: 3}
+  m_Script: {fileID: 11500000, guid: 9773d4c5e2e3cfc4ba0664b2f932e602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 4
+  spawnEnemy: {fileID: 5785118998449468066, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
+--- !u!114 &-348945556084436688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3734577242928784047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec6b39297b3c62a48a991aec40a32013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1

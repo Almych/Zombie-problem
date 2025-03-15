@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 public interface IEnemy
 {
-    void Init();
     void Initiate();
     void Attack();
     void TakeDamage(Damage damage);
@@ -20,11 +16,15 @@ public abstract class Entity : MonoBehaviour, IEnemy
     protected Collider2D enemyCollider;
     protected MoveProvider moveProvider;
     protected IAttackDealer attackDealer;
-
+    protected IDeathAbility deathAbility;
     protected RunState runState;
     protected DieState dieState;
     protected AttackState attackState;
     protected StateMachine stateMachine;
+    void Awake()
+    {
+        Init(); //Call it in Awake cuz after pooling immediatly init nessesary data
+    }
     public void TakeDamage(Damage damage)
     {
         currHealth -= defense.Defense(damage);
@@ -43,10 +43,11 @@ public abstract class Entity : MonoBehaviour, IEnemy
         runState = new RunState(animator, moveProvider);
         attackState = new AttackState(animator, this);
         dieState = new DieState(animator);
+        deathAbility = GetComponent<IDeathAbility>();
         stateMachine = new StateMachine(runState, attackState, dieState);
     }
 
-    public void Initiate()
+    public virtual void Initiate()
     {
         currHealth = maxHealth;
         stateMachine.SwitchState(runState);
@@ -55,14 +56,10 @@ public abstract class Entity : MonoBehaviour, IEnemy
 
     public void Die()
     {
+        deathAbility?.onDeath();
         gameObject.SetActive(false);
     }
     
-
-    public void OnDeathAction()
-    {
-        CollectablesSpawn.SpawnRandomObject(transform.position);
-    }
 
     protected virtual void OnEnable()
     {
@@ -76,9 +73,6 @@ public abstract class Entity : MonoBehaviour, IEnemy
             TickSystem.OnTick -= stateMachine.OnTick;
     }
 
-
-    public virtual void Attack()
-    {
-        attackDealer?.Attack();
-    }
+    //Attack ability calls in animation
+    public abstract void Attack();
 }

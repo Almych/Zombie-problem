@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-public interface ICollectable
-{
-    void OnCollect();
-}
 public class ItemSlot : MonoBehaviour, ICollectable
 {
-    public SpriteRenderer spriteRenderer => GetComponent<SpriteRenderer>();
-    [HideInInspector] public InventoryItem inventoryItem;
+    private SpriteRenderer spriteRenderer;
+    private InventoryItem inventoryItem;
     
     public void Init(InventoryItem newInventoryItem)
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         inventoryItem = newInventoryItem;
         spriteRenderer.sprite = newInventoryItem.item.Sprite;
     }

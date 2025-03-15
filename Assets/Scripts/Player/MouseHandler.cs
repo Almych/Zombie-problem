@@ -1,11 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class MouseHandler : MonoBehaviour
 {
     public LayerMask collectable;
-    void Update()
+
+    void Awake()
+    {
+        TickSystem.OnTick += Tick;
+    }
+
+    void OnDestroy()
+    {
+        TickSystem.OnTick -= Tick;
+    }
+    void Tick()
     {
         if (Input.GetMouseButtonDown(0))
         {

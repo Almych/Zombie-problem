@@ -1,20 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    public Image itemImage => transform.GetChild(0).GetComponent<Image>();
-    public TMP_Text itemAmount =>transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
-
-    public Button useButton => GetComponent<Button>();
-    
     public InventoryItem inventoryItem { get; private set; }
 
-    public void Initiate(InventoryItem inventoryItem)
+    private Image itemImage;
+    private TMP_Text itemAmount;
+    private Button useButton;
+
+    void Awake()
+    {
+        Init();
+    }
+
+    public void Init()
+    {
+        itemImage = transform.GetChild(0).GetComponent<Image>();
+        itemAmount = transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+        useButton = GetComponent<Button>();
+    }
+
+    public void SetInventorySlot(InventoryItem inventoryItem)
     {
         inventoryItem.SetSlot(this);
         this.inventoryItem = inventoryItem;

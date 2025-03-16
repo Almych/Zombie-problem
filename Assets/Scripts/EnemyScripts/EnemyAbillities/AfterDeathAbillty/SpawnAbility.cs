@@ -11,6 +11,7 @@ public abstract class SpawnAbility : MonoBehaviour, IDeathAbility
     public virtual void onDeath()
     {
         Entity enemy = ObjectPoolManager.GetObjectFromPool(spawnEnemy);
+        enemy.gameObject.SetActive(true);
         enemy?.Initiate();
         SpawnAtPoint(enemy.transform);
     }

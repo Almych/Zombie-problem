@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 10
   m_Sprite: {fileID: 683712694, guid: c0abde909d8043a4a9903c66fe0fe755, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,8 +98,8 @@ GameObject:
   - component: {fileID: 1417957951634339923}
   - component: {fileID: 6528014412750129637}
   - component: {fileID: 6940997052884882684}
-  - component: {fileID: 5305496252691726330}
   - component: {fileID: -348945556084436688}
+  - component: {fileID: 6275579066160720392}
   m_Layer: 3
   m_Name: BarelZombie
   m_TagString: Untagged
@@ -163,7 +163,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 10
   m_Sprite: {fileID: 1233366274, guid: c0abde909d8043a4a9903c66fe0fe755, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -283,19 +283,6 @@ MonoBehaviour:
   maxHealth: 15
   defense: {fileID: 11400000, guid: 0b207fb388bcbfd4c8981cc26d833223, type: 2}
   damage: 4
---- !u!114 &5305496252691726330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3734577242928784047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9773d4c5e2e3cfc4ba0664b2f932e602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnEnemy: {fileID: 5785118998449468066, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
 --- !u!114 &-348945556084436688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,3 +296,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
+--- !u!114 &6275579066160720392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3734577242928784047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86160dbf570f32a4a9347173e2cab375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnEnemy: {fileID: 5785118998449468066, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}

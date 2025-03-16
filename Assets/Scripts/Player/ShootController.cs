@@ -8,11 +8,11 @@ public class ShootController : MonoBehaviour
     private int activeWeaponIndex = 0;
     private bool isPaused;
 
-    void Awake()
+    private void Awake()
     {
         Init();
         EventBus.Subscribe<OnPauseEvent>(OnPause);
-        TickSystem.OnTick += Tick;
+        UpdateSystem.OnUpdate += Tick;
     }
 
     private void Init()
@@ -23,10 +23,10 @@ public class ShootController : MonoBehaviour
         }
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         EventBus.UnSubscribe<OnPauseEvent>(OnPause);
-        TickSystem.OnTick -= Tick;
+        UpdateSystem.OnUpdate -= Tick;
     }
 
     private void Tick()

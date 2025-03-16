@@ -6,32 +6,19 @@ using UnityEngine;
 public class DefeatedEnemyTrigger : MonoBehaviour
 {
     private HashSet<Entity> activeEnemies = new HashSet<Entity>();
-    private bool isCheckingForEnemies = true;
-    private const float checkIntervals = 1f;
     private bool isPaused = false;
+    private const int maxCheckTicks = 100; 
+    private int currTicks = 0;
 
-    void Start()
+    private void Awake()
     {
-        StartCheckingForEnemies();
-    }
-
-    public void StartCheckingForEnemies()
-    {
-        StartCoroutine(CheckForEnemies());
-    }
-
-    public void StopCheckingForEnemies()
-    {
-        isCheckingForEnemies = false;
-    }
-
-    void Awake()
-    {
+        UpdateSystem.OnUpdate += Tick;
         EventBus.Subscribe<OnPauseEvent>(OnPause, 1);
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
+        UpdateSystem.OnUpdate -= Tick;
         EventBus.UnSubscribe<OnPauseEvent>(OnPause);
     }
 
@@ -53,18 +40,23 @@ public class DefeatedEnemyTrigger : MonoBehaviour
         }
     }
 
-    private IEnumerator CheckForEnemies()
+    private void Tick()
     {
-        while (isCheckingForEnemies)
+        if (isPaused) return;
+
+        if (activeEnemies.Count == 0)
         {
-            if (isPaused)
-                yield return null;
-            if (activeEnemies.Count <= 0)
+            currTicks++;
+
+            if (currTicks >= maxCheckTicks)
             {
                 EventBus.Publish(new NoEnemiesEvent());
+                currTicks = 0; 
             }
-
-            yield return new WaitForSeconds(checkIntervals);
+        }
+        else
+        {
+            currTicks = 0; 
         }
     }
 
@@ -72,6 +64,4 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     {
         isPaused = e.IsPaused;
     }
-
-    
 }

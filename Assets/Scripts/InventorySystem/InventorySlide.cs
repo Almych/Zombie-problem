@@ -14,7 +14,7 @@ public class InventoryMenu : MonoBehaviour
     private Vector2 openPos;
     private Vector2 targetPos;
     private bool canSlide = false;
-    void Start()
+    private void Init()
     {
         openPos = inventoryPanel.anchoredPosition; 
         closedPos = openPos + new Vector2(slideXOffset, 0f);
@@ -42,14 +42,15 @@ public class InventoryMenu : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    void Awake()
     {
-        TickSystem.OnTick += Tick;
+        Init();
+        UpdateSystem.OnUpdate += Tick;
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
-        TickSystem.OnTick -= Tick;
+        UpdateSystem.OnUpdate -= Tick;
     }
 
 

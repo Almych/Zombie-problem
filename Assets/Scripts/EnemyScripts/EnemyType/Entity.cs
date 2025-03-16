@@ -64,13 +64,13 @@ public abstract class Entity : MonoBehaviour, IEnemy
     protected virtual void OnEnable()
     {
         if(stateMachine != null) 
-        TickSystem.OnTick += stateMachine.OnTick;
+        UpdateSystem.OnUpdate += stateMachine.OnTick;
     }
 
     protected virtual void OnDisable()
     {
         if (stateMachine != null)
-            TickSystem.OnTick -= stateMachine.OnTick;
+            UpdateSystem.OnUpdate -= stateMachine.OnTick;
     }
 
     //Attack ability calls in animation

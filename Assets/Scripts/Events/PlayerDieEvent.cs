@@ -6,6 +6,6 @@ public class PlayerDieEvent
 {
     public PlayerDieEvent()
     {
-        
+        EventBus.Publish(new OnPauseEvent(true));
     }
 }

@@ -8,12 +8,12 @@ public abstract class RangeEnemy: Entity
     protected override void OnEnable()
     {
         base.OnEnable();
-        TickSystem.OnTick += DetectEnemy;
+        UpdateSystem.OnUpdate += DetectEnemy;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        TickSystem.OnTick -= DetectEnemy;
+        UpdateSystem.OnUpdate -= DetectEnemy;
     }
 }

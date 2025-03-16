@@ -9,24 +9,24 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private Vector2 moveInput;
-    private bool canMove = true;
+    private bool canNotMove = false;
 
     private void Awake()
     {
         Init();
-        TickSystem.OnTick += Tick;
+        UpdateSystem.OnUpdate += Tick;
         EventBus.Subscribe<OnPauseEvent>(OnPlayerDeath);
     }
 
     private void OnDestroy()
     {
-        TickSystem.OnTick -= Tick;
+        UpdateSystem.OnUpdate -= Tick;
         EventBus.UnSubscribe<OnPauseEvent>(OnPlayerDeath);
     }
 
     private void Tick()
     {
-        if (!canMove) return;
+        if (canNotMove) return;
 
         moveInput = new Vector2(0f, Input.GetAxis("Vertical"));
         animator.SetBool("isMove", moveInput.sqrMagnitude > 0);
@@ -34,13 +34,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove)
+        if (!canNotMove)
             rb.velocity = moveInput * speed;
     }
 
     private void OnPlayerDeath(OnPauseEvent e)
     {
-        canMove = false;
+        canNotMove = e.IsPaused;
         rb.velocity = Vector2.zero;
         animator.SetBool("isMove", false);
     }

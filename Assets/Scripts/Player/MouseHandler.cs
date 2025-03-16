@@ -5,16 +5,16 @@ public class MouseHandler : MonoBehaviour
 {
     public LayerMask collectable;
 
-    void Awake()
+    private void Awake()
     {
-        TickSystem.OnTick += Tick;
+        UpdateSystem.OnUpdate += Tick;
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
-        TickSystem.OnTick -= Tick;
+        UpdateSystem.OnUpdate -= Tick;
     }
-    void Tick()
+    private void Tick()
     {
         if (Input.GetMouseButtonDown(0))
         {

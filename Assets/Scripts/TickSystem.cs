@@ -1,40 +1,42 @@
 using System;
 using UnityEngine;
 
-public static class TickSystem 
+public static class UpdateSystem 
 {
-    public static event Action OnTick;
-    private static float tickTimer;
-    private static float TICK_MAX = 1f;
+    public static event Action OnUpdate;
     private static GameObject tickSystem;
-    private class TickSystemObject :MonoBehaviour
+
+   
+    private class UpdateSystemObject : MonoBehaviour
     {
-        private int tick;
+        private bool isPaused;
 
-        void Awake()
+        private void Awake()
         {
-            tick = 0;
+            EventBus.Subscribe<OnPauseEvent>(PauseTick);
         }
-        void Update()
+        private void Update()
         {
-            tickTimer = Time.deltaTime;
-            if (tickTimer >= TICK_MAX)
-            {
-                tickTimer -= TICK_MAX;
-            }
-            tick++;
-            OnTick?.Invoke();
+            if (isPaused)
+                return;
+            OnUpdate?.Invoke();
         }
 
-       
+        private void OnDestroy()
+        {
+            EventBus.UnSubscribe<OnPauseEvent>(PauseTick);
+        }
+        private void PauseTick(OnPauseEvent e)
+        {
+            isPaused = e.IsPaused;
+        }
     }
-
     public static void Initialize()
     {
         if (tickSystem == null)
         {
             tickSystem = new GameObject("TickSystem");
-            tickSystem.AddComponent<TickSystemObject>();
+            tickSystem.AddComponent<UpdateSystemObject>();
             UnityEngine.Object.DontDestroyOnLoad(tickSystem);
         }
     }

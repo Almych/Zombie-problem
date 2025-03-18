@@ -7,16 +7,18 @@ public class ShootController : MonoBehaviour
     private IWeapon[] weaponSlots = new IWeapon[2];
     private int activeWeaponIndex = 0;
     private bool isPaused;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         Init();
         EventBus.Subscribe<OnPauseEvent>(OnPause);
-        UpdateSystem.OnUpdate += Tick;
+        UpdateSystem.CallUpdate += Tick;
     }
 
     private void Init()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         if (inventory != null)
         {
             EquipWeapon(inventory.weaponSlots);
@@ -26,7 +28,7 @@ public class ShootController : MonoBehaviour
     private void OnDestroy()
     {
         EventBus.UnSubscribe<OnPauseEvent>(OnPause);
-        UpdateSystem.OnUpdate -= Tick;
+        UpdateSystem.CallUpdate -= Tick;
     }
 
     private void Tick()
@@ -36,13 +38,9 @@ public class ShootController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
-            if (weaponSlots[activeWeaponIndex] is RangeWeapon rangeWeapon)
-            {
-                rangeWeapon.SetShootPoint(transform.position);
-            }
             weaponSlots[activeWeaponIndex]?.Execute();
         }
-
+        
         if (Input.GetKeyDown(KeyCode.Q))
         {
             SwitchWeapon();
@@ -63,7 +61,7 @@ public class ShootController : MonoBehaviour
             }
             else if (weaponConfigs[i] is RangeWeaponConfig rangeWeaponConfig)
             {
-                weaponSlots[i] = new RangeWeapon(rangeWeaponConfig, this);
+                weaponSlots[i] = new RangeWeapon(rangeWeaponConfig, this, transform);
             }
         }
 
@@ -73,7 +71,7 @@ public class ShootController : MonoBehaviour
     private void SwitchWeapon()
     {
         activeWeaponIndex = (activeWeaponIndex + 1) % weaponSlots.Length;
-        GetComponent<SpriteRenderer>().sprite = inventory.weaponSlots[activeWeaponIndex].weaponSprite;
+       spriteRenderer.sprite = inventory.weaponSlots[activeWeaponIndex].weaponSprite;
     }
 
     private void OnPause(OnPauseEvent e)

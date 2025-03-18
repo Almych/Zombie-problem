@@ -45,6 +45,7 @@ public abstract class Entity : MonoBehaviour, IEnemy
         dieState = new DieState(animator);
         deathAbility = GetComponent<IDeathAbility>();
         stateMachine = new StateMachine(runState, attackState, dieState);
+        UpdateSystem.OnUpdate += stateMachine.OnTick;
     }
 
     public virtual void Initiate()
@@ -61,15 +62,10 @@ public abstract class Entity : MonoBehaviour, IEnemy
     }
     
 
-    protected virtual void OnEnable()
-    {
-        if(stateMachine != null) 
-        UpdateSystem.OnUpdate += stateMachine.OnTick;
-    }
+  
 
-    protected virtual void OnDisable()
+    protected virtual void OnDestroy()
     {
-        if (stateMachine != null)
             UpdateSystem.OnUpdate -= stateMachine.OnTick;
     }
 

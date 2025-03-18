@@ -5,7 +5,6 @@ public class Archer : RangeEnemy
     [SerializeField] private float damage;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Sprite bulletSprite;
-    [SerializeField] private int attackCoolDownTick;
     [SerializeField] private Transform bulletTransform;
     private bool isDetected;
 
@@ -20,7 +19,7 @@ public class Archer : RangeEnemy
     }
     public override void Init()
     {
-        attackDealer = new RangeDealer(damage, attackCoolDownTick, bulletSprite, bulletSpeed, bulletTransform);
+        attackDealer = new RangeDealer(damage, bulletSprite, bulletSpeed, bulletTransform);
         base.Init();
     }
 

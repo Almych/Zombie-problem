@@ -5,15 +5,15 @@ public abstract class RangeEnemy: Entity
     [SerializeField] protected LayerMask barrierMask;
     protected RaycastHit2D hit;
     protected abstract void DetectEnemy();
-    protected override void OnEnable()
+    public override void Init()
     {
-        base.OnEnable();
+        base.Init();
         UpdateSystem.OnUpdate += DetectEnemy;
     }
 
-    protected override void OnDisable()
+    protected override void OnDestroy()
     {
-        base.OnDisable();
+        base.OnDestroy();
         UpdateSystem.OnUpdate -= DetectEnemy;
     }
 }

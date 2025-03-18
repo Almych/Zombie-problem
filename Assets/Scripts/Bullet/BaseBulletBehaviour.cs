@@ -5,17 +5,9 @@ public abstract class BaseBulletBehaviour : MonoBehaviour
 {
     protected Rigidbody2D rb;
     protected SpriteRenderer spriteRenderer;
-    protected float speed;
-    void Awake()
-    {
-        Init();
-    }
+    protected BulletConfig config;
 
-    public void Init()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+    
     public abstract void OnTriggerEnter2D(Collider2D collider);
     public virtual void Deactivate()
     {

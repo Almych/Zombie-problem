@@ -5,24 +5,22 @@ using UnityEngine;
 
 public class FadeObjectPool
 {
-    private MonoBehaviour objectToPool;
     private int amount;
-    private List<GameObject> pooledObjects = new List<GameObject> ();
+    private List<MonoBehaviour> pooledObjects = new List<MonoBehaviour>();
 
-    public FadeObjectPool(MonoBehaviour objectToPool, int amount)
+    public void Init<T>(T objectToPool, int amount, Action<T> callBack= null) where T : MonoBehaviour
     {
-        this.objectToPool = objectToPool;
-        this.amount = amount;
-        CreatePoolObjects();
+        CreatePoolObjects(objectToPool, amount, callBack);
     }
 
-    private void CreatePoolObjects()
+    public void CreatePoolObjects<T>(T objectToPool, int amount, Action<T> callBack = null) where T : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            MonoBehaviour poolObject = UnityEngine.Object.Instantiate(objectToPool);
+            T poolObject = UnityEngine.Object.Instantiate(objectToPool);
+            callBack?.Invoke(poolObject);
             poolObject.gameObject.SetActive(false);
-            pooledObjects.Add(poolObject.gameObject);
+            pooledObjects.Add(poolObject);
         }
     }
 
@@ -30,9 +28,9 @@ public class FadeObjectPool
     {
         for (int i = 0; i < pooledObjects.Count; i++)
         {
-            if (!pooledObjects[i].activeInHierarchy)
+            if (!pooledObjects[i].gameObject.activeInHierarchy)
             {
-                return pooledObjects[i].GetComponent<MonoBehaviour>();
+                return pooledObjects[i];
             }
         }
         return null;

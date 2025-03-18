@@ -3,7 +3,12 @@ using UnityEngine;
 public class EnemyBulletBehaivior : BaseBulletBehaviour
 {
     private float damage;
-
+    private float speed;
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     public void Activate (float damage, Sprite sprite, float speed, Vector3 pos)
     {
         this.damage = damage;

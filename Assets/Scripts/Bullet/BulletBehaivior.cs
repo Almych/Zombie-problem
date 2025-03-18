@@ -1,26 +1,27 @@
+using System.Collections;
 using UnityEngine;
 
-public class BulletBehaivior : BaseBulletBehaviour
+public abstract class BulletBehaivior : BaseBulletBehaviour
 {
-    private Damage damage;
-    public void Activate(Damage damage, float speed, Sprite bulletSprite, Vector3 pos)
+     protected BulletConfig _bulletConfig;
+   
+
+    public void SetConfig(BulletConfig bulletConfig)
     {
-        this.damage = damage;
-        this.speed = speed;
-        spriteRenderer.sprite = bulletSprite;
-        transform.position = pos;
-        rb.velocity = transform.right * speed;
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        _bulletConfig = bulletConfig;
+        spriteRenderer.sprite = _bulletConfig.bulletSprite;
     }
-    public override void OnTriggerEnter2D(Collider2D collider)
+    public virtual void Activate()
     {
-        if(collider.GetComponent<Entity>() != null)
-        {
-            collider.GetComponent<Entity>().TakeDamage(damage);
-            Deactivate();
-        }
-        else if (collider.GetComponent<SpawnManager>() != null)
-        {
-            Deactivate();
-        }
+        rb.velocity = transform.right * _bulletConfig.speed;
+        StartCoroutine(BulletFlow());
+    }
+    
+    protected IEnumerator BulletFlow()
+    {
+        yield return new WaitForSeconds(_bulletConfig.bulletLifeTime);
+        Deactivate();
     }
 }

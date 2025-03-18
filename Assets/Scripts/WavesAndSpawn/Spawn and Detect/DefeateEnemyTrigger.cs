@@ -7,18 +7,18 @@ public class DefeatedEnemyTrigger : MonoBehaviour
 {
     private HashSet<Entity> activeEnemies = new HashSet<Entity>();
     private bool isPaused = false;
-    private const int maxCheckTicks = 100; 
+    private const int maxCheckTicks = 60; 
     private int currTicks = 0;
 
     private void Awake()
     {
-        UpdateSystem.OnUpdate += Tick;
+        UpdateSystem.OnLateUpdate += Tick;
         EventBus.Subscribe<OnPauseEvent>(OnPause, 1);
     }
 
     private void OnDestroy()
     {
-        UpdateSystem.OnUpdate -= Tick;
+        UpdateSystem.OnLateUpdate -= Tick;
         EventBus.UnSubscribe<OnPauseEvent>(OnPause);
     }
 
@@ -46,18 +46,10 @@ public class DefeatedEnemyTrigger : MonoBehaviour
 
         if (activeEnemies.Count == 0)
         {
-            currTicks++;
-
-            if (currTicks >= maxCheckTicks)
-            {
+           
                 EventBus.Publish(new NoEnemiesEvent());
-                currTicks = 0; 
-            }
         }
-        else
-        {
-            currTicks = 0; 
-        }
+        
     }
 
     private void OnPause(OnPauseEvent e)

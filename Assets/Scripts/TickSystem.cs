@@ -4,12 +4,17 @@ using UnityEngine;
 public static class UpdateSystem 
 {
     public static event Action OnUpdate;
+    public static event Action OnLateUpdate;
+    public static event Action CallUpdate;
     private static GameObject tickSystem;
-
+    private const float updateTick = .1f;
+    private const float lateTick = 0.75f;
    
     private class UpdateSystemObject : MonoBehaviour
     {
         private bool isPaused;
+        private float tickUpdateTimer;
+        private float tickLateUpdate;
 
         private void Awake()
         {
@@ -19,7 +24,23 @@ public static class UpdateSystem
         {
             if (isPaused)
                 return;
-            OnUpdate?.Invoke();
+
+            tickUpdateTimer += Time.deltaTime;
+            tickLateUpdate += Time.deltaTime;
+
+
+            if (tickUpdateTimer >= updateTick)
+            {
+                tickUpdateTimer = 0;
+                OnUpdate?.Invoke();
+            }
+
+            if (tickLateUpdate >= lateTick)
+            {
+                tickLateUpdate = 0;
+                OnLateUpdate?.Invoke();
+            }
+            CallUpdate?.Invoke();
         }
 
         private void OnDestroy()

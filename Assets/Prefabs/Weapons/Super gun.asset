@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04448575a0ba7c47bda88ae2f5a9714, type: 3}
   m_Name: Super gun
   m_EditorClassIdentifier: 
-  _damage: {fileID: 11400000, guid: 4cbc31c02d1fa664bbd23327b7a76972, type: 2}
   _weaponSprite: {fileID: 1909681139, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
+  bulletType: {fileID: -5914200155744470610, guid: e210959ab549ce8418461bfb4df576d3, type: 3}
+  _bulletConfig: {fileID: 11400000, guid: 10ee5bab1df1b764984e6e86ba1d3955, type: 2}
   reloadTime: 2
-  bulletSpeed: 17
   maxBullets: 5
-  bulletSprite: {fileID: 265417266, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}

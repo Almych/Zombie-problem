@@ -19,15 +19,12 @@ public class MeleeDealer : IAttackDealer
 
 public class RangeDealer : IAttackDealer
 {
-    private int attackCoolDown;
     private float attackDamage;
-    private int currTicks = 0;
     private float _bulletSpeed;
     private Sprite _bulletSprite;
     private Transform _bulletTransform;
-    public RangeDealer(float damage, int coolDownTicks, Sprite bulletSprite, float bulletSpeed, Transform shootPoint)
+    public RangeDealer(float damage, Sprite bulletSprite, float bulletSpeed, Transform shootPoint)
     {
-        attackCoolDown = coolDownTicks;
         attackDamage = damage;
         _bulletSpeed = bulletSpeed;
         _bulletSprite = bulletSprite;

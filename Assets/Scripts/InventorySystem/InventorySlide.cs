@@ -45,12 +45,12 @@ public class InventoryMenu : MonoBehaviour
     void Awake()
     {
         Init();
-        UpdateSystem.OnUpdate += Tick;
+        UpdateSystem.CallUpdate += Tick;
     }
 
     void OnDestroy()
     {
-        UpdateSystem.OnUpdate -= Tick;
+        UpdateSystem.CallUpdate -= Tick;
     }
 
 

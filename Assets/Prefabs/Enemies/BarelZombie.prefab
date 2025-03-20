@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: 1417957951634339923}
   - component: {fileID: 6528014412750129637}
   - component: {fileID: 6940997052884882684}
-  - component: {fileID: -348945556084436688}
   - component: {fileID: 6275579066160720392}
   m_Layer: 3
   m_Name: BarelZombie
@@ -143,7 +142,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5f68de9b53f3a574e8a92dcfcdfdde1a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -280,22 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e0c2f72d79f3747982292030ea0975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
-  defense: {fileID: 11400000, guid: 0b207fb388bcbfd4c8981cc26d833223, type: 2}
-  damage: 4
---- !u!114 &-348945556084436688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3734577242928784047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec6b39297b3c62a48a991aec40a32013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 1
+  meleeEnemyConfig: {fileID: 11400000, guid: 2f43ecc5ebe80c948b722e935af8a575, type: 2}
 --- !u!114 &6275579066160720392
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public abstract class ContinuesDamageDecorator : Damage, IDamageEffect
     [SerializeField] protected float _duration;
     [SerializeField] protected float _intervals = 1f;
 
-    public IEnumerator ApplyEffect(Entity enemy)
+    public IEnumerator ApplyEffect(Enemy enemy)
     {
         float elapsed = 0f;
         while (elapsed < _duration)
@@ -21,7 +21,7 @@ public abstract class ContinuesDamageDecorator : Damage, IDamageEffect
 
     }
 
-    public override void MakeDamage(Entity enemy)
+    public override void MakeDamage(Enemy enemy)
     {
         if (strategy == null)
             return;

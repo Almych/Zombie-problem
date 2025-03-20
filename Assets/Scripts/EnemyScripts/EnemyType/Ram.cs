@@ -1,20 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 public class Ram : MeleeEnemy
 {
-    public override void Attack()
+    protected override IAttackDealer SetAttack()
     {
-        attackDealer?.Attack(healthBar);
+       return attackDealer = new SelfDestruction(animator);
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    protected override IMovable SetMove()
     {
-        healthBar = collision.collider.GetComponent<HealthBar>();
-        if (healthBar != null)
-        {
-            stateMachine.SwitchState(dieState);
-        }
+        return movable = new MoveTowards(rb, transform, 1f);
     }
+
+   
 }

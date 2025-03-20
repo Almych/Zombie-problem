@@ -5,7 +5,7 @@ public class RangeWeaponConfig : WeaponConfig
 {
     [SerializeField] private Sprite _weaponSprite;
     public BulletBehaivior bulletType;
-    public BulletConfig _bulletConfig;
+    public PlayerBulletConfig _bulletConfig;
     public float reloadTime;
     public int maxBullets;
 

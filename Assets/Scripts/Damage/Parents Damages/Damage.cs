@@ -14,7 +14,7 @@ public abstract class Damage : ScriptableObject, IDamageStrategy
         return _damage;
     }
 
-    public abstract void MakeDamage(Entity enemy);
+    public abstract void MakeDamage(Enemy enemy);
 }
 
 

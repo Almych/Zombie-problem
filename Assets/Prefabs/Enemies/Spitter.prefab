@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2582147606147351854}
   - component: {fileID: 1909674978912417388}
   - component: {fileID: 5544904821989541160}
-  - component: {fileID: 8141020724301064589}
   - component: {fileID: -835965903636506842}
   m_Layer: 3
   m_Name: Spitter
@@ -60,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5f68de9b53f3a574e8a92dcfcdfdde1a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -197,30 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7988b9e5db3b014b9b163a0283c3505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 6
-  defense: {fileID: 11400000, guid: 0b207fb388bcbfd4c8981cc26d833223, type: 2}
-  range: 5
-  barrierMask:
-    serializedVersion: 2
-    m_Bits: 64
-  damage: 3
-  bulletSpeed: 6
-  bulletSprite: {fileID: 839465763, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
-  attackCoolDownTick: 12
-  bulletTransform: {fileID: 1008542989011273872}
---- !u!114 &8141020724301064589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1848886357508688255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec6b39297b3c62a48a991aec40a32013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 1
+  rangeEnemyConfig: {fileID: 11400000, guid: bd63196a351cdbf47b5fc37088fc1c03, type: 2}
+  shootPoint: {fileID: 1008542989011273872}
 --- !u!114 &-835965903636506842
 MonoBehaviour:
   m_ObjectHideFlags: 0

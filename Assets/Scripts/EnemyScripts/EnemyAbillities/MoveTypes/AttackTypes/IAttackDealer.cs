@@ -1,5 +1,5 @@
 
 public interface IAttackDealer
 {
-    void Attack(HealthBar healthBar);
+    void ExecuteAttack(HealthBar healthBar = null);
 }

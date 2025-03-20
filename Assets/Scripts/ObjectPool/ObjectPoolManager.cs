@@ -25,7 +25,7 @@ public static class ObjectPoolManager
     {
         if (existingPools.ContainsKey(typeOfObject.GetType()))
         {
-            return existingPools[typeOfObject.GetType()].GetPooledObject().GetComponent<T>();
+            return existingPools[typeOfObject.GetType()]?.GetPooledObject()?.GetComponent<T>();
         }
         
         return null;
@@ -35,7 +35,7 @@ public static class ObjectPoolManager
     {
         if (existingPools.ContainsKey(typeof(T)))
         {
-            existingPools[typeof(T)].GetPooledObject().GetComponent<T>();
+           return  existingPools[typeof(T)].GetPooledObject().GetComponent<T>();
         }
         return null;
     }

@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5332349921423735596}
   - component: {fileID: 2045256084944102405}
   - component: {fileID: 5785118998449468066}
-  - component: {fileID: 9138445768741699896}
   m_Layer: 3
   m_Name: Average Zombie
   m_TagString: Untagged
@@ -58,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5f68de9b53f3a574e8a92dcfcdfdde1a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -195,22 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e92768f9e040049ae721b34d8cc1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 8
-  defense: {fileID: 11400000, guid: 0b207fb388bcbfd4c8981cc26d833223, type: 2}
-  damage: 4
---- !u!114 &9138445768741699896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7962912858114560771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec6b39297b3c62a48a991aec40a32013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 3
+  meleeEnemyConfig: {fileID: 11400000, guid: 5c80d79fbc757f346b13c4e4875d60d9, type: 2}
 --- !u!1 &8368564793082021321
 GameObject:
   m_ObjectHideFlags: 0

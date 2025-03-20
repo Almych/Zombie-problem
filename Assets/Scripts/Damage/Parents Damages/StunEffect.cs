@@ -5,7 +5,7 @@ public class StunEffect : EffectDamageDecorator
 {
     public override DamageType damageType => DamageType.Stun;
 
-    public override IEnumerator ApplyEffect(Entity enemy)
+    public override IEnumerator ApplyEffect(Enemy enemy)
     {
         strategy?.MakeDamage(enemy);
         //can move

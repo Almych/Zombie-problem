@@ -2,36 +2,16 @@ using UnityEngine;
 
 public class Archer : RangeEnemy
 {
-    [SerializeField] private float damage;
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private Sprite bulletSprite;
-    [SerializeField] private Transform bulletTransform;
-    private bool isDetected;
-
-    public override void Attack()
+   
+    protected override IAttackDealer SetAttack()
     {
-        attackDealer?.Attack(default);
-    }
-    public override void Initiate()
-    {
-        isDetected = false;
-        base.Initiate();
-    }
-    public override void Init()
-    {
-        attackDealer = new RangeDealer(damage, bulletSprite, bulletSpeed, bulletTransform);
-        base.Init();
+        return new RangeDamage(rangeEnemyConfig.bulletConfig, shootPoint);
     }
 
-    protected override void DetectEnemy()
+    protected override IMovable SetMove()
     {
-        if (isDetected)
-            return;
-        hit = Physics2D.Raycast(transform.position, Vector2.left, range, barrierMask);
-        if (hit.collider != null)
-        {
-            stateMachine.SwitchState(attackState);
-            isDetected = true;
-        }
+       return  new MoveTowards(rb, transform, 1f);
     }
+
+   
 }

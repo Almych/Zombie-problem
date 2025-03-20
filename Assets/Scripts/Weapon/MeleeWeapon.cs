@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeleeWeapon : IWeapon
 {
-    private Entity enemy;
+    private Enemy enemy;
     private MeleeWeaponConfig _meleeConfig;
     public MeleeWeapon(MeleeWeaponConfig weaponConfig)
     {
@@ -18,6 +18,6 @@ public class MeleeWeapon : IWeapon
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        enemy = collision.collider?.GetComponent<Entity>();
+        enemy = collision.collider?.GetComponent<Enemy>();
     }
 }

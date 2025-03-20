@@ -7,7 +7,7 @@ public class CritEffect : Damage
 
     public override DamageType damageType => DamageType.Crit;
 
-    public override void MakeDamage(Entity enemy)
+    public override void MakeDamage(Enemy enemy)
     {
         if (Random.value <= _critChance) 
         {

@@ -1,23 +1,15 @@
-using UnityEngine;
+
 
 public class Knight : MeleeEnemy
 {
-    public override void Attack()
+    protected override IAttackDealer SetAttack()
     {
-       attackDealer?.Attack(healthBar);
-    }
-    public override void Init()
-    {
-        attackDealer = new MeleeDealer(damage);
-        base.Init();
+        return attackDealer = new MeleeAttack(meleeEnemyConfig.damage);
     }
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    protected override IMovable SetMove()
     {
-        healthBar = collision.collider.GetComponent<HealthBar>();
-        if (healthBar != null )
-        {
-            stateMachine.SwitchState(attackState);
-        }
+        return movable = new MoveTowards(rb, transform, 2f);
     }
+
 }

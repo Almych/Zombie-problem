@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
 
 public class StateMachine 
 {
-    public State currentState {  get; private set; }
+    private State currentState;
     private RunState runState;
     private AttackState attackState;
     private DieState dieState;
@@ -23,7 +19,7 @@ public class StateMachine
         currentState = newState;
         currentState?.Enter();
     }
-    
+
     public void OnTick()
     {
         currentState?.Tick();

@@ -9,9 +9,9 @@ public abstract class EffectDamageDecorator : Damage, IDamageEffect
 
     
 
-    public abstract IEnumerator ApplyEffect(Entity enemy);
+    public abstract IEnumerator ApplyEffect(Enemy enemy);
 
-    public override void MakeDamage(Entity enemy)
+    public override void MakeDamage(Enemy enemy)
     {
         if (strategy == null)
             return;

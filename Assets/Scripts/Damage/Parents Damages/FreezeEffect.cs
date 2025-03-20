@@ -9,7 +9,7 @@ public class FreezeEffect : EffectDamageDecorator
 
     public override DamageType damageType => DamageType.Freeze;
 
-    public override IEnumerator ApplyEffect(Entity enemy)
+    public override IEnumerator ApplyEffect(Enemy enemy)
     {
         strategy?.MakeDamage(enemy);
         // make enemy move slower

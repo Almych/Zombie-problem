@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBarUI : MonoBehaviour
 {
-    private Slider healthBar => GetComponent<Slider>();
+    private Image healthBar => GetComponent<Image>();
 
     private void OnEnable()
     {
@@ -19,6 +17,6 @@ public class HealthBarUI : MonoBehaviour
 
     private void HealthBarUpdate(HealthChangeEvent e)
     {
-        healthBar.value = e.value;
+        healthBar.fillAmount = e.value;
     }
 }

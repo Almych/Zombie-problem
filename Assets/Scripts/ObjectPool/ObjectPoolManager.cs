@@ -4,38 +4,49 @@ using UnityEngine;
 
 public static class ObjectPoolManager
 {
-    private static Dictionary<Type, FadeObjectPool> existingPools = new Dictionary<Type, FadeObjectPool>();
-
-
-    public static void CreateObjectPool<T>(T objectToPool, int amount, Action<T> afterSpawn = null) where T : MonoBehaviour
+    private static Dictionary<Component, FadeObjectPool> existingPools = new Dictionary<Component, FadeObjectPool>();
+    private static Dictionary<Type, FadeObjectPool>  poolsByTypes = new Dictionary<Type, FadeObjectPool>();
+    private static Dictionary<string, FadeObjectPool> poolsByName = new Dictionary<string, FadeObjectPool>();
+    public static void CreateObjectPool<T>(T objectToPool, int amount, Action<T> afterSpawn = null) where T : Component
     {
 
-        if (existingPools.ContainsKey(objectToPool.GetType()))
+        if (existingPools.ContainsKey(objectToPool))
         {
             return;
         }
 
         FadeObjectPool fadeObjectPool = new FadeObjectPool();
         fadeObjectPool.Init(objectToPool, amount, afterSpawn);
-        existingPools[objectToPool.GetType()] = fadeObjectPool;
+        existingPools[objectToPool] = fadeObjectPool;
+        poolsByTypes[objectToPool.GetType()] = fadeObjectPool;
+        poolsByName[objectToPool.name] = fadeObjectPool;
     }
 
 
-    public static T GetObjectFromPool<T>(T typeOfObject) where T : MonoBehaviour
+    public static T GetObjectFromPool<T>(T typeOfObject) where T : Component
     {
-        if (existingPools.ContainsKey(typeOfObject.GetType()))
+        if (existingPools.ContainsKey(typeOfObject))
         {
-            return existingPools[typeOfObject.GetType()]?.GetPooledObject()?.GetComponent<T>();
+            return existingPools[typeOfObject]?.GetPooledObject()?.GetComponent<T>();
         }
         
         return null;
     }
 
-    public static T FindObject<T>() where T : MonoBehaviour
+    public static T FindObject<T>() where T : Component
     {
-        if (existingPools.ContainsKey(typeof(T)))
+        if (poolsByTypes.ContainsKey(typeof(T)))
         {
-           return  existingPools[typeof(T)].GetPooledObject().GetComponent<T>();
+           return  poolsByTypes[typeof(T)]?.GetPooledObject()?.GetComponent<T>();
+        }
+        return null;
+    }
+
+    public static T FindObjectByName<T>(string objectName) where T: Component
+    {
+        if (poolsByName.ContainsKey(objectName))
+        {
+            return poolsByName[objectName]?.GetPooledObject()?.GetComponent<T>();
         }
         return null;
     }

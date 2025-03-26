@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PoolObjects : MonoBehaviour
 {
-    public List<MonoBehaviour> objectsToPool = new List<MonoBehaviour>();
+    public List<Component> objectsToPool = new List<Component>();
     public int poolSize;
 
     void Awake()

@@ -23,9 +23,12 @@ public class RangeWeapon : IWeapon
         if (isReloading)
             return;
         BulletBehaivior bullet = ObjectPoolManager.GetObjectFromPool(_rangeWeaponConfig.bulletType);
-        if (bullet != null)
+        ParticleSystem shootParticle = ObjectPoolManager.FindObjectByName<ParticleSystem>("ShootParticle");
+        if (bullet != null && shootParticle != null)
         {
             bullet.gameObject.SetActive(true);
+            shootParticle.gameObject.SetActive(true);
+            shootParticle.transform.position = _shootPoint.position;
             bullet.transform.position = _shootPoint.position;
             bullet.Activate();
             currAmount--;

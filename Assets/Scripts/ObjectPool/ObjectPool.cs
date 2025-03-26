@@ -6,14 +6,14 @@ using UnityEngine;
 public class FadeObjectPool
 {
     private int amount;
-    private List<MonoBehaviour> pooledObjects = new List<MonoBehaviour>();
+    private List<Component> pooledObjects = new List<Component>();
 
-    public void Init<T>(T objectToPool, int amount, Action<T> callBack= null) where T : MonoBehaviour
+    public void Init<T>(T objectToPool, int amount, Action<T> callBack= null) where T : Component
     {
         CreatePoolObjects(objectToPool, amount, callBack);
     }
 
-    public void CreatePoolObjects<T>(T objectToPool, int amount, Action<T> callBack = null) where T : MonoBehaviour
+    public void CreatePoolObjects<T>(T objectToPool, int amount, Action<T> callBack = null) where T : Component
     {
         for (int i = 0; i < amount; i++)
         {
@@ -24,7 +24,7 @@ public class FadeObjectPool
         }
     }
 
-    public MonoBehaviour GetPooledObject()
+    public Component GetPooledObject()
     {
         for (int i = 0; i < pooledObjects.Count; i++)
         {

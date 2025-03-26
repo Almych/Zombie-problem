@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Enemy : Entity, IEnemy
 {
-   
+
     protected float currHealth;
     protected IAttackDealer attackDealer;
     protected IDeathAbility deathAbility;
@@ -42,6 +42,12 @@ public abstract class Enemy : Entity, IEnemy
     public virtual void TakeDamage(Damage damage)
     {
         currHealth -= enemyConfig.uniqDefense.Defense(damage);
+        ParticleSystem blood = ObjectPoolManager.FindObjectByName<ParticleSystem>("EnemyHitParticle");
+        if (blood != null)
+        {
+            blood.gameObject.SetActive(true);
+            blood.transform.position = transform.position;
+        }
         if (currHealth <= 0)
         {
             stateMachine?.SwitchState(dieState);

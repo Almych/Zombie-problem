@@ -12,13 +12,22 @@ public class SpawnManager : MonoBehaviour
     private int currentWaveIndex;
     private bool isSpawning;
     private bool preWaveSpawned;
+    private bool isPaused;
 
     private const float MaxWaveBar = 100f;
-    private float currentWaveBarProgress;
     private const float WaveValueChange = -5f;
-    private bool isPaused = false;
 
-    private float WavePercentage => MaxWaveBar / waveConfig.TotalWaves;
+    private float waveBarProgress;
+    private float waveProcent;
+    private float CurrentWaveProgress
+    {
+        get => waveBarProgress;
+        set
+        {
+            waveBarProgress = Mathf.Clamp(value, 0f, MaxWaveBar);
+            EventBus.Publish(new WaveProgressChangeEvent(waveBarProgress / MaxWaveBar));
+        }
+    }
 
     private void Awake()
     {
@@ -36,27 +45,28 @@ public class SpawnManager : MonoBehaviour
         waveConfig = config;
         enemySpawner = new EnemySpawner();
         handlePosition = new RandomPositionHandler();
+        waveProcent = MaxWaveBar / config.TotalWaves;
         enemySpawner.InitiateWave(transform, handlePosition);
-        currentWaveBarProgress = MaxWaveBar;
-        waveUi.InitWaves(config.TotalWaves);
+        waveUi.InitWaves(config.TotalWaves, waveProcent / MaxWaveBar);
+        CurrentWaveProgress = MaxWaveBar;
         config.GetAllEnemyTypesInitiate();
     }
-    private IEnumerator SpawnWaves()
+    private IEnumerator SpawnWaves()    
     {
         while (currentWaveIndex < waveConfig.TotalWaves)
         {
             if (isPaused)
                 yield return null;
-            float waveThreshold = MaxWaveBar - (WavePercentage * (currentWaveIndex + 1));
-            float preWaveThreshold = waveThreshold + (WavePercentage / 2);
+            float waveThreshold = MaxWaveBar - (waveProcent * (currentWaveIndex + 1));
+            float preWaveThreshold = waveThreshold + (waveProcent / 2);
 
-            if (!preWaveSpawned && currentWaveBarProgress > waveThreshold && currentWaveBarProgress <= preWaveThreshold)
+            if (!preWaveSpawned && CurrentWaveProgress > waveThreshold && CurrentWaveProgress <= preWaveThreshold)
             {
                 preWaveSpawned = true;
                 yield return SpawnWave(waveConfig.GetPreWave(currentWaveIndex));
             }
 
-            if (!isSpawning && currentWaveBarProgress <= waveThreshold)
+            if (!isSpawning && CurrentWaveProgress <= waveThreshold)
             {
                 preWaveSpawned = false;
                 EventBus.Publish(new OnWaveReached());
@@ -71,13 +81,18 @@ public class SpawnManager : MonoBehaviour
     {
         if (isSpawning) return;
 
-        currentWaveBarProgress += WaveValueChange;
-        EventBus.Publish(new WaveProgressChangeEvent(currentWaveBarProgress));
+        CurrentWaveProgress += WaveValueChange;
     }
     
     private IEnumerator SpawnWave(Wave wave)
     {
         isSpawning = true;
+        ParticleSystem waveParticle = ObjectPoolManager.FindObjectByName<ParticleSystem>("WaveParticle");
+        if (waveParticle != null)
+        {
+            waveParticle.gameObject.SetActive(true);
+            waveParticle.transform.position = transform.position;
+        }
         yield return enemySpawner.SpawnEnemies(wave);
         isSpawning = false;
     }

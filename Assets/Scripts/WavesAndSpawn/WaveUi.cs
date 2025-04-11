@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using UnityEngine.UI;
 
 public class WaveUi : MonoBehaviour
@@ -14,6 +15,7 @@ public class WaveUi : MonoBehaviour
 
     void Awake()
     {
+        waveBar = GetComponent<Image>();
         EventBus.Subscribe<WaveProgressChangeEvent>(ChangeWaveBarValue);
         EventBus.Subscribe<OnWaveReached>(OnWaveReached);
     }
@@ -26,7 +28,6 @@ public class WaveUi : MonoBehaviour
 
     public void InitWaves(int waveMaxAmount, float waveProcent)
     {               
-        waveBar = GetComponent<Image>();
         fillMaxPosition = waveBar.rectTransform.rect.width;
         waveStep = fillMaxPosition * waveProcent;
         Vector3 scale = new Vector2(waveBar.rectTransform.rect.height * 2, waveBar.rectTransform.rect.height * 2);
@@ -48,7 +49,7 @@ public class WaveUi : MonoBehaviour
     {
         if (waveBar != null)
         {
-            waveBar.fillAmount = Mathf.Clamp01(e.value); 
+            waveBar.DOFillAmount(Mathf.Clamp01(e.value), 0.5f);
         }
     }
 

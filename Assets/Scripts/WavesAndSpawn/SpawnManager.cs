@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private WaveUi waveUi;
+    private WaveUi waveUi;
     private IWaveConfig waveConfig;
     private IEnemySpawner enemySpawner;
     private IHandlePosition handlePosition;
@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     private bool isPaused;
 
     private const float MaxWaveBar = 100f;
-    private const float WaveValueChange = -5f;
+    private const float WaveValueChange = -3f;
 
     private float waveBarProgress;
     private float waveProcent;
@@ -42,6 +42,7 @@ public class SpawnManager : MonoBehaviour
     public void StartSpawning() => StartCoroutine(SpawnWaves());
     public void Init(IWaveConfig config)
     {
+        waveUi = GameObject.FindAnyObjectByType<WaveUi>();
         waveConfig = config;
         enemySpawner = new EnemySpawner();
         handlePosition = new RandomPositionHandler();
@@ -53,6 +54,7 @@ public class SpawnManager : MonoBehaviour
     }
     private IEnumerator SpawnWaves()    
     {
+        //calculate waves and call to spawn it
         while (currentWaveIndex < waveConfig.TotalWaves)
         {
             if (isPaused)
@@ -75,6 +77,9 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSeconds(1f);
         }
+
+        //waves end trigger
+        EventBus.Publish(new OnWavesEnd());
     }
 
     private void OnNoEnemiesDetected(NoEnemiesEvent e)

@@ -4,6 +4,7 @@ using UnityEngine;
 public class ShootController : MonoBehaviour
 {
     [SerializeField] private PlayInventory inventory;
+    [SerializeField] private Transform shootPoint;
     private IWeapon[] weaponSlots = new IWeapon[2];
     private int activeWeaponIndex = 0;
     private bool isPaused;
@@ -61,7 +62,7 @@ public class ShootController : MonoBehaviour
             }
             else if (weaponConfigs[i] is RangeWeaponConfig rangeWeaponConfig)
             {
-                weaponSlots[i] = new RangeWeapon(rangeWeaponConfig, this, transform);
+                weaponSlots[i] = new RangeWeapon(rangeWeaponConfig, this, shootPoint);
             }
         }
 

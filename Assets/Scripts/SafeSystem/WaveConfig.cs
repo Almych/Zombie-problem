@@ -8,7 +8,7 @@ public class WaveConfig : ScriptableObject, IWaveConfig
     public LevelWaves[] waves;
     public int amountOfPoolZombie;
     public int TotalWaves => waves.Length;
-    void OnEnable()
+    void Awake()
     {
         foreach (var wave in waves)
         {

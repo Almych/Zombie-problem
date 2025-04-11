@@ -9,16 +9,19 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     private bool isPaused = false;
     private const int maxCheckTicks = 60; 
     private int currTicks = 0;
+    private bool wavesEnded;
 
     private void Awake()
     {
         UpdateSystem.OnLateUpdate += Tick;
         EventBus.Subscribe<OnPauseEvent>(OnPause, 1);
+        EventBus.Subscribe<OnWavesEnd>(OnWavesEnd);
     }
 
     private void OnDestroy()
     {
         UpdateSystem.OnLateUpdate -= Tick;
+        EventBus.UnSubscribe<OnWavesEnd>(OnWavesEnd);
         EventBus.UnSubscribe<OnPauseEvent>(OnPause);
     }
 
@@ -46,8 +49,10 @@ public class DefeatedEnemyTrigger : MonoBehaviour
 
         if (activeEnemies.Count == 0)
         {
-           
-                EventBus.Publish(new NoEnemiesEvent());
+            if (!wavesEnded)
+            EventBus.Publish(new NoEnemiesEvent());
+            else 
+                EventBus.Publish(new OnWinEvent());
         }
         
     }
@@ -55,5 +60,10 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     private void OnPause(OnPauseEvent e)
     {
         isPaused = e.IsPaused;
+    }
+
+    private void OnWavesEnd(OnWavesEnd e)
+    {
+        wavesEnded = true;
     }
 }

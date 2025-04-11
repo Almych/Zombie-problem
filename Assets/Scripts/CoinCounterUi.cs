@@ -15,7 +15,7 @@ public class CoinCounterUI : MonoBehaviour
         EventBus.UnSubscribe<OnCollectEvent>(AddCoin);
     }
 
-    private void UpdateView()
+    private void UpdateCoinBar()
     {
         coinCounterText.text = coinsContainer.GetCoins().ToString();
     }
@@ -23,6 +23,6 @@ public class CoinCounterUI : MonoBehaviour
     private void AddCoin(OnCollectEvent e)
     {
         coinsContainer.AddCoin();
-        UpdateView();
+        UpdateCoinBar();
     }
 }

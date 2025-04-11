@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 961403d9db7bba14db14e11939d773c7, type: 3}
+  m_Name: Enemies
+  m_EditorClassIdentifier: 
+  waves:
+  - wave:
+      enemies:
+      - enemyType: {fileID: 6940997052884882684, guid: 315459d967b331d488302a8a8d1da795, type: 3}
+        amount: 1
+      - enemyType: {fileID: 5822533646026134410, guid: 495d9bf24be63a44088dced149473f3d, type: 3}
+        amount: 2
+      spawnInterwal: 0
+    preWave:
+      enemies:
+      - enemyType: {fileID: 5785118998449468066, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
+        amount: 2
+      spawnInterwal: 0
+  amountOfPoolZombie: 6

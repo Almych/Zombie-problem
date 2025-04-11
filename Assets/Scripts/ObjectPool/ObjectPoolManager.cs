@@ -50,4 +50,11 @@ public static class ObjectPoolManager
         }
         return null;
     }
+
+    public static void ClearObjectsFromPool()
+    {
+        poolsByName.Clear();
+        poolsByTypes.Clear();
+        existingPools.Clear();
+    }
 }

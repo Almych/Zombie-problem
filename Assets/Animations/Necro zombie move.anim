@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Doggy zombie attack
+  m_Name: Necro zombie move
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,15 +21,17 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 1007910067, guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9, type: 3}
+      value: {fileID: -816479792, guid: 038be73aeb555184b9bd362953a85069, type: 3}
     - time: 0.083333336
-      value: {fileID: 248957652, guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9, type: 3}
+      value: {fileID: 28752023, guid: 038be73aeb555184b9bd362953a85069, type: 3}
     - time: 0.16666667
-      value: {fileID: -1206656683, guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9, type: 3}
+      value: {fileID: 184829271, guid: 038be73aeb555184b9bd362953a85069, type: 3}
     - time: 0.25
-      value: {fileID: -2068505141, guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9, type: 3}
+      value: {fileID: 594725450, guid: 038be73aeb555184b9bd362953a85069, type: 3}
     - time: 0.33333334
-      value: {fileID: 1007910067, guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9, type: 3}
+      value: {fileID: -1064029400, guid: 038be73aeb555184b9bd362953a85069, type: 3}
+    - time: 0.41666666
+      value: {fileID: 1906017290, guid: 038be73aeb555184b9bd362953a85069, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -52,17 +54,18 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 1007910067, guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9, type: 3}
-    - {fileID: 248957652, guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9, type: 3}
-    - {fileID: -1206656683, guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9, type: 3}
-    - {fileID: -2068505141, guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9, type: 3}
-    - {fileID: 1007910067, guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9, type: 3}
+    - {fileID: -816479792, guid: 038be73aeb555184b9bd362953a85069, type: 3}
+    - {fileID: 28752023, guid: 038be73aeb555184b9bd362953a85069, type: 3}
+    - {fileID: 184829271, guid: 038be73aeb555184b9bd362953a85069, type: 3}
+    - {fileID: 594725450, guid: 038be73aeb555184b9bd362953a85069, type: 3}
+    - {fileID: -1064029400, guid: 038be73aeb555184b9bd362953a85069, type: 3}
+    - {fileID: 1906017290, guid: 038be73aeb555184b9bd362953a85069, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35000002
+    m_StopTime: 0.43333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -81,11 +84,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.25
-    functionName: TriggerAction
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

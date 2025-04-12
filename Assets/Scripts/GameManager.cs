@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     public void Exit()
     {
         EventBus.Publish(new OnPauseEvent(false));
+        ObjectPoolManager.ClearObjectsFromPool();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
     }
 

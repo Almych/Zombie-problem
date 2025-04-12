@@ -24,5 +24,7 @@ MonoBehaviour:
       enemies:
       - enemyType: {fileID: 5785118998449468066, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
         amount: 2
+      - enemyType: {fileID: 3167446478729930794, guid: 87c45003e07c3e443b0a0a9e22a23f16, type: 3}
+        amount: 2
       spawnInterwal: 0
   amountOfPoolZombie: 6

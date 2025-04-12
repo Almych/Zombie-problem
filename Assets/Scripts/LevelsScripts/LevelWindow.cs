@@ -8,6 +8,8 @@ public class LevelWindow : MonoBehaviour
     [SerializeField] private Sprite daySprite, nightSprite, eveningSprite;
     [SerializeField] private TMP_Text titleText, descriptionText;
     [SerializeField] private Image levelDayImage;
+    
+    // set data to show in window
     public void SetLevelData(LevelConfig config)
     {
         titleText.text = config.Title;

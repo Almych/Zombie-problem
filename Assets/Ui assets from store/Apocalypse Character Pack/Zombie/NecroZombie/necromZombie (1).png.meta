@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9
+guid: 038be73aeb555184b9bd362953a85069
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,85 +136,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sobakaZombie_0
+      name: necromZombie (1)_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 15
-        width: 59
-        height: 31
-      alignment: 9
-      pivot: {x: 0.44573715, y: 0.5303747}
+        x: 24
+        y: 10
+        width: 28
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11a5fa7d2e583d34aa51882a6f901b7d
-      internalID: 1007910067
+      spriteID: 9892b6e9200db544e9c992d514c267e2
+      internalID: -816479792
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sobakaZombie_1
+      name: necromZombie (1)_1
       rect:
         serializedVersion: 2
-        x: 88
-        y: 11
-        width: 66
-        height: 35
-      alignment: 9
-      pivot: {x: 0.52553546, y: 0.50607485}
+        x: 104
+        y: 10
+        width: 29
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3bc1baa1c8f2f464a9b0f5c15d506a53
-      internalID: 248957652
+      spriteID: 9e6b8b8c2b0bc9a49a483031dfb40053
+      internalID: 28752023
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sobakaZombie_2
+      name: necromZombie (1)_2
       rect:
         serializedVersion: 2
-        x: 168
-        y: 15
-        width: 69
-        height: 31
-      alignment: 9
-      pivot: {x: 0.610603, y: 0.5364497}
+        x: 184
+        y: 10
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14badc96362aeac47a6d053686a39791
-      internalID: -1206656683
+      spriteID: 0ae8f13802645c14495674843dbe354b
+      internalID: 184829271
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sobakaZombie_3
+      name: necromZombie (1)_3
       rect:
         serializedVersion: 2
-        x: 251
-        y: 15
-        width: 60
-        height: 31
-      alignment: 9
-      pivot: {x: 0.732699, y: 0.5546742}
+        x: 264
+        y: 10
+        width: 29
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef24d607302be424e8dda35f8a5df5db
-      internalID: -2068505141
+      spriteID: 017318a32e6da454db68bae5107ab37f
+      internalID: 594725450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: necromZombie (1)_4
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 10
+        width: 29
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8bc24dd0e3bf214fa32c909fa41e6a3
+      internalID: -1064029400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: necromZombie (1)_5
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 10
+        width: 28
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5d552992a493aa4d88dd75b57bd11a9
+      internalID: 1906017290
       vertices: []
       indices: 
       edges: []
@@ -230,10 +272,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sobakaZombie_0: 1007910067
-      sobakaZombie_1: 248957652
-      sobakaZombie_2: -1206656683
-      sobakaZombie_3: -2068505141
+      necromZombie (1)_0: -816479792
+      necromZombie (1)_1: 28752023
+      necromZombie (1)_2: 184829271
+      necromZombie (1)_3: 594725450
+      necromZombie (1)_4: -1064029400
+      necromZombie (1)_5: 1906017290
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

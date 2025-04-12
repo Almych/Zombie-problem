@@ -18,6 +18,7 @@ public class LevelConfig : ScriptableObject
     public void SetId(int id)
     {
         levelId = id;
+        Debug.Log(levelId);
         idAssigned = true;
     }
     public void CompleteLevel()
@@ -27,8 +28,11 @@ public class LevelConfig : ScriptableObject
 
     public void TryOpenLevel(int level)
     {
-        if(level == levelId)
-        levelOpen = true;
+        if(level >= levelId)
+        {
+            levelOpen = true;
+        }
+        
     }
 }
 

@@ -5,8 +5,9 @@ using UnityEngine;
 public static class LevelRegister 
 {
     private static LevelConfig _currentLevelConfig;
-    private static int currentLevel ;
+    private static int currentLevel = 1;
 
+    //set level config
     public static void SetLevelConfig(LevelConfig levelConfig)
     {
         if (_currentLevelConfig != null)
@@ -23,7 +24,13 @@ public static class LevelRegister
 
     public static void UnlockNextLevel()
     {
-        currentLevel++;
+        currentLevel +=1;
+    }
+
+    public static int GetCurrentLEvel()
+    {
+        Debug.Log($"current level unclocked {currentLevel}");
         EventBus.Publish(new OnLevelUnlock(currentLevel));
+        return currentLevel;
     }
 }

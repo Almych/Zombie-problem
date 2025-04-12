@@ -21,12 +21,12 @@ public class LevelInfo : MonoBehaviour
 
     private void ShowLevelWindow()
     {
-        if(levelConfig.levelOpen)
         EventBus.Publish(new OnLevelClickEvent(levelConfig));
     }
 
     private void OnUnlock(OnLevelUnlock e)
     {
+       
         levelConfig.TryOpenLevel(e.level);
     }
 }

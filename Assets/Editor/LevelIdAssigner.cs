@@ -1,20 +1,24 @@
 using UnityEngine;
 using UnityEditor;
 
-public class LevelIdAssigner 
+[InitializeOnLoad]
+public static class AutoLevelIdAssigner
 {
-    [MenuItem("Tools/Assign Level IDs")]
+    private static int currentId = 1;
+    static AutoLevelIdAssigner()
+    {
+        // Automatically called when Unity loads the editor or recompiles scripts
+        AssignIDs();
+    }
 
     public static void AssignIDs()
     {
         string[] guids = AssetDatabase.FindAssets("Level t:LevelConfig");
-        int currentId = 1;
-
         foreach (string guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
             LevelConfig config = AssetDatabase.LoadAssetAtPath<LevelConfig>(path);
-            if (config != null && !config.idAssigned)
+            if (config != null)
             {
                 config.SetId(currentId);
                 EditorUtility.SetDirty(config);

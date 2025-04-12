@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8fea7e5a3d4af6d4c85c6a856bfbd4a9
+guid: 36499a9c054a3cb4a91679fa3388919a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,85 +136,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sobakaZombie_0
+      name: sobakaZombie (2)_0
       rect:
         serializedVersion: 2
         x: 13
-        y: 15
+        y: 8
         width: 59
-        height: 31
-      alignment: 9
-      pivot: {x: 0.44573715, y: 0.5303747}
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11a5fa7d2e583d34aa51882a6f901b7d
-      internalID: 1007910067
+      spriteID: f4067581b8175644eac1925ad827d289
+      internalID: -689218429
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sobakaZombie_1
+      name: sobakaZombie (2)_1
       rect:
         serializedVersion: 2
-        x: 88
-        y: 11
-        width: 66
-        height: 35
-      alignment: 9
-      pivot: {x: 0.52553546, y: 0.50607485}
+        x: 75
+        y: 16
+        width: 77
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3bc1baa1c8f2f464a9b0f5c15d506a53
-      internalID: 248957652
+      spriteID: 3b2b9c5e5f13fb248bd737f01505c8d6
+      internalID: -148707829
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sobakaZombie_2
+      name: sobakaZombie (2)_2
       rect:
         serializedVersion: 2
-        x: 168
-        y: 15
-        width: 69
-        height: 31
-      alignment: 9
-      pivot: {x: 0.610603, y: 0.5364497}
+        x: 171
+        y: 8
+        width: 61
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14badc96362aeac47a6d053686a39791
-      internalID: -1206656683
+      spriteID: 57f6440b8079072448531c3f681ac9ed
+      internalID: 1397744555
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sobakaZombie_3
+      name: sobakaZombie (2)_3
       rect:
         serializedVersion: 2
-        x: 251
-        y: 15
-        width: 60
-        height: 31
+        x: 252
+        y: 17
+        width: 68
+        height: 28
       alignment: 9
-      pivot: {x: 0.732699, y: 0.5546742}
+      pivot: {x: 0.43630174, y: 0.6210646}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef24d607302be424e8dda35f8a5df5db
-      internalID: -2068505141
+      spriteID: 7c25e56be98aac64a8f2cc0932c5021e
+      internalID: -1376171412
       vertices: []
       indices: 
       edges: []
@@ -230,10 +230,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sobakaZombie_0: 1007910067
-      sobakaZombie_1: 248957652
-      sobakaZombie_2: -1206656683
-      sobakaZombie_3: -2068505141
+      sobakaZombie (2)_0: -689218429
+      sobakaZombie (2)_1: -148707829
+      sobakaZombie (2)_2: 1397744555
+      sobakaZombie (2)_3: -1376171412
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

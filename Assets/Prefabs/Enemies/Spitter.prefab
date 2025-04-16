@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2582147606147351854}
   - component: {fileID: 1909674978912417388}
   - component: {fileID: 5544904821989541160}
+  - component: {fileID: 4598815014383460507}
   m_Layer: 3
   m_Name: Spitter
   m_TagString: Untagged
@@ -197,6 +198,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeEnemyConfig: {fileID: 11400000, guid: bd63196a351cdbf47b5fc37088fc1c03, type: 2}
   shootPoint: {fileID: 1008542989011273872}
+--- !u!114 &4598815014383460507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848886357508688255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26284ee1aa7367346aa9396f9955e8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectRadius: 5
+  speedBuff: 3
 --- !u!1 &3004053707464048136
 GameObject:
   m_ObjectHideFlags: 0

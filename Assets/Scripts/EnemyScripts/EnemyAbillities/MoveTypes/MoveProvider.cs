@@ -1,18 +1,26 @@
 using UnityEngine;
 
-public abstract class MoveProvider : IMovable, ISpeedProvider
+public abstract class MoveProvider : IMoveStrategy, ISpeedProvider
 {
     protected float _speed;
     protected float _baseSpeed;
     protected Rigidbody2D _rb;
     protected Transform _transform;
-    protected MoveProvider(Rigidbody2D rb, Transform transform, float speed)
+    internal protected IMoveAbility moveAbility;
+    internal protected int coolDownTicks;
+
+
+    protected MoveProvider(Transform transform, Rigidbody2D rb, float speed, IMoveAbility moveAbility, int moveAbilityTicks)
     {
-        _baseSpeed = speed;
-        _rb = rb;
         _transform = transform;
+        _rb = rb;
+        _baseSpeed = speed;
         _speed = _baseSpeed;
+        this.moveAbility = moveAbility;
+        coolDownTicks = moveAbilityTicks;
     }
+
+
     public abstract void Move();
     public void ReduceSpeed(float speedProcents = 0.1F)
     {

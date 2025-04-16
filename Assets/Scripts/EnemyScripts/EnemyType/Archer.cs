@@ -2,16 +2,13 @@ using UnityEngine;
 
 public class Archer : RangeEnemy
 {
-   
-    protected override IAttackDealer SetAttack()
+    public override void Init()
     {
-        return new RangeDamage(rangeEnemyConfig.bulletConfig, shootPoint);
+        base.Init();
+        deathAbility = GetComponent<IDeathAbility>();
+        moveAbility = GetComponent<IMoveAbility>();
+        attackDealer = new RangeDamage(animator, rangeEnemyConfig.bulletConfig, shootPoint);
+        movable = new MoveTowards(transform, rb, rangeEnemyConfig.speed, moveAbility, 20);
+        SetStateMachine();
     }
-
-    protected override IMovable SetMove()
-    {
-       return  new MoveTowards(rb, transform, 1f);
-    }
-
-   
 }

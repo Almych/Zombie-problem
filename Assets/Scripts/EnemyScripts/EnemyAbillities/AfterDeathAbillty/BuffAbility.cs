@@ -5,15 +5,21 @@ using UnityEngine;
 public abstract class BuffAbility : MonoBehaviour, IDeathAbility
 {
     [SerializeField] protected float detectRadius;
-    protected RaycastHit2D hit;
+    protected RaycastHit2D[] hits;
 
     public virtual void onDeath()
     {
-        hit = Physics2D.CircleCast(transform.position, detectRadius, Vector2.one);
-        IMovable move = hit.collider.GetComponent<IMovable>();
-        if (move != null)
-            SetBuff(move);
+        hits = Physics2D.CircleCastAll(transform.position, detectRadius, Vector2.zero);
+        
+        for(int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].collider.GetComponent<ISpeedProvider>() != null)
+            {
+                Debug.Log(hits[i].collider.name);
+                SetBuff(hits[i].collider.GetComponent<ISpeedProvider>());
+            }
+        }
     }
 
-    protected abstract void SetBuff(IMovable movable);
+    protected abstract void SetBuff(ISpeedProvider movable);
 }

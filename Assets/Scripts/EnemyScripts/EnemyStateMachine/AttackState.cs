@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class AttackState : State
 {
+   
     public AttackState(Animator animator) : base(animator)
     {
+        
     }
 
     public override void Enter()
     {
-       SetTriggerAnimation(attackAnimation);
+        SetTriggerAnimation(attackAnimation);
     }
 
     public override void Exit()
@@ -18,6 +20,6 @@ public class AttackState : State
 
     public override void Tick()
     {
-        
+       
     }
 }

@@ -50,7 +50,7 @@ public class SpawnManager : MonoBehaviour
         enemySpawner.InitiateWave(transform, handlePosition);
         waveUi.InitWaves(config.TotalWaves, waveProcent / MaxWaveBar);
         CurrentWaveProgress = MaxWaveBar;
-        config.GetAllEnemyTypesInitiate();
+        config.InitConfig();
     }
     private IEnumerator SpawnWaves()    
     {

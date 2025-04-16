@@ -38,6 +38,11 @@ public static class EventBus
             }
         }
     }
+
+    public static void ClearBus()
+    {
+        eventListeners.Clear();
+    }
 }
 
 public class EventBusListener

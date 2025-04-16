@@ -2,14 +2,13 @@
 
 public class Knight : MeleeEnemy
 {
-    protected override IAttackDealer SetAttack()
+    public override void Init()
     {
-        return attackDealer = new MeleeAttack(meleeEnemyConfig.damage);
+        base.Init();
+        deathAbility = GetComponent<IDeathAbility>();
+        moveAbility = GetComponent<IMoveAbility>();
+        attackDealer = new MeleeAttack(animator, meleeEnemyConfig.damage);
+        movable = new MoveTowards(transform, rb, meleeEnemyConfig.speed, moveAbility, 20);
+        SetStateMachine();
     }
-
-    protected override IMovable SetMove()
-    {
-        return movable = new MoveTowards(rb, transform, 2f);
-    }
-
 }

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public abstract class Enemy : Entity, IEnemy
 {
-
     protected float currHealth;
-    protected IAttackDealer attackDealer;
+    protected IAttackStrategy attackDealer;
     protected IDeathAbility deathAbility;
-    protected IMovable movable;
+    protected IMoveAbility moveAbility;
+    protected MoveProvider movable;
     protected StateMachine stateMachine;
     protected RunState runState;
     protected AttackState attackState;
@@ -14,21 +14,23 @@ public abstract class Enemy : Entity, IEnemy
 
     protected abstract BaseEnemyConfig enemyConfig { get; }
 
-    public override void Init()
+
+    public void SetStateMachine()
     {
-        base.Init();
-        movable = SetMove();
-        attackDealer = SetAttack();
-        deathAbility = GetComponent<IDeathAbility>();
         runState = new RunState(animator, movable);
         attackState = new AttackState(animator);
         dieState = new DieState(animator);
         stateMachine = new StateMachine(runState, attackState, dieState);
+    }
+
+    protected void OnEnable()
+    {
+        if (stateMachine != null) 
         UpdateSystem.OnUpdate += stateMachine.OnTick;
     }
 
 
-    protected virtual void OnDestroy()
+    protected void OnDisable()
     {
         UpdateSystem.OnUpdate -= stateMachine.OnTick;
     }
@@ -64,7 +66,4 @@ public abstract class Enemy : Entity, IEnemy
     {
         attackDealer?.ExecuteAttack();
     }
-
-    protected abstract IMovable SetMove();
-    protected abstract IAttackDealer SetAttack();
 }

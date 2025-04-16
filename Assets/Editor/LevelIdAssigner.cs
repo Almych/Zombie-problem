@@ -18,7 +18,7 @@ public static class AutoLevelIdAssigner
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
             LevelConfig config = AssetDatabase.LoadAssetAtPath<LevelConfig>(path);
-            if (config != null)
+            if (config != null && !config.idAssigned)
             {
                 config.SetId(currentId);
                 EditorUtility.SetDirty(config);

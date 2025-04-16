@@ -18,8 +18,8 @@ public class LevelConfig : ScriptableObject
     public void SetId(int id)
     {
         levelId = id;
-        Debug.Log(levelId);
         idAssigned = true;
+        levelOpen = false;
     }
     public void CompleteLevel()
     {

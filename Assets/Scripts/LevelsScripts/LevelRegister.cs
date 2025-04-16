@@ -29,7 +29,6 @@ public static class LevelRegister
 
     public static int GetCurrentLEvel()
     {
-        Debug.Log($"current level unclocked {currentLevel}");
         EventBus.Publish(new OnLevelUnlock(currentLevel));
         return currentLevel;
     }

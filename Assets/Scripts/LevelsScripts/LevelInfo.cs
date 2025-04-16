@@ -26,7 +26,6 @@ public class LevelInfo : MonoBehaviour
 
     private void OnUnlock(OnLevelUnlock e)
     {
-       
         levelConfig.TryOpenLevel(e.level);
     }
 }

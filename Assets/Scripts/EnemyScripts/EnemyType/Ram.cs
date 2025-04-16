@@ -2,15 +2,15 @@
 
 public class Ram : MeleeEnemy
 {
-    protected override IAttackDealer SetAttack()
+
+    public override void Init()
     {
-       return attackDealer = new SelfDestruction(animator);
+        base.Init();
+        deathAbility = GetComponent<IDeathAbility>();
+        moveAbility = GetComponent<IMoveAbility>();
+        attackDealer = new NoneAttack();
+        movable = new ZigZagMove(transform, rb, meleeEnemyConfig.speed, moveAbility, 100, 0.5f, 10f);
+        SetStateMachine();
     }
 
-    protected override IMovable SetMove()
-    {
-        return movable = new MoveTowards(rb, transform, 1f);
-    }
-
-   
 }

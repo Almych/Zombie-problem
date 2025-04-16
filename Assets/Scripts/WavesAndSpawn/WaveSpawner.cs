@@ -15,10 +15,10 @@ public class EnemySpawner : IEnemySpawner
 
     public IEnumerator SpawnEnemies(Wave wave)
     {
-        List<EnemyData> enemiesToSpawn = new List<EnemyData>(wave.enemies);
-        while (enemiesToSpawn.Count > 0)
+        List<EnemyData> spawnEnemies = new List<EnemyData>(wave.enemies);
+        while (spawnEnemies.Count > 0)
         {
-            SpawnEnemy(enemiesToSpawn);
+            SpawnEnemy(spawnEnemies);
             yield return new WaitForSeconds(wave.spawnInterwal);
         }
     }

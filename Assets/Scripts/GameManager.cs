@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private LevelConfig levelConfig;
      public static GameManager instance;
      private SpawnManager spawnManager;
      private Button pauseButton;
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
     {
         EventBus.Publish(new OnPauseEvent(false));
         ObjectPoolManager.ClearObjectsFromPool();
+        EventBus.ClearBus();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
     {
         EventBus.Publish(new OnPauseEvent(false));
         ObjectPoolManager.ClearObjectsFromPool();
+        EventBus.ClearBus();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
     }
 
@@ -82,7 +85,9 @@ public class GameManager : MonoBehaviour
         winMenu.gameObject.SetActive(false);
         LevelConfig config = LevelRegister.GetLevelConfig();
         if (config == null)
-            return;
+        {
+            config = levelConfig;
+        }
 
         spawnManager = GameObject.FindAnyObjectByType<SpawnManager>();
         CollectablesSpawn.Init(config.CollectablesConfig);

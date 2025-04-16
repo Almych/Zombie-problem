@@ -10,9 +10,8 @@ public class SpeedBoostAbility : BuffAbility
     {
         base.onDeath();
     }
-    protected override void SetBuff(IMovable movable)
+    protected override void SetBuff(ISpeedProvider movable)
     {
-        
-        movable.Move();
+        movable.IncreaseSpeed(speedBuff);
     }
 }

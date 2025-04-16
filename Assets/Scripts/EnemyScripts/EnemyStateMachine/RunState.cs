@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class RunState : State
 {
-    private IMovable move;
+    private MoveProvider move;
+    private int currTicks;
 
-    public RunState( Animator animator, IMovable moveWay) : base(animator)
+    public RunState( Animator animator, MoveProvider moveWay) : base(animator)
     {
         move = moveWay;
     }
@@ -21,5 +22,15 @@ public class RunState : State
     public override void Tick()
     {
         move.Move();
+
+        if (currTicks < move.coolDownTicks)
+        {
+            currTicks++;
+        }
+        else
+        {
+            move.moveAbility?.OnMove();
+            currTicks = 0;
+        }
     }
 }

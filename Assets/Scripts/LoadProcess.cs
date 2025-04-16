@@ -26,8 +26,7 @@ public class Loader : MonoBehaviour
 
         while (sceneLoad.progress < 0.9f)
         {
-            Debug.Log("Called null");
-            yield return null; // Wait for next frame
+            yield return null; 
         }
 
         for (int i = 0; i < 10; i++)
@@ -37,6 +36,5 @@ public class Loader : MonoBehaviour
         }
         yield return new WaitForSeconds(finalSeconds);
         sceneLoad.allowSceneActivation = true;
-        Debug.Log("LoadedSecne");
     }
 }

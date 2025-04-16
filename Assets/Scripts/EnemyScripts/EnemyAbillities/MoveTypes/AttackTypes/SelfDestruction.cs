@@ -1,15 +1,9 @@
 
-using UnityEngine;
 
-public class SelfDestruction : IAttackDealer
+public class NoneAttack : IAttackStrategy
 {
-    private Animator _animator;
-    public SelfDestruction(Animator animator) 
+    public void ExecuteAttack(HealthBar healthBar = null)
     {
-       _animator = animator;
-    }
-    public void ExecuteAttack(HealthBar health = null)
-    {
-        _animator.SetTrigger("Die");
+        
     }
 }

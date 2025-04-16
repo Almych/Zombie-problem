@@ -22,9 +22,9 @@ MonoBehaviour:
       spawnInterwal: 2
     preWave:
       enemies:
-      - enemyType: {fileID: 5544904821989541160, guid: bd8be7c04428d8e41a38d9b40480ae2e, type: 3}
-        amount: 1
-      - enemyType: {fileID: 5822533646026134410, guid: 495d9bf24be63a44088dced149473f3d, type: 3}
-        amount: 1
+      - enemyType: {fileID: 6940997052884882684, guid: 315459d967b331d488302a8a8d1da795, type: 3}
+        amount: 2
+      - enemyType: {fileID: 5785118998449468066, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
+        amount: 4
       spawnInterwal: 1
   amountOfPoolZombie: 6

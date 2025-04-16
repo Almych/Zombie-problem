@@ -7,10 +7,12 @@ public abstract class MeleeEnemy : Enemy
     protected HealthBar healthBar;
     protected override BaseEnemyConfig enemyConfig  => meleeEnemyConfig;
 
+
     public override void TriggerAction()
     {
         attackDealer?.ExecuteAttack(healthBar);
     }
+
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         healthBar = collision.collider.GetComponent<HealthBar>();

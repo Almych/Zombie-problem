@@ -29,9 +29,8 @@ public abstract class RangeEnemy: Enemy
         UpdateSystem.OnUpdate += DetectEnemy;
     }
 
-    protected override void OnDestroy()
+    protected  void OnDestroy()
     {
-        base.OnDestroy();
         UpdateSystem.OnUpdate -= DetectEnemy;
     }
 

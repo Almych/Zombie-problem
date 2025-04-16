@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 1417957951634339923}
   - component: {fileID: 6528014412750129637}
   - component: {fileID: 6940997052884882684}
-  - component: {fileID: 6275579066160720392}
+  - component: {fileID: 30116322474705864}
   m_Layer: 3
   m_Name: BarelZombie
   m_TagString: Untagged
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeEnemyConfig: {fileID: 11400000, guid: 2f43ecc5ebe80c948b722e935af8a575, type: 2}
---- !u!114 &6275579066160720392
+--- !u!114 &30116322474705864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

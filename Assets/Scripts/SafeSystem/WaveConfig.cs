@@ -8,14 +8,17 @@ public class WaveConfig : ScriptableObject, IWaveConfig
     public LevelWaves[] waves;
     public int amountOfPoolZombie;
     public int TotalWaves => waves.Length;
-    void Awake()
+    public void InitConfig()
     {
         foreach (var wave in waves)
         {
             wave.preWave.RestoreAmount();
             wave.wave.RestoreAmount();
         }
+
+        GetAllEnemyTypesInitiate();
     }
+
     public Wave GetWave(int index) => waves[index].wave;
     public Wave GetPreWave(int index) => waves[index].preWave;
 

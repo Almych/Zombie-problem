@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangeDamage : IAttackDealer
+public class RangeDamage : AttackProvider
 {
     private EnemyBulletConfig _bulletConfig;
     private Transform _bulletTransform;
-    public RangeDamage(EnemyBulletConfig enemyBulletConfig, Transform shootPoint)
+
+    public RangeDamage(Animator animator, EnemyBulletConfig enemyBulletConfig, Transform shootPoint) : base(animator)
     {
-       _bulletConfig = enemyBulletConfig;
+        _bulletConfig = enemyBulletConfig;
         _bulletTransform = shootPoint;
     }
 
-    public void ExecuteAttack(HealthBar health = null)
+    public override void ExecuteAttack(HealthBar health = null)
     {
         EnemyBulletBehaivior enemyBullet = ObjectPoolManager.FindObject<EnemyBulletBehaivior>();
         if (enemyBullet != null)

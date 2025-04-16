@@ -1,37 +1,41 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 [Serializable]
-public struct DefenseData
+public class DamageResistances
 {
-    public DamageType damageType;
-    [Header("Reduce damage by procents")]
-    [Range(0,1)]public float resistence;
+    [Range(0, 1)] public float Flame;
+    [Range(0, 1)] public float Freeze;
+    [Range(0, 1)] public float Stun;
+    [Range(0, 1)] public float Poison;
+    [Range(0, 1)] public float Default;
+    [Range(0, 1)] public float Crit;
+
+    public float GetResistance(DamageType type)
+    {
+        return type switch
+        {
+            DamageType.Default => Default,
+            DamageType.Freeze => Freeze,
+            DamageType.Poison => Poison,
+            DamageType.Crit => Crit,
+            DamageType.Stun => Stun,
+            _ => 0f
+        };
+    }
 }
 
 [CreateAssetMenu(fileName = "New DamageDefense", menuName = "DamageDefense")]
 public class EnemyUniqDefense : ScriptableObject
 {
-    [SerializeField] private List<DefenseData> damagesToStayPercents = new List<DefenseData>();
+    [SerializeField] private DamageResistances damageResistances;
 
     public float Defense(Damage damage)
     {
-        return damage.GetDamage() * (1-FindDamage(damage));
+        return damage.GetDamage() * (1-damageResistances.GetResistance(damage.damageType));
     }
 
-    private float FindDamage(Damage damage)
-    {
-        if (damagesToStayPercents.Count == 0)
-            return 0f;
-
-        for (int i = 0; i < damagesToStayPercents.Count; i++)
-        {
-            if (damagesToStayPercents[i].damageType == damage.damageType)
-            {
-                return damagesToStayPercents[i].resistence;
-            }
-        }
-        return 0f;
-    }
+   
 }

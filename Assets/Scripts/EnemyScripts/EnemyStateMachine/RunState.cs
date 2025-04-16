@@ -2,34 +2,34 @@ using UnityEngine;
 
 public class RunState : State
 {
-    private MoveProvider move;
+    private Enemy enemy;
     private int currTicks;
 
-    public RunState( Animator animator, MoveProvider moveWay) : base(animator)
+    public RunState( Animator animator, int animIndex, Enemy enemy) : base(animator, animIndex)
     {
-        move = moveWay;
+        this.enemy = enemy;
     }
     public override void Enter()
     {
-        SetTriggerAnimation(runAnimation);
+        SetTriggerAnimation(_animationIndex);
     }
 
     public override void Exit()
     {
-        move?.StopMove();
+        enemy.movable?.StopMove();
     }
 
     public override void Tick()
     {
-        move.Move();
+        enemy.movable.Move();
 
-        if (currTicks < move.coolDownTicks)
+        if (currTicks < enemy.movable.coolDownTicks)
         {
             currTicks++;
         }
         else
         {
-            move.moveAbility?.OnMove();
+            enemy.movable.moveAbility?.OnMove();
             currTicks = 0;
         }
     }

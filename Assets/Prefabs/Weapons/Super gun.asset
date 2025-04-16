@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponSprite: {fileID: 1909681139, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   bulletType: {fileID: -5914200155744470610, guid: e210959ab549ce8418461bfb4df576d3, type: 3}
-  _bulletConfig: {fileID: 11400000, guid: 10ee5bab1df1b764984e6e86ba1d3955, type: 2}
+  _bulletConfig: {fileID: 11400000, guid: d80b3788dbb1b314583088798e817586, type: 2}
   reloadTime: 2
   maxBullets: 5

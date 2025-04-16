@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1779475865334971244}
   - component: {fileID: 4244842714837687058}
   - component: {fileID: 1609487024508564182}
-  - component: {fileID: 2402305308852599360}
   m_Layer: 3
   m_Name: Necro zombie
   m_TagString: Untagged
@@ -181,17 +180,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2402305308852599360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868475971181251691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7988b9e5db3b014b9b163a0283c3505, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rangeEnemyConfig: {fileID: 0}
-  shootPoint: {fileID: 0}

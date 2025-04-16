@@ -5,7 +5,7 @@ public abstract class MeleeEnemy : Enemy
     [SerializeField] protected MeleeEnemyConfig meleeEnemyConfig;
     
     protected HealthBar healthBar;
-    protected override BaseEnemyConfig enemyConfig  => meleeEnemyConfig;
+    internal protected override BaseEnemyConfig enemyConfig  => meleeEnemyConfig;
 
 
     public override void TriggerAction()

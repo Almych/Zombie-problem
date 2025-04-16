@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public interface IAnimator
 {
@@ -6,18 +7,12 @@ public interface IAnimator
 public abstract class State : IState, IAnimator
 {
     protected Animator _animator;
-    protected int dieAnimation;
-    protected int attackAnimation;
-    protected int runAnimation;
-    protected int idleAnimation;
-
-    protected State(Animator animator)
+    protected int _animationIndex;
+    protected Action<State> requestChangeState;
+    protected State(Animator animator, int animationIndex)
     {
-        dieAnimation = Animator.StringToHash("Die");
-        attackAnimation = Animator.StringToHash("Attack");
-        runAnimation = Animator.StringToHash("Walk");
-        idleAnimation = Animator.StringToHash("Idle");
         _animator = animator;
+        _animationIndex = animationIndex;
     }
     public abstract void Enter();
     public abstract void Exit();

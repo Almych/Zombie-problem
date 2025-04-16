@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: New DamageDefense
+  m_Name: Barel Zombie
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUniqDefense
-  damagesToStayPercents:
-  - damageType: 2
-    resistence: 0.548
-  - damageType: 0
-    resistence: 0.7
-  - damageType: 2
-    resistence: 0.548
+  damageResistances:
+    Flame: 1
+    Freeze: 1
+    Stun: 0
+    Poison: 1
+    Default: 0.3
+    Crit: 0.1

@@ -2,7 +2,13 @@
 
 public class Ram : MeleeEnemy
 {
-
+    public override void SetStateMachine()
+    {
+        runState = new RunState(animator, runAnimation, this);
+        attackState = new AttackState(animator, dieAnimation);
+        dieState = new DieState(animator, dieAnimation);
+        stateMachine = new StateMachine(runState, attackState, dieState);
+    }
     public override void Init()
     {
         base.Init();

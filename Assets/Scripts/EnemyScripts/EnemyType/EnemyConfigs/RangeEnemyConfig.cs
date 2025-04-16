@@ -5,5 +5,4 @@ public class RangeEnemyConfig : BaseEnemyConfig
 {
     public float detectRange;
     public LayerMask player;
-    public EnemyBulletConfig bulletConfig;
 }

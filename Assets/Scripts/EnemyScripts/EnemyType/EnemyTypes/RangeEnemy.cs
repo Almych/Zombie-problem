@@ -1,11 +1,11 @@
 using UnityEngine;
 public abstract class RangeEnemy: Enemy
 {
-    [SerializeField] protected RangeEnemyConfig rangeEnemyConfig;
     [SerializeField] protected Transform shootPoint;
     protected RaycastHit2D hit;
     protected bool isDetected = false;
-    protected override BaseEnemyConfig enemyConfig => rangeEnemyConfig;
+    protected abstract RangeEnemyConfig rangeEnemyConfig { get;}
+    internal protected override BaseEnemyConfig enemyConfig => rangeEnemyConfig;
 
 
     public override void Initiate()
@@ -29,7 +29,7 @@ public abstract class RangeEnemy: Enemy
         UpdateSystem.OnUpdate += DetectEnemy;
     }
 
-    protected  void OnDestroy()
+    protected void OnDestroy()
     {
         UpdateSystem.OnUpdate -= DetectEnemy;
     }

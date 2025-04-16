@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangeDamage : AttackProvider
+public class RangeAttack : AttackProvider
 {
     private EnemyBulletConfig _bulletConfig;
     private Transform _bulletTransform;
 
-    public RangeDamage(Animator animator, EnemyBulletConfig enemyBulletConfig, Transform shootPoint) : base(animator)
+    public RangeAttack(Animator animator, EnemyBulletConfig enemyBulletConfig, Transform shootPoint) : base(animator)
     {
         _bulletConfig = enemyBulletConfig;
         _bulletTransform = shootPoint;

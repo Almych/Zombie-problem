@@ -3,14 +3,14 @@ using UnityEngine;
 public class AttackState : State
 {
    
-    public AttackState(Animator animator) : base(animator)
+    public AttackState(Animator animator, int animIndex) : base(animator, animIndex)
     {
         
     }
 
     public override void Enter()
     {
-        SetTriggerAnimation(attackAnimation);
+        SetTriggerAnimation(_animationIndex);
     }
 
     public override void Exit()

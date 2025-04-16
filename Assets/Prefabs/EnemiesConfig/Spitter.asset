@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0242cf5011820754c8948a10fe646f5e, type: 3}
+  m_Script: {fileID: 11500000, guid: c044ef6ec557c234d920653f47dc85ce, type: 3}
   m_Name: Spitter
   m_EditorClassIdentifier: 
   speed: 1.2
-  uniqDefense: {fileID: 11400000, guid: 5465775a2addad84aa82eee4170cb66b, type: 2}
-  maxHealth: 6
-  detectRange: 5
+  uniqDefense: {fileID: 11400000, guid: 87eb550fcc5e8b44bb81bf2f05644665, type: 2}
+  maxHealth: 10
+  detectRange: 7
   player:
     serializedVersion: 2
     m_Bits: 64

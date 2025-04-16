@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5332349921423735596}
   - component: {fileID: 2045256084944102405}
   - component: {fileID: 5785118998449468066}
+  - component: {fileID: 726293810343325315}
   m_Layer: 3
   m_Name: Average Zombie
   m_TagString: Untagged
@@ -195,6 +196,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeEnemyConfig: {fileID: 11400000, guid: 5c80d79fbc757f346b13c4e4875d60d9, type: 2}
+--- !u!114 &726293810343325315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7962912858114560771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac654cdfea5f2644998690c5a963dea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDodge: 5
+  frequency: 2
+  amplitute: 1
 --- !u!1 &8368564793082021321
 GameObject:
   m_ObjectHideFlags: 0

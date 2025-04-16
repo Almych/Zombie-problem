@@ -6,20 +6,24 @@ public abstract class Enemy : Entity, IEnemy
     protected IAttackStrategy attackDealer;
     protected IDeathAbility deathAbility;
     protected IMoveAbility moveAbility;
-    protected MoveProvider movable;
+    protected IAttackAbility attackAbility;
+    internal protected MoveProvider movable;
     protected StateMachine stateMachine;
     protected RunState runState;
     protected AttackState attackState;
     protected DieState dieState;
+    protected int dieAnimation = Animator.StringToHash("Die");
+    protected int attackAnimation = Animator.StringToHash("Attack");
+    protected int runAnimation = Animator.StringToHash("Walk");
 
-    protected abstract BaseEnemyConfig enemyConfig { get; }
+    internal protected abstract BaseEnemyConfig enemyConfig { get; }
 
 
-    public void SetStateMachine()
+    public virtual void SetStateMachine()
     {
-        runState = new RunState(animator, movable);
-        attackState = new AttackState(animator);
-        dieState = new DieState(animator);
+        runState = new RunState(animator, runAnimation, this);
+        attackState = new AttackState(animator, attackAnimation);
+        dieState = new DieState(animator, dieAnimation);
         stateMachine = new StateMachine(runState, attackState, dieState);
     }
 
@@ -65,5 +69,6 @@ public abstract class Enemy : Entity, IEnemy
     public virtual void TriggerAction()
     {
         attackDealer?.ExecuteAttack();
+        attackAbility?.OnAttack();
     }
 }

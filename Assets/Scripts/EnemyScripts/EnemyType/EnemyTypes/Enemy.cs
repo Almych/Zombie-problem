@@ -1,14 +1,14 @@
+using System;
 using UnityEngine;
 
 public abstract class Enemy : Entity, IEnemy
 {
+    [SerializeField] AbilityConfig[] deathAbility, moveAbility, attackAbility, damageAbility;
     protected float currHealth;
-    protected IAttackStrategy attackDealer;
-    protected IDeathAbility deathAbility;
-    protected IMoveAbility moveAbility;
-    protected IAttackAbility attackAbility;
+    internal protected AttackProvider attackDealer;
     internal protected MoveProvider movable;
-    protected StateMachine stateMachine;
+    internal protected StateMachine stateMachine;
+    protected event Action onDeath, onMove, onAttack, onGetDamage;
     protected RunState runState;
     protected AttackState attackState;
     protected DieState dieState;
@@ -18,9 +18,34 @@ public abstract class Enemy : Entity, IEnemy
 
     internal protected abstract BaseEnemyConfig enemyConfig { get; }
 
+    public void CallMoveAbility() => onMove?.Invoke();
+
+    protected void SetAbilities()
+    {
+        foreach (var ability in deathAbility)
+        {
+            onDeath += ability.ApplyAbilities(this);
+        }
+
+        foreach (var ability in moveAbility)
+        {
+            onMove += ability.ApplyAbilities(this);
+        }
+
+        foreach (var ability in attackAbility)
+        {
+            onAttack += ability.ApplyAbilities(this);
+        }
+
+        foreach (var ability in damageAbility)
+        {
+            onGetDamage += ability.ApplyAbilities(this);
+        }
+    }
 
     public virtual void SetStateMachine()
     {
+        SetAbilities();
         runState = new RunState(animator, runAnimation, this);
         attackState = new AttackState(animator, attackAnimation);
         dieState = new DieState(animator, dieAnimation);
@@ -42,12 +67,14 @@ public abstract class Enemy : Entity, IEnemy
     public override void Initiate()
     {
         currHealth = enemyConfig.maxHealth;
+        
         stateMachine?.SwitchState(runState);
     }
 
     public virtual void TakeDamage(Damage damage)
     {
         currHealth -= enemyConfig.uniqDefense.Defense(damage);
+        onGetDamage?.Invoke();
         ParticleSystem blood = ObjectPoolManager.FindObjectByName<ParticleSystem>("EnemyHitParticle");
         if (blood != null)
         {
@@ -62,13 +89,14 @@ public abstract class Enemy : Entity, IEnemy
 
     public override void Die()
     {
-        deathAbility?.onDeath();
+        attackDealer.ResetSpeed();
+        onDeath?.Invoke();
         base.Die();
     }
 
     public virtual void TriggerAction()
     {
         attackDealer?.ExecuteAttack();
-        attackAbility?.OnAttack();
+        onAttack?.Invoke();
     }
 }

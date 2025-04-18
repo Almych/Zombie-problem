@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class ForwardSpawn : SpawnAbility
 {
-    private const int fixedAmount = 1;
-    public override void onDeath()
+
+    public ForwardSpawn(Enemy enemy, float horizontalSpace, Enemy spawnEnemy) : base(enemy, horizontalSpace, spawnEnemy)
     {
-        base.onDeath();
+    }
+
+    public override void OnDeath()
+    {
+        base.OnDeath();
     }
 
     protected override void SpawnAtPoint(Transform spawnEnemyTransform)
     {
-        spawnEnemyTransform.position = new Vector2(transform.position.x - horizontalSpawnSpace,transform.position.y);
+        spawnEnemyTransform.position = new Vector2(enemy.transform.position.x - horizontalSpawnSpace, enemy.transform.position.y);
     }
 }

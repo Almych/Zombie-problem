@@ -17,6 +17,7 @@ public class RunState : State
     public override void Exit()
     {
         enemy.movable?.StopMove();
+        enemy.movable.ResetSpeed();
     }
 
     public override void Tick()
@@ -29,7 +30,7 @@ public class RunState : State
         }
         else
         {
-            enemy.movable.moveAbility?.OnMove();
+            enemy.CallMoveAbility();
             currTicks = 0;
         }
     }

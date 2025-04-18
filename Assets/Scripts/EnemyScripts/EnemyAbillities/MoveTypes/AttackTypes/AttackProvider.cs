@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class AttackProvider : IAttackStrategy, ISpeedProvider
 {
-    Animator animator;
-    private float baseSpeed;
+    protected Animator animator;
+    protected float baseSpeed;
     public AttackProvider(Animator animator)
     {
         this.animator = animator;
@@ -22,5 +22,9 @@ public abstract class AttackProvider : IAttackStrategy, ISpeedProvider
     public void ReduceSpeed(float speedProcents = 0.1F)
     {
         animator.speed = baseSpeed * speedProcents;
+    }
+    public void ResetSpeed()
+    {
+        animator.speed = baseSpeed;
     }
 }

@@ -2,26 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SpawnAbility : MonoBehaviour, IDeathAbility, IDamageAbility, IAttackAbility, IMoveAbility
+public abstract class SpawnAbility :  IDeathAbility
 {
-    [Header("Check if there is the spawnEnemy in object pool manager!")]
-    [SerializeField] protected Entity spawnEnemy;
-    protected const float horizontalSpawnSpace = 0.5f;
+    protected Enemy spawnEnemy, enemy;
+    protected float horizontalSpawnSpace;
 
-    public virtual void onDeath()
+    protected SpawnAbility(Enemy enemy, float horizontalSpace, Enemy spawnEnemy)
     {
-        Spawn();
+        this.enemy = enemy;
+        horizontalSpawnSpace = horizontalSpace;
+        this.spawnEnemy = spawnEnemy;
+    }
+
+    public virtual void OnDeath()
+    {
+        Enemy spawnedEnemy = ObjectPoolManager.GetObjectFromPool(spawnEnemy);
+        Debug.Log(spawnedEnemy == null);
+        if (spawnedEnemy != null)
+        {
+            spawnedEnemy.gameObject.SetActive(true);
+            spawnedEnemy?.Initiate();
+            SpawnAtPoint(spawnedEnemy.transform);
+        }
     }
 
     protected void Spawn()
     {
-        Entity enemy = ObjectPoolManager.GetObjectFromPool(spawnEnemy);
-        if (enemy != null)
-        {
-            enemy.gameObject.SetActive(true);
-            enemy?.Initiate();
-            SpawnAtPoint(enemy.transform);
-        }
+       
     }
     protected abstract void SpawnAtPoint(Transform spawnEnemyTransform);
 

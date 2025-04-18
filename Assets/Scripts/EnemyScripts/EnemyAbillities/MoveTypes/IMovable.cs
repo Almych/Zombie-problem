@@ -13,4 +13,6 @@ public interface ISpeedProvider
 {
     void ReduceSpeed(float speedProcents = 0.1f);
     void IncreaseSpeed(float speedProcents = 0.1f);
+
+    void ResetSpeed();
 }

@@ -1,17 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpeedBoostAbility : BuffAbility
 {
-    [SerializeField] private float speedBuff;
+     private float speedBoost;
 
-    public override void onDeath()
+    public SpeedBoostAbility(Enemy enemy, float detectRadius, float speedBoost) : base(enemy, detectRadius)
     {
-        base.onDeath();
+        this.speedBoost = speedBoost;
+    }
+
+    public override void OnDeath()
+    {
+        base.OnDeath();
     }
     protected override void SetBuff(ISpeedProvider movable)
     {
-        movable.IncreaseSpeed(speedBuff);
+        movable.IncreaseSpeed(speedBoost);
     }
 }

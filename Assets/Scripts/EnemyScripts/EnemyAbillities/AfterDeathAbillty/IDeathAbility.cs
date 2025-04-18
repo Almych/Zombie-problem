@@ -2,7 +2,7 @@
 
 public interface IDeathAbility 
 {
-    void onDeath();
+    void OnDeath();
 }
 
 public interface IMoveAbility

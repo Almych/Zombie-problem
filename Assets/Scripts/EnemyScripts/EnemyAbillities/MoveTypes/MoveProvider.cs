@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class MoveProvider : IMoveStrategy, ISpeedProvider
@@ -6,17 +7,15 @@ public abstract class MoveProvider : IMoveStrategy, ISpeedProvider
     protected float _baseSpeed;
     protected Rigidbody2D _rb;
     protected Transform _transform;
-    internal protected IMoveAbility moveAbility;
     internal protected int coolDownTicks;
 
 
-    protected MoveProvider(Transform transform, Rigidbody2D rb, float speed, IMoveAbility moveAbility, int moveAbilityTicks)
+    protected MoveProvider(Transform transform, Rigidbody2D rb, float speed,  int moveAbilityTicks)
     {
         _transform = transform;
         _rb = rb;
         _baseSpeed = speed;
         _speed = _baseSpeed;
-        this.moveAbility = moveAbility;
         coolDownTicks = moveAbilityTicks;
     }
 
@@ -33,5 +32,9 @@ public abstract class MoveProvider : IMoveStrategy, ISpeedProvider
     public void StopMove()
     {
         _rb.velocity = Vector2.zero;
+    }
+    public void ResetSpeed()
+    {
+        _speed = _baseSpeed;
     }
 }

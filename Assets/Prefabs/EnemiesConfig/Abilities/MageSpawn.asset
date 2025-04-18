@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d630d786b70e8449c2d35bf8fe61fa, type: 3}
-  m_Name: Barel
+  m_Script: {fileID: 11500000, guid: 226d720afddbc944e87aa3db944d0367, type: 3}
+  m_Name: MageSpawn
   m_EditorClassIdentifier: 
-  speed: 1
-  uniqDefense: {fileID: 11400000, guid: fdaa09489a2b53742a22682717877bd2, type: 2}
-  maxHealth: 1
-  damage: 0
+  spawnAmount: 1
+  spawnSpace: 1
+  spawnEnemy: {fileID: 5785118998449468066, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}

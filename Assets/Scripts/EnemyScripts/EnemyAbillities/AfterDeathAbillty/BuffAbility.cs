@@ -1,22 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BuffAbility : MonoBehaviour, IDeathAbility
+public abstract class BuffAbility : IDeathAbility
 {
-    [SerializeField] protected float detectRadius;
+    protected Enemy enemy;
+    protected float detectRadius;
     protected RaycastHit2D[] hits;
 
-    public virtual void onDeath()
+    protected BuffAbility(Enemy enemy, float detectRadius)
     {
-        hits = Physics2D.CircleCastAll(transform.position, detectRadius, Vector2.zero);
+        this.enemy = enemy;
+        this.detectRadius = detectRadius;
+    }
+
+    public virtual void OnDeath()
+    {
+        hits = Physics2D.CircleCastAll(enemy.transform.position, detectRadius, Vector2.zero);
         
         for(int i = 0; i < hits.Length; i++)
         {
-            if (hits[i].collider.GetComponent<ISpeedProvider>() != null)
+            if (hits[i].collider.GetComponent<Enemy>() != null)
             {
-                Debug.Log(hits[i].collider.name);
-                SetBuff(hits[i].collider.GetComponent<ISpeedProvider>());
+                SetBuff(hits[i].collider.GetComponent<Enemy>().movable);
+                SetBuff(hits[i].collider.GetComponent<Enemy>().attackDealer);
             }
         }
     }

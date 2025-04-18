@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour, IEntity
 {
     protected Animator animator;
-    protected Rigidbody2D rb;
+    internal protected Rigidbody2D rb { get; private set; }
     protected Collider2D enemyCollider;
 
 

@@ -7,11 +7,15 @@ public class HorizontalSpawn : SpawnAbility
     private const int fixedAmount = 2; 
     private int lastSpawnedPosition;
 
-    public override void onDeath()
+    public HorizontalSpawn(Enemy enemy, float horizontalSpace, Enemy spawnEnemy) : base(enemy, horizontalSpace, spawnEnemy)
+    {
+    }
+
+    public override void OnDeath()
     {
         for (int i = 0; i < fixedAmount; i++)
         {
-            base.onDeath();
+            base.OnDeath();
         }
     }
 
@@ -19,26 +23,26 @@ public class HorizontalSpawn : SpawnAbility
     {
         if (lastSpawnedPosition >= 0)
         {
-            if (BounceHandler.CheckOnYValidPosition(transform.position.y - 0.5f))
+            if (BounceHandler.CheckOnYValidPosition(enemy.transform.position.y - 0.5f))
             {
-                spawnEnemyTransform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
+                spawnEnemyTransform.position = new Vector2(enemy.transform.position.x, enemy.transform.position.y - 0.5f);
                 lastSpawnedPosition = -1;
             }
             else
             {
-                spawnEnemyTransform.position = transform.position;
+                spawnEnemyTransform.position = enemy.transform.position;
             }
         }
         else
         {
-            if (BounceHandler.CheckOnYValidPosition(transform.position.y + 0.5f))
+            if (BounceHandler.CheckOnYValidPosition(enemy.transform.position.y + 0.5f))
             {
-                spawnEnemyTransform.position = new Vector2(transform.position.x, transform.position.y + 0.5f);
+                spawnEnemyTransform.position = new Vector2(enemy.transform.position.x, enemy.transform.position.y + 0.5f);
                 lastSpawnedPosition = 1;
             }
             else
             {
-                spawnEnemyTransform.position = transform.position;
+                spawnEnemyTransform.position = enemy.transform.position;
             }
         }
        

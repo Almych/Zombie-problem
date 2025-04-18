@@ -22,4 +22,5 @@ public abstract class State : IState, IAnimator
     {
         _animator.CrossFade(animationTriggerName, 0f);
     }
+
 }

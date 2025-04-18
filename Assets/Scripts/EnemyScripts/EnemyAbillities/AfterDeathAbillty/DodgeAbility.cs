@@ -1,33 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class DodgeAbility : MonoBehaviour, IMoveAbility
+public class DodgeAbility : IMoveAbility
 {
-    [SerializeField] private int timeToDodge;
-    [SerializeField] float frequency, amplitute = 1f;
-    private IMoveStrategy moveStrategy;
+    private int timeToDodge;
+    private float frequency, amplitute = 1f;
+    private bool changedMove;
     private Enemy enemy;
-    private Rigidbody2D rb;
-    private float speed;
-    private bool Called;
-    void Start()
+
+    public DodgeAbility(Enemy enemy, int timeToDodge, float frequency, float amplitute)
     {
-        Called = false;
-        enemy = GetComponent<Enemy>();
-        rb = GetComponent<Rigidbody2D>();
-        speed = enemy.enemyConfig.speed;
+        this.enemy = enemy;
+        this.timeToDodge = timeToDodge;
+        this.frequency = frequency;
+        this.amplitute = amplitute;
     }
+
+
     public void OnMove()
     {
-        if (Called)
+        if (changedMove)
         {
             return;
         }
         else
         {
-            enemy.movable = new ZigZagMove(transform, rb, speed, this, timeToDodge, amplitute, frequency);
-            Called = true;
+            enemy.movable = new ZigZagMove(enemy.transform, enemy.rb, enemy.enemyConfig.speed, timeToDodge, amplitute, frequency);
+            changedMove = true;
         }
     }
 }

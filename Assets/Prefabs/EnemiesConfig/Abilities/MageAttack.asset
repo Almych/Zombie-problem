@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d630d786b70e8449c2d35bf8fe61fa, type: 3}
-  m_Name: Barel
+  m_Script: {fileID: 11500000, guid: 0acf12fc5bd11be4db61078f06cda031, type: 3}
+  m_Name: MageAttack
   m_EditorClassIdentifier: 
-  speed: 1
-  uniqDefense: {fileID: 11400000, guid: fdaa09489a2b53742a22682717877bd2, type: 2}
-  maxHealth: 1
-  damage: 0
+  stateNumber: 0

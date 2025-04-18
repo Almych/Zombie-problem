@@ -1,8 +1,14 @@
 
 
-public class NoneAttack : IAttackStrategy
+using UnityEngine;
+
+public class NoneAttack : AttackProvider
 {
-    public void ExecuteAttack(HealthBar healthBar = null)
+    public NoneAttack(Animator animator) : base(animator)
+    {
+    }
+
+    public override void ExecuteAttack(HealthBar healthBar = null)
     {
         
     }

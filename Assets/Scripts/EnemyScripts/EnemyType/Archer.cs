@@ -13,10 +13,8 @@ public class Archer : RangeEnemy
     public override void Init()
     {
         base.Init();
-        deathAbility = GetComponent<IDeathAbility>();
-        moveAbility = GetComponent<IMoveAbility>();
         attackDealer = new RangeAttack(animator, config.bulletConfig, shootPoint);
-        movable = new MoveTowards(transform, rb, rangeEnemyConfig.speed, moveAbility, 20);
+        movable = new MoveTowards(transform, rb, rangeEnemyConfig.speed, 20);
         SetStateMachine();
     }
 }

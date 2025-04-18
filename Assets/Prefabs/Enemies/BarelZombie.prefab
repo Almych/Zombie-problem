@@ -278,4 +278,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e0c2f72d79f3747982292030ea0975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathAbility:
+  - {fileID: 11400000, guid: 28f70ed570566c948912a776c627feb4, type: 2}
+  moveAbility: []
+  attackAbility: []
+  damageAbility:
+  - {fileID: 11400000, guid: 20b6188ccd7744645b5833b2bc02cefd, type: 2}
   meleeEnemyConfig: {fileID: 11400000, guid: 2f43ecc5ebe80c948b722e935af8a575, type: 2}

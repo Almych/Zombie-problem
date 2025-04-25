@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class StateMachine
 {
-    private State currentState;
+    public State currentState { get; private set; }
     private Dictionary<Type, State> stateMap = new();
 
     public StateMachine(RunState runState, AttackState attackState, DieState dieState)
@@ -24,9 +24,9 @@ public class StateMachine
 
     public void TryTranslate<T>() where T : State
     {
-        if (stateMap.TryGetValue(typeof(T), out State targetState))
+        if (stateMap[typeof(T)] != null)
         {
-            SwitchState(targetState);
+            SwitchState(stateMap[typeof(T)]);
         }
     }
 

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226d720afddbc944e87aa3db944d0367, type: 3}
   m_Name: MageSpawn
   m_EditorClassIdentifier: 
+  callPerTicks: 0
+  callOnce: 0
   spawnAmount: 1
   spawnSpace: 1
   spawnEnemy: {fileID: 5785118998449468066, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}

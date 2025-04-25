@@ -2,22 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SpawnAbility :  IDeathAbility
+public abstract class SpawnAbility : Ability
 {
-    protected Enemy spawnEnemy, enemy;
     protected float horizontalSpawnSpace;
+    protected Enemy spawnEnemy;
 
-    protected SpawnAbility(Enemy enemy, float horizontalSpace, Enemy spawnEnemy)
+    protected SpawnAbility(int coolDownTicks, bool callOnce, Enemy enemy, float horizontalSpace, Enemy spawnEnemy) : base(coolDownTicks, callOnce, enemy)
     {
-        this.enemy = enemy;
         horizontalSpawnSpace = horizontalSpace;
         this.spawnEnemy = spawnEnemy;
     }
 
-    public virtual void OnDeath()
+    protected override void OnCall()
+    {
+        Spawn();
+    }
+
+    protected virtual void Spawn()
     {
         Enemy spawnedEnemy = ObjectPoolManager.GetObjectFromPool(spawnEnemy);
-        Debug.Log(spawnedEnemy == null);
         if (spawnedEnemy != null)
         {
             spawnedEnemy.gameObject.SetActive(true);
@@ -26,24 +29,5 @@ public abstract class SpawnAbility :  IDeathAbility
         }
     }
 
-    protected void Spawn()
-    {
-       
-    }
     protected abstract void SpawnAtPoint(Transform spawnEnemyTransform);
-
-    public virtual void OnGetDamage()
-    {
-        Spawn();
-    }
-
-    public virtual void OnAttack()
-    {
-        Spawn();
-    }
-
-    public void OnMove()
-    {
-        Spawn();
-    }
 }

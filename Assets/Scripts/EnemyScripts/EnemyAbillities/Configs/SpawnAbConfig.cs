@@ -12,13 +12,12 @@ public class SpawnAbConfig : AbilityConfig
     {
         if (spawnAmount > 1)
         {
-            HorizontalSpawn horizontalSpawn = new HorizontalSpawn(enemy, spawnSpace, spawnEnemy);
-            return horizontalSpawn.OnDeath;
+            resultAbility = new HorizontalSpawn(callPerTicks, callOnce, enemy, spawnSpace, spawnEnemy);
         }
         else
         {
-            ForwardSpawn forwardSpawn = new ForwardSpawn(enemy, spawnSpace,spawnEnemy);
-            return forwardSpawn.OnDeath;
+            resultAbility = new ForwardSpawn(callPerTicks, callOnce, enemy, spawnSpace, spawnEnemy);
         }
+        return base.ApplyAbilities(enemy);
     }
 }

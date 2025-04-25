@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 993e15e3cd014d945b35d62a833c95b1, type: 3}
   m_Name: Average
   m_EditorClassIdentifier: 
+  callPerTicks: 0
+  callOnce: 1
   timeToDodge: 2
   frequency: 2
   amplitute: 1

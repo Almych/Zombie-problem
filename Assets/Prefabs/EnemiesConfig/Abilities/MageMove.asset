@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0acf12fc5bd11be4db61078f06cda031, type: 3}
   m_Name: MageMove
   m_EditorClassIdentifier: 
+  callPerTicks: 50
+  callOnce: 0
   stateNumber: 1

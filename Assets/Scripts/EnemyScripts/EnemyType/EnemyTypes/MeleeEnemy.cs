@@ -6,7 +6,7 @@ public abstract class MeleeEnemy : Enemy
     
     protected HealthBar healthBar;
     internal protected override BaseEnemyConfig enemyConfig  => meleeEnemyConfig;
-
+    protected internal override Transform ShootPoint => null;
 
     public override void TriggerAction()
     {
@@ -18,6 +18,7 @@ public abstract class MeleeEnemy : Enemy
         healthBar = collision.collider.GetComponent<HealthBar>();
         if (healthBar != null )
         {
+            CallDetectAbility();
             stateMachine?.SwitchState(attackState);
         }
     }

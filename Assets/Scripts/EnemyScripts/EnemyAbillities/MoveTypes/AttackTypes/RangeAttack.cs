@@ -7,7 +7,7 @@ public class RangeAttack : AttackProvider
     private EnemyBulletConfig _bulletConfig;
     private Transform _bulletTransform;
 
-    public RangeAttack(Animator animator, EnemyBulletConfig enemyBulletConfig, Transform shootPoint) : base(animator)
+    public RangeAttack(Animator animator, int attackPerTicks, EnemyBulletConfig enemyBulletConfig, Transform shootPoint) : base(animator, attackPerTicks)
     {
         _bulletConfig = enemyBulletConfig;
         _bulletTransform = shootPoint;

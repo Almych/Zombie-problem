@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612a91af9a8ecd4d82472f8aa729b81, type: 3}
+  m_Name: Spitter
+  m_EditorClassIdentifier: 
+  coolDown: 5
+  bulletConfig: {fileID: 11400000, guid: 633f49f59f20c8746a51daf756667b16, type: 2}

@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
 public class MoveTowards : MoveProvider
 {
-    public MoveTowards(Transform transform, Rigidbody2D rb, float speed, int moveAbilityTicks) : base(transform, rb, speed, moveAbilityTicks)
+    public MoveTowards(Animator animator, Transform transform, Rigidbody2D rb, float speed) : base(animator, transform, rb, speed)
     {
     }
 

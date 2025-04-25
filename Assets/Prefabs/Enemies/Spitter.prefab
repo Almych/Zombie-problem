@@ -200,8 +200,9 @@ MonoBehaviour:
   moveAbility: []
   attackAbility: []
   damageAbility: []
-  shootPoint: {fileID: 1008542989011273872}
+  detectAbility: []
   config: {fileID: 11400000, guid: 0b9f0209af44d9e4f9abfd59161e4406, type: 2}
+  shootPoint: {fileID: 1008542989011273872}
 --- !u!1 &3004053707464048136
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1008542989011273872}
   m_Layer: 3
-  m_Name: ShootPoint
+  m_Name: SpiiterShotPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

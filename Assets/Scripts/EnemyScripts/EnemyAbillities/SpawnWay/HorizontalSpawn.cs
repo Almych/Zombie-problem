@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class HorizontalSpawn : SpawnAbility
@@ -7,15 +6,17 @@ public class HorizontalSpawn : SpawnAbility
     private const int fixedAmount = 2; 
     private int lastSpawnedPosition;
 
-    public HorizontalSpawn(Enemy enemy, float horizontalSpace, Enemy spawnEnemy) : base(enemy, horizontalSpace, spawnEnemy)
+    public HorizontalSpawn(int coolDownTicks, bool callOnce, Enemy enemy, float horizontalSpace, Enemy spawnEnemy) : base(coolDownTicks, callOnce, enemy, horizontalSpace, spawnEnemy)
     {
     }
 
-    public override void OnDeath()
+    
+
+    protected override void Spawn()
     {
         for (int i = 0; i < fixedAmount; i++)
         {
-            base.OnDeath();
+            base.Spawn();
         }
     }
 

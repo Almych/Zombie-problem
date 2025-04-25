@@ -5,7 +5,7 @@ public class MeleeAttack : AttackProvider
 {
     private float attackDamage;
 
-    public MeleeAttack(Animator animator, float damage) : base(animator)
+    public MeleeAttack(Animator animator, int attackPerTicks, float damage) : base(animator, attackPerTicks)
     {
         attackDamage = damage;
     }

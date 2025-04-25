@@ -1,23 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class ChangeStateAbility : IMoveAbility
+public class ChangeStateAbility : Ability
 {
-    private Enemy _enemy;
     private int _changeState;
-    public ChangeStateAbility(Enemy enemy, int changeState)
+
+    public ChangeStateAbility(int coolDownTicks, bool callOnce, Enemy enemy, int changeState) : base(coolDownTicks, callOnce, enemy)
     {
-        _enemy = enemy;
         _changeState = changeState;
     }
-    public void OnMove()
+
+    
+
+    protected override void OnCall()
     {
         if (_changeState == 0)
-            _enemy.stateMachine?.TryTranslate<RunState>();
-        else if(_changeState == 1)
-            _enemy.stateMachine?.TryTranslate<AttackState>();
+            enemy.stateMachine?.TryTranslate<RunState>();
+        else if (_changeState == 1)
+            enemy.stateMachine?.TryTranslate<AttackState>();
         else
-            _enemy.stateMachine?.TryTranslate<DieState>();
+            enemy.stateMachine?.TryTranslate<DieState>();
     }
 }

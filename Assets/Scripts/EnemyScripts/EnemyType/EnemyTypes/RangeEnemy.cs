@@ -1,12 +1,12 @@
 using UnityEngine;
 public abstract class RangeEnemy: Enemy
 {
-    [SerializeField] protected Transform shootPoint;
+    [SerializeField] private RangeEnemyConfig config;
+    [SerializeField] private Transform shootPoint;
+    protected internal override BaseEnemyConfig enemyConfig => config;
     protected RaycastHit2D hit;
     protected bool isDetected = false;
-    protected abstract RangeEnemyConfig rangeEnemyConfig { get;}
-    internal protected override BaseEnemyConfig enemyConfig => rangeEnemyConfig;
-
+    protected internal override Transform ShootPoint => shootPoint;
 
     public override void Initiate()
     {
@@ -15,9 +15,10 @@ public abstract class RangeEnemy: Enemy
     }
     protected void DetectEnemy()
     {
-        hit = Physics2D.Raycast(transform.position, Vector2.left, rangeEnemyConfig.detectRange, rangeEnemyConfig.player);
+        hit = Physics2D.Raycast(transform.position, Vector2.left, config.detectRange, config.player);
         if (hit.collider != null && !isDetected)
         {
+            CallDetectAbility();
             stateMachine?.SwitchState(attackState);
             isDetected = true;
         }

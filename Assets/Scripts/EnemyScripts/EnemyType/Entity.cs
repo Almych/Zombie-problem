@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public abstract class Entity : MonoBehaviour, IEntity
 {
-    protected Animator animator;
+    internal protected Animator animator { get; private set; }
     internal protected Rigidbody2D rb { get; private set; }
     protected Collider2D enemyCollider;
 

@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c044ef6ec557c234d920653f47dc85ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 0242cf5011820754c8948a10fe646f5e, type: 3}
   m_Name: Spitter
   m_EditorClassIdentifier: 
   speed: 1.2
   uniqDefense: {fileID: 11400000, guid: 87eb550fcc5e8b44bb81bf2f05644665, type: 2}
-  maxHealth: 10
-  detectRange: 7
+  maxHealth: 12
+  attackType: {fileID: 11400000, guid: 2b05224ebbb238a41be90d22c56ee245, type: 2}
+  moveType: {fileID: 11400000, guid: 78cfa742d661ef943adcfbc9e5348ef0, type: 2}
+  detectRange: 6
   player:
     serializedVersion: 2
     m_Bits: 64
-  bulletConfig: {fileID: 11400000, guid: 633f49f59f20c8746a51daf756667b16, type: 2}

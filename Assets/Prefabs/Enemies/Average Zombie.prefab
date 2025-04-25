@@ -199,6 +199,7 @@ MonoBehaviour:
   attackAbility: []
   damageAbility:
   - {fileID: 11400000, guid: 20b6188ccd7744645b5833b2bc02cefd, type: 2}
+  detectAbility: []
   meleeEnemyConfig: {fileID: 11400000, guid: 5c80d79fbc757f346b13c4e4875d60d9, type: 2}
 --- !u!1 &8368564793082021321
 GameObject:

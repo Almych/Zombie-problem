@@ -3,12 +3,12 @@ using UnityEngine;
 
 public abstract class Enemy : Entity, IEnemy
 {
-    [SerializeField] AbilityConfig[] deathAbility, moveAbility, attackAbility, damageAbility;
+    [SerializeField] AbilityConfig[] deathAbility, moveAbility, attackAbility, damageAbility, detectAbility;
     protected float currHealth;
     internal protected AttackProvider attackDealer;
     internal protected MoveProvider movable;
     internal protected StateMachine stateMachine;
-    protected event Action onDeath, onMove, onAttack, onGetDamage;
+    protected event Action onDeath, onMove, onAttack, onGetDamage, onDetect;
     protected RunState runState;
     protected AttackState attackState;
     protected DieState dieState;
@@ -16,9 +16,14 @@ public abstract class Enemy : Entity, IEnemy
     protected int attackAnimation = Animator.StringToHash("Attack");
     protected int runAnimation = Animator.StringToHash("Walk");
 
+    internal protected abstract Transform ShootPoint { get; }
     internal protected abstract BaseEnemyConfig enemyConfig { get; }
 
     public void CallMoveAbility() => onMove?.Invoke();
+    public void CallDetectAbility() => onDetect?.Invoke();
+    public void CallDeathAbility() => onDeath?.Invoke();
+    public void CallAttackAbility() => onAttack?.Invoke();
+
 
     protected void SetAbilities()
     {
@@ -41,15 +46,28 @@ public abstract class Enemy : Entity, IEnemy
         {
             onGetDamage += ability.ApplyAbilities(this);
         }
+
+        foreach (var ability in detectAbility)
+        {
+            onDetect += ability.ApplyAbilities(this);
+        }
     }
 
     public virtual void SetStateMachine()
     {
         SetAbilities();
         runState = new RunState(animator, runAnimation, this);
-        attackState = new AttackState(animator, attackAnimation);
-        dieState = new DieState(animator, dieAnimation);
+        attackState = new AttackState(animator, attackAnimation, this);
+        dieState = new DieState(animator, dieAnimation, this);
         stateMachine = new StateMachine(runState, attackState, dieState);
+    }
+
+    public override void Init()
+    {
+        base.Init();
+        attackDealer = enemyConfig.attackType.SetAttack(this);
+        movable = enemyConfig.moveType.SetMove(this);
+        SetStateMachine();
     }
 
     protected void OnEnable()
@@ -89,14 +107,11 @@ public abstract class Enemy : Entity, IEnemy
 
     public override void Die()
     {
-        attackDealer.ResetSpeed();
-        onDeath?.Invoke();
         base.Die();
     }
 
     public virtual void TriggerAction()
     {
         attackDealer?.ExecuteAttack();
-        onAttack?.Invoke();
     }
 }

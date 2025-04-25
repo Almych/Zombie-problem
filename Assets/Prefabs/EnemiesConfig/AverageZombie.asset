@@ -15,4 +15,5 @@ MonoBehaviour:
   speed: 2
   uniqDefense: {fileID: 11400000, guid: 5465775a2addad84aa82eee4170cb66b, type: 2}
   maxHealth: 8
-  damage: 4
+  attackType: {fileID: 11400000, guid: 9466fe7106d1e8c4598c56e9c097e5ca, type: 2}
+  moveType: {fileID: 11400000, guid: 78cfa742d661ef943adcfbc9e5348ef0, type: 2}

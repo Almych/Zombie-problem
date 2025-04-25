@@ -195,14 +195,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathAbility: []
-  moveAbility:
-  - {fileID: 11400000, guid: 73869dcfe14fad841b5345839a4f8cb9, type: 2}
+  moveAbility: []
   attackAbility:
   - {fileID: 11400000, guid: 9c6814d2fa071d74c9f4327c024ce13d, type: 2}
-  - {fileID: 11400000, guid: 7056e3ba06b38ca44a4d321048a9cd5c, type: 2}
   damageAbility: []
+  detectAbility:
+  - {fileID: 11400000, guid: 290c067910162d94891da83a682e7854, type: 2}
+  config: {fileID: 11400000, guid: bd63196a351cdbf47b5fc37088fc1c03, type: 2}
   shootPoint: {fileID: 5788430977440285962}
-  enemyConfig: {fileID: 11400000, guid: bd63196a351cdbf47b5fc37088fc1c03, type: 2}
+  moveDuration: 50
+  attackDuration: 10
 --- !u!1 &9179889991013194408
 GameObject:
   m_ObjectHideFlags: 0

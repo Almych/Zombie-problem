@@ -8,7 +8,7 @@ public class DodgeAbilityConfig : AbilityConfig
 
     public override Action ApplyAbilities(Enemy enemy)
     {
-         DodgeAbility dodgeAbility = new DodgeAbility(enemy, timeToDodge, frequency, amplitute);
-        return dodgeAbility.OnMove; 
+         resultAbility = new DodgeAbility(callPerTicks,callOnce,enemy, timeToDodge, frequency, amplitute);
+         return base.ApplyAbilities(enemy);
     }
 }

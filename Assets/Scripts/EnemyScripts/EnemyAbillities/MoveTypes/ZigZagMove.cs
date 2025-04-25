@@ -7,9 +7,9 @@ public class ZigZagMove : MoveProvider
     private float _amplitude = 1f; // Width of the zigzag
     private float _time;
     private float _phaseOffset; // _phase offset gives random value between up 0 and down 3.14
-    public ZigZagMove(Transform transform, Rigidbody2D rb, float speed, int moveAbilityTicks, float sidesTime, float frequence) : base(transform, rb, speed, moveAbilityTicks)
+    public ZigZagMove(Animator animator,Transform transform, Rigidbody2D rb, float speed, float amplitude, float frequence) : base(animator, transform, rb, speed)
     {
-        _amplitude = sidesTime;
+        _amplitude = amplitude;
         _frequency = frequence;
         _phaseOffset = UnityEngine.Random.value > 0.5f ? 0f : Mathf.PI;
     }

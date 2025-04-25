@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class ForwardSpawn : SpawnAbility
 {
-
-    public ForwardSpawn(Enemy enemy, float horizontalSpace, Enemy spawnEnemy) : base(enemy, horizontalSpace, spawnEnemy)
+    public ForwardSpawn(int coolDownTicks, bool callOnce, Enemy enemy, float horizontalSpace, Enemy spawnEnemy) : base(coolDownTicks, callOnce, enemy, horizontalSpace, spawnEnemy)
     {
     }
 
-    public override void OnDeath()
+    protected override void Spawn()
     {
-        base.OnDeath();
+        base.Spawn();
     }
 
     protected override void SpawnAtPoint(Transform spawnEnemyTransform)

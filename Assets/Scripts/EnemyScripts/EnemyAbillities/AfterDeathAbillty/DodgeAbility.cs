@@ -1,30 +1,18 @@
 
-public class DodgeAbility : IMoveAbility
+public class DodgeAbility : Ability
 {
     private int timeToDodge;
     private float frequency, amplitute = 1f;
-    private bool changedMove;
-    private Enemy enemy;
 
-    public DodgeAbility(Enemy enemy, int timeToDodge, float frequency, float amplitute)
+    public DodgeAbility(int coolDownTicks, bool callOnce, Enemy enemy, int timeToDodge, float frequency, float amplitute) : base(coolDownTicks, callOnce, enemy)
     {
-        this.enemy = enemy;
-        this.timeToDodge = timeToDodge;
         this.frequency = frequency;
         this.amplitute = amplitute;
+        this.timeToDodge = timeToDodge;
     }
 
-
-    public void OnMove()
+    protected override void OnCall()
     {
-        if (changedMove)
-        {
-            return;
-        }
-        else
-        {
-            enemy.movable = new ZigZagMove(enemy.transform, enemy.rb, enemy.enemyConfig.speed, timeToDodge, amplitute, frequency);
-            changedMove = true;
-        }
+        enemy.movable = new ZigZagMove(enemy.animator, enemy.transform, enemy.rb, enemy.enemyConfig.speed, amplitute, frequency);
     }
 }

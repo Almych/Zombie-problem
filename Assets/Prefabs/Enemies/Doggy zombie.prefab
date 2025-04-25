@@ -193,4 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e92768f9e040049ae721b34d8cc1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathAbility: []
+  moveAbility: []
+  attackAbility: []
+  damageAbility: []
+  detectAbility: []
   meleeEnemyConfig: {fileID: 11400000, guid: 5c80d79fbc757f346b13c4e4875d60d9, type: 2}

@@ -6,10 +6,12 @@ public abstract class AttackProvider : IAttackStrategy, ISpeedProvider
 {
     protected Animator animator;
     protected float baseSpeed;
-    public AttackProvider(Animator animator)
+    internal protected int coolDownTIcks;
+    public AttackProvider(Animator animator, int attackPerTicks)
     {
         this.animator = animator;
         baseSpeed = animator.speed;
+        coolDownTIcks = attackPerTicks;
     }
 
     public abstract void ExecuteAttack(HealthBar healthBar = null);

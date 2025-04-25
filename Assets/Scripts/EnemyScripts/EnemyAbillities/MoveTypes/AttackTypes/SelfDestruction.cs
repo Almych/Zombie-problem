@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NoneAttack : AttackProvider
 {
-    public NoneAttack(Animator animator) : base(animator)
+    public NoneAttack(Animator animator, int attackPerTicks) : base(animator, attackPerTicks)
     {
     }
 

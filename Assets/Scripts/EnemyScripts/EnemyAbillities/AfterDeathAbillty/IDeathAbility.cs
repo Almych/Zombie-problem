@@ -1,21 +1,6 @@
 
 
-public interface IDeathAbility 
+public interface IAbility
 {
-    void OnDeath();
-}
-
-public interface IMoveAbility
-{
-    void OnMove();
-}
-
-public interface IAttackAbility
-{
-    void OnAttack();
-}
-
-public interface IDamageAbility
-{
-    void OnGetDamage();
+    public void InvokeAbility();
 }

@@ -8,7 +8,7 @@ public class SpeedBoostAbConfig : AbilityConfig
     [SerializeField] private float detectRadius;
     public override Action ApplyAbilities(Enemy enemy)
     {
-        SpeedBoostAbility speedBoostAbility = new SpeedBoostAbility(enemy, detectRadius, speedBoost);
-        return speedBoostAbility.OnDeath;
+        resultAbility = new SpeedBoostAbility(callPerTicks,callOnce,enemy, detectRadius, speedBoost);
+        return base.ApplyAbilities(enemy);
     }
 }

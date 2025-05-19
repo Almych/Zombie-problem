@@ -8,5 +8,6 @@ public abstract class BaseEnemyConfig : ScriptableObject
     public float maxHealth;
     public AttackTypeConfig attackType;
     public MoveTypeConfig moveType;
+    public DeathProviderConfig deathType;
 }
 

@@ -35,13 +35,13 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (!canNotMove)
-            rb.velocity = moveInput * speed;
+            rb.linearVelocity = moveInput * speed;
     }
 
     private void OnPlayerDeath(OnPauseEvent e)
     {
         canNotMove = e.IsPaused;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         animator.SetBool("isMove", false);
     }
 

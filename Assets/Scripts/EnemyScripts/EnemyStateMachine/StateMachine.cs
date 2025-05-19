@@ -1,35 +1,55 @@
 using System;
-using System.Collections.Generic;
+using UnityEngine;
+public enum StunType
+{
+    Froze,
+    Stun
+}
 
 public class StateMachine
 {
-    public State currentState { get; private set; }
-    private Dictionary<Type, State> stateMap = new();
+    public IState currentState { get; private set; }
+    public IState lastState { get; private set; }
+    private IdleState _idleState;
+    private RunState _runState;
+    private AttackState _attackState;
+    private DieState _dieState;
 
-    public StateMachine(RunState runState, AttackState attackState, DieState dieState)
+    public StateMachine(IdleState idleState,RunState runState, AttackState attackState, DieState dieState)
     {
-        stateMap[typeof(RunState)] = runState;
-        stateMap[typeof(AttackState)] = attackState;
-        stateMap[typeof(DieState)] = dieState;
-
-        currentState = runState;
+        _runState = runState;
+        _attackState = attackState;
+        _dieState = dieState;
+        _idleState = idleState;
+        currentState = idleState;
     }
 
-    public void SwitchState(State newState)
+    public void StopState(int duration)
     {
-        currentState?.Exit();
-        currentState = newState;
-        currentState?.Enter();
-    }
-
-    public void TryTranslate<T>() where T : State
-    {
-        if (stateMap[typeof(T)] != null)
+        if (currentState is IdleState idle)
         {
-            SwitchState(stateMap[typeof(T)]);
+            idle.ExtendDuration(duration);
+            return;
         }
+        _idleState.SetDuration(duration);
+        SwitchState(_idleState);
     }
 
+
+    public void SwitchState(IState newState, bool force = false)
+    {
+        if (currentState is IdleState && newState is IdleState) return;
+        if (!force && currentState.PriorityType > newState.PriorityType)
+        {
+            return;
+        }
+        lastState = currentState;
+        currentState.Exit();
+        currentState = newState;
+        currentState.Enter();
+    }
+
+   
     public void OnTick()
     {
         currentState?.Tick();

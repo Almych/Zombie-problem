@@ -3,13 +3,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Stun Effect", menuName = "DamageEffect/StunEffect")]
 public class StunEffect : EffectDamageDecorator
 {
+    [SerializeField] private int _effectDuration;
     public override DamageType damageType => DamageType.Stun;
 
-    public override IEnumerator ApplyEffect(Enemy enemy)
+    public override void ApplyEffect(Enemy enemy)
     {
-        strategy?.MakeDamage(enemy);
-        //can move
-        yield return new WaitForSeconds(_effectDuration);
-        //can move
+        enemy.RequestStun(_effectDuration);
+    }
+
+
+    public override void MakeDamage(Enemy enemy)
+    {
+        defaultDamage?.MakeDamage(enemy);
+        ApplyEffect(enemy);
     }
 }

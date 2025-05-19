@@ -16,9 +16,9 @@ public abstract class BuffAbility : Ability
         
         for(int i = 0; i < hits.Length; i++)
         {
-            if (hits[i].collider.GetComponent<Enemy>() != null && !hits[i].collider.GetComponent<Enemy>().movable.boosted)
+            if (hits[i].collider.GetComponent<Enemy>() != null)
             {
-                SetBuff(hits[i].collider.GetComponent<Enemy>().movable);
+                SetBuff(hits[i].collider.GetComponent<Enemy>());
                 SetBuff(hits[i].collider.GetComponent<Enemy>().attackDealer);
             }
         }

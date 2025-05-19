@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: New Freeze Effect
   m_EditorClassIdentifier: 
   _damage: 2
-  strategy: {fileID: 11400000, guid: 4cbc31c02d1fa664bbd23327b7a76972, type: 2}
   _effectDuration: 3
-  _slowAmount: 2
+  defaultDamage: {fileID: 11400000, guid: 4cbc31c02d1fa664bbd23327b7a76972, type: 2}
+  _slowAmount: 0.3

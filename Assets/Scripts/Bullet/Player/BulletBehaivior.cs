@@ -6,16 +6,16 @@ public abstract class BulletBehaivior : BaseBulletBehaviour
      protected PlayerBulletConfig _bulletConfig;
    
 
-    public void SetConfig(PlayerBulletConfig bulletConfig)
+    public void InitConfig()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    public virtual void Activate(PlayerBulletConfig bulletConfig)
+    {
         _bulletConfig = bulletConfig;
         spriteRenderer.sprite = _bulletConfig.bulletSprite;
-    }
-    public virtual void Activate()
-    {
-        rb.velocity = transform.right * _bulletConfig.speed;
+        rb.linearVelocity = transform.right * _bulletConfig.speed;
         StartCoroutine(BulletFlow());
     }
     

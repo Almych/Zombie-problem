@@ -4,11 +4,19 @@ public interface IAnimator
 {
     void SmoothTranslateAnimation(int animationTriggerName, float translateDuration);
 }
+
+public enum PriorityType
+{
+    Low,
+    Medium, 
+    High
+}
 public abstract class State : IState, IAnimator
 {
     protected Animator _animator;
     protected int _animationIndex;
     protected Enemy _enemy;
+    public abstract PriorityType PriorityType { get;}
     protected State(Animator animator, int animationIndex, Enemy enemy)
     {
         _animator = animator;
@@ -23,6 +31,8 @@ public abstract class State : IState, IAnimator
     {
         _animator.CrossFade(animationTriggerName, translateDuration);
     }
+
+    public void StopAnimation() => _animator.StopPlayback();
 
     public void PlayAnimation(int animationTriggerName)
     {

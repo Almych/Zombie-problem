@@ -7,7 +7,7 @@ public class LaserBullet : BulletBehaivior
         Enemy enemy = collider.GetComponent<Enemy>();
         if (enemy != null)
         {
-            enemy.TakeDamage(_bulletConfig.damage);
+            _bulletConfig.damage.MakeDamage(enemy);
         }
     }
 }

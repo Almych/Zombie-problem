@@ -19,6 +19,6 @@ MonoBehaviour:
   - item: {fileID: 0}
   - item: {fileID: 0}
   weaponSlots:
-  - {fileID: 11400000, guid: b26697e14959d3944927088a4866aa10, type: 2}
   - {fileID: 11400000, guid: 3a805b3f6137f484ea7356df77d49be2, type: 2}
+  - {fileID: 11400000, guid: ed71d5374c39ac247b53c0cb767de22e, type: 2}
   mainInventory: {fileID: 11400000, guid: 230e526902d541b4aa8bfbe6ca53c45e, type: 2}

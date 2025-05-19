@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 [CreateAssetMenu(fileName = "New Default Effect", menuName = "DamageEffect/DefaultEffect")]
 public class DefaultDamage : Damage
@@ -6,6 +7,7 @@ public class DefaultDamage : Damage
 
     public override void MakeDamage(Enemy enemy)
     {
+    
         enemy.TakeDamage(this);
     }
 }

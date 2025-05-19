@@ -10,7 +10,7 @@ public class StopMoveAbility : Ability
     protected override void OnCall()
     {
 
-        enemy.movable = new NoneMove(enemy.animator,enemy.transform, enemy.rb, enemy.enemyConfig.speed);
+        enemy.movable = new NoneMove(enemy, enemy.enemyConfig.speed);
     }
 
 }

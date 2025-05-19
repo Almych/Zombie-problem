@@ -15,7 +15,7 @@ public class EnemyBulletBehaivior : BaseBulletBehaviour
         this.speed = speed;
         spriteRenderer.sprite = sprite;
         transform.position = pos;
-        rb.velocity = -transform.right * speed;
+        rb.linearVelocity = -transform.right * speed;
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)

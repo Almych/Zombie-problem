@@ -9,7 +9,12 @@ public abstract class ContinuesDamageDecorator : Damage, IDamageEffect
     [SerializeField] protected float _duration;
     [SerializeField] protected float _intervals = 1f;
 
-    public IEnumerator ApplyEffect(Enemy enemy)
+    public void ApplyEffect(Enemy enemy)
+    {
+        enemy.StartCoroutine(ApplyContinuesDamage(enemy));
+    }
+
+    protected IEnumerator ApplyContinuesDamage(Enemy enemy)
     {
         float elapsed = 0f;
         while (elapsed < _duration)
@@ -18,15 +23,13 @@ public abstract class ContinuesDamageDecorator : Damage, IDamageEffect
             yield return new WaitForSeconds(_intervals);
             elapsed += _intervals;
         }
-
     }
 
     public override void MakeDamage(Enemy enemy)
     {
         if (strategy == null)
             return;
-
         strategy.MakeDamage(enemy);
-        enemy.StartCoroutine(ApplyEffect(enemy));
+        ApplyEffect(enemy);
     }
 }

@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class DieState : State
 {
-    public DieState(Animator animator, int animIndex, Enemy enemy) : base(animator, animIndex, enemy)
+    private IDieStrategy _dieStrategy;
+    public DieState(Animator animator, int animIndex, Enemy enemy, IDieStrategy dieStrategy) : base(animator, animIndex, enemy)
     {
+        _dieStrategy = dieStrategy;
     }
+
+    public override PriorityType PriorityType => PriorityType.High;
 
     public override void Enter()
     {
@@ -14,6 +18,7 @@ public class DieState : State
 
     public override void Exit()
     {
+        StopAnimation();
     }
 
     public override void Tick()
@@ -21,3 +26,5 @@ public class DieState : State
         
     }
 }
+
+

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Mage
   m_EditorClassIdentifier: 
   speed: 1.2
-  uniqDefense: {fileID: 11400000, guid: 87eb550fcc5e8b44bb81bf2f05644665, type: 2}
-  maxHealth: 12
+  uniqDefense: {fileID: 11400000, guid: 5465775a2addad84aa82eee4170cb66b, type: 2}
+  maxHealth: 8
   attackType: {fileID: 11400000, guid: 95a3b42da4cfe5e48a1db55df32798ea, type: 2}
   moveType: {fileID: 11400000, guid: 78cfa742d661ef943adcfbc9e5348ef0, type: 2}
+  deathType: {fileID: 11400000, guid: 48d702cc5b241124f87a980ee13ca6f1, type: 2}
   detectRange: 10
   player:
     serializedVersion: 2

@@ -4,10 +4,10 @@ public class SimpleBullet : BulletBehaivior
 {
     private bool isTriggered;
 
-    public override void Activate()
+    public override void Activate(PlayerBulletConfig bulletConfig)
     {
         isTriggered = false;
-        base.Activate();
+        base.Activate(bulletConfig);
     }
 
     public override void OnTriggerEnter2D(Collider2D collider)
@@ -18,7 +18,7 @@ public class SimpleBullet : BulletBehaivior
         if (enemy != null)
         {
             isTriggered = true;
-            enemy.TakeDamage(_bulletConfig.damage);
+            _bulletConfig.damage.MakeDamage(enemy);
             Deactivate();
         }
     }

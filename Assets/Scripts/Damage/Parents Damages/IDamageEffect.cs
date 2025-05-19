@@ -3,5 +3,5 @@ using System.Collections;
 
 public interface IDamageEffect
 {
-    IEnumerator ApplyEffect(Enemy enemy);
+    void ApplyEffect(Enemy enemy);
 }

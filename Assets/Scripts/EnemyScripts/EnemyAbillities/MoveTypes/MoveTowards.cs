@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class MoveTowards : MoveProvider
 {
-    public MoveTowards(Animator animator, Transform transform, Rigidbody2D rb, float speed) : base(animator, transform, rb, speed)
+    public MoveTowards(Enemy enemy) : base(enemy)
     {
     }
 
     public override void Move()
     {
-        _rb.velocity = -_transform.right * _speed;
+        _enemy.desiredVelocity = -_enemy.transform.right * _enemy.currentSpeed;
+
     } 
 }

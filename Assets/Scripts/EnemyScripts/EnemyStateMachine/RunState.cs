@@ -6,16 +6,20 @@ public class RunState : State
     {
     }
 
+    public override PriorityType PriorityType => PriorityType.Low;
+
     public override void Enter()
     {
         SmoothTranslateAnimation(_animationIndex);
+        _enemy.movable.Move();
     }
 
     public override void Exit()
     {
-        _enemy.movable?.StopMove();
-        _enemy.movable.ResetSpeed();
+        _enemy.movable.StopMove();
+        Debug.Log("stopped!");
     }
+
 
     public override void Tick()
     {
@@ -25,7 +29,6 @@ public class RunState : State
             PlayAnimation(_animationIndex);
         }
 
-        _enemy.movable.Move();
         _enemy.CallMoveAbility();
     }
 }

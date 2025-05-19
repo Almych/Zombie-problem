@@ -6,7 +6,7 @@ public class MoveForwardConfig : MoveTypeConfig
 {
     public override MoveProvider SetMove(Enemy enemy)
     {
-        moveProvider = new MoveTowards(enemy.animator,enemy.transform, enemy.rb, enemy.enemyConfig.speed);
+        moveProvider = new MoveTowards(enemy);
         return base.SetMove(enemy);
     }
 }

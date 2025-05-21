@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: AverageDefense
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUniqDefense
-  damagesToStayPercents:
-  - damageType: 2
-    resistence: 0.1
-  - damageType: 3
-    resistence: 0.3
+  damageResistances:
+    Flame: 0
+    Freeze: 1
+    Stun: 0
+    Poison: 0
+    Default: 0.5
+    Crit: 0

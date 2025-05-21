@@ -36,11 +36,11 @@ public static class ObjectPoolManager
 
     public static T FindObject<T>() where T : Component
     {
-        if (poolsByTypes.ContainsKey(typeof(T)))
+        if (!poolsByTypes.ContainsKey(typeof(T)))
         {
-           return  poolsByTypes[typeof(T)]?.GetPooledObject()?.GetComponent<T>();
+            return null;
         }
-        return null;
+        return poolsByTypes[typeof(T)]?.GetPooledObject()?.GetComponent<T>();
     }
 
     public static T FindObjectByName<T>(string objectName) where T: Component

@@ -24,15 +24,17 @@ public class StateMachine
         currentState = idleState;
     }
 
-    public void StopState(int duration)
+    public void StopState(int duration, StunType stunType = StunType.Stun)
     {
-        if (currentState is IdleState idle)
+        if(stunType == StunType.Stun && !currentState.isFroze())
         {
-            idle.ExtendDuration(duration);
-            return;
+            _idleState.SetDuration(duration);
+            SwitchState(_idleState);
         }
-        _idleState.SetDuration(duration);
-        SwitchState(_idleState);
+        else if (stunType == StunType.Froze && currentState is not IdleState)
+        {
+            currentState.Freeze(duration);
+        }
     }
 
 

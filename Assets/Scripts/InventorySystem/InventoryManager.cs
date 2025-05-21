@@ -5,6 +5,7 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
+    public InventorySlot inventorySlot;
     [SerializeField] private PlayInventory inventory;
     private Dictionary<InventoryItem, InventorySlot> slots = new Dictionary<InventoryItem, InventorySlot>();
 
@@ -12,6 +13,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        ObjectPoolManager.CreateObjectPool(inventorySlot, 6);
     }
 
     void OnDestroy()
@@ -48,8 +50,13 @@ public class InventoryManager : MonoBehaviour
 
     private void CreateSlot(InventoryItem inventoryItem)
     {
-        InventorySlot slot = ObjectPoolManager.FindObject<InventorySlot>();
-        slot.SetInventorySlot(inventoryItem);
-        slots[inventoryItem] = slot;
+        InventorySlot slot = ObjectPoolManager.FindObject<InventorySlot>();   
+        if (slot != null)
+        {
+            slot.gameObject.SetActive(true);
+            slot.transform.SetParent(transform);
+            slot.SetInventorySlot(inventoryItem);
+            slots[inventoryItem] = slot;
+        }
     }
 }

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
   items:
-  - item: {fileID: 11400000, guid: ce949f0afc76efd42934b4472389bc06, type: 2}
-  - item: {fileID: 11400000, guid: 999a4863ac0255f45b937c65dd8199f8, type: 2}
+  - item: {fileID: 0}
+  - item: {fileID: 0}
+  - item: {fileID: 11400000, guid: 21bdb04ecd9431242b16223dea456e12, type: 2}
+  - item: {fileID: 11400000, guid: 21bdb04ecd9431242b16223dea456e12, type: 2}
   - item: {fileID: 11400000, guid: 3d979fa36c39955468d5b81125117aa6, type: 2}
-  - item: {fileID: 0}
-  - item: {fileID: 0}
   weaponSlots:
   - {fileID: 11400000, guid: 3a805b3f6137f484ea7356df77d49be2, type: 2}
   - {fileID: 11400000, guid: ed71d5374c39ac247b53c0cb767de22e, type: 2}

@@ -4,10 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New EffectGrenade", menuName = "ItemMenu/Items/Grenades/EffectGrenade")]
 public class EffectGrenade : Grenade
 {
-    [SerializeField] private float effectTime;
+    [SerializeField] private int effectTimeTicks;
 
     public override void Use()
     {
-        Debug.Log("Effect used");
+       EventBus.Publish(new FreezeEnemiesEvent(effectTimeTicks));
     }
 }

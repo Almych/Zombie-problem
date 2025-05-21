@@ -16,4 +16,4 @@ MonoBehaviour:
   Sprite: {fileID: 1508274879, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   Description: Freze all of you
   damage: 10
-  effectTime: 5
+  effectTimeTicks: 20

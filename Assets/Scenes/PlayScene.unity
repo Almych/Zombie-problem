@@ -6385,7 +6385,6 @@ GameObject:
   - component: {fileID: 1558325237}
   - component: {fileID: 1558325238}
   - component: {fileID: 1558325239}
-  - component: {fileID: 1558325240}
   m_Layer: 0
   m_Name: Ak47
   m_TagString: Untagged
@@ -6532,20 +6531,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1558325240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558325235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3ebf644bb0a51745bd85bd44807f112, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: c9ad40dc178a0a14ca8c7e3f20a529d5, type: 2}
-  shootPoint: {fileID: 392643040}
 --- !u!1 &1569079790
 GameObject:
   m_ObjectHideFlags: 0
@@ -7558,12 +7543,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1789682950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27bb7917b0be4434e8d75d4f4d8ab46b, type: 3}
+  m_Script: {fileID: 11500000, guid: f4f97918937a4a24eb01d1e851b0afab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   collectable:
     serializedVersion: 2
     m_Bits: 128
+  inventory: {fileID: 11400000, guid: c9ad40dc178a0a14ca8c7e3f20a529d5, type: 2}
+  shootPoint: {fileID: 392643040}
+  gun: {fileID: 1558325236}
 --- !u!1 &1790683770
 GameObject:
   m_ObjectHideFlags: 0
@@ -8391,8 +8379,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: 0}
-  m_SizeDelta: {x: 700, y: 100}
+  m_AnchoredPosition: {x: -350, y: 0.000024796}
+  m_SizeDelta: {x: 700, y: 120}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1939166306
 MonoBehaviour:
@@ -8444,6 +8432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c8b46fa01ffc544087314bfc1df0981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySlot: {fileID: 4766859083550026285, guid: b8be24c9c05bfab488d7537a68d6feeb, type: 3}
   inventory: {fileID: 11400000, guid: c9ad40dc178a0a14ca8c7e3f20a529d5, type: 2}
 --- !u!114 &1939166309
 MonoBehaviour:
@@ -8465,10 +8454,10 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
+  m_CellSize: {x: 50, y: 50}
   m_Spacing: {x: 50, y: 0}
-  m_Constraint: 1
-  m_ConstraintCount: 5
+  m_Constraint: 0
+  m_ConstraintCount: 3
 --- !u!1 &1968701740
 GameObject:
   m_ObjectHideFlags: 0
@@ -8864,6 +8853,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1999186096}
   - component: {fileID: 1999186095}
+  - component: {fileID: 1999186097}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -8938,6 +8928,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 180, y: 180, z: 0}
+--- !u!114 &1999186097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999186094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 681b5d5e197171d46a187b4d9bc5e2e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grenadeCursor: {fileID: 2800000, guid: a34fd56614e4bb6498d30a04b9cd0fa5, type: 3}
+  cursorHotspot: {x: 1, y: 0}
 --- !u!1 &2044858410
 GameObject:
   m_ObjectHideFlags: 0
@@ -9544,6 +9548,7 @@ MonoBehaviour:
   - {fileID: 6245061304824114522, guid: 206de64b787c13e45820de8024386947, type: 3}
   - {fileID: 6192724089161036652, guid: e17d9a3f04750764c8c0a7a0461e4c3b, type: 3}
   - {fileID: 2420545110035299729, guid: aaa674fb0256f9c44aefc8d53caa5d70, type: 3}
+  grenadeThrowable: {fileID: -2834323642835112084, guid: a419e4920f0f4ac409ea814bcab75020, type: 3}
   poolSize: 6
 --- !u!1001 &4282346404928643561
 PrefabInstance:

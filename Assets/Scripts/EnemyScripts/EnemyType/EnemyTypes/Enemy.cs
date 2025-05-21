@@ -73,9 +73,9 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
     {
         stateMachine?.SwitchState(runState, true);
     }
-    public void RequestStun(int duration, StunType stunType = StunType.Stun)
+    public void RequestStun(int duration, StunType stunType)
     {
-        stateMachine?.StopState(duration);
+        stateMachine?.StopState(duration, stunType);
     }
     public virtual void SetStateMachine()
     {

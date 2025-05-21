@@ -16,4 +16,5 @@ MonoBehaviour:
   Sprite: {fileID: 199214892, guid: 0a50f68485dca424ba4d3a8ad4dbd620, type: 3}
   Description: Destroy all light armor enemies
   damage: 40
-  damageType: {fileID: 11400000, guid: 35997ff9c6e1baa4f917d12a4cf31f9c, type: 2}
+  damageType: {fileID: 11400000, guid: a1caa49f9ea030144a5ec80bb6a06775, type: 2}
+  moveDuration: 1

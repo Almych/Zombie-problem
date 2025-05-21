@@ -8,7 +8,6 @@ public class RunAttackState : IState
     private State currentState;
     private bool isAttacking;
     private Enemy _enemy;
-
     public RunAttackState(RunState runState, AttackState attackState, int switchTimeTicks, Enemy enemy)
     {
         _attackState = attackState;
@@ -31,9 +30,13 @@ public class RunAttackState : IState
     {
         currentState.Exit();
     }
-
+    public bool isFroze()
+    {
+        return currentState.isFroze();
+    }
     public void Tick()
     {
+        if(!currentState.isFroze()) 
         currTime++;
 
         if (!isAttacking && currTime >= changeStateTime)
@@ -53,6 +56,12 @@ public class RunAttackState : IState
 
         currentState.Tick();
     }
+
+    public virtual void Freeze(int duration)
+    {
+       currentState?.Freeze(duration);
+    }
+
 
     private void ChangeState(State newState)
     {

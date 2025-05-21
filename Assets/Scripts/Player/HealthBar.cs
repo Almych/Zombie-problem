@@ -21,6 +21,12 @@ public class HealthBar : MonoBehaviour
     void Awake()
     {
         Init();
+        EventBus.Subscribe<OnHealEvent>(Heal);
+    }
+
+    void OnDestroy()
+    {
+        EventBus.UnSubscribe<OnHealEvent>(Heal);
     }
 
     private void Init()
@@ -37,5 +43,11 @@ public class HealthBar : MonoBehaviour
         {
             EventBus.Publish(new PlayerDieEvent());
         }
+    }
+
+    public void Heal(OnHealEvent e)
+    {
+        CurrHealth += e.healPoints;
+        Debug.Log(CurrHealth);
     }
 }

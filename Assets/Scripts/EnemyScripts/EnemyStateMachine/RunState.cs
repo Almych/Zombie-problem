@@ -17,11 +17,10 @@ public class RunState : State
     public override void Exit()
     {
         _enemy.movable.StopMove();
-        Debug.Log("stopped!");
     }
 
 
-    public override void Tick()
+    public override void OnTick()
     {
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName("Walk") && stateInfo.normalizedTime >= 1f)

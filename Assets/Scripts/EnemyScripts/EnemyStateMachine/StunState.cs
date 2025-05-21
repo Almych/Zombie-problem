@@ -28,8 +28,11 @@ public class IdleState : State
     {
         currTicks = 0;
     }
-
-    public override void Tick()
+    public override void Freeze(int duration)
+    {
+        
+    }
+    public override void OnTick()
     {
         currTicks++;
         if(currTicks >= duration)
@@ -41,6 +44,9 @@ public class IdleState : State
 
     public void SetDuration(int duration)
     {
+        if(this.duration > 0)
+            ExtendDuration(duration);
+        else
         this.duration = duration;
     }
 }

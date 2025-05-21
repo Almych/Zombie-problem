@@ -9,6 +9,6 @@ public class AimItem : Item
 
     public override void Use()
     {
-        // Event to add health
+        EventBus.Publish<OnHealEvent>(new OnHealEvent(healPoints));
     }
 }

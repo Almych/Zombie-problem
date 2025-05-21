@@ -8,7 +8,7 @@ public class StunEffect : EffectDamageDecorator
 
     public override void ApplyEffect(Enemy enemy)
     {
-        enemy.RequestStun(_effectDuration);
+        enemy.RequestStun(_effectDuration, StunType.Stun);
     }
 
 

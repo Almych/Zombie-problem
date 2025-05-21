@@ -22,7 +22,7 @@ public class AttackState : State
         StopAnimation();
     }
 
-    public override void Tick()
+    public override void OnTick()
     {
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
         if(stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1f)

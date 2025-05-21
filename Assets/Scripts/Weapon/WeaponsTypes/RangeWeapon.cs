@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class RangeWeapon : IWeapon
 {
+    public int currAmount { get; private set; }
+    public int maxAmount { get; private set; }
+    public bool isReloading { get; private set; }
     private Transform _shootPoint;
     private RangeWeaponConfig _rangeWeaponConfig;
-    private int currAmount;
     private MonoBehaviour _coroutineRunner;
-    private bool isReloading = false;
     public RangeWeapon(RangeWeaponConfig weaponConfig, MonoBehaviour runner, Transform transform)
     {
         _rangeWeaponConfig = weaponConfig;
         _shootPoint = transform;
+        maxAmount = weaponConfig.maxBullets;
         currAmount = weaponConfig.maxBullets;
         _coroutineRunner = runner;
         ObjectPoolManager.CreateObjectPool(_rangeWeaponConfig.bulletType, 5, bullet => bullet.InitConfig());
@@ -33,15 +35,26 @@ public class RangeWeapon : IWeapon
             bullet.Activate(_rangeWeaponConfig._bulletConfig);
             currAmount--;
             if (currAmount <= 0)
-                _coroutineRunner.StartCoroutine(Reload());
+                Reload();
         }
     }
 
-    public IEnumerator Reload()
+    public void Reload()
+    {
+        if (isReloading || currAmount == maxAmount)
+        {
+            return;
+        }
+
+        _coroutineRunner.StartCoroutine(ReloadCoroutine());
+    }
+
+    private IEnumerator ReloadCoroutine()
     {
         isReloading = true;
         yield return new WaitForSeconds(_rangeWeaponConfig.reloadTime);
-        currAmount = _rangeWeaponConfig.maxBullets;
+        currAmount = maxAmount;
         isReloading = false;
     }
+
 }

@@ -3,14 +3,15 @@ using UnityEngine.UI;
 
 public class HealthBarUI : MonoBehaviour
 {
-    private Image healthBar => GetComponent<Image>();
+    private Image healthBar;
 
-    private void OnEnable()
+    private void Awake()
     {
+        healthBar = GetComponent<Image>();
         EventBus.Subscribe<HealthChangeEvent>(HealthBarUpdate);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         EventBus.UnSubscribe<HealthChangeEvent>(HealthBarUpdate);
     }

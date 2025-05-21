@@ -21,7 +21,12 @@ public class DieState : State
         StopAnimation();
     }
 
-    public override void Tick()
+    public override void Freeze(int duration)
+    {
+        
+    }
+
+    public override void OnTick()
     {
         
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DefeatedEnemyTrigger : MonoBehaviour
 {
-    private HashSet<Entity> activeEnemies = new HashSet<Entity>();
+    private HashSet<Enemy> activeEnemies = new HashSet<Enemy>();
     private bool isPaused = false;
     private const int maxCheckTicks = 60; 
     private int currTicks = 0;
@@ -14,6 +14,7 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     private void Awake()
     {
         UpdateSystem.OnLateUpdate += Tick;
+        EventBus.Subscribe<FreezeEnemiesEvent>(FreezeEnemies, 1);
         EventBus.Subscribe<OnPauseEvent>(OnPause, 1);
         EventBus.Subscribe<OnWavesEnd>(OnWavesEnd);
     }
@@ -21,13 +22,14 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     private void OnDestroy()
     {
         UpdateSystem.OnLateUpdate -= Tick;
+        EventBus.UnSubscribe<FreezeEnemiesEvent>(FreezeEnemies);
         EventBus.UnSubscribe<OnWavesEnd>(OnWavesEnd);
         EventBus.UnSubscribe<OnPauseEvent>(OnPause);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Entity enemy = collision.GetComponent<Entity>();
+        var enemy = collision.GetComponent<Enemy>();
         if (enemy != null)
         {
             activeEnemies.Add(enemy);
@@ -36,10 +38,19 @@ public class DefeatedEnemyTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Entity enemy = collision.GetComponent<Entity>();
+        var enemy = collision.GetComponent<Enemy>();
         if (enemy != null)
         {
             activeEnemies.Remove(enemy);
+        }
+    }
+
+    private void FreezeEnemies(FreezeEnemiesEvent e)
+    {
+        foreach (Enemy enemy in activeEnemies)
+        {
+            // Do something with enemy
+            enemy.RequestStun(e.freezeDuration, StunType.Froze); // Example
         }
     }
 

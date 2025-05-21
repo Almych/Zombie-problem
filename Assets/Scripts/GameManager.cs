@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        InventoryManager.Instance.CreateInventory();
         UpdateSystem.Initialize();
         spawnManager.StartSpawning();
     }

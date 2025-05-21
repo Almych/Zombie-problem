@@ -5,6 +5,7 @@ using UnityEngine;
 public class PoolObjects : MonoBehaviour
 {
     public List<Component> objectsToPool = new List<Component>();
+    public GrenadeThrowable grenadeThrowable;
     public int poolSize;
 
     void Awake()
@@ -19,5 +20,6 @@ public class PoolObjects : MonoBehaviour
         {
             ObjectPoolManager.CreateObjectPool(objectsToPool[i], poolSize);
         }
+        ObjectPoolManager.CreateObjectPool(grenadeThrowable, poolSize);
     }
 }

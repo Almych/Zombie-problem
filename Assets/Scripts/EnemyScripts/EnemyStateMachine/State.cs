@@ -16,7 +16,11 @@ public abstract class State : IState, IAnimator
     protected Animator _animator;
     protected int _animationIndex;
     protected Enemy _enemy;
-    public abstract PriorityType PriorityType { get;}
+
+    private bool _isFrozen;
+    private int _freezeTimer;
+    private int _freezeDuration;
+    public abstract PriorityType PriorityType { get; }
     protected State(Animator animator, int animationIndex, Enemy enemy)
     {
         _animator = animator;
@@ -25,7 +29,24 @@ public abstract class State : IState, IAnimator
     }
     public abstract void Enter();
     public abstract void Exit();
-    public abstract void Tick();
+    public virtual void Tick()
+    {
+        if (_isFrozen)
+        {
+            _freezeTimer++;
+            if (_freezeTimer >= _freezeDuration)
+            {
+                Unfreeze();
+            }
+            return;
+        }
+        OnTick();
+    }
+    public abstract void OnTick();
+    public virtual void Stop()
+    {
+        _animator.speed = 0;
+    }
 
     public void SmoothTranslateAnimation(int animationTriggerName, float translateDuration = 0.1f)
     {
@@ -37,5 +58,31 @@ public abstract class State : IState, IAnimator
     public void PlayAnimation(int animationTriggerName)
     {
         _animator.Play(animationTriggerName, 0, 0f);
+    }
+    public bool isFroze()
+    {
+        return _isFrozen;
+    }
+
+    public virtual void Freeze(int duration)
+    {
+        if (_isFrozen)
+        {
+            _freezeDuration += duration; 
+            return;
+        }
+
+        _isFrozen = true;
+        _freezeTimer = 0;
+        _freezeDuration = duration;
+        _animator.speed = 0;
+        Exit();
+    }
+
+    private void Unfreeze()
+    {
+        _isFrozen = false;
+        _animator.speed = 1;
+        Enter();
     }
 }

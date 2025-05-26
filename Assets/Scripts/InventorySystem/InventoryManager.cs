@@ -14,11 +14,17 @@ public class InventoryManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
         ObjectPoolManager.CreateObjectPool(inventorySlot, 6);
+        InitiateItems();
     }
 
-    void OnDestroy()
+   
+    private void InitiateItems()
     {
-        
+        for(int i = 0; i < inventory.items.Length; i++)
+        {
+            if (inventory.items[i].item != null)
+                inventory.items[i].item.Initialize();
+        }
     }
 
     public void CreateInventory()

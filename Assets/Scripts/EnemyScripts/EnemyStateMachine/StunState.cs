@@ -30,8 +30,9 @@ public class IdleState : State
     }
     public override void Freeze(int duration)
     {
-        
+        base.Freeze(duration); 
     }
+
     public override void OnTick()
     {
         currTicks++;

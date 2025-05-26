@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,13 +28,22 @@ public class FadeObjectPool
     {
         for (int i = 0; i < pooledObjects.Count; i++)
         {
-            if (!pooledObjects[i].gameObject.activeInHierarchy)
+            var obj = pooledObjects[i];
+            if (obj == null)
             {
-                return pooledObjects[i];
+                pooledObjects.RemoveAt(i);
+                i--;
+                continue;
+            }
+
+            if (!obj.gameObject.activeInHierarchy)
+            {
+                return obj;
             }
         }
         return null;
     }
 
-    
+
+
 }

@@ -5,11 +5,12 @@ public class GrenadeThrowable : MonoBehaviour
 {
     private const float radius = 5f;
     private Action<Enemy> OnExplode;
-    private Collider2D[] results = new Collider2D[10]; // Reusable buffer
-
-    public void SetGrenadeEffect(Action<Enemy> effect)
+    private Collider2D[] results = new Collider2D[10];
+    private ParticleSystem grenadeParticle;
+    public void SetGrenadeEffect(Action<Enemy> effect, ParticleSystem grenadeParticle)
     {
         OnExplode = effect;
+        this.grenadeParticle = grenadeParticle;
     }
 
     [Obsolete]
@@ -24,10 +25,17 @@ public class GrenadeThrowable : MonoBehaviour
                 OnExplode?.Invoke(enemy);
             }
         }
-
-        // Optional visual/sound effects
-        Debug.Log("Grenade exploded!");
         gameObject.SetActive(false);
+    }
+
+    public void ThrowEffect()
+    {
+        var exlodePErticle = ObjectPoolManager.GetObjectFromPool(grenadeParticle);
+        if (exlodePErticle != null)
+        {
+            exlodePErticle.transform.position = transform.position;
+            exlodePErticle.gameObject.SetActive(true);
+        }
     }
 
     private void OnDrawGizmosSelected()

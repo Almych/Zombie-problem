@@ -13,7 +13,7 @@ public abstract class MoveProvider : IMoveStrategy
     public abstract void Move();
     public void StopMove()
     {
-        _enemy.rb.linearVelocity = Vector2.zero;
+        _enemy.desiredVelocity = Vector2.zero;
     }
 
     

@@ -1,11 +1,12 @@
+using System;
 using UnityEngine;
 
-public class FreezeEnemiesEvent
+public class EffectEnemiesEvent
 {
-    public int freezeDuration {  get; private set; }
+    public Damage applyDamage;
 
-    public FreezeEnemiesEvent(int durationTicks)
+    public EffectEnemiesEvent(Damage efffectDamage)
     {
-        freezeDuration = durationTicks;
+        applyDamage = efffectDamage;
     }
 }

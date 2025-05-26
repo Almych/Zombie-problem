@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 public abstract class Grenade : Item
 {
-    public float damage;
+    [SerializeField] protected Damage damage;
+    [SerializeField] protected ParticleSystem grenadeParticle;
 }

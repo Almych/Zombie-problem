@@ -113,16 +113,17 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
     {
         currHealth = enemyConfig.maxHealth;
         ResetSpeed();
+        SetColor(Color.white);
         InitiateMachine();
     }
 
     public virtual void TakeDamage(Damage damage)
     {
-        currHealth -= enemyConfig.uniqDefense.Defense(damage);
-        onGetDamage?.Invoke();
-        ParticleSystem blood = ObjectPoolManager.FindObjectByName<ParticleSystem>("EnemyHitParticle");
-        if (blood != null)
+        ParticleSystem blood = ObjectPoolManager.FindObjectByName<ParticleSystem>("Blood");
+        if (blood != null && enemyConfig.uniqDefense.Defense(damage) > 0)
         {
+            currHealth -= enemyConfig.uniqDefense.Defense(damage);
+            onGetDamage?.Invoke();
             blood.gameObject.SetActive(true);
             blood.transform.position = transform.position;
         }
@@ -155,17 +156,22 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
     public void ReduceSpeed(float speedProcents = 0.1F)
     {
         currentSpeed = enemyConfig.speed * speedProcents;
-        movable.Move();
     }
 
     public void IncreaseSpeed(float speedProcents = 0.1F)
     {
         currentSpeed = enemyConfig.speed / speedProcents;
-        movable.Move();
     }
 
     public void ResetSpeed()
     {
         currentSpeed = enemyConfig.speed;
+    }
+    
+    public void SetColor(Color color)
+    {
+        spriteRenderer.color = color;
+        if (bodySprite != null)
+            bodySprite.color = color;
     }
 }

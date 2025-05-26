@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 public class GrenadeThrowManager : MonoBehaviour
 {
@@ -7,7 +7,7 @@ public class GrenadeThrowManager : MonoBehaviour
     [SerializeField] private Texture2D grenadeCursor;
     [SerializeField] private Vector2 cursorHotspot = Vector2.zero;
 
-    private DamageGrenade currentGrenade;
+    private ThrowableGrenade currentGrenade;
     private Camera mainCam;
 
     private void Awake()
@@ -22,10 +22,11 @@ public class GrenadeThrowManager : MonoBehaviour
         UpdateSystem.CallUpdate -= Tick;
     }
 
-    public void StartAiming(DamageGrenade grenade)
+    public void StartAiming(ThrowableGrenade grenade)
     {
         currentGrenade = grenade;
         Cursor.SetCursor(grenadeCursor, cursorHotspot, CursorMode.Auto);
+        EventBus.Publish(new OnAimEvent(true));
     }
 
     private void Tick()
@@ -34,12 +35,24 @@ public class GrenadeThrowManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            Vector3 worldPos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-            worldPos.z = 0;
+            Vector3 mousePosition = Input.mousePosition;
+            Ray ray = mainCam.ScreenPointToRay(mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
-            currentGrenade.ThrowAt(worldPos);
-            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-            currentGrenade = null;
+            if (hit.collider != null)
+            {
+                DefeatedEnemyTrigger defeat = hit.collider.GetComponent<DefeatedEnemyTrigger>();
+                if (defeat != null)
+                {
+                    Vector3 worldPos = hit.point;
+                    currentGrenade.ThrowAt(worldPos);
+                    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                    currentGrenade = null;
+                    EventBus.Publish(new OnAimEvent(false));
+                    return;
+                }
+            }
         }
     }
+
 }

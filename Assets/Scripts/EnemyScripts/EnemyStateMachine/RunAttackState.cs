@@ -57,7 +57,7 @@ public class RunAttackState : IState
         currentState.Tick();
     }
 
-    public virtual void Freeze(int duration)
+    public void Freeze(int duration)
     {
        currentState?.Freeze(duration);
     }

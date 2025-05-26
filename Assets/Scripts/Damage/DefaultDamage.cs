@@ -7,7 +7,6 @@ public class DefaultDamage : Damage
 
     public override void MakeDamage(Enemy enemy)
     {
-    
         enemy.TakeDamage(this);
     }
 }

@@ -4,30 +4,39 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    public InventoryItem inventoryItem { get; private set; }
-
+    private InventoryItem inventoryItem;
+    private Button useButton;
     private Image itemImage;
     private TMP_Text itemAmount;
-    private Button useButton;
 
-    void Awake()
+    private void Awake()
     {
         Init();
     }
 
     public void Init()
     {
+        useButton = GetComponent<Button>();
         itemImage = transform.GetChild(0).GetComponent<Image>();
         itemAmount = transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
-        useButton = GetComponent<Button>();
+        EventBus.Subscribe<OnAimEvent>(WaitUntilAim);
+    }
+
+    private void OnDestroy()
+    {
+        EventBus.UnSubscribe<OnAimEvent>(WaitUntilAim);
+    }
+
+    private void WaitUntilAim(OnAimEvent e)
+    {
+        useButton.interactable = !e.isAiming;
     }
 
     public void SetInventorySlot(InventoryItem inventoryItem)
     {
-        inventoryItem.SetSlot(this);
         this.inventoryItem = inventoryItem;
         useButton.onClick.AddListener(inventoryItem.item.Use);
-        useButton.onClick.AddListener(inventoryItem.RemoveAmount);
+        useButton.onClick.AddListener(RemoveAmount);
         itemImage.sprite = inventoryItem.item.Sprite;
         UpdateSlot();
     }
@@ -38,9 +47,18 @@ public class InventorySlot : MonoBehaviour
         itemAmount.text = inventoryItem.amount.ToString();
     }
 
-    public void RemoveSlot()
+    public void AddAmount()
     {
+        inventoryItem.AddAmount();
+        UpdateSlot();
+    }
+
+    public void RemoveAmount()
+    {
+        inventoryItem.RemoveAmount();
+        if(inventoryItem.amount <= 0)
         InventoryManager.Instance.RemoveFromInventory(inventoryItem);
+        UpdateSlot();
     }
    
 }

@@ -11,7 +11,6 @@ public class RunState : State
     public override void Enter()
     {
         SmoothTranslateAnimation(_animationIndex);
-        _enemy.movable.Move();
     }
 
     public override void Exit()
@@ -27,7 +26,7 @@ public class RunState : State
         {
             PlayAnimation(_animationIndex);
         }
-
+        _enemy.movable.Move();
         _enemy.CallMoveAbility();
     }
 }

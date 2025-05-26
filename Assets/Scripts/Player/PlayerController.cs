@@ -11,9 +11,13 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer gunSprite;
     private void Awake()
     {
-        Init();
         EventBus.Subscribe<OnPauseEvent>(OnPause);
         UpdateSystem.CallUpdate += Tick;
+    }
+
+    void Start()
+    {
+        Init();
     }
 
     private void OnDestroy()
@@ -82,10 +86,15 @@ public class PlayerController : MonoBehaviour
         SwitchWeapon();
     }
 
+
+
     private void SwitchWeapon()
     {
+        if (weaponSlots[activeWeaponIndex] is RangeWeapon range && range.isReloading)
+            return;
         activeWeaponIndex = (activeWeaponIndex + 1) % weaponSlots.Length;
         gunSprite.sprite = inventory.weaponSlots[activeWeaponIndex].weaponSprite;
+        EventBus.Publish(new OnWeaponSwitchEvent(weaponSlots[activeWeaponIndex]));
     }
 
     private void OnPause(OnPauseEvent e)

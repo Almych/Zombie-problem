@@ -5,4 +5,6 @@ using UnityEngine;
 public class FlameEffect : ContinuesDamageDecorator
 {
     public override DamageType damageType => DamageType.Flame;
+
+    public override Color effectColor =>Color.red;
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class FreezeEffect : EffectDamageDecorator
 {
     [SerializeField, Range(0.1f, 1f)] private float _slowAmount;
+    [SerializeField, Range(3f, 6f)] private float slowDuration;
     [SerializeField, Range(0.1f, 1f)] private float freezeChance;
     private const int freezeDuration = 5;
 
@@ -13,7 +14,7 @@ public class FreezeEffect : EffectDamageDecorator
 
     public override void ApplyEffect(Enemy enemy)
     {
-        enemy.ReduceSpeed(_slowAmount);
+        enemy.StartCoroutine(SlowEnemy(enemy));
         if (Random.Range(0.1f, 1) <= freezeChance)
             enemy.RequestStun(freezeDuration, StunType.Froze);
     }
@@ -22,5 +23,14 @@ public class FreezeEffect : EffectDamageDecorator
     {
         defaultDamage?.MakeDamage(enemy);
         ApplyEffect(enemy);
+    }
+
+    private IEnumerator SlowEnemy(Enemy enemy)
+    {
+        enemy.ReduceSpeed(_slowAmount);
+        enemy.SetColor(Color.lightBlue);
+        yield return new WaitForSeconds(slowDuration);
+        enemy.ResetSpeed();
+        enemy.SetColor(Color.white);
     }
 }

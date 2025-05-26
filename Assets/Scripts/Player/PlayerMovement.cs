@@ -28,6 +28,13 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isMove", moveInput.sqrMagnitude > 0);
     }
 
+    private void LateUpdate()
+    {
+        float tilt = -rb.linearVelocity.y * 2f;
+        transform.rotation = Quaternion.Euler(0, 0, tilt);
+    }
+
+
     private void FixedUpdate()
     {
             rb.linearVelocity = moveInput * speed;

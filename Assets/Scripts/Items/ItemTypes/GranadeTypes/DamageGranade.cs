@@ -3,11 +3,10 @@ using UnityEngine;
 using DG.Tweening; 
 
 [CreateAssetMenu(fileName = "New DamageGrenade", menuName = "ItemMenu/Items/Grenades/DamageGrenade")]
-public class DamageGrenade : Grenade
+public class ThrowableGrenade : Grenade
 {
-    [SerializeField] protected Damage damageType;
-    [SerializeField] private float moveDuration = 1f; 
-
+    [SerializeField] private float moveDuration = 1f;
+    
     public override void Use()
     {
         GrenadeThrowManager.Instance.StartAiming(this);
@@ -15,7 +14,6 @@ public class DamageGrenade : Grenade
 
     public void ThrowAt(Vector3 targetPosition)
     {
-        Debug.Log("throwed!");
         Vector3 spawnPos = GameObject.Find("Player").transform.position;
 
         var grenade = ObjectPoolManager.FindObject<GrenadeThrowable>();
@@ -42,19 +40,21 @@ public class DamageGrenade : Grenade
 
     private void OnGrenadeLanded(Transform grenadeTransform)
     {
-        Debug.Log("Grenade reached target");
 
         GrenadeThrowable grenade = grenadeTransform.GetComponent<GrenadeThrowable>();
         if (grenade != null)
         {
-            // Set the explosion effect
             grenade.SetGrenadeEffect((Enemy enemy) =>
             {
-                enemy.TakeDamage(damageType); // You should implement this
-            });
-
+                damage.MakeDamage(enemy);
+            }, grenadeParticle);
+            grenade.ThrowEffect();
             grenade.Explode();
         }
     }
 
+    public override void Initialize()
+    {
+        ObjectPoolManager.CreateObjectPool(grenadeParticle, 3);
+    }
 }

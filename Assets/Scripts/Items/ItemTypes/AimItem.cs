@@ -7,8 +7,12 @@ public class AimItem : Item
 {
     public int healPoints;
 
+    public override void Initialize()
+    {
+    }
+
     public override void Use()
     {
-        EventBus.Publish<OnHealEvent>(new OnHealEvent(healPoints));
+        EventBus.Publish(new OnHealEvent(healPoints));
     }
 }

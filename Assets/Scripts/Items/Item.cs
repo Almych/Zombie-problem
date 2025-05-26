@@ -10,5 +10,6 @@ public abstract class Item : ScriptableObject
     [TextArea(15, 20)]public string Description;
 
     public abstract void Use();
+    public abstract void Initialize();
 }
 

@@ -40,14 +40,11 @@ public abstract class State : IState, IAnimator
             }
             return;
         }
+
         OnTick();
     }
     public abstract void OnTick();
-    public virtual void Stop()
-    {
-        _animator.speed = 0;
-    }
-
+   
     public void SmoothTranslateAnimation(int animationTriggerName, float translateDuration = 0.1f)
     {
         _animator.CrossFade(animationTriggerName, translateDuration);

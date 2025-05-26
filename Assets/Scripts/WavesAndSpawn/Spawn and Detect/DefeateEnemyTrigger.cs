@@ -14,7 +14,7 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     private void Awake()
     {
         UpdateSystem.OnLateUpdate += Tick;
-        EventBus.Subscribe<FreezeEnemiesEvent>(FreezeEnemies, 1);
+        EventBus.Subscribe<EffectEnemiesEvent>(EffectEnemies, 1);
         EventBus.Subscribe<OnPauseEvent>(OnPause, 1);
         EventBus.Subscribe<OnWavesEnd>(OnWavesEnd);
     }
@@ -22,7 +22,7 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     private void OnDestroy()
     {
         UpdateSystem.OnLateUpdate -= Tick;
-        EventBus.UnSubscribe<FreezeEnemiesEvent>(FreezeEnemies);
+        EventBus.UnSubscribe<EffectEnemiesEvent>(EffectEnemies);
         EventBus.UnSubscribe<OnWavesEnd>(OnWavesEnd);
         EventBus.UnSubscribe<OnPauseEvent>(OnPause);
     }
@@ -45,12 +45,11 @@ public class DefeatedEnemyTrigger : MonoBehaviour
         }
     }
 
-    private void FreezeEnemies(FreezeEnemiesEvent e)
+    private void EffectEnemies(EffectEnemiesEvent e)
     {
         foreach (Enemy enemy in activeEnemies)
         {
-            // Do something with enemy
-            enemy.RequestStun(e.freezeDuration, StunType.Froze); // Example
+           e.applyDamage?.MakeDamage(enemy);
         }
     }
 

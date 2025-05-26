@@ -19,7 +19,7 @@ public static class ObjectPoolManager
         fadeObjectPool.Init(objectToPool, amount, afterSpawn);
         existingPools[objectToPool] = fadeObjectPool;
         poolsByTypes[objectToPool.GetType()] = fadeObjectPool;
-        poolsByName[objectToPool.name] = fadeObjectPool;
+        poolsByName[objectToPool.name.Trim()] = fadeObjectPool;
     }
 
 
@@ -45,11 +45,11 @@ public static class ObjectPoolManager
 
     public static T FindObjectByName<T>(string objectName) where T: Component
     {
-        if (poolsByName.ContainsKey(objectName))
+        if (!poolsByName.ContainsKey(objectName))
         {
-            return poolsByName[objectName]?.GetPooledObject()?.GetComponent<T>();
+            return null;
         }
-        return null;
+        return poolsByName[objectName]?.GetPooledObject()?.GetComponent<T>();
     }
 
     public static void ClearObjectsFromPool()

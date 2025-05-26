@@ -31,10 +31,11 @@ public class StateMachine
             _idleState.SetDuration(duration);
             SwitchState(_idleState);
         }
-        else if (stunType == StunType.Froze && currentState is not IdleState)
+        else if (stunType == StunType.Froze)
         {
             currentState.Freeze(duration);
         }
+
     }
 
 

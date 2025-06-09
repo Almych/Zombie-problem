@@ -17,5 +17,12 @@ MonoBehaviour:
   levelDay: 1
   WavesConfig: {fileID: 11400000, guid: f42bf820adc6f264a93c0c4c3287fd26, type: 2}
   CollectablesConfig: {fileID: 11400000, guid: 3c100dfab45e2d24287b49bfd96704f8, type: 2}
-  levelStars: 3
+  levelRequirements:
+    threeStarsDamage: 0
+    twoStarsDamage: 0
+    oneStarsDamage: 0
+  levelId: 2
   idAssigned: 1
+  isOpen: 0
+  isCompleted: 0
+  starsEarned: 0

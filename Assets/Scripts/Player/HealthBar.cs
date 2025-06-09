@@ -35,9 +35,10 @@ public class HealthBar : MonoBehaviour
         EventBus.Publish(new HealthChangeEvent(currHealth)); 
     }
 
-    public void ChangeHealthValue(float value)
+    public void TakeDamage(float value)
     {
-        CurrHealth += value;
+        CurrHealth -= value;
+        EventBus.Publish(new OnDamageTakeEvent((int)value));
 
         if (CurrHealth <= 0f)
         {
@@ -48,6 +49,5 @@ public class HealthBar : MonoBehaviour
     public void Heal(OnHealEvent e)
     {
         CurrHealth += e.healPoints;
-        Debug.Log(CurrHealth);
     }
 }

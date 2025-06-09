@@ -106,7 +106,8 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
 
     protected void OnDisable()
     {
-        UpdateSystem.OnUpdate -= stateMachine.OnTick;
+        if (stateMachine != null)
+            UpdateSystem.OnUpdate -= stateMachine.OnTick;
     }
 
     public override void Initiate()
@@ -129,7 +130,8 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
         }
         if (currHealth <= 0)
         {
-            stateMachine?.SwitchState(dieState);
+            stateMachine?.SwitchState(dieState, true);
+            OnDeathSpawnCollectables();
         }
     }
 
@@ -173,5 +175,10 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
         spriteRenderer.color = color;
         if (bodySprite != null)
             bodySprite.color = color;
+    }
+
+    private void OnDeathSpawnCollectables()
+    {
+        CollectablesSpawn.SpawnRandomObject(transform.position);
     }
 }

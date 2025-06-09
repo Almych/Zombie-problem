@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinTake : MonoBehaviour, ICollectable
+public class CoinTake : Takable
 {
-    public void OnCollect()
+    private int countAmount;
+    public override void OnCollect()
     {
-       EventBus.Publish(new OnCollectEvent());
-       gameObject.SetActive(false); 
+       EventBus.Publish(new OnCollectEvent(countAmount));
+        base.OnCollect();
     }
+
+    public void SetCollectable(int countAmount)
+    {
+        this.countAmount = countAmount;
+    }
+    
 }

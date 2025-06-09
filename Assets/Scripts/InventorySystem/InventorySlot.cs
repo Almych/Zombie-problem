@@ -43,8 +43,16 @@ public class InventorySlot : MonoBehaviour
 
     public void UpdateSlot()
     {
-        if (inventoryItem.amount >= 1)
-        itemAmount.text = inventoryItem.amount.ToString();
+        Debug.Log($"Inventory item amount is {inventoryItem.amount}");
+        if (inventoryItem.amount <= 1)
+        {
+            itemAmount.text = string.Empty;
+        }
+        else
+        {
+            itemAmount.text = inventoryItem.amount.ToString();
+        }
+
     }
 
     public void AddAmount()

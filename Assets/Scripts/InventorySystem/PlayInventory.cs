@@ -1,103 +1,115 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New PlayInventory", menuName = "Inventory/PlayInventory")]
 public class PlayInventory : ScriptableObject
 {
-    public InventoryItem[] items = new InventoryItem[5];  
-    public WeaponConfig[] weaponSlots = new WeaponConfig[2];         
-    public MainInventory mainInventory;                   
+    [Header("Max amount of items is 5")]
+    public List<InventoryItem> items = new();
+    [Header("Max amount of weapons is 2")]
+    public List<WeaponConfig> weaponSlots = new();
+    public MainInventory mainInventory;
 
-   
+    private const int maxItemSlots = 5;
+    private const int maxWeaponSlots = 2;
+
+    private void OnValidate()
+    {
+        if (items.Count > maxItemSlots) { 
+            items.RemoveRange(maxItemSlots, items.Count - maxItemSlots);
+        }
+
+        if (weaponSlots.Count > maxWeaponSlots)
+        {
+            weaponSlots.RemoveRange(maxWeaponSlots, weaponSlots.Count - maxWeaponSlots);
+        }
+    }
+
+    
+
+
+
+    /// <summary>
+    /// Adds an item to the play inventory or redirects it to main inventory if full or not stackable.
+    /// </summary>
     public bool AddItem(InventoryItem newItem)
     {
-       
+        if (newItem == null) return false;
+
         InventoryItem existingItem = FindItemInInventory(newItem);
+
         if (existingItem != null)
         {
-            if (CanAddToStack(existingItem, 1))
+            if (CanAddToStack(existingItem, newItem.amount))
             {
-                existingItem.AddAmount();
-                return false;
-            }
-            else
-            {
-                mainInventory.AddItem(newItem.item);
-                return false;
-            }
-        }
-        else
-        {
-
-            if (TryAddItemToFreeSlot(newItem))
-            {
+                existingItem.AddAmount(newItem.amount);
                 return true;
             }
-            else
+
+            mainInventory?.AddItem(newItem);
+            return false;
+        }
+
+        if (items.Count < maxItemSlots)
+        {
+            items.Add(newItem);
+            return true;
+        }
+
+        mainInventory?.AddItem(newItem);
+        return false;
+    }
+
+
+    /// <summary>
+    /// Adds a weapon to the play inventory or main inventory if not enough space.
+    /// </summary>
+    public void AddWeapon(WeaponConfig weaponConfig, Action<WeaponConfig> addToPlaySlot)
+    {
+        if (weaponConfig == null || addToPlaySlot == null) return;
+
+        foreach (var weapon in weaponSlots)
+        {
+            if (weapon != null && weapon.weaponSprite == weaponConfig.weaponSprite)
             {
-                mainInventory.AddItem(newItem.item);
-                return false;
+                if (weapon is RangeWeaponConfig existing && weaponConfig is RangeWeaponConfig incoming)
+                {
+                    existing.totalAmount += incoming.totalAmount;
+                }
+                return;
             }
         }
+
+        if (weaponSlots.Count >= 2)
+            return;
+
+        // Check if already owned in main inventory
+        var ownedInMain = mainInventory?.ownedWeapons.Find(w => w.weaponSprite == weaponConfig.weaponSprite);
+        if (ownedInMain != null)
+        {
+            if (ownedInMain is RangeWeaponConfig mainRange && weaponConfig is RangeWeaponConfig incomingRange)
+            {
+                mainRange.totalAmount += incomingRange.totalAmount;
+            }
+            return;
+        }
+
+        addToPlaySlot(weaponConfig);
     }
 
     public bool RemoveItem(InventoryItem itemToRemove)
     {
-        if (TryRemoveItemFromInventory(itemToRemove))
-        {
-            
-            return true;  
-        }
-        return false;
+        return items.Remove(itemToRemove);
     }
 
     private bool CanAddToStack(InventoryItem item, int amountToAdd)
     {
-        return item.stackSize >= item.amount + amountToAdd;
+        return item.amount + amountToAdd <= item.stackSize;
     }
 
-   
     private InventoryItem FindItemInInventory(InventoryItem item)
     {
-       
-            foreach (var inventoryItem in items)
-            {
-                if (inventoryItem != null && inventoryItem.item == item.item)
-                {
-                    return inventoryItem;
-                }
-            }
-        return null;  
-    }
-
-    private bool TryAddItemToFreeSlot(InventoryItem newItem)
-    {
-        for (int i = 0; i < items.Length; i++)
-        {
-            if (items[i] != null && items[i].item == null) 
-            {
-                items[i] = newItem;
-                return true;
-            }
-        }
-        return false; 
-    }
-
-
-    private bool TryRemoveItemFromInventory(InventoryItem newItem)
-    {
-        if (newItem != null)
-        {
-            for (int i = 0; i < items.Length; i++)
-            {
-                if (items[i] != null && items[i].item == newItem.item)
-                {
-                    items[i] = null;
-                    return true;
-                }
-            }
-        }
-        return false;
+        return items.Find(i => i != null && i.item == item.item);
     }
 }

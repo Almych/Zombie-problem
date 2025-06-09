@@ -30,7 +30,7 @@ public class EnemySpawner : IEnemySpawner
         int index = Random.Range(0, enemies.Count);
         EnemyData selectedEnemy = enemies[index];
 
-        Entity enemyInstance = ObjectPoolManager.GetObjectFromPool(selectedEnemy.enemyType);
+        var enemyInstance = (Enemy)ObjectPoolManager.GetObjectFromPool(selectedEnemy.enemyType);
         if (enemyInstance == null) return;
 
         enemyInstance.gameObject.SetActive(true);

@@ -6,6 +6,7 @@ using DG.Tweening;
 public class ThrowableGrenade : Grenade
 {
     [SerializeField] private float moveDuration = 1f;
+    [SerializeField, Range(1, 5)] private int grenadeParticleSpawnAmount = 3;
     
     public override void Use()
     {
@@ -16,45 +17,25 @@ public class ThrowableGrenade : Grenade
     {
         Vector3 spawnPos = GameObject.Find("Player").transform.position;
 
-        var grenade = ObjectPoolManager.FindObject<GrenadeThrowable>();
+        var grenade = ObjectPoolManager.FindObjectByName<GrenadeThrowable>("Grenade");
         if (grenade != null)
         {
             grenade.transform.position = spawnPos;
             grenade.gameObject.SetActive(true);
             grenade.GetComponent<SpriteRenderer>().sprite = Sprite;
 
-            Rigidbody2D rb = grenade.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector2.zero;
-                rb.useFullKinematicContacts = true;
-            }
 
+            grenade.SetGrenadeEffect(damage, grenadeParticle);
+            grenade.Throw(targetPosition, moveDuration);
 
-            grenade.transform.DOMove(targetPosition, moveDuration)
-                   .SetEase(Ease.Linear)
-                   .OnComplete(() => OnGrenadeLanded(grenade.transform));
         }
     }
 
 
-    private void OnGrenadeLanded(Transform grenadeTransform)
-    {
-
-        GrenadeThrowable grenade = grenadeTransform.GetComponent<GrenadeThrowable>();
-        if (grenade != null)
-        {
-            grenade.SetGrenadeEffect((Enemy enemy) =>
-            {
-                damage.MakeDamage(enemy);
-            }, grenadeParticle);
-            grenade.ThrowEffect();
-            grenade.Explode();
-        }
-    }
-
+   
     public override void Initialize()
     {
-        ObjectPoolManager.CreateObjectPool(grenadeParticle, 3);
+        ObjectPoolManager.CreateObjectPool(grenadeParticle, grenadeParticleSpawnAmount);
+        Debug.Log(grenadeParticle.name);
     }
 }

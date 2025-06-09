@@ -7,6 +7,7 @@ public class RangeWeapon : IWeapon
     public int maxAmount { get; private set; }
     public int totalAmount { get; private set; }
     public bool isReloading { get; private set; }
+    public bool isBaseWeapon { get; private set; }
     public Sprite weaponSprite { get => config.weaponSprite; set => config.weaponSprite = value; }
 
     private readonly Transform shootPoint;
@@ -24,6 +25,7 @@ public class RangeWeapon : IWeapon
         maxAmount = config.maxBullets;
         currAmount = maxAmount;
         totalAmount = config.totalAmount;
+        isBaseWeapon = weaponConfig.isBaseWeapon;
 
         ObjectPoolManager.CreateObjectPool(config.bulletType, config.maxBullets, bullet => bullet.InitConfig());
     }
@@ -54,7 +56,7 @@ public class RangeWeapon : IWeapon
 
     public void Reload()
     {
-        if (isReloading || currAmount == maxAmount || totalAmount <= 0) return;
+        if (isReloading || currAmount == maxAmount || totalAmount <= 0 && !isBaseWeapon) return;
         coroutineRunner.StartCoroutine(ReloadCoroutine());
     }
 
@@ -64,12 +66,21 @@ public class RangeWeapon : IWeapon
         yield return new WaitForSeconds(config.reloadTime);
 
         int needed = maxAmount - currAmount;
-        int reloaded = Mathf.Min(needed, totalAmount);
+        int reloaded;
+
+        if (!isBaseWeapon)
+        {
+            reloaded = Mathf.Min(needed, totalAmount);
+            totalAmount -= reloaded; 
+        }
+        else
+        {
+            reloaded = needed; 
+        }
 
         currAmount += reloaded;
-        totalAmount -= reloaded;
         WeaponStateUI.Instance.Reload();
-
         isReloading = false;
     }
+
 }

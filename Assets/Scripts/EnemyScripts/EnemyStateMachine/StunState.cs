@@ -5,6 +5,7 @@ public class IdleState : State
 {
     private int duration, currTicks;
     private Action _callbackState;
+    private const int maxDuration = 30;
 
     public override PriorityType PriorityType => PriorityType.Low;
 
@@ -21,7 +22,7 @@ public class IdleState : State
 
     public void ExtendDuration(int newDuration)
     {
-        duration = Mathf.Max(duration, currTicks + newDuration);
+        duration = Math.Clamp(newDuration, 0, maxDuration);
     }
 
     public override void Exit()

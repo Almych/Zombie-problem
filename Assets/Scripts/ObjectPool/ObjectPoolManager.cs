@@ -5,13 +5,14 @@ using UnityEngine;
 public static class ObjectPoolManager
 {
     private static Dictionary<Component, FadeObjectPool> existingPools = new Dictionary<Component, FadeObjectPool>();
-    private static Dictionary<Type, FadeObjectPool>  poolsByTypes = new Dictionary<Type, FadeObjectPool>();
+    private static Dictionary<Type, FadeObjectPool> poolsByTypes = new Dictionary<Type, FadeObjectPool>();
     private static Dictionary<string, FadeObjectPool> poolsByName = new Dictionary<string, FadeObjectPool>();
     public static void CreateObjectPool<T>(T objectToPool, int amount, Action<T> afterSpawn = null) where T : Component
     {
 
         if (existingPools.ContainsKey(objectToPool))
         {
+            Debug.Log($"Not created {objectToPool.gameObject.name}");
             return;
         }
 
@@ -29,8 +30,8 @@ public static class ObjectPoolManager
         {
             return existingPools[typeOfObject]?.GetPooledObject()?.GetComponent<T>();
         }
-      
-     
+
+
         return null;
     }
 
@@ -43,7 +44,7 @@ public static class ObjectPoolManager
         return poolsByTypes[typeof(T)]?.GetPooledObject()?.GetComponent<T>();
     }
 
-    public static T FindObjectByName<T>(string objectName) where T: Component
+    public static T FindObjectByName<T>(string objectName) where T : Component
     {
         if (!poolsByName.ContainsKey(objectName))
         {

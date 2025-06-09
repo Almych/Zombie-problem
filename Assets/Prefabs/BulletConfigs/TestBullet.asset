@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   bulletSprite: {fileID: -1544162619, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
-  damage: {fileID: 11400000, guid: 0aabda97ce0d5104aaa04df8f02b9f8c, type: 2}
+  damage: {fileID: 11400000, guid: 55d4587939df19241987dce295b09f60, type: 2}
   bulletLifeTime: 2
   totalAmount: 20

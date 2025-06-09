@@ -23,7 +23,7 @@ public class EnemyBulletBehaivior : BaseBulletBehaviour
         HealthBar health = collision.GetComponent<HealthBar>();
         if ( health != null)
         {
-            health.ChangeHealthValue(-damage);
+            health.TakeDamage(damage);
             Deactivate();
         }
 

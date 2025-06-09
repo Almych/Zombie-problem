@@ -12,6 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcba98cdb3320fe45b98912e9027606a, type: 3}
   m_Name: Collectables
   m_EditorClassIdentifier: 
-  collectables:
-  - collectItem: {fileID: 7089803634709335574, guid: 17917d4cd4f234e4ab0677dd5fb59242, type: 3}
-    amount: 5
+  coinCollectables:
+  - amount: 1
+    coinAmount: 2
+  itemCollectables:
+  - amount: 1
+    item:
+      item: {fileID: 11400000, guid: ce949f0afc76efd42934b4472389bc06, type: 2}
+      _amount: 1
+      _stackSize: 0
+  - amount: 1
+    item:
+      item: {fileID: 11400000, guid: 21bdb04ecd9431242b16223dea456e12, type: 2}
+      _amount: 0
+      _stackSize: 0
+  - amount: 1
+    item:
+      item: {fileID: 11400000, guid: 21bdb04ecd9431242b16223dea456e12, type: 2}
+      _amount: 0
+      _stackSize: 0
+  weaponCollectables:
+  - amount: 1
+    weapon: {fileID: 11400000, guid: 95ad39de650db6d49a2772a045f9199d, type: 2}

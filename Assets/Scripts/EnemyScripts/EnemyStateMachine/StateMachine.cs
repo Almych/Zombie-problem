@@ -26,7 +26,9 @@ public class StateMachine
 
     public void StopState(int duration, StunType stunType = StunType.Stun)
     {
-        if(stunType == StunType.Stun && !currentState.isFroze())
+        if (currentState is DieState) return;
+
+        if (stunType == StunType.Stun && !currentState.isFroze())
         {
             _idleState.SetDuration(duration);
             SwitchState(_idleState);
@@ -35,8 +37,8 @@ public class StateMachine
         {
             currentState.Freeze(duration);
         }
-
     }
+
 
 
     public void SwitchState(IState newState, bool force = false)

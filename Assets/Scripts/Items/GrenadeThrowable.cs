@@ -1,16 +1,29 @@
+using DG.Tweening;
 using System;
 using UnityEngine;
 
 public class GrenadeThrowable : MonoBehaviour
 {
     private const float radius = 5f;
-    private Action<Enemy> OnExplode;
+    private Damage _applyDamage;
     private Collider2D[] results = new Collider2D[10];
     private ParticleSystem grenadeParticle;
-    public void SetGrenadeEffect(Action<Enemy> effect, ParticleSystem grenadeParticle)
+    public void SetGrenadeEffect(Damage applyDamage, ParticleSystem grenadeParticle)
     {
-        OnExplode = effect;
+        _applyDamage = applyDamage;
         this.grenadeParticle = grenadeParticle;
+        Debug.Log(grenadeParticle.name);
+    }
+    public void Throw(Vector3 targetPosition, float moveDuration)
+    {
+        transform.DORotate(new Vector3(0, 0, 360), moveDuration, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart); ;
+        transform.DOMove(targetPosition, moveDuration)
+                 .SetEase(Ease.Linear)
+                 .OnComplete(() =>
+                 {
+                     ThrowEffect();
+                     Explode();
+                 });
     }
 
     [Obsolete]
@@ -22,7 +35,7 @@ public class GrenadeThrowable : MonoBehaviour
             Enemy enemy = results[i].GetComponent<Enemy>();
             if (enemy != null)
             {
-                OnExplode?.Invoke(enemy);
+                _applyDamage.MakeDamage(enemy);
             }
         }
         gameObject.SetActive(false);
@@ -30,11 +43,11 @@ public class GrenadeThrowable : MonoBehaviour
 
     public void ThrowEffect()
     {
-        var exlodePErticle = ObjectPoolManager.GetObjectFromPool(grenadeParticle);
-        if (exlodePErticle != null)
+        var exlodeParticle = ObjectPoolManager.GetObjectFromPool(grenadeParticle);
+        if (exlodeParticle != null)
         {
-            exlodePErticle.transform.position = transform.position;
-            exlodePErticle.gameObject.SetActive(true);
+            exlodeParticle.transform.position = transform.position;
+            exlodeParticle.gameObject.SetActive(true);
         }
     }
 

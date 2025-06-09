@@ -9,7 +9,7 @@ public class RangeWeaponConfig : WeaponConfig
     public float reloadTime;
     public int maxBullets;
     public int totalAmount;
-
+    public bool isBaseWeapon;
     public override Damage damage { get => _bulletConfig.damage; set => _bulletConfig.damage = value; }
     public override Sprite weaponSprite { get => _weaponSprite; set => _weaponSprite = value; }
 }

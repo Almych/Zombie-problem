@@ -6,31 +6,104 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private LevelConfig levelConfig;
+    [SerializeField] private LevelConfig config;
      public static GameManager instance;
      private SpawnManager spawnManager;
      private Button pauseButton;
-     private MenuSlide lostMenu, winMenu;
+     private LevelConfig levelCOnf => config;
+     private LevelStatsTracker levelStatsTracker;
+     [SerializeField]private LoseMenu lostMenu;
+     [SerializeField] private WinMenu winMenu;
+
+
+    void Awake()
+    {
+        Init();
+        EventBus.Subscribe<OnPauseEvent>(TimeManager);
+        EventBus.Subscribe<OnWinEvent>(WinGame);
+        EventBus.Subscribe<PlayerDieEvent>(LostGame);
+        EventBus.Subscribe<OnDamageTakeEvent>(DetectTakenDamage);
+        UpdateSystem.CallUpdate += Tick;
+
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
         StartGame();
+    }
+    void OnDestroy()
+    {
+        EventBus.UnSubscribe<OnWinEvent>(WinGame);
+        EventBus.UnSubscribe<OnPauseEvent>(TimeManager);
+        EventBus.UnSubscribe<PlayerDieEvent>(LostGame);
+        EventBus.UnSubscribe<OnDamageTakeEvent>(DetectTakenDamage);
+        UpdateSystem.CallUpdate -= Tick;
+    }
+
+
+    private void Init()
+    {
+        pauseButton = GameObject.Find("PauseButton").GetComponent<Button>();
+        if (config == null)
+            config = LevelRegister.GetCurrentLevelConfig();
+        spawnManager = FindAnyObjectByType<SpawnManager>();
+        levelStatsTracker = new LevelStatsTracker();
+        config.CollectablesConfig.Init();
+        CollectablesSpawn.Init(config.CollectablesConfig);
+        spawnManager.Init(config.WavesConfig);
     }
 
     public void StartGame()
     {
         InventoryManager.Instance.CreateInventory();
         UpdateSystem.Initialize();
+        levelStatsTracker.OnStart();
         spawnManager.StartSpawning();
     }
 
     public void LostGame(PlayerDieEvent e)
     {
         pauseButton.interactable = false;
-        lostMenu.gameObject.SetActive(true);
-        lostMenu.ShowPauseMenu();
+        levelStatsTracker.OnFinish();
+        var stats = levelStatsTracker.GetResults();
+        lostMenu.ShowMenu(0, stats.TimeSpent, stats.DamageTaken);
         PauseGame();
     }
+
+    private void Tick()
+    {
+        levelStatsTracker?.OnUpdate(Time.deltaTime);
+    }
+
+    private void ReviewSet()
+    {
+        var stats = levelStatsTracker.GetResults();
+        int stars = SetStars();
+        winMenu.ShowMenu(stars, stats.TimeSpent, stats.DamageTaken);
+        config.CompleteLevel(stars);
+        LevelRegister.UnlockNextLevel();
+    }
+
+  
+
+
+    private int SetStars()
+    {
+        int damage = levelStatsTracker.GetResults().DamageTaken;
+
+        if (damage <= config.levelRequirements.threeStarsDamage)
+            return 3;
+        else if (damage <= config.levelRequirements.twoStarsDamage)
+            return 2;
+        else
+            return 1;
+    }
+
     public void PauseGame()
     {
         EventBus.Publish(new OnPauseEvent(true));
@@ -71,49 +144,16 @@ public class GameManager : MonoBehaviour
 
     private void WinGame(OnWinEvent e)
     {
-        winMenu.gameObject.SetActive(true);
-        winMenu.ShowPauseMenu();
         PauseGame();
-        LevelRegister.UnlockNextLevel();
+        levelStatsTracker.OnFinish();
+        ReviewSet();
     }
 
-    private void Init()
+   
+
+    private void DetectTakenDamage(OnDamageTakeEvent e)
     {
-        pauseButton = GameObject.Find("PauseButton").GetComponent<Button>();
-        lostMenu = GameObject.Find("LostMenu").GetComponent<MenuSlide>();
-        lostMenu.gameObject.SetActive(false);
-        winMenu = GameObject.Find("WonMenu").GetComponent<MenuSlide>();
-        winMenu.gameObject.SetActive(false);
-        LevelConfig config = LevelRegister.GetLevelConfig();
-        if (config == null)
-        {
-            config = levelConfig;
-        }
-
-        spawnManager = GameObject.FindAnyObjectByType<SpawnManager>();
-        CollectablesSpawn.Init(config.CollectablesConfig);
-        spawnManager.Init(config.WavesConfig);
-    }
-
-    void Awake()
-    {
-        Init();
-        EventBus.Subscribe<OnPauseEvent>(TimeManager);
-        EventBus.Subscribe<OnWinEvent>(WinGame);
-        EventBus.Subscribe<PlayerDieEvent>(LostGame);
-
-
-        if (instance ==null)
-        {
-            instance = this;
-        }
-    }
-
-    void OnDestroy()
-    {
-        EventBus.UnSubscribe<OnWinEvent>(WinGame);
-        EventBus.UnSubscribe<OnPauseEvent>(TimeManager);
-        EventBus.UnSubscribe<PlayerDieEvent>(LostGame);
+        levelStatsTracker?.OnDamageTaken(e.damage);
     }
 
 }

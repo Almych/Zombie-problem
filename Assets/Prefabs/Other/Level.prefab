@@ -108,15 +108,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -393,6 +395,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelConfig: {fileID: 11400000, guid: 6d9be2b9cbb461c40ad9d435ecf08c08, type: 2}
+  starsContainer: {fileID: 7272724811390312137}
+  lockContainer: {fileID: 7767575316276784384}
+  filledStar: {fileID: 21300000, guid: 35fbfaa5d5c729f489e545090096fa6a, type: 3}
+  stars:
+  - {fileID: 5777121593037752876}
+  - {fileID: 871773002742322404}
+  - {fileID: 5490563970996262267}
 --- !u!1 &6968893821701997695
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,7 +492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1860176605341674552
 RectTransform:
   m_ObjectHideFlags: 0
@@ -523,7 +532,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5893809225000629981
 RectTransform:
   m_ObjectHideFlags: 0

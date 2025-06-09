@@ -6,7 +6,7 @@ public class EffectGrenade : Grenade
 {
     public override void Initialize()
     {
-      
+
     }
 
     public override void Use()

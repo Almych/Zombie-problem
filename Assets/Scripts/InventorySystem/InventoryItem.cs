@@ -1,25 +1,41 @@
 using System;
+using UnityEngine;
 
 [Serializable]
 public class InventoryItem
 {
     public Item item;
-    public int amount { get; private set; } = 1;
-    public int stackSize { get; private set; } = 99;
 
-    public InventoryItem(Item item)
+    [SerializeField, Range(1, 99)] private int _amount = 1;
+    [SerializeField, Range(99, 99)] private int _stackSize = 99;
+
+    public int amount => _amount;
+    public int stackSize => _stackSize;
+
+    
+    public void Initialize(int amount = 1, int stackSize = 99)
     {
-        this.item = item;
-        amount = 1;
-        stackSize = 99;
+        item?.Initialize();
+        if (_amount <= 0)
+        {
+            _stackSize = stackSize;
+            _amount = Mathf.Max(1, amount);
+        }
+    } 
+
+    public void AddAmount(int amountToAdd = 1)
+    {
+        _amount += amountToAdd;
+        Debug.Log("Added amount: " + _amount);
     }
 
-    public void AddAmount()
+    public void RemoveAmount(int amountToRemove = 1)
     {
-        amount ++;
+        _amount = Mathf.Max(_amount - amountToRemove, 0);
     }
-    public void RemoveAmount()
+
+    public bool CanAdd(int amountToAdd)
     {
-        amount --;
+        return _amount + amountToAdd <= _stackSize;
     }
 }

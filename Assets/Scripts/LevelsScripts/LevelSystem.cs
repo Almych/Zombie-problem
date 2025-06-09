@@ -1,28 +1,38 @@
 using UnityEngine;
-
-public class LevelSystem
+public struct LevelStats
 {
-    public float timer;
-    public bool isPaused;
-    public float totalGetHealth, totalTime;
-    public void SetTimer()
-    {
-        if(!isPaused)
-        timer += Time.deltaTime;
-    }
-
-    public void TimeOut()
-    {
-        totalTime = timer;
-    }
-
-    public void AddTotalDamage(float damage)
-    {
-        totalGetHealth += damage;
-    }
-
-    public void ShowLevelStatistic()
-    {
-
-    }
+    public float TimeSpent;
+    public int ZombiesKilled;
+    public int DamageTaken;
 }
+public class LevelStatsTracker : IStatsTracker
+{
+    private LevelStats _stats = new LevelStats();
+    private float _timer;
+
+    public void OnStart()
+    {
+        _timer = 0f;
+        _stats = new LevelStats();
+    }
+
+    public void OnUpdate(float deltaTime)
+    {
+        _timer += deltaTime;           
+    }
+
+    public void OnDamageTaken(int amount)
+    {
+        _stats.DamageTaken += amount;
+    }
+
+
+
+    public void OnFinish()
+    {
+        _stats.TimeSpent = _timer;
+    }
+
+    public LevelStats GetResults() => _stats;
+}
+

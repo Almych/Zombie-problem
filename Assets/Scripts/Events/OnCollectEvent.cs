@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class OnCollectEvent 
 {
-    public OnCollectEvent()
+    public object collectable { get; private set; }
+    public OnCollectEvent(object collectable)
     {
-        Debug.Log("Collected");
+       this.collectable = collectable;
     }
 }

@@ -20,7 +20,7 @@ public abstract class SpawnAbility : Ability
 
     protected virtual void Spawn()
     {
-        Enemy spawnedEnemy = ObjectPoolManager.GetObjectFromPool(spawnEnemy);
+        Enemy spawnedEnemy =ObjectPoolManager.GetObjectFromPool(spawnEnemy);
         if (spawnedEnemy != null)
         {
             spawnedEnemy.gameObject.SetActive(true);

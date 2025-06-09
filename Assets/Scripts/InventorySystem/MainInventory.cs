@@ -1,56 +1,73 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "New MainInventory", menuName = "Inventory/MainInventory")]
+
+[CreateAssetMenu(fileName = "MainInventory", menuName = "Inventory/MainInventory")]
 public class MainInventory : ScriptableObject
 {
-    public InventoryItem[] items { get; private set; } = new InventoryItem[30];
+    [Header("Currency")]
+    public int coins = 0;
 
-    public void AddItem(Item newItem)
+    [Header("All Owned Items")]
+    public List<InventoryItem> items = new List<InventoryItem>();
+
+    [Header("All Owned Weapons")]
+    public List<WeaponConfig> ownedWeapons = new List<WeaponConfig>();
+
+    // === ITEM MANAGEMENT ===
+
+    public void AddItem(InventoryItem item, int amount = 1)
     {
-        bool inInventory = false;
-        for (int i = 0; i < items.Length; i++)
+        var existing = FindItem(item);
+        if (existing != null)
         {
-            if (items[i].item == newItem && CheckItemSize(items[i], 1))
-            {
-                items[i].AddAmount();
-                inInventory = true;
-                break;
-            }
+            existing.AddAmount(amount);
         }
-
-        if (!inInventory)
-        {
-            InventoryItem newInventoryItem = new InventoryItem(newItem);
-            InventoryItem freePlace = FindFreePlace();
-            if (freePlace != null)
-                freePlace = newInventoryItem;
-        }
-    }
-
-    public void RemoveItem(Item removeItem)
-    {
-
-    }
-
-    private bool CheckItemSize(InventoryItem item, int fillAmount)
-    {
-        if (item.stackSize >= item.amount + fillAmount)
-            return true;
         else
-            return false;
-    }
-
-    private InventoryItem FindFreePlace()
-    {
-        for (int i =0; i < items.Length; i++)
         {
-            if (items[i] == null)
-            {
-                return items[i];
-            }
+            items.Add(item);
         }
-        return null;
     }
 
+    public void RemoveItem(InventoryItem item, int amount = 1)
+    {
+        var existing = FindItem(item);
+        if (existing != null)
+        {
+            existing.RemoveAmount(amount);
+            if (existing.amount <= 0)
+                items.Remove(existing);
+        }
+    }
+
+    private InventoryItem FindItem(InventoryItem item)
+    {
+        return items.Find(i => i == item);
+    }
+
+    // === WEAPON MANAGEMENT ===
+
+    public void AddWeapon(WeaponConfig weapon)
+    {
+        if (!ownedWeapons.Contains(weapon))
+        {
+            ownedWeapons.Add(weapon);
+        }
+    }
+
+    public void RemoveWeapon(WeaponConfig weapon)
+    {
+        ownedWeapons.Remove(weapon);
+    }
+
+    // === COIN MANAGEMENT ===
+
+    public void AddCoins(int amount)
+    {
+        coins += amount;
+    }
+
+    public void SpendCoins(int amount)
+    {
+        coins = Mathf.Max(0, coins - amount);
+    }
 }

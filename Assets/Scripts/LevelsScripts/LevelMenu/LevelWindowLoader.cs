@@ -1,18 +1,17 @@
-
 using UnityEngine;
 
 public class LevelWindowLoader : MonoBehaviour
 {
-    [SerializeField]private LevelWindow levelWindow;
-    
+    [SerializeField] private LevelWindow levelWindow;
+
     private void Awake()
     {
         EventBus.Subscribe<OnLevelClickEvent>(ShowWindow);
     }
 
-    void Start()
+    private void Start()
     {
-        int lvel = LevelRegister.GetCurrentLEvel();
+        LevelRegister.GetCurrentLevel();
     }
 
     private void OnDestroy()
@@ -20,10 +19,9 @@ public class LevelWindowLoader : MonoBehaviour
         EventBus.UnSubscribe<OnLevelClickEvent>(ShowWindow);
     }
 
-
     private void ShowWindow(OnLevelClickEvent e)
     {
-        if (!e.LevelConfig.levelOpen)
+        if (!e.LevelConfig.IsOpen)
             return;
 
         levelWindow.gameObject.SetActive(true);

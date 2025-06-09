@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         EventBus.Subscribe<OnPauseEvent>(OnPause);
+        EventBus.Subscribe<OnCollectEvent>(CollectCollectables);
         UpdateSystem.CallUpdate += Tick;
     }
 
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         EventBus.UnSubscribe<OnPauseEvent>(OnPause);
+        EventBus.UnSubscribe<OnCollectEvent>(CollectCollectables);
         UpdateSystem.CallUpdate -= Tick;
     }
 
@@ -65,13 +68,13 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void EquipWeapon(IWeaponConfig[] weaponConfigs)
+    public void EquipWeapon(List<WeaponConfig> weaponConfigs)
     {
-        if (weaponConfigs.Length == 0) return;
+        if (weaponConfigs.Count == 0) return;
 
         for (int i = 0; i < weaponSlots.Length; i++)
         {
-            if (i >= weaponConfigs.Length) break;
+            if (i >= weaponConfigs.Count) break;
 
             if (weaponConfigs[i] is MeleeWeaponConfig meleeWeaponConfig)
             {
@@ -84,6 +87,18 @@ public class PlayerController : MonoBehaviour
         }
 
         SwitchWeapon();
+    }
+
+    private void CreateWeaponSlot(WeaponConfig weaponConfig)
+    {
+        if (weaponConfig is MeleeWeaponConfig meleeWeaponConfig)
+        {
+            weaponSlots[1] = new MeleeWeapon(meleeWeaponConfig);
+        }
+        else if (weaponConfig is RangeWeaponConfig rangeWeaponConfig)
+        {
+            weaponSlots[1] = new RangeWeapon(rangeWeaponConfig, this, shootPoint);
+        }
     }
 
 
@@ -116,6 +131,18 @@ public class PlayerController : MonoBehaviour
             {
                 hit.collider.GetComponent<ICollectable>().OnCollect();
             }
+        }
+    }
+
+    private void CollectCollectables(OnCollectEvent e)
+    {
+        if (e.collectable is InventoryItem item)
+        {
+           InventoryManager.Instance.AddToInventory(item);
+        }
+        else if (e.collectable is WeaponConfig config)
+        {
+            inventory.AddWeapon(config, CreateWeaponSlot);
         }
     }
 }

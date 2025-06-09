@@ -8,7 +8,7 @@ public class FadeObjectPool
     private int amount;
     private List<Component> pooledObjects = new List<Component>();
 
-    public void Init<T>(T objectToPool, int amount, Action<T> callBack= null) where T : Component
+    public void Init<T>(T objectToPool, int amount, Action<T> callBack = null) where T : Component
     {
         CreatePoolObjects(objectToPool, amount, callBack);
     }
@@ -28,17 +28,10 @@ public class FadeObjectPool
     {
         for (int i = 0; i < pooledObjects.Count; i++)
         {
-            var obj = pooledObjects[i];
-            if (obj == null)
-            {
-                pooledObjects.RemoveAt(i);
-                i--;
-                continue;
-            }
 
-            if (!obj.gameObject.activeInHierarchy)
+            if (pooledObjects[i] != null && !pooledObjects[i].gameObject.activeInHierarchy)
             {
-                return obj;
+                return pooledObjects[i];
             }
         }
         return null;

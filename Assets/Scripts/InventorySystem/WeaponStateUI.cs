@@ -13,14 +13,15 @@ public class WeaponStateUI : MonoBehaviour
 
     private readonly Color usedBulletColor = Color.black;
 
-    private readonly List<GameObject> pooledBulletIcons = new();
+    private readonly List<Image> pooledBulletIcons = new();
     private readonly Dictionary<RangeWeapon, int> usedBullets = new();
-
+    private const string endLessSign = "∞";
     private IWeapon currentWeapon;
-
+    private RectTransform ammoContainerRect;
     private void Awake()
     {
         Instance = this;
+        ammoContainerRect = GetComponent<RectTransform>();
         EventBus.Subscribe<OnWeaponSwitchEvent>(SwitchWeapon);
     }
 
@@ -33,7 +34,8 @@ public class WeaponStateUI : MonoBehaviour
     {
         while (pooledBulletIcons.Count < required)
         {
-            var bulletRect = ObjectPoolManager.FindObjectByName<RectTransform>("BulletIcon");
+            Image bulletRect = ObjectPoolManager.FindObjectByName<Image>("BulletIcon");
+            Debug.Log(bulletRect);
             if (bulletRect == null)
             {
                 Debug.LogWarning("BulletIcon not available in pool!");
@@ -41,53 +43,61 @@ public class WeaponStateUI : MonoBehaviour
             }
 
             bulletRect.gameObject.SetActive(true);
-            pooledBulletIcons.Add(bulletRect.gameObject);
+            pooledBulletIcons.Add(bulletRect);
         }
     }
 
     private void SwitchWeapon(OnWeaponSwitchEvent e)
     {
-        currentWeapon = e.Weapon;
+        if (e.Weapon == null)
+            return;
 
-        if (currentWeapon.weaponSprite != null)
-            weaponIcon.sprite = currentWeapon.weaponSprite;
+        currentWeapon = e.Weapon;
+        weaponIcon.sprite = currentWeapon.weaponSprite;
 
         if (currentWeapon is RangeWeapon rangeWeapon)
         {
             ammoContainer.SetActive(true);
-            SetTotalAmount(rangeWeapon.totalAmount);
+            ShowBulletAmount(rangeWeapon.totalAmount, rangeWeapon.isBaseWeapon);
 
-            if (!usedBullets.TryGetValue(rangeWeapon, out int used))
-            {
-                used = 0;
-                usedBullets[rangeWeapon] = 0;
-            }
 
-            // Ensure enough bullet icons
             EnsureBulletIconsExist(rangeWeapon.maxAmount);
 
-            // Hide all icons
-            foreach (var bullet in pooledBulletIcons)
-                bullet.SetActive(false);
+            HideBullets();
 
-            // Show needed icons and set color
-            for (int i = 0; i < rangeWeapon.maxAmount; i++)
-            {
-                var bullet = pooledBulletIcons[i];
-                bullet.transform.SetParent(ammoContainer.transform, false);
-                bullet.SetActive(true);
-                bullet.GetComponent<Image>().color = (i < rangeWeapon.maxAmount - used) ? Color.white : usedBulletColor;
-            }
+            ShowLeftBullets(rangeWeapon);
 
-            LayoutRebuilder.ForceRebuildLayoutImmediate(ammoContainer.GetComponent<RectTransform>());
+            LayoutRebuilder.ForceRebuildLayoutImmediate(ammoContainerRect);
         }
         else
         {
-            HideAmount();
+            ResetAmount();
             ammoContainer.SetActive(false);
         }
     }
 
+    private void ShowLeftBullets(RangeWeapon rangeWeapon)
+    {
+        if (!usedBullets.TryGetValue(rangeWeapon, out int used))
+        {
+            used = 0;
+            usedBullets[rangeWeapon] = 0;
+        }
+
+        for (int i = 0; i < rangeWeapon.maxAmount; i++)
+        {
+            var bullet = pooledBulletIcons[i];
+            bullet.transform.SetParent(ammoContainer.transform, false);
+            bullet.gameObject.SetActive(true);
+            bullet.GetComponent<Image>().color = (i < rangeWeapon.maxAmount - used) ? Color.white : usedBulletColor;
+        }
+    }
+
+    public void HideBullets()
+    {
+        foreach (var bullet in pooledBulletIcons)
+            bullet.gameObject.SetActive(false);
+    }
     public void UseBullet()
     {
         if (currentWeapon is not RangeWeapon rangeWeapon || !usedBullets.ContainsKey(rangeWeapon))
@@ -99,10 +109,9 @@ public class WeaponStateUI : MonoBehaviour
 
         for (int i = rangeWeapon.maxAmount - 1; i >= 0; i--)
         {
-            var img = pooledBulletIcons[i].GetComponent<Image>();
-            if (img.color != usedBulletColor)
+            if (pooledBulletIcons[i].color != usedBulletColor)
             {
-                img.color = usedBulletColor;
+                pooledBulletIcons[i].color = usedBulletColor;
                 usedBullets[rangeWeapon] = used + 1;
                 break;
             }
@@ -119,19 +128,21 @@ public class WeaponStateUI : MonoBehaviour
 
         for (int i = 0; i < rangeWeapon.maxAmount; i++)
         {
-            var img = pooledBulletIcons[i].GetComponent<Image>();
-            img.color = (i < rangeWeapon.currAmount) ? Color.white : usedBulletColor;
+            pooledBulletIcons[i].color = (i < rangeWeapon.currAmount) ? Color.white : usedBulletColor;
         }
 
-        SetTotalAmount(rangeWeapon.totalAmount);
+        ShowBulletAmount(rangeWeapon.totalAmount, rangeWeapon.isBaseWeapon);
     }
 
-    private void SetTotalAmount(int total)
+    private void ShowBulletAmount(int total, bool isEndless)
     {
-        weaponAmountText.text = total.ToString();
+        if (!isEndless)
+            weaponAmountText.text = total.ToString();
+        else
+            weaponAmountText.text = endLessSign;
     }
 
-    private void HideAmount()
+    private void ResetAmount()
     {
         weaponAmountText.text = "";
     }

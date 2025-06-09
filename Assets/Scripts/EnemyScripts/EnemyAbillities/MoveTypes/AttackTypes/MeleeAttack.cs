@@ -12,6 +12,6 @@ public class MeleeAttack : AttackProvider
 
     public override void ExecuteAttack(HealthBar health)
     {
-        health?.ChangeHealthValue(-attackDamage);
+        health?.TakeDamage(attackDamage);
     }
 }

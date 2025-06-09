@@ -1,44 +1,58 @@
-
 using UnityEngine;
+using System;
 
-[CreateAssetMenu(fileName ="New Level Config", menuName ="LevelConfig")]
+[CreateAssetMenu(fileName = "New Level Config", menuName = "LevelConfig")]
 public class LevelConfig : ScriptableObject
 {
-    public string Title, Description;
+    public string Title;
+    public string Description;
     public LevelDay levelDay;
     public WaveConfig WavesConfig;
     public CollectableConfig CollectablesConfig;
-    public int levelStars;
-    public bool levelComplete {get; private set;}
-    public bool levelOpen { get; private set;}
-    public int levelId { get; set; }
-    public bool idAssigned;
+    public LevelCompleteStats levelRequirements;
 
+    [SerializeField] private int levelId;
+    [SerializeField] private bool idAssigned;
+    [SerializeField] private bool isOpen;
+    [SerializeField] private bool isCompleted;
+    [SerializeField] private int starsEarned;
 
-    public void SetId(int id)
-    {
-        levelId = id;
-        idAssigned = true;
-        levelOpen = false;
-    }
-    public void CompleteLevel()
-    {
-        levelComplete = true;
-    }
+    public int LevelId => levelId;
+    public bool IsOpen => isOpen;
+    public bool IsCompleted => isCompleted;
+    public int StarsEarned => starsEarned;
+    public bool IdAssigned => idAssigned;
 
-    public void TryOpenLevel(int level)
+    public void SetId(int id, bool force = false)
     {
-        if(level >= levelId)
+        if (!idAssigned || force)
         {
-            levelOpen = true;
+            levelId = id;
+            idAssigned = true;
+            isOpen = false;
         }
-        
+    }
+
+    public void CompleteLevel(int stars)
+    {
+        isCompleted = true;
+        starsEarned = stars;
+        Debug.Log($"level config {name}, level id {levelId} completed {isCompleted}, stars {stars}");
+    }
+
+    public void TryOpen(int currentLevel)
+    {
+        if (!isOpen && currentLevel >= levelId)
+            isOpen = true;
     }
 }
 
-public enum LevelDay
+public enum LevelDay { Day, Night, Evening }
+
+[Serializable]
+public struct LevelCompleteStats
 {
-    Day,
-    Night,
-    Evening
-};
+    [Range(0, 100)] public int threeStarsDamage;
+    [Range(0, 100)] public int twoStarsDamage;
+    [Range(0, 100)] public int oneStarsDamage;
+}

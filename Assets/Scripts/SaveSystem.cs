@@ -1,39 +1,32 @@
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public static class SaveSystem
 {
-    private static string savePath => Application.persistentDataPath + "/playerdata.sv";
-
-    public static void Save(PlayerData data)
+    public static void SaveStars(int levelId, int stars)
     {
-        BinaryFormatter formatter = new BinaryFormatter();
-
-        using (FileStream stream = new FileStream(savePath, FileMode.Create))
+        int savedStars = PlayerPrefs.GetInt($"Level_{levelId}_Stars", 0);
+        if (stars > savedStars)
         {
-            formatter.Serialize(stream, data);
+            PlayerPrefs.SetInt($"Level_{levelId}_Stars", stars);
         }
     }
 
-    public static PlayerData Load()
+    public static int LoadStars(int levelId)
     {
-        if (File.Exists(savePath))
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            using (FileStream stream = new FileStream(savePath, FileMode.Open))
-            {
-                return formatter.Deserialize(stream) as PlayerData;
-            }
-        }
-
-        return null; 
+        return PlayerPrefs.GetInt($"Level_{levelId}_Stars", 0);
     }
 
-    public static void DeleteSave()
+    public static void SaveUnlockedLevel(int levelId)
     {
-        if (File.Exists(savePath))
-            File.Delete(savePath);
+        int maxUnlocked = PlayerPrefs.GetInt("UnlockedLevel", 1);
+        if (levelId > maxUnlocked)
+        {
+            PlayerPrefs.SetInt("UnlockedLevel", levelId);
+        }
+    }
+
+    public static int LoadUnlockedLevel()
+    {
+        return PlayerPrefs.GetInt("UnlockedLevel", 1);
     }
 }

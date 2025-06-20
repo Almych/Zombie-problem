@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class EnemyData
 {
-    public Entity enemyType;
+    public Enemy enemyType;
     [SerializeField]private int amount;
     public int currAmount { get; private set; }
 

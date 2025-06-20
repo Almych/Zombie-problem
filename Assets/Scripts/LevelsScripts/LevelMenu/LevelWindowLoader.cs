@@ -21,6 +21,7 @@ public class LevelWindowLoader : MonoBehaviour
 
     private void ShowWindow(OnLevelClickEvent e)
     {
+        Debug.Log(e.LevelConfig.IsOpen);
         if (!e.LevelConfig.IsOpen)
             return;
 

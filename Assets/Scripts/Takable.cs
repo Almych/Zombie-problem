@@ -11,4 +11,6 @@ public abstract class Takable : MonoBehaviour, ICollectable
     {
         gameObject.SetActive(false);
     }
+
+    
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainInventory : ScriptableObject
 {
     [Header("Currency")]
-    public int coins = 0;
+    public int coins;
 
     [Header("All Owned Items")]
     public List<InventoryItem> items = new List<InventoryItem>();

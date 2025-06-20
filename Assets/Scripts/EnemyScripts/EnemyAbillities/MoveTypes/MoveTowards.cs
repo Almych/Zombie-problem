@@ -8,7 +8,6 @@ public class MoveTowards : MoveProvider
 
     public override void Move()
     {
-        _enemy.desiredVelocity = -_enemy.transform.right * _enemy.currentSpeed;
-
+        _enemy.desiredVelocity = -_enemy.transform.right * _enemy.GetCurrentSpeed();
     } 
 }

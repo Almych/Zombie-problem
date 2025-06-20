@@ -15,6 +15,8 @@ MonoBehaviour:
   coinCollectables:
   - amount: 1
     coinAmount: 2
+  - amount: 1
+    coinAmount: 4
   itemCollectables:
   - amount: 1
     item:
@@ -24,13 +26,13 @@ MonoBehaviour:
   - amount: 1
     item:
       item: {fileID: 11400000, guid: 21bdb04ecd9431242b16223dea456e12, type: 2}
-      _amount: 0
-      _stackSize: 0
+      _amount: 1
+      _stackSize: 99
   - amount: 1
     item:
       item: {fileID: 11400000, guid: 21bdb04ecd9431242b16223dea456e12, type: 2}
-      _amount: 0
-      _stackSize: 0
+      _amount: 1
+      _stackSize: 99
   weaponCollectables:
   - amount: 1
-    weapon: {fileID: 11400000, guid: 95ad39de650db6d49a2772a045f9199d, type: 2}
+    weapon: {fileID: 11400000, guid: 3a805b3f6137f484ea7356df77d49be2, type: 2}

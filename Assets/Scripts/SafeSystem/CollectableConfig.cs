@@ -32,7 +32,7 @@ public abstract class CollectableData
         currentAmount = amount;
     }
 
-    public  void DecreaseAmount()
+    public void DecreaseAmount()
     {
         currentAmount = Mathf.Max(0, currentAmount - 1);
     }
@@ -43,7 +43,6 @@ public abstract class CollectableData
 public class CoinCollectableData : CollectableData
 {
     public int coinAmount;
-
 }
 
 [Serializable]
@@ -62,5 +61,5 @@ public class ItemCollectableData : CollectableData
 public class WeaponCollectableData : CollectableData
 {
     public WeaponConfig weapon;
-    
+
 }

@@ -26,7 +26,6 @@ public class InventoryItem
     public void AddAmount(int amountToAdd = 1)
     {
         _amount += amountToAdd;
-        Debug.Log("Added amount: " + _amount);
     }
 
     public void RemoveAmount(int amountToRemove = 1)

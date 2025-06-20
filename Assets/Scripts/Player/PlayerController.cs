@@ -6,12 +6,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask collectable;
     [SerializeField] private PlayInventory inventory;
     [SerializeField] private Transform shootPoint, gun;
+    public static PlayerController Instance;
     private IWeapon[] weaponSlots = new IWeapon[2];
     private int activeWeaponIndex = 0;
     private bool isPaused;
     private SpriteRenderer gunSprite;
     private void Awake()
     {
+        if(Instance == null)
+            Instance = this;
         EventBus.Subscribe<OnPauseEvent>(OnPause);
         EventBus.Subscribe<OnCollectEvent>(CollectCollectables);
         UpdateSystem.CallUpdate += Tick;
@@ -42,8 +45,25 @@ public class PlayerController : MonoBehaviour
        gunSprite = gun.transform.GetComponent<SpriteRenderer>();
         if (inventory != null)
         {
-            EquipWeapon(inventory.weaponSlots);
+            for (int i = 0; i < inventory.weaponSlots.Count; i++)
+            {
+                EquipWeapon(inventory.weaponSlots[i]);
+            }
         }
+    }
+
+    public IWeapon FindRangeWeapon(WeaponConfig weaponConfig)
+    {
+        if (weaponConfig == null)
+            return null;
+        for (int i = 0; i < inventory.weaponSlots.Count; i++)
+        {
+            if(inventory.weaponSlots[i] == weaponConfig)
+            {
+                return weaponSlots[i];
+            }
+        }
+        return null;
     }
 
     private void Shoot()
@@ -68,46 +88,39 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void EquipWeapon(List<WeaponConfig> weaponConfigs)
+    public void EquipWeapon(WeaponConfig weaponConfig)
     {
-        if (weaponConfigs.Count == 0) return;
-
-        for (int i = 0; i < weaponSlots.Length; i++)
-        {
-            if (i >= weaponConfigs.Count) break;
-
-            if (weaponConfigs[i] is MeleeWeaponConfig meleeWeaponConfig)
-            {
-                weaponSlots[i] = new MeleeWeapon(meleeWeaponConfig);
-            }
-            else if (weaponConfigs[i] is RangeWeaponConfig rangeWeaponConfig)
-            {
-                weaponSlots[i] = new RangeWeapon(rangeWeaponConfig, this, shootPoint);
-            }
-        }
-
+        if (weaponConfig == null) return;
+        CreateWeaponSlot(weaponConfig);
         SwitchWeapon();
     }
 
+
     private void CreateWeaponSlot(WeaponConfig weaponConfig)
     {
-        if (weaponConfig is MeleeWeaponConfig meleeWeaponConfig)
+        var index = FindFreeWeaponSlotIndex();
+        if(index != null)
         {
-            weaponSlots[1] = new MeleeWeapon(meleeWeaponConfig);
+            if (weaponConfig is MeleeWeaponConfig meleeWeaponConfig)
+            {
+                weaponSlots[index.Value] = new MeleeWeapon(meleeWeaponConfig);
+            }
+            else if (weaponConfig is RangeWeaponConfig rangeWeaponConfig)
+            {
+                weaponSlots[index.Value] = new RangeWeapon(rangeWeaponConfig, this, shootPoint);
+            }
         }
-        else if (weaponConfig is RangeWeaponConfig rangeWeaponConfig)
-        {
-            weaponSlots[1] = new RangeWeapon(rangeWeaponConfig, this, shootPoint);
-        }
+       
     }
+
 
 
 
     private void SwitchWeapon()
     {
-        if (weaponSlots[activeWeaponIndex] is RangeWeapon range && range.isReloading)
+        if (weaponSlots[activeWeaponIndex] is RangeWeapon range && range.isReloading || weaponSlots[activeWeaponIndex] == null)
             return;
-        activeWeaponIndex = (activeWeaponIndex + 1) % weaponSlots.Length;
+        activeWeaponIndex = (activeWeaponIndex + 1) % inventory.weaponSlots.Count;
         gunSprite.sprite = inventory.weaponSlots[activeWeaponIndex].weaponSprite;
         EventBus.Publish(new OnWeaponSwitchEvent(weaponSlots[activeWeaponIndex]));
     }
@@ -144,5 +157,20 @@ public class PlayerController : MonoBehaviour
         {
             inventory.AddWeapon(config, CreateWeaponSlot);
         }
+        else if (e.collectable is int coin)
+        {
+            InventoryManager.Instance.CollectCoins(coin);
+        }
     }
+
+    private int? FindFreeWeaponSlotIndex()
+    {
+        for (int i = 0; i < weaponSlots.Length; i++)
+        {
+            if (weaponSlots[i] == null)
+                return i;
+        }
+        return null;
+    }
+
 }

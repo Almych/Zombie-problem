@@ -6,5 +6,4 @@ public interface IEntity
 {
     void Init();
     void Die();
-    void Initiate();
 }

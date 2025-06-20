@@ -15,17 +15,14 @@ public class ThrowableGrenade : Grenade
 
     public void ThrowAt(Vector3 targetPosition)
     {
-        Vector3 spawnPos = GameObject.Find("Player").transform.position;
+        Vector3 spawnPos = PlayerController.Instance.transform.position;
 
         var grenade = ObjectPoolManager.FindObjectByName<GrenadeThrowable>("Grenade");
         if (grenade != null)
         {
             grenade.transform.position = spawnPos;
             grenade.gameObject.SetActive(true);
-            grenade.GetComponent<SpriteRenderer>().sprite = Sprite;
-
-
-            grenade.SetGrenadeEffect(damage, grenadeParticle);
+            grenade.SetGrenadeEffect(damage, grenadeParticle, Sprite);
             grenade.Throw(targetPosition, moveDuration);
 
         }
@@ -36,6 +33,5 @@ public class ThrowableGrenade : Grenade
     public override void Initialize()
     {
         ObjectPoolManager.CreateObjectPool(grenadeParticle, grenadeParticleSpawnAmount);
-        Debug.Log(grenadeParticle.name);
     }
 }

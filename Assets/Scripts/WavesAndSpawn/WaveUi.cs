@@ -47,11 +47,9 @@ public class WaveUi : MonoBehaviour
 
     public void ChangeWaveBarValue(WaveProgressChangeEvent e)
     {
-        if (waveBar != null)
-        {
-            waveBar.DOFillAmount(Mathf.Clamp01(e.value), 0.5f);
-        }
+       waveBar?.DOFillAmount(Mathf.Clamp01(e.value), 0.5f);
     }
+
 
     private void OnWaveReached(OnWaveReached e)
     {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7182818075637794813}
   - component: {fileID: 8641055654754699708}
   - component: {fileID: 6595546916051131997}
+  - component: {fileID: -4537769294055363988}
   m_Layer: 7
   m_Name: ItemDrop
   m_TagString: Untagged
@@ -57,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c42ec877f46cbd54fb6b54b23c0af1c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -147,3 +148,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783d59fc52789b546aa92d2562e17e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4537769294055363988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8876108457610023282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 084d2462f568b4840bc42eb758f6dfe5, type: 2}

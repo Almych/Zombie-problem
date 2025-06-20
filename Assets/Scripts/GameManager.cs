@@ -1,78 +1,82 @@
-using System.ComponentModel;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private LevelConfig config;
-     public static GameManager instance;
-     private SpawnManager spawnManager;
-     private Button pauseButton;
-     private LevelConfig levelCOnf => config;
-     private LevelStatsTracker levelStatsTracker;
-     [SerializeField]private LoseMenu lostMenu;
-     [SerializeField] private WinMenu winMenu;
+    public static GameManager Instance;
 
+    [SerializeField] private LoseMenu lostMenu;
+    [SerializeField] private WinMenu winMenu;
 
-    void Awake()
+    private SpawnManager spawnManager;
+    private Button pauseButton;
+    private LevelConfig config;
+    private LevelStatsTracker levelStatsTracker;
+
+    private void Awake()
     {
-        Init();
+        if (Instance == null)
+        {
+            Instance = this;
+            Init();
+            SubscribeEvents();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        StartGame();
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
+    }
+
+    private void Init()
+    {
+        pauseButton = GameObject.Find("PauseButton")?.GetComponent<Button>();
+        config = LevelRegister.GetCurrentLevelConfig();
+        spawnManager = FindAnyObjectByType<SpawnManager>();
+        levelStatsTracker = new LevelStatsTracker();
+
+        if (config != null)
+        {
+            config.CollectablesConfig.Init();
+            CollectablesSpawn.Init(config.CollectablesConfig);
+            spawnManager?.Init(config.WavesConfig);
+        }
+    }
+
+    private void SubscribeEvents()
+    {
         EventBus.Subscribe<OnPauseEvent>(TimeManager);
         EventBus.Subscribe<OnWinEvent>(WinGame);
         EventBus.Subscribe<PlayerDieEvent>(LostGame);
         EventBus.Subscribe<OnDamageTakeEvent>(DetectTakenDamage);
         UpdateSystem.CallUpdate += Tick;
-
-
-        if (instance == null)
-        {
-            instance = this;
-        }
     }
 
-    void Start()
+    private void UnsubscribeEvents()
     {
-        StartGame();
-    }
-    void OnDestroy()
-    {
-        EventBus.UnSubscribe<OnWinEvent>(WinGame);
         EventBus.UnSubscribe<OnPauseEvent>(TimeManager);
+        EventBus.UnSubscribe<OnWinEvent>(WinGame);
         EventBus.UnSubscribe<PlayerDieEvent>(LostGame);
         EventBus.UnSubscribe<OnDamageTakeEvent>(DetectTakenDamage);
         UpdateSystem.CallUpdate -= Tick;
     }
 
-
-    private void Init()
-    {
-        pauseButton = GameObject.Find("PauseButton").GetComponent<Button>();
-        if (config == null)
-            config = LevelRegister.GetCurrentLevelConfig();
-        spawnManager = FindAnyObjectByType<SpawnManager>();
-        levelStatsTracker = new LevelStatsTracker();
-        config.CollectablesConfig.Init();
-        CollectablesSpawn.Init(config.CollectablesConfig);
-        spawnManager.Init(config.WavesConfig);
-    }
-
     public void StartGame()
     {
-        InventoryManager.Instance.CreateInventory();
+        InventoryManager.Instance?.CreateInventory();
         UpdateSystem.Initialize();
-        levelStatsTracker.OnStart();
-        spawnManager.StartSpawning();
-    }
-
-    public void LostGame(PlayerDieEvent e)
-    {
-        pauseButton.interactable = false;
-        levelStatsTracker.OnFinish();
-        var stats = levelStatsTracker.GetResults();
-        lostMenu.ShowMenu(0, stats.TimeSpent, stats.DamageTaken);
-        PauseGame();
+        levelStatsTracker?.OnStart();
+        spawnManager?.StartSpawning();
     }
 
     private void Tick()
@@ -80,17 +84,73 @@ public class GameManager : MonoBehaviour
         levelStatsTracker?.OnUpdate(Time.deltaTime);
     }
 
+    public void PauseGame()
+    {
+        EventBus.Publish(new OnPauseEvent(true));
+    }
+
+    public void ResumeGame()
+    {
+        EventBus.Publish(new OnPauseEvent(false));
+    }
+
+    private void TimeManager(OnPauseEvent e)
+    {
+        Time.timeScale = e.IsPaused ? 0f : 1f;
+    }
+
+    public void Replay()
+    {
+        ResumeGame();
+        ObjectPoolManager.ClearObjectsFromPool();
+        EventBus.ClearBus();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Exit()
+    {
+        ResumeGame();
+        ObjectPoolManager.ClearObjectsFromPool();
+        EventBus.ClearBus();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    private void WinGame(OnWinEvent e)
+    {
+        levelStatsTracker?.OnFinish();
+        ReviewSet();
+        PauseGame();
+    }
+
+    public void LostGame(PlayerDieEvent e)
+    {
+        pauseButton.interactable = false;
+        levelStatsTracker?.OnFinish();
+        ReviewSet();
+        PauseGame();
+    }
+
+    private void DetectTakenDamage(OnDamageTakeEvent e)
+    {
+        levelStatsTracker?.OnDamageTaken(e.damage);
+    }
+
     private void ReviewSet()
     {
         var stats = levelStatsTracker.GetResults();
         int stars = SetStars();
-        winMenu.ShowMenu(stars, stats.TimeSpent, stats.DamageTaken);
-        config.CompleteLevel(stars);
-        LevelRegister.UnlockNextLevel();
+
+        if (stars > 0)
+        {
+            winMenu?.ShowMenu(stars, stats.TimeSpent, stats.DamageTaken);
+            config?.CompleteLevel(stars);
+            LevelRegister.UnlockNextLevel();
+        }
+        else
+        {
+            lostMenu?.ShowMenu(stars, stats.TimeSpent, stats.DamageTaken);
+        }
     }
-
-  
-
 
     private int SetStars()
     {
@@ -100,60 +160,9 @@ public class GameManager : MonoBehaviour
             return 3;
         else if (damage <= config.levelRequirements.twoStarsDamage)
             return 2;
-        else
+        else if (damage <= config.levelRequirements.oneStarsDamage)
             return 1;
+
+            return 0;
     }
-
-    public void PauseGame()
-    {
-        EventBus.Publish(new OnPauseEvent(true));
-    }
-    public void ResumeGame()
-    {
-        EventBus.Publish(new OnPauseEvent(false));
-    }
-
-    private void TimeManager(OnPauseEvent e)
-    {
-        if (e.IsPaused)
-        {
-            Time.timeScale = 0f;
-        }else
-        {
-            Time.timeScale = 1f;
-        }
-    }
-
-    public void Replay()
-    {
-        EventBus.Publish(new OnPauseEvent(false));
-        ObjectPoolManager.ClearObjectsFromPool();
-        EventBus.ClearBus();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void Exit()
-    {
-        EventBus.Publish(new OnPauseEvent(false));
-        ObjectPoolManager.ClearObjectsFromPool();
-        EventBus.ClearBus();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
-    }
-
-
-
-    private void WinGame(OnWinEvent e)
-    {
-        PauseGame();
-        levelStatsTracker.OnFinish();
-        ReviewSet();
-    }
-
-   
-
-    private void DetectTakenDamage(OnDamageTakeEvent e)
-    {
-        levelStatsTracker?.OnDamageTaken(e.damage);
-    }
-
 }

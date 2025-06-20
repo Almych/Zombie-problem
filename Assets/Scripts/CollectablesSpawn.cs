@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public static class CollectablesSpawn
 {
     private static CollectableConfig config;
@@ -19,18 +19,13 @@ public static class CollectablesSpawn
 
     public static void SpawnRandomObject(Vector3 spawnPosition)
     {
-        var data = GetRandomObject();
-        if (data == null) return;
-
-        var takable = CreateTakableFromData(data);
-        if (takable == null)
+        var takable = CreateTakableFromData();
+        if (takable != null)
         {
-            Debug.LogWarning($"No pooled object found for data type: {data.GetType().Name}");
-            return;
+            takable.transform.position = spawnPosition;
+            takable.gameObject.SetActive(true);
+            takable.transform.DOJump(takable.transform.position + Vector3.right * UnityEngine.Random.Range(-1f, 1f), 1.5f, 1, 0.5f);
         }
-
-        takable.transform.position = spawnPosition;
-        takable.gameObject.SetActive(true);
     }
 
     private static CollectableData GetRandomObject()
@@ -45,8 +40,9 @@ public static class CollectablesSpawn
         return selected;
     }
 
-    private static Takable CreateTakableFromData(CollectableData data)
+    private static Takable CreateTakableFromData()
     {
+        var data = GetRandomObject();
         if (data is CoinCollectableData coinData)
         {
             var coin = ObjectPoolManager.FindObject<CoinTake>();

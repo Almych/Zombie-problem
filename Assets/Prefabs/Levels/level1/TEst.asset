@@ -17,6 +17,8 @@ MonoBehaviour:
       enemies:
       - enemyType: {fileID: 5785118998449468066, guid: 248bf399b9882b740b49ee86d5ee6ac4, type: 3}
         amount: 2
+      - enemyType: {fileID: 6940997052884882684, guid: 315459d967b331d488302a8a8d1da795, type: 3}
+        amount: 1
       spawnInterwal: 0
     preWave:
       enemies:

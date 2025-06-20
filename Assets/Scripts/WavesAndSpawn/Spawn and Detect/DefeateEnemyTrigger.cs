@@ -10,7 +10,7 @@ public class DefeatedEnemyTrigger : MonoBehaviour
     private const int maxCheckTicks = 60; 
     private int currTicks = 0;
     private bool wavesEnded;
-
+    private const float winShowSeconds = 5f;
     private void Awake()
     {
         UpdateSystem.OnLateUpdate += Tick;
@@ -60,13 +60,17 @@ public class DefeatedEnemyTrigger : MonoBehaviour
         if (activeEnemies.Count == 0)
         {
             if (!wavesEnded)
-            EventBus.Publish(new NoEnemiesEvent());
-            else 
-                EventBus.Publish(new OnWinEvent());
+                EventBus.Publish(new NoEnemiesEvent());
+            else
+                StartCoroutine(ShowWinLevel());
         }
         
     }
-
+    private IEnumerator ShowWinLevel()
+    {
+        yield return new WaitForSeconds(winShowSeconds);
+        EventBus.Publish(new OnWinEvent());
+    }
     private void OnPause(OnPauseEvent e)
     {
         isPaused = e.IsPaused;

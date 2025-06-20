@@ -12,46 +12,47 @@ public class LevelInfo : MonoBehaviour
     private void Awake()
     {
         levelButton = GetComponent<Button>();
-        EventBus.Subscribe<OnLevelUnlock>(OnUnlock);
+        EventBus.Subscribe<OnLevelUnlockEvent>(OnUnlock);
         levelButton.onClick.AddListener(OnClick);
        
     }
 
     private void OnDestroy()
     {
-        EventBus.UnSubscribe<OnLevelUnlock>(OnUnlock);
+        EventBus.UnSubscribe<OnLevelUnlockEvent>(OnUnlock);
     }
 
-    private void UpdateInfo(int level)
+    private void UpdateInfo()
     {
-        if (level < levelConfig.LevelId)
+        levelConfig.LoadProgress();
+
+        if (!levelConfig.IsOpen)
         {
             lockContainer.SetActive(true);
             starsContainer.SetActive(false);
-        }
-        else
-        {
-            lockContainer.SetActive(false);
-            starsContainer.SetActive(true);
-            if (levelConfig.IsCompleted)
-            {
-                for (int i = 0; i < levelConfig.StarsEarned; i++)
-                {
-                    stars[i].sprite = filledStar;
-                }
-            }
+            return;
         }
 
+        lockContainer.SetActive(false);
+        starsContainer.SetActive(true);
+
+
+        for (int i = 0; i < levelConfig.StarsEarned; i++)
+        {
+            stars[i].enabled = true;
+            stars[i].sprite = filledStar;
+        }
     }
+
 
     private void OnClick()
     {
         EventBus.Publish(new OnLevelClickEvent(levelConfig));
     }
 
-    private void OnUnlock(OnLevelUnlock e)
+    private void OnUnlock(OnLevelUnlockEvent e)
     {
-        levelConfig.TryOpen(e.level);
-        UpdateInfo(e.level);
+        levelConfig.TryOpen(e.levelReached);
+        UpdateInfo();
     }
 }

@@ -5,8 +5,8 @@ public abstract class MeleeEnemy : Enemy
     [SerializeField] protected MeleeEnemyConfig meleeEnemyConfig;
     
     protected HealthBar healthBar;
-    internal protected override BaseEnemyConfig enemyConfig  => meleeEnemyConfig;
-    protected internal override Transform ShootPoint => null;
+    public override BaseEnemyConfig enemyConfig  => meleeEnemyConfig;
+    public override Transform ShootPoint => null;
 
     public override void TriggerAction()
     {

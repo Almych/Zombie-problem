@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,24 +12,14 @@ public class EnemySpawner : IEnemySpawner
         this.positionHandler = positionHandler;
     }
 
-    public IEnumerator SpawnEnemies(Wave wave)
-    {
-        List<EnemyData> spawnEnemies = new List<EnemyData>(wave.enemies);
-        while (spawnEnemies.Count > 0)
-        {
-            SpawnEnemy(spawnEnemies);
-            yield return new WaitForSeconds(wave.spawnInterwal);
-        }
-    }
-
-    private void SpawnEnemy(List<EnemyData> enemies)
+    public void SpawnEnemy(List<EnemyData> enemies)
     {
         if (enemies.Count == 0) return;
 
         int index = Random.Range(0, enemies.Count);
         EnemyData selectedEnemy = enemies[index];
 
-        var enemyInstance = (Enemy)ObjectPoolManager.GetObjectFromPool(selectedEnemy.enemyType);
+        Enemy enemyInstance = ObjectPoolManager.GetObjectFromPool(selectedEnemy.enemyType);
         if (enemyInstance == null) return;
 
         enemyInstance.gameObject.SetActive(true);
@@ -38,6 +27,15 @@ public class EnemySpawner : IEnemySpawner
         enemyInstance.transform.position = positionHandler.SetPosition(spawnPoint.position);
 
         selectedEnemy.RemoveAmount();
-        if (selectedEnemy.currAmount <= 0) enemies.RemoveAt(index);
+        if (selectedEnemy.currAmount <= 0)
+            enemies.RemoveAt(index);
+    }
+
+    public int GetTotalEnemyCount(List<EnemyData> enemies)
+    {
+        int total = 0;
+        foreach (var e in enemies)
+            total += e.currAmount;
+        return total;
     }
 }

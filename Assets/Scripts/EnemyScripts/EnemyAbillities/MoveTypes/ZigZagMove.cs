@@ -18,7 +18,7 @@ public class ZigZagMove : MoveProvider
     {
         _time += Time.deltaTime;
 
-        Vector2 forward = Vector2.left * _enemy.currentSpeed;
+        Vector2 forward = Vector2.left * _enemy.GetCurrentSpeed();
         Vector2 side = Vector2.up * Mathf.Sin(_time * _frequency + _phaseOffset) * _amplitude;
 
         _enemy.rb.linearVelocity = forward + side;

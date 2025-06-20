@@ -14,7 +14,10 @@ public class RangeWeapon : IWeapon
     private readonly RangeWeaponConfig config;
     private readonly MonoBehaviour coroutineRunner;
 
-    
+    public void AddAmount( int amount)
+    {
+        totalAmount += amount;
+    }
 
     public RangeWeapon(RangeWeaponConfig weaponConfig, MonoBehaviour runner, Transform shootOrigin)
     {

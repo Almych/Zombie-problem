@@ -27,7 +27,10 @@ public class PlayInventory : ScriptableObject
     }
 
     
-
+    public int ShowCoinAmount()
+    {
+        return mainInventory.coins;
+    }
 
 
     /// <summary>
@@ -61,6 +64,10 @@ public class PlayInventory : ScriptableObject
         return false;
     }
 
+    public void AddCoins(int amount)
+    {
+        mainInventory.AddCoins(amount);
+    }
 
     /// <summary>
     /// Adds a weapon to the play inventory or main inventory if not enough space.
@@ -69,34 +76,35 @@ public class PlayInventory : ScriptableObject
     {
         if (weaponConfig == null || addToPlaySlot == null) return;
 
-        foreach (var weapon in weaponSlots)
+        // Check if the player already has the weapon (to add bullets)
+        var findWeapon = PlayerController.Instance.FindRangeWeapon(weaponConfig);
+        if (findWeapon != null)
         {
-            if (weapon != null && weapon.weaponSprite == weaponConfig.weaponSprite)
+            if (findWeapon is RangeWeapon existing && weaponConfig is RangeWeaponConfig incoming)
             {
-                if (weapon is RangeWeaponConfig existing && weaponConfig is RangeWeaponConfig incoming)
-                {
-                    existing.totalAmount += incoming.totalAmount;
-                }
-                return;
+                existing.AddAmount(incoming.maxBullets);
+                WeaponStateUI.Instance.UpdateBulletAmount();
             }
+            return;
         }
 
-        if (weaponSlots.Count >= 2)
+        if (weaponSlots.Count >= maxWeaponSlots)
             return;
 
-        // Check if already owned in main inventory
         var ownedInMain = mainInventory?.ownedWeapons.Find(w => w.weaponSprite == weaponConfig.weaponSprite);
         if (ownedInMain != null)
         {
             if (ownedInMain is RangeWeaponConfig mainRange && weaponConfig is RangeWeaponConfig incomingRange)
             {
-                mainRange.totalAmount += incomingRange.totalAmount;
+                mainRange.totalAmount += incomingRange.maxBullets;
             }
             return;
         }
+        weaponSlots.Add(weaponConfig);
 
         addToPlaySlot(weaponConfig);
     }
+
 
     public bool RemoveItem(InventoryItem itemToRemove)
     {

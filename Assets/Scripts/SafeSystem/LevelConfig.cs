@@ -11,39 +11,40 @@ public class LevelConfig : ScriptableObject
     public CollectableConfig CollectablesConfig;
     public LevelCompleteStats levelRequirements;
 
-    [SerializeField] private int levelId;
-    [SerializeField] private bool idAssigned;
-    [SerializeField] private bool isOpen;
-    [SerializeField] private bool isCompleted;
-    [SerializeField] private int starsEarned;
+    public int LevelId;
+    public bool IsCompleted => StarsEarned > 0;
+    public bool IsOpen { get; private set; }
+    public int StarsEarned { get; private set; }
 
-    public int LevelId => levelId;
-    public bool IsOpen => isOpen;
-    public bool IsCompleted => isCompleted;
-    public int StarsEarned => starsEarned;
-    public bool IdAssigned => idAssigned;
+    public bool IdAssigned;
 
     public void SetId(int id, bool force = false)
     {
-        if (!idAssigned || force)
+        if (!IdAssigned || force)
         {
-            levelId = id;
-            idAssigned = true;
-            isOpen = false;
+            LevelId = id;
+            IdAssigned = true;
+            IsOpen = false;
         }
+    }
+
+    public void LoadProgress()
+    {
+        StarsEarned = SaveSystem.LoadStars(LevelId);
+        IsOpen = LevelId <= SaveSystem.LoadUnlockedLevel();
+    }
+
+    public bool TryOpen(int levelReached)
+    {
+        IsOpen = LevelId <= levelReached;
+        return IsOpen;
     }
 
     public void CompleteLevel(int stars)
     {
-        isCompleted = true;
-        starsEarned = stars;
-        Debug.Log($"level config {name}, level id {levelId} completed {isCompleted}, stars {stars}");
-    }
-
-    public void TryOpen(int currentLevel)
-    {
-        if (!isOpen && currentLevel >= levelId)
-            isOpen = true;
+        SaveSystem.SaveStars(LevelId, stars);
+        SaveSystem.SaveUnlockedLevel(LevelId + 1);
+        LoadProgress(); // Refresh locally
     }
 }
 
@@ -52,7 +53,7 @@ public enum LevelDay { Day, Night, Evening }
 [Serializable]
 public struct LevelCompleteStats
 {
-    [Range(0, 100)] public int threeStarsDamage;
-    [Range(0, 100)] public int twoStarsDamage;
-    [Range(0, 100)] public int oneStarsDamage;
+    [Range(1, 100)] public int threeStarsDamage;
+    [Range(1, 100)] public int twoStarsDamage;
+    [Range(1, 100)] public int oneStarsDamage;
 }

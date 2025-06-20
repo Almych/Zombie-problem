@@ -12,7 +12,6 @@ public static class ObjectPoolManager
 
         if (existingPools.ContainsKey(objectToPool))
         {
-            Debug.Log($"Not created {objectToPool.gameObject.name}");
             return;
         }
 

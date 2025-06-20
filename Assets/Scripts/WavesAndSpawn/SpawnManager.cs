@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     private WaveUi waveUi;
     private IWaveConfig waveConfig;
-    private IEnemySpawner enemySpawner;
+    private EnemySpawner enemySpawner;
     private IHandlePosition handlePosition;
 
     private int currentWaveIndex;
@@ -42,7 +42,7 @@ public class SpawnManager : MonoBehaviour
     public void StartSpawning() => StartCoroutine(SpawnWaves());
     public void Init(IWaveConfig config)
     {
-        waveUi = GameObject.FindAnyObjectByType<WaveUi>();
+        waveUi = FindAnyObjectByType<WaveUi>();
         waveConfig = config;
         enemySpawner = new EnemySpawner();
         handlePosition = new RandomPositionHandler();
@@ -61,18 +61,17 @@ public class SpawnManager : MonoBehaviour
                 yield return null;
             float waveThreshold = MaxWaveBar - (waveProcent * (currentWaveIndex + 1));
             float preWaveThreshold = waveThreshold + (waveProcent / 2);
-
             if (!preWaveSpawned && CurrentWaveProgress > waveThreshold && CurrentWaveProgress <= preWaveThreshold)
             {
                 preWaveSpawned = true;
-                yield return SpawnWave(waveConfig.GetPreWave(currentWaveIndex));
+                yield return SpawnWave(waveConfig.GetPreWave(currentWaveIndex), preWaveThreshold);
             }
 
             if (!isSpawning && CurrentWaveProgress <= waveThreshold)
             {
                 preWaveSpawned = false;
                 EventBus.Publish(new OnWaveReached());
-                yield return SpawnWave(waveConfig.GetWave(currentWaveIndex));
+                yield return SpawnWave(waveConfig.GetWave(currentWaveIndex), waveThreshold);
                 currentWaveIndex++;
             }
             yield return new WaitForSeconds(1f);
@@ -88,19 +87,43 @@ public class SpawnManager : MonoBehaviour
 
         CurrentWaveProgress += WaveValueChange;
     }
-    
-    private IEnumerator SpawnWave(Wave wave)
+
+    private IEnumerator SpawnWave(Wave wave, float endProgress)
     {
         isSpawning = true;
+
+        // Visuals
         ParticleSystem waveParticle = ObjectPoolManager.FindObjectByName<ParticleSystem>("WaveParticle");
         if (waveParticle != null)
         {
             waveParticle.gameObject.SetActive(true);
             waveParticle.transform.position = transform.position;
         }
-        yield return enemySpawner.SpawnEnemies(wave);
+
+        // Copy enemies so we can modify them
+        List<EnemyData> spawnEnemies = new List<EnemyData>(wave.enemies);
+        int totalSpawns = enemySpawner.GetTotalEnemyCount(spawnEnemies);
+
+        float startProgress = CurrentWaveProgress;
+        bool isPrewave = startProgress > endProgress;
+        float progressDelta = isPrewave ? (startProgress - endProgress) / Mathf.Max(totalSpawns, 1) : 0f;
+
+        // Spawn loop
+        while (spawnEnemies.Count > 0)
+        {
+            enemySpawner.SpawnEnemy(spawnEnemies);
+
+            if (isPrewave)
+            {
+                CurrentWaveProgress -= progressDelta; // update bar
+            }
+
+            yield return new WaitForSeconds(wave.spawnInterwal);
+        }
+
         isSpawning = false;
     }
+
 
     private void OnPause(OnPauseEvent e)
     {

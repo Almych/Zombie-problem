@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField] private PlayInventory inventory;
     public static InventoryManager Instance;
     public InventorySlot inventorySlot;
-    [SerializeField] private PlayInventory inventory;
+    public GameObject coinContainer;
+    public TMP_Text coinText;
     private Dictionary<InventoryItem, InventorySlot> slots = new Dictionary<InventoryItem, InventorySlot>();
     private RectTransform rectTransform;
     private void Awake()
@@ -18,7 +21,21 @@ public class InventoryManager : MonoBehaviour
         ObjectPoolManager.CreateObjectPool(inventorySlot, 6);
         InitiateItems();
     }
+     
+    public void CollectCoins(int amount)
+    {
+        inventory.AddCoins(amount);
+        coinText.text = inventory.ShowCoinAmount().ToString();
+        StartCoroutine(ShowCoinContainer());
+    }
 
+    private IEnumerator ShowCoinContainer()
+    {
+        coinContainer.SetActive(true);
+        yield return new WaitForSeconds(5);
+        coinText.text = string.Empty;
+        coinContainer.SetActive(false);
+    }
    
     private void InitiateItems()
     {
@@ -26,7 +43,6 @@ public class InventoryManager : MonoBehaviour
         {
             if (inventory.items[i].item != null)
             {
-                Debug.Log(inventory.items[i].item.Name);
                 inventory.items[i].Initialize();
             }
         }

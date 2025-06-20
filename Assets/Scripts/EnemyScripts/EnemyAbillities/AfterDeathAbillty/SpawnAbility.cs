@@ -6,11 +6,14 @@ public abstract class SpawnAbility : Ability
 {
     protected float horizontalSpawnSpace;
     protected Enemy spawnEnemy;
-
-    protected SpawnAbility(int coolDownTicks, bool callOnce, Enemy enemy, float horizontalSpace, Enemy spawnEnemy) : base(coolDownTicks, callOnce, enemy)
+    protected ParticleSystem effect;
+    protected Vector2 desirePosition;
+    protected SpawnAbility(int coolDownTicks, bool callOnce, Enemy enemy, float horizontalSpace, Enemy spawnEnemy, ParticleSystem effect) : base(coolDownTicks, callOnce, enemy)
     {
         horizontalSpawnSpace = horizontalSpace;
         this.spawnEnemy = spawnEnemy;
+        this.effect = effect;
+        ObjectPoolManager.CreateObjectPool(effect, 3);
     }
 
     protected override void OnCall()
@@ -21,13 +24,12 @@ public abstract class SpawnAbility : Ability
     protected virtual void Spawn()
     {
         Enemy spawnedEnemy =ObjectPoolManager.GetObjectFromPool(spawnEnemy);
-        if (spawnedEnemy != null)
+        var particle = ObjectPoolManager.GetObjectFromPool(effect);
+        if (spawnedEnemy != null && particle != null)
         {
-            spawnedEnemy.gameObject.SetActive(true);
-            spawnedEnemy?.Initiate();
-            SpawnAtPoint(spawnedEnemy.transform);
+            SpawnAtPoint(spawnedEnemy, particle);
         }
     }
 
-    protected abstract void SpawnAtPoint(Transform spawnEnemyTransform);
+    protected abstract void SpawnAtPoint(Enemy spawnEnemyTransform, ParticleSystem particle);
 }

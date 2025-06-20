@@ -35,7 +35,6 @@ public class WeaponStateUI : MonoBehaviour
         while (pooledBulletIcons.Count < required)
         {
             Image bulletRect = ObjectPoolManager.FindObjectByName<Image>("BulletIcon");
-            Debug.Log(bulletRect);
             if (bulletRect == null)
             {
                 Debug.LogWarning("BulletIcon not available in pool!");
@@ -58,7 +57,7 @@ public class WeaponStateUI : MonoBehaviour
         if (currentWeapon is RangeWeapon rangeWeapon)
         {
             ammoContainer.SetActive(true);
-            ShowBulletAmount(rangeWeapon.totalAmount, rangeWeapon.isBaseWeapon);
+            UpdateBulletAmount();
 
 
             EnsureBulletIconsExist(rangeWeapon.maxAmount);
@@ -78,20 +77,20 @@ public class WeaponStateUI : MonoBehaviour
 
     private void ShowLeftBullets(RangeWeapon rangeWeapon)
     {
-        if (!usedBullets.TryGetValue(rangeWeapon, out int used))
-        {
-            used = 0;
-            usedBullets[rangeWeapon] = 0;
-        }
+        int curr = rangeWeapon.currAmount;
+
+        // Save actual used count
+        usedBullets[rangeWeapon] = rangeWeapon.maxAmount - curr;
 
         for (int i = 0; i < rangeWeapon.maxAmount; i++)
         {
             var bullet = pooledBulletIcons[i];
             bullet.transform.SetParent(ammoContainer.transform, false);
             bullet.gameObject.SetActive(true);
-            bullet.GetComponent<Image>().color = (i < rangeWeapon.maxAmount - used) ? Color.white : usedBulletColor;
+            bullet.color = (i < curr) ? Color.white : usedBulletColor;
         }
     }
+
 
     public void HideBullets()
     {
@@ -131,19 +130,23 @@ public class WeaponStateUI : MonoBehaviour
             pooledBulletIcons[i].color = (i < rangeWeapon.currAmount) ? Color.white : usedBulletColor;
         }
 
-        ShowBulletAmount(rangeWeapon.totalAmount, rangeWeapon.isBaseWeapon);
+        UpdateBulletAmount();
     }
 
-    private void ShowBulletAmount(int total, bool isEndless)
+    public void UpdateBulletAmount()
     {
-        if (!isEndless)
-            weaponAmountText.text = total.ToString();
+        if(currentWeapon is RangeWeapon rangeWeapon && !rangeWeapon.isBaseWeapon)
+        {
+            weaponAmountText.text = rangeWeapon.totalAmount.ToString();
+        }
         else
+        {
             weaponAmountText.text = endLessSign;
+        }
     }
 
     private void ResetAmount()
     {
-        weaponAmountText.text = "";
+        weaponAmountText.text = string.Empty;
     }
 }

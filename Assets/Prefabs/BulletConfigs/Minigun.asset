@@ -16,3 +16,4 @@ MonoBehaviour:
   bulletSprite: {fileID: 50341238, guid: 874cfd5e411f6c44f885d2a33da63c0f, type: 3}
   damage: {fileID: 11400000, guid: 4cbc31c02d1fa664bbd23327b7a76972, type: 2}
   bulletLifeTime: 3
+  totalAmount: 1

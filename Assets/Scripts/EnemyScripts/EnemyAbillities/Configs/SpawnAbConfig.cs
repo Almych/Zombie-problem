@@ -8,15 +8,16 @@ public class SpawnAbConfig : AbilityConfig
     [SerializeField, Range(1, 2)] private int spawnAmount;
     [SerializeField, Range(0, 1f)] private float spawnSpace;
     [SerializeField] private Enemy spawnEnemy;
+    [SerializeField] private ParticleSystem spawnParticle;
     public override Action ApplyAbilities(Enemy enemy)
     {
         if (spawnAmount > 1)
         {
-            resultAbility = new HorizontalSpawn(callPerTicks, callOnce, enemy, spawnSpace, spawnEnemy);
+            resultAbility = new HorizontalSpawn(callPerTicks, callOnce, enemy, spawnSpace, spawnEnemy, spawnParticle);
         }
         else
         {
-            resultAbility = new ForwardSpawn(callPerTicks, callOnce, enemy, spawnSpace, spawnEnemy);
+            resultAbility = new ForwardSpawn(callPerTicks, callOnce, enemy, spawnSpace, spawnEnemy, spawnParticle);
         }
         return base.ApplyAbilities(enemy);
     }

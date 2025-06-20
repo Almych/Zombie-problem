@@ -18,3 +18,4 @@ MonoBehaviour:
   reloadTime: 2
   maxBullets: 10
   totalAmount: 100
+  isBaseWeapon: 0

@@ -9,8 +9,7 @@ public class StopMoveAbility : Ability
 
     protected override void OnCall()
     {
-
-        enemy.movable = new NoneMove(enemy, enemy.enemyConfig.speed);
+        enemy.SetNewMoveProvider(new NoneMove(enemy, enemy.enemyConfig.speed));
     }
 
 }

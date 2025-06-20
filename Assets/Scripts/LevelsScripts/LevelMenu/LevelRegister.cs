@@ -15,7 +15,11 @@ public static class LevelRegister
 
     public static int GetCurrentLevel()
     {
-        EventBus.Publish(new OnLevelUnlock(_currentLevel));
-        return _currentLevel;
+        int current = _currentLevel;
+        _currentLevel = SaveSystem.LoadUnlockedLevel();
+        Debug.Log(_currentLevel);
+        EventBus.Publish(new OnLevelUnlockEvent(_currentLevel));
+        return current;
     }
+
 }

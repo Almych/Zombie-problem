@@ -7,6 +7,7 @@ public class CoinTake : Takable
     private int countAmount;
     public override void OnCollect()
     {
+        Debug.Log(countAmount);
        EventBus.Publish(new OnCollectEvent(countAmount));
         base.OnCollect();
     }

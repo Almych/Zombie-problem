@@ -18,7 +18,6 @@ public abstract class Entity : MonoBehaviour, IEntity
            bodySprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
-    public abstract void Initiate();
 
 
     public virtual void Die()

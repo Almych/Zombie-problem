@@ -3,12 +3,12 @@ public abstract class RangeEnemy: Enemy
 {
     [SerializeField] private RangeEnemyConfig config;
     [SerializeField] private Transform shootPoint;
-    protected internal override BaseEnemyConfig enemyConfig => config;
+    public override BaseEnemyConfig enemyConfig => config;
     protected RaycastHit2D hit;
     protected bool isDetected = false;
-    protected internal override Transform ShootPoint => shootPoint;
+    public override Transform ShootPoint => shootPoint;
 
-    public override void Initiate()
+    public override void Initiate(bool isSpawnedByEnemy = false)
     {
         isDetected = false;
         base.Initiate();

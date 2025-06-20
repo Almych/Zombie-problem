@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ForwardSpawn : SpawnAbility
 {
-    public ForwardSpawn(int coolDownTicks, bool callOnce, Enemy enemy, float horizontalSpace, Enemy spawnEnemy) : base(coolDownTicks, callOnce, enemy, horizontalSpace, spawnEnemy)
+    public ForwardSpawn(int coolDownTicks, bool callOnce, Enemy enemy, float horizontalSpace, Enemy spawnEnemy, ParticleSystem effect) : base(coolDownTicks, callOnce, enemy, horizontalSpace, spawnEnemy, effect)
     {
     }
 
@@ -13,8 +13,13 @@ public class ForwardSpawn : SpawnAbility
         base.Spawn();
     }
 
-    protected override void SpawnAtPoint(Transform spawnEnemyTransform)
+    protected override void SpawnAtPoint(Enemy spawnEnemyTransform, ParticleSystem particle)
     {
-        spawnEnemyTransform.position = new Vector2(enemy.transform.position.x - horizontalSpawnSpace, enemy.transform.position.y);
+        desirePosition = new Vector2(enemy.transform.position.x - horizontalSpawnSpace, enemy.transform.position.y);
+        particle.transform.position = desirePosition;
+        spawnEnemyTransform.transform.position = desirePosition;
+        particle.gameObject.SetActive(true);
+        spawnEnemyTransform.gameObject.SetActive(true);
+        spawnEnemyTransform.Initiate(true);
     }
 }

@@ -17,3 +17,4 @@ MonoBehaviour:
   Description: Freze all of you
   damage: {fileID: 11400000, guid: fa5bac2daccf7584fa1f858f0f32d545, type: 2}
   grenadeParticle: {fileID: 5112403345868107899, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
+  effectImage: {fileID: 3662382404464285677, guid: c5aee6141b80a3a4fb96772ec09c4d6a, type: 3}

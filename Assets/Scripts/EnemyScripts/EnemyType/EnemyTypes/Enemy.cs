@@ -1,15 +1,32 @@
 using System;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
 public abstract class Enemy : Entity, IEnemy, ISpeedProvider
 {
     [SerializeField] AbilityConfig[] deathAbility, moveAbility, attackAbility, damageAbility, detectAbility;
+    public AttackProvider attackDealer { get; private set; }
+    public MoveProvider movable { get; private set; }
+    public DeathProvider deathProvider { get; private set; }
+    public StateMachine stateMachine { get; set; }
+    public Vector2 desiredVelocity
+    {
+        get => _desiredVelocity;
+        set
+        {
+            _desiredVelocity = value;
+            movementDirty = true;
+        }
+    }
+    public abstract Transform ShootPoint { get; }
+    public abstract BaseEnemyConfig enemyConfig { get; }
+    public void CallMoveAbility() => onMove?.Invoke();
+    public void CallDetectAbility() => onDetect?.Invoke();
+    public void CallDeathAbility() => onDeath?.Invoke();
+    public void CallAttackAbility() => onAttack?.Invoke();
+
     protected float currHealth;
-    internal protected AttackProvider attackDealer;
-    internal protected MoveProvider movable;
-    internal protected DeathProvider deathProvider;
-    internal protected StateMachine stateMachine;
     protected event Action onDeath, onMove, onAttack, onGetDamage, onDetect;
     protected IdleState idleState;
     protected RunState runState;
@@ -19,29 +36,13 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
     protected int attackAnimation = Animator.StringToHash("Attack");
     protected int runAnimation = Animator.StringToHash("Walk");
     protected int idleAnimation = Animator.StringToHash("Idle");
+    protected float currentSpeed;
     protected const float animSpeed = 1f;
     private bool movementDirty;
-
-    public Vector2 desiredVelocity
-    {
-        get => _desiredVelocity;
-        set
-        {
-                _desiredVelocity = value;
-                movementDirty = true;
-        }
-    }
-
     private Vector2 _desiredVelocity;
-    internal protected abstract Transform ShootPoint { get; }
-    internal protected abstract BaseEnemyConfig enemyConfig { get; }
-    internal protected float currentSpeed;
-    public void CallMoveAbility() => onMove?.Invoke();
-    public void CallDetectAbility() => onDetect?.Invoke();
-    public void CallDeathAbility() => onDeath?.Invoke();
-    public void CallAttackAbility() => onAttack?.Invoke();
-
-
+    //avoiding to die early after spawn!
+    private bool hasShield;
+    private const float shieldProtectTime = 4f;
     protected void SetAbilities()
     {
         foreach (var ability in deathAbility)
@@ -73,6 +74,12 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
     {
         stateMachine?.SwitchState(runState, true);
     }
+    private IEnumerator ActivateShield()
+    {
+        hasShield = true;
+        yield return new WaitForSeconds(shieldProtectTime);
+        hasShield = false;
+    }
     public void RequestStun(int duration, StunType stunType)
     {
         stateMachine?.StopState(duration, stunType);
@@ -85,6 +92,16 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
         attackState = new AttackState(animator, attackAnimation, this);
         dieState = new DieState(animator, dieAnimation, this, deathProvider);
         stateMachine = new StateMachine(idleState, runState, attackState, dieState);
+    }
+
+    public float GetCurrentSpeed()
+    {
+        return currentSpeed;
+    }
+
+    public void SetNewMoveProvider(MoveProvider moveProvider)
+    {
+        movable = moveProvider;
     }
 
     public override void Init()
@@ -110,18 +127,23 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
             UpdateSystem.OnUpdate -= stateMachine.OnTick;
     }
 
-    public override void Initiate()
+    public virtual void Initiate(bool isSpawnedByEnemy = false)
     {
         currHealth = enemyConfig.maxHealth;
+        enemyCollider.enabled = true;
         ResetSpeed();
         SetColor(Color.white);
         InitiateMachine();
+        if(!isSpawnedByEnemy)
+        StartCoroutine(ActivateShield());
     }
 
     public virtual void TakeDamage(Damage damage)
     {
+        if (currHealth <= 0)
+            return;
         ParticleSystem blood = ObjectPoolManager.FindObjectByName<ParticleSystem>("Blood");
-        if (blood != null && enemyConfig.uniqDefense.Defense(damage) > 0)
+        if (blood != null && enemyConfig.uniqDefense.Defense(damage) > 0 && !hasShield)
         {
             currHealth -= enemyConfig.uniqDefense.Defense(damage);
             onGetDamage?.Invoke();
@@ -130,6 +152,7 @@ public abstract class Enemy : Entity, IEnemy, ISpeedProvider
         }
         if (currHealth <= 0)
         {
+            enemyCollider.enabled = false;
             stateMachine?.SwitchState(dieState, true);
             OnDeathSpawnCollectables();
         }

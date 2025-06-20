@@ -13,6 +13,6 @@ public class DodgeAbility : Ability
 
     protected override void OnCall()
     {
-        enemy.movable = new ZigZagMove(enemy, amplitute, frequency);
+        enemy.SetNewMoveProvider(new ZigZagMove(enemy, amplitute, frequency));
     }
 }
